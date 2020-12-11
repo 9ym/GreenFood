@@ -1,0 +1,205 @@
+@charset "UTF-8";
+content{
+ display:block;
+ width:1400px;
+ margin:50px auto;
+
+}
+<!-- 왼쪽 메뉴-->
+
+#content_left{
+width:300px;
+height: 700px;
+float:left;
+border-top:2px solid #6ca435;
+margin:0;
+padding:0;}
+
+
+
+#profileImgBox {
+    width: 170px;
+    height: 170px; 
+    border-radius: 70%;
+    overflow: hidden;
+	margin:0 auto;
+	margin-bottom:60px;
+	
+}
+.profile {
+      width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#spanUserName{
+	font-weight:bold;
+}
+#leftContent_top{
+	width:300px;
+	margin-top:0px;
+	text-align:center;
+	height:400px;
+	box-shadow:3px 3px 3px #c7c7c7;
+	padding-top:40px;
+}
+#left_bottom{
+	width:300px;
+	height:150px;
+	margin-top:50px;
+	box-shadow:3px 3px 3px #c7c7c7;
+}
+#left_bottom div{
+	width:290px;
+	height:50px;
+	line-height:50px;
+	padding-left:10px;
+	font-weight:bold;
+}
+<!--오른쪽 메뉴-->
+#content_right{
+float:right;
+width:1000px;
+height: 700px;
+border-top:2px solid #6ca435;
+}
+#pageName{
+	margin-top:10px;
+font-size:20px;
+	font-weight:bold;
+}
+.bigText{
+	font-size:25px;
+	font-weight:bold;
+}
+#memberLevel{
+	float:left;
+	width:300px;
+	height:200px;
+}
+#memberLevel_right{
+	
+	float:left;
+	margin-top:55px;
+}
+#memberLevel_right p:nth-child(2){
+margin-top:30px;
+
+}
+#MyPageContent{
+	padding:20px;
+	margin-right:20px;
+}
+
+
+#chkorder{
+	width:400px;
+	height:300px;
+	clear:both;
+	float:left;
+}
+#chkorder p:nth-child(1){
+	float:left;
+}
+#chkorder_secondP{
+	margin-top:5px;
+	float:right;
+}
+#chkorder_1{
+clear:both;
+
+ 
+}
+#chkorder div{
+text-align:center;
+float:left;
+margin-top:50px;
+margin-right:30px;
+}
+#chkorder div span{
+	font-size:40px;
+}
+#chkList{
+width:400px;
+	height:300px;
+float:right;
+}
+
+#chkList p:nth-child(1){
+	float:left;
+}
+#chkList_secondP{
+	margin-top:2px;
+	float:right;
+}
+#chkList_1{
+clear:both;
+
+ 
+}
+#chkList div{
+text-align:center;
+float:left;
+margin-top:50px;
+margin-right:30px;
+}
+#chkList div span{
+	font-size:40px;
+}
+
+
+#orderedList{
+clear:both;
+	
+}
+#orderedList p:nth-child(1){
+	float:left;
+}
+#orderedList_secondP{
+	margin-top:5px;
+	float:right;
+}
+#orderedList table{
+	clear:both;
+}
+
+#points_review{
+font-weight:bold;
+float:right;
+height:200px;
+width:300px;
+margin-right:100px;
+}
+#points_review p{
+margin:7px 0;
+padding:0;
+}
+.showsign{
+ color:#c7c7c7;	
+}
+#chkpoints{
+float:left;
+}
+#makeReview{
+float:right;
+}
+#p_memberLevel{
+ font-weight:bold;
+ font-size:40px;
+ margin:0;
+}
+#orderedList table{
+	
+	border-collapse:collapse;
+	
+}
+#orderedList thead{
+	
+	border-top:1px solid black;
+	border-bottom:1px solid black;
+}
+#orderedList thead th{
+	padding:10px 70px;
+}
+#orderedList tbody td{
+	padding:5px 70px;
+}
