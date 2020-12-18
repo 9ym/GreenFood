@@ -10,20 +10,16 @@ $(function(){
 	$("#page_background").css({"background-size":"100% 100%"});
 	$("#page_background").css({"background-repeat":"no-repeat"});
 	$("#boardNames").text("로그인");/* 게시판 이름 */
-	
-	
-<<<<<<< HEAD
 
-=======
 	$("#btnLogin").click(function(){
 		console.log("클릭");
 		$("#frmlogin").submit();
 	});
->>>>>>> branch 'master' of https://github.com/9ym/GreenFood.git
+
 });
 </script>
 <content>
-<form id="frmlogin" action="/login" method="post">
+	<form id="frmlogin" action="/login" method="post">
 		<div id="div_loginForm">
 		<p>로그인</p>
 		아이디

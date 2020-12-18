@@ -333,9 +333,17 @@ ${testVo}
   </p>
   </div>
   <div id="header_small_menu">
+  <c:choose>
+  	<c:when test="${not empty sessionScope.testVo }">
+  	<a href="/logout">로그아웃</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+	<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+  	</c:when>
+  	<c:otherwise>
 	<a href="/main/loginPage">로그인</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 	<a href="/main/memberJoinForm">회원가입</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-	<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+  	</c:otherwise>
+		
+ </c:choose>	
 	<a href="#">주문배송</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 	<a href="#">고객센터</a>
   </div>
