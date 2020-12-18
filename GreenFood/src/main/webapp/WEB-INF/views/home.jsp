@@ -302,8 +302,19 @@
 		height: 100px;
 	}
   </style>
+  <!-- 스타일 끝 -->
+  
+<!-- 스크립트 -->
+<script>
+$(function(){
+	
+	
+});
+</script>
+<!-- 스크립트 끝 -->
 </head>
 <body>
+${testVo}
 <header>
   <div class="slide">
     <ul>
