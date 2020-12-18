@@ -116,7 +116,7 @@
 	
 	
 	#header_menu a:hover {
-		font-size:120%;
+		font-size:110%;
 		
 	}
 	.hide ul{
@@ -342,11 +342,11 @@
 			</ul>		
 				
 		</li>
-		<li><a href="#">메뉴1</a></li>
-		<li><a href="#">메뉴2</a></li>
-		<li><a href="#">메뉴3</a></li>
-		<li><a href="#">메뉴4</a></li>
-		<li><a href="#">메뉴5</a></li>
+		<li><a href="#">신상품</a></li>
+		<li><a href="#">추천상품</a></li>
+		<li><a href="#">세일상품</a></li>
+		<li><a href="#">후기모음</a></li>
+		<li><a href="#">이벤트</a></li>
 	 </ul>
 	 <div id="header_menu_right">
 	 <a href="#"><img src="https://www.oasis.co.kr/images/common/gnbSearch.png"></a>

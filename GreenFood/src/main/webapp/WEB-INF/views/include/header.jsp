@@ -130,7 +130,7 @@ ul li a {
 }
 
 #header_menu a:hover {
-	font-size: 120%;
+	font-size: 110%;
 	text-decoration:none;
 }
 
@@ -292,11 +292,11 @@ animation:fade 8s infinite;
 							<li><a href="#">하위메뉴</a></li>
 							<li><a href="#">하위메뉴</a></li>
 						</ul></li>
-					<li><a href="#">메뉴1</a></li>
-					<li><a href="#">메뉴2</a></li>
-					<li><a href="#">메뉴3</a></li>
-					<li><a href="#">메뉴4</a></li>
-					<li><a href="#">메뉴5</a></li>
+					<li><a href="#">신상품</a></li>
+		<li><a href="#">추천상품</a></li>
+		<li><a href="#">세일상품</a></li>
+		<li><a href="#">후기모음</a></li>
+		<li><a href="#">이벤트</a></li>
 				</ul>
 				<div id="header_menu_right">
 					<a href="#"><img
