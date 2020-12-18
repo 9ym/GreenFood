@@ -342,7 +342,7 @@
 			</ul>		
 				
 		</li>
-		<li><a href="#">신상품</a></li>
+		<li><a href="#">신상품---엥</a></li>
 		<li><a href="#">추천상품</a></li>
 		<li><a href="#">세일상품</a></li>
 		<li><a href="#">후기모음</a></li>
