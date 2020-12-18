@@ -11,6 +11,8 @@ $(function(){
 	$("#page_background").css({"background-repeat":"no-repeat"});
 	$("#boardNames").text("로그인");/* 게시판 이름 */
 	
+	
+
 });
 </script>
 <content>
