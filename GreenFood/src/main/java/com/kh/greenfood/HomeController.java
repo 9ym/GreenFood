@@ -45,17 +45,19 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(String user_id, String user_pw, HttpSession session, RedirectAttributes rttr) {
+	public String login(String user_id, String user_pw, HttpSession session, RedirectAttributes rttr,Model model) {
 		TestVo testVo = memberService.login(user_id, user_pw);
-	
 		String page = "";
 		if(testVo != null) {
 			session.setAttribute("testVo", testVo);
+			rttr.addFlashAttribute("msg", "loginSuccess");
+			model.addAttribute("loginOn", testVo.getUser_id());
+			page="redirect:/";
 		} else {
 			rttr.addFlashAttribute("msg", "loginFail");
-			page="redirect:/loginForm";
+			page="redirect:main/loginPage";
 		}
-		return "home";
+		return page;
 	}
 	
 	@RequestMapping(value="/logout")

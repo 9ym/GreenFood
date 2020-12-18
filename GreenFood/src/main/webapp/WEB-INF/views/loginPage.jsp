@@ -10,6 +10,11 @@ $(function(){
 	$("#page_background").css({"background-size":"100% 100%"});
 	$("#page_background").css({"background-repeat":"no-repeat"});
 	$("#boardNames").text("로그인");/* 게시판 이름 */
+	
+	var msg = "${msg}";
+	if(msg == "loginFail"){
+		alert("로그인 실패");
+	}
 
 	$("#btnLogin").click(function(){
 		console.log("클릭");
