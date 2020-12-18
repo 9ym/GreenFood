@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.MemberService;
@@ -44,12 +45,15 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(String user_id, String user_pw, HttpSession session) {
+	public String login(String user_id, String user_pw, HttpSession session, RedirectAttributes rttr) {
 		TestVo testVo = memberService.login(user_id, user_pw);
-		
-		System.out.println(testVo);
+	
+		String page = "";
 		if(testVo != null) {
 			session.setAttribute("testVo", testVo);
+		} else {
+			rttr.addFlashAttribute("msg", "loginFail");
+			page="redirect:/loginForm";
 		}
 		return "home";
 	}
