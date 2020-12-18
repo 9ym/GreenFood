@@ -18,7 +18,7 @@
 $(function(){
 	var msg = "${msg}";
 	if(msg == "loginSuccess"){
-		alert("로그인 성공");
+		alert("로그인 성공했습니다.");
 	}
 });	
 </script>
