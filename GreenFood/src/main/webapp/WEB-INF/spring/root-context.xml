@@ -14,9 +14,7 @@
 			<property name="password" value="12345678"></property>
 		</bean>
 		
-		
-		<bean class="org.mybatis.spring.SqlSessionFactoryBean"
-		id="sqlSessionFactory">
+		<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="configLocation" value="classpath:mybatisConfig.xml"></property>
 		<property name="mapperLocations" value="classpath:mappers/*-mapper.xml"></property>
@@ -27,8 +25,10 @@
 		destroy-method="clearCache">
 			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 		</bean>
+		
 		<!-- @Transactional 사용가능-->
 		<tx:annotation-driven/>
+		
 		<!-- commit,rollback,setAutoCommit id는 정해진거니까 따라써야함-->
 		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>

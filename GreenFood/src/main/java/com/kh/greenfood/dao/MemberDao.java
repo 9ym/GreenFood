@@ -10,3 +10,4 @@ public interface MemberDao {
 
 	public TestVo selectMember(String user_id);
 }
+
