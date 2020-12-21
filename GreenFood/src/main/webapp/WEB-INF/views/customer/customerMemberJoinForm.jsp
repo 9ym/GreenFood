@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
-<link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/css_customerMemberJoinForm.css" />
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/css_customerMemberJoinForm.css"/>
 <!-- 주소 가져오기 api -->
-<script
-	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<style>
+
+</style>
+<script	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	$(function() {
+		
 		/* 헤더 배경화면, 게시판 이름 바꾸는 부분 */
 		/* url 뒤에 사진 넣으면됩니다. */
 		$("#page_background")
@@ -27,7 +29,6 @@
 		$("#btnFindPostalCode").click(function() {
 			console.log("클릭");
 			sample6_execDaumPostcode();
-
 		});
 
 		/*주소 찾기 함수*/
@@ -93,14 +94,123 @@
 				$("#div_chkBox input[type=checkbox]").prop("checked", false);
 			}
 		});
-
+		
 		// 이용약관 동의 전체보기 모달
-		$("#terms_1").click(function() {
+		$("#terms_1").click(function(){
 			
 		});
+		
 		// 개인정보 취급방침 모달
 		$("#terms_2").click(function() {
 
+		});
+		
+		// 아이디 중복 체크
+		$("#btnIdDupChk").click(function(){
+			var id_regex = /^[a-zA-Z0-9]+$/;
+			var user_id = $("#user_id").val().trim();
+			if(id_regex.test(user_id) === false){
+				alert("영어와 숫자만 써주세요.");
+				return;
+			}
+			var url = "/checkDupId/" + user_id;
+			$.get(url, function(data){
+				if(data == "idExist"){
+					$("#span_idDupChk").text("사용 불가능한 아이디입니다. 아이디가 존재합니다.").css("color","red");
+				} else {
+					$("#span_idDupChk").text("사용 가능한 아이디 입니다.").css("color", "blue");
+				}
+			});
+		});
+		
+		// 비밀번호 중복 확인 숨김
+		$("#alert-success").hide();
+		$("#alert-danger").hide();
+		
+		// 비밀번호 확인
+		$("input[type=password]").keyup(function(){
+			var pw = $("#user_pw").val();
+			var pw1 = $("#user_pw1").val();
+			if(pw != "" || pw1 != ""){
+				if(pw != pw1){
+					$("#alert-success").hide();
+					$("#alert-danger").show();
+				} else if(pw == pw1){
+					$("#alert-danger").hide();
+					$("#alert-success").show();
+				}
+			} else {
+				$("#alert-success").hide();
+				$("#alert-danger").hide();
+			}
+		});
+		
+		// 이메일 도메인 값 변환체크
+		$("#selectEmail").on("change", function(){
+				var emailDomain = $(this).val();
+				$("#emailDomain").val(emailDomain);
+				if(emailDomain == "직접입력"){
+					$("#emailDomain").val("");
+				}
+		});
+		
+		// 가입완료 폼전송 후 로그인 페이지로
+		$("#btnSubCompleted").click(function(){
+			
+			// 이름 체크
+			var user_name_regex = /^[가-힣]+$/;
+			var user_name = $("#user_name").val().trim();
+			if(user_name_regex.test(user_name) === false){
+				
+			} else {
+				
+			}
+			
+			// email 아이디 + 도메인
+			var emailId = $("#emailId").val();
+			var emailIdTrim = emailId.trim();
+			var emailDomain = $("#emailDomain").val();
+			var emailDomainTrim = emailDomain.trim();
+			
+			var email = emailId + "@" + emailDomain;
+			
+			var email_regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+			
+			if(email_regex.test(email) === false){
+				alert("이메일을 확인해 주세요.");
+			} else{
+				$("#frmMemberJoin > input[type=hidden]").eq(0).val(email);
+			}
+			
+			// 핸드폰 번호 010-0000-0000 형식 , 중간자리 000까지는 인정
+			var phoneNum_regex = /^[0-9]+$/;
+			
+			var phoneIMEI =  $("#phoneIMEI").val().trim();
+			var midNum = $("#midPhoneNum").val().trim();
+			var lastNum = $("#lastPhoneNum").val().trim();
+			
+			var lengthBlankCheck_regex = /^[0-9]+$/;	
+
+			if(lengthBlankCheck_regex.test(midNum) === false || midNum.length < 3 || midNum.length > 4){
+				alert("핸드폰 중간 번호를 다시확인해 주세요");
+			} else if(lengthBlankCheck_regex.test(lastNum) === false || lastNum.length < 4 || lastNum.length > 4){
+				alert("핸드폰 마지막 번호를 다시확인해 주세요");
+			} else {
+				var phoneNum = phoneIMEI + "-" + midNum + "-" + lastNum;
+				$("#frmMemberJoin > input[type=hidden]").eq(1).val(phoneNum);
+			}
+			
+			// 주소 받아와서 hidden에 넣기
+			var postalCode = $("#postalCode").val().trim();
+			var roadAddress = $("#roadAddress").val().trim();
+			var detailAddress = $("#detailAddress").val().trim();
+			
+			var address = postalCode + roadAddress + detailAddress;
+			if(address){
+				$("#frmMemberJoin > input[type=hidden]").eq(2).val(address);
+			}
+			
+ 			$("#frmMemberJoin").submit();
 		});
 
 	});
@@ -109,69 +219,95 @@
 <content>
 <div id="first">
 	<p>약관동의</p>
-	<div id="div_chkBox">
-		<input type="checkbox" required>이용약관에 동의합니다.(필수)</input>
-		<button type="button" class="whiteBtn" id="terms_1">전체보기</button>
-		<br /> <input type="checkbox" required>개인정보취급방침에 동의합니다.(필수)</input>
-		<button type="button" class="whiteBtn" id="terms_2">전체보기</button>
-		<br /> <input type="checkbox" required>본인은 만 14세 이상입니다.(선택)</input><br />
-		<input type="checkbox" required>문자 수신에 동의합니다.(선택)</input><br /> <input
-			type="checkbox" required>이메일 수신에 동의합니다.(선택)</input>
-	</div>
-	<input type="checkbox" id="chkAll">이용약관,개인정보취급방침,문자,이메일 수신에 모두
-	동의합니다.</input>
+				<div id="div_chkBox">
+					<input type="checkbox" required>이용약관에 동의합니다.(필수)</input>
+					<!--  <button type="button" class="whiteBtn" id="terms_1">전체보기</button> -->
+					<button id="myModal" href="#modal-container-323508" role="button" class="whiteBtn" data-toggle="modal">전체보기</button>
+					<br > 
+					<input type="checkbox" required>개인정보취급방침에 동의합니다.(필수)</input>
+					<button type="button" class="whiteBtn" id="terms_2">전체보기</button><br/>
+					<input type="checkbox" required>본인은 만 14세 이상입니다.(선택)</input><br/>
+					<input type="checkbox" required>문자 수신에 동의합니다.(선택)</input><br/>
+					<input type="checkbox" required>이메일 수신에 동의합니다.(선택)</input>
+				</div>
+	<input type="checkbox" id="chkAll">이용약관,개인정보취급방침,문자,이메일 수신에 모두 동의합니다.</input>
 </div>
 
-<div id="second">
+<div id="divForm">
+	<!-- 회원가입 폼 -->
+	<form id="frmMemberJoin" action="/member/customerMemberJoinRun" method="post">
+		<input type="hidden" name="user_email"/>
+		<input type="hidden" name="user_phone"/>
+		<input type="hidden" name="user_address"/>
 	<p>필수정보입력</p>
 	<div>
 		<table>
+		
 			<thead>
+			<tr>
 				<th>구분</th>
 				<th>구매회원</th>
+			</tr>
 			</thead>
+			
 			<tbody>
+			
 				<tr>
-					<td>이름</td>
+					<th>
+					이름
+					<span class="ico">*</span>
+					</th>
 					<td><input style="width: 100%;" type="text"
-						placeholder="이름을 입력해주세요" required /></td>
+						placeholder="이름을 입력해주세요" id="user_name" name="user_name" required /></td>
 				</tr>
+				
 				<tr>
 					<td>아이디</td>
 					<td><input type="text" style="width: 150px;"
-						placeholder="아이디를 입력해주세요" required />
-						<button id="btnIdDupChk">중복확인</button></td>
-
+						placeholder="아이디를 입력해주세요" id="user_id" name="user_id" required/>
+						<button id="btnIdDupChk">중복확인</button><br/>
+						<span id="span_idDupChk">아이디 중복 확인</span>
+					</td>
 				</tr>
-				<span id="span_idDupChk">중복검사결과표시하는곳.display_none</span>
+				
 				<tr>
 					<td>비밀번호</td>
 					<td><input type="password" style="width: 100%;"
-						placeholder="특수문자(!,@,#)을 포함하여 최대 10자" required /></td>
+						placeholder="특수문자(!,@,#)을 포함하여 최대 10자" id="user_pw" name="user_pw" required /></td>
 				</tr>
+				
 				<tr>
 					<td>비밀번호 확인</td>
-					<td><input type="password" style="width: 100%;"
+					<td><input type="password" style="width: 100%;" id="user_pw1"
 						placeholder="비밀번호 확인을 위해 한번 더 입력해주세요" required /></td>
 				</tr>
+				
+				<tr>
+					<td>
+						<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+						<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+					</td>
+				</tr>
+				
 				<tr>
 					<td>연락처</td>
-					<td><select>
-
+					<td><select id="phoneIMEI">
 							<option>010</option>
 							<option>011</option>
 							<option>016</option>
 							<option>017</option>
 							<option>019</option>
-					</select> - <input type="text" style="width: 70px;" required /> - <input
-						type="text" style="width: 70px;" required /></td>
+					</select>
+					 - <input type="text" style="width: 70px;" id="midPhoneNum" required />
+					 - <input type="text" style="width: 70px;" id="lastPhoneNum" required /></td>
 				</tr>
+				
 				<tr>
 					<td>이메일</td>
-					<td style="margin: 0 auto;"><input type="text"
-						style="width: 120px;" placeholder="" required /> @ <input
-						type="text" style="width: 180px;" placeholder="" required /> <select
-						id="selectEmail">
+					<td style="margin: 0 auto;">
+					<input type="text" style="width: 120px;" placeholder="" id="emailId" required /> @ 
+					<input type="text" style="width: 180px;" placeholder="" id="emailDomain" required />
+						<select	id="selectEmail">
 							<option>직접입력</option>
 							<option>gmail.com</option>
 							<option>naver.com</option>
@@ -180,6 +316,7 @@
 							<option>hotmail.com</option>
 					</select></td>
 				</tr>
+				
 				<tr rowspan="3">
 					<td>주소<br> (기본배송지)
 					</td>
@@ -201,18 +338,21 @@
 			</tbody>
 		</table>
 	</div>
+	
+</form>
+<!-- // 회원가입 폼 끝-->
 
 </div>
 
 <div id="underBtns">
-	<button type="button">가입완료</button>
+	<button type="button" id="btnSubCompleted">가입완료</button>
 	<button type="button">취소</button>
 </div>
+
 <!-- 이용약관 동의 모달 -->
 <div class="row">
 	<div class="col-md-12">
-		<a id="modal1" href="#modal-container-323508" role="button"
-			class="btn" data-toggle="modal">Launch demo modal</a>
+		
 
 		<div class="modal fade" id="modal-container-323508" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
@@ -351,12 +491,8 @@
 9. 어떠한 경우를 불문하고 회사는 배송지연으로 인한 손해에 대해서 책임지지 않습니다.
 10. 회사에서 배송 및 구매대행 신청서 작성시 주의사항 안내에 따르지 않은 회원에 손실에 대해서는 책임지지 않습니다.
 부칙
-이 약관은 2020년 12월 18일부터 시행합니다.
-						
-						
+이 약관은 2020년 12월 18일부터 시행합니다.		
 						</pre>
-
-
 					</div>
 					<div class="modal-footer">
 
@@ -366,11 +502,18 @@
 							data-dismiss="modal">Close</button>
 					</div>
 				</div>
-
 			</div>
-
 		</div>
-
 	</div>
 </div>
-<!-- /이용약관 동의 모달 --> <!-- 개인정보 취급 방침 모달 --> <!-- /개인정보 취급 방침 모달 --> </content>
+<!-- /이용약관 동의 모달 -->
+
+
+<!-- 개인정보 취급 방침 모달 --> 
+
+
+
+<!-- /개인정보 취급 방침 모달 --> 
+
+
+</content>

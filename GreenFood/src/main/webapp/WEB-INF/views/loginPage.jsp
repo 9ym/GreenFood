@@ -17,7 +17,6 @@ $(function(){
 	}
 
 	$("#btnLogin").click(function(){
-		console.log("클릭");
 		$("#frmlogin").submit();
 	});
 

@@ -19,4 +19,15 @@ public class MemberServiceImpl implements MemberService {
 		return testVo;
 	}
 
+	@Override
+	public void insertMember(TestVo testVo) {
+		memberDao.insertMember(testVo);
+	}
+
+	@Override
+	public TestVo selectMember(String user_id) {
+		TestVo testVo = memberDao.selectMember(user_id);
+		return testVo;
+	}
+
 }

@@ -11,6 +11,7 @@ public class TestVo {
 	private int user_point;
 	private int user_level;
 	private String user_code;
+	
 	public String getUser_id() {
 		return user_id;
 	}

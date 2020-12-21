@@ -86,7 +86,7 @@ $(function(){
 	
 	#header_menu{
 		
-		left:400px;
+		left: 350px;
 		position:absolute;
 		z-index:1;
 		top:70px;

@@ -27,4 +27,15 @@ public class MemberDaoImpl implements MemberDao {
 		return testVo;
 	}
 
+	@Override
+	public void insertMember(TestVo testVo) {
+		sqlSession.insert(NAMESPACE + "insertMember", testVo);
+	}
+
+	@Override
+	public TestVo selectMember(String user_id) {
+		TestVo testVo = sqlSession.selectOne(NAMESPACE + "selectMember", user_id);
+		return testVo;
+	}
+
 }

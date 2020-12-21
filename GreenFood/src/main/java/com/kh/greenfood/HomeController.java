@@ -12,8 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.domain.TestVo;
@@ -42,6 +44,20 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";
+	}
+	
+	@RequestMapping(value="/checkDupId/{user_id}", method=RequestMethod.GET)
+	@ResponseBody
+	public String checkDupId(@PathVariable("user_id") String user_id) {
+		TestVo testVo = memberService.selectMember(user_id);
+		System.out.println(testVo);
+		String message = "";
+		if(testVo == null) {
+			message = "idDontExist";
+		} else {
+			message = "idExist";
+		}
+		return message;
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
