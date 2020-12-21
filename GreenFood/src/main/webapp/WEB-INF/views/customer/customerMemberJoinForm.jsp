@@ -208,7 +208,7 @@
 	<button type="button">가입완료</button>
 	<button type="button">취소</button>
 </div>
-<<<<<<< Updated upstream
+
 <!-- 이용약관 동의 모달 -->
 <div class="row">
 	<div class="col-md-12">
@@ -375,8 +375,3 @@
 	</div>
 </div>
 <!-- /이용약관 동의 모달 --> <!-- 개인정보 취급 방침 모달 --> <!-- /개인정보 취급 방침 모달 --> </content>
-=======
-</content>
-
-<%@include file="../include/footer.jsp"%>
->>>>>>> Stashed changes
