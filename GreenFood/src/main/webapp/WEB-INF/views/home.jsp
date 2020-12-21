@@ -7,6 +7,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">													
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>													
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>													
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>													
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+<!-- 스크립트 -->
+<script>
+$(function(){
+	var msg = "${msg}";
+	if(msg == "loginSuccess"){
+		alert("로그인 성공했습니다.");
+	}
+});	
+</script>
+<!-- 스크립트 끝 -->
+
   <title>ܤܤ그린푸드ܤܤ</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -302,8 +319,11 @@
 		height: 100px;
 	}
   </style>
+  <!-- 스타일 끝 -->
 </head>
 <body>
+${testVo}
+${testVo.user_id}
 <header>
   <div class="slide">
     <ul>
@@ -322,9 +342,17 @@
   </p>
   </div>
   <div id="header_small_menu">
+  <c:choose>
+  	<c:when test="${not empty sessionScope.testVo }">
+  	<a href="/logout">로그아웃</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+	<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+  	</c:when>
+  	<c:otherwise>
 	<a href="/main/loginPage">로그인</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 	<a href="/main/memberJoinForm">회원가입</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-	<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+  	</c:otherwise>
+		
+ </c:choose>	
 	<a href="#">주문배송</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 	<a href="#">고객센터</a>
   </div>
