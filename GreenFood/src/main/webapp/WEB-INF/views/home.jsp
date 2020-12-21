@@ -396,7 +396,11 @@ ${testVo.user_id}
 		
 		<div id="first_floor">
 			<div>
-			<a href="#"><img src="${path}/resources/images/prac1.png"></a>
+<<<<<<< Updated upstream
+			<a href="/product/detail/10001"><img src="${path}/resources/images/prac1.png"></a>
+=======
+			<a href="product/detail/10001"><img src="${path}/resources/images/prac1.png"></a>
+>>>>>>> Stashed changes
 			<div class="dscImage">
 				<p>고구마</p>
 				<p>1500</p>
@@ -433,7 +437,11 @@ ${testVo.user_id}
 		
 		<div id="second_floor">
 		<div>
-			<a href="#"><img src="${path}/resources/images/prac4.png"></a>
+<<<<<<< Updated upstream
+			<a href="/product/detail/10002"><img src="${path}/resources/images/prac4.png"></a>
+=======
+			<a href="product/detail/10002"><img src="${path}/resources/images/prac4.png"></a>
+>>>>>>> Stashed changes
 			<div class="dscImage">
 				<p>시금치시금치</p>
 				<p>가격</p>
@@ -477,3 +485,4 @@ ${testVo.user_id}
 	<div id="makeSpace">
 	</div>
 </content>	
+
