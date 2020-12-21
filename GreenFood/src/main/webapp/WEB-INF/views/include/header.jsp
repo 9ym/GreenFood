@@ -14,14 +14,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- icon -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<<<<<<< Updated upstream
 
-=======
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    
-<meta charset="UTF-8">
->>>>>>> Stashed changes
 <title>ܤܤ그린푸드ܤܤ</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link
