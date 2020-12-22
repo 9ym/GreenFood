@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.greenfood.member">
+
+	<!-- 로그인 -->
+	<select id="login" resultType="TestVo">
+		select * from tbl_member
+		where user_id = #{user_id}
+		and user_pw = #{user_pw}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="insertMember">
+		insert into tbl_member (user_id, user_pw, user_name, user_email, user_address, user_phone)
+			values(#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_address}, #{user_phone})
+	</insert>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="deleteMember">
+		delete from tbl_member
+			where user_id = #{user_id}
+	</delete>
+	
+	<!-- 회원 조회 -->
+	<select id="selectMember" resultType="TestVo">
+		select * from tbl_member
+			where user_id = #{user_id}
+	</select>
+	
+</mapper>

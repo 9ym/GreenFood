@@ -1,0 +1,125 @@
+@charset "UTF-8";
+content{
+margin:0 auto;
+margin-top:30px;
+display:block;
+	
+	width:600px;
+	
+}
+#first{
+	
+}
+#second{
+	margin-top:80px;
+}
+.whiteBtn{
+ width:80px;
+ float:right;
+ font-weight:bold;
+ background-color:white;
+ border:none;
+ padding:5px;
+ border:1px solid #c7c7c7;
+	
+	border-radius:5px;
+ }
+ #first input{
+ margin:15px;
+ }
+#first>div{
+padding: 10px 0;
+border-top:2px solid black;
+border-bottom:2px solid black;
+margin-bottom:5px;
+
+}
+#first>div input{
+margin-left:20px;
+}
+#second>div{
+padding:15px 0; 
+border-top:2px solid black;
+border-bottom:2px solid black;
+
+}
+table{
+width:100%;
+}
+table th{
+text-align:left;
+}
+p{
+ font-weight:bold; 
+ 	font-family: 'Nanum Gothic', sans-serif; 
+ 	font-size:30px;
+	margin-bottom:20px;
+	}
+
+table td{
+	padding:10px 5px;
+}	
+
+table th{
+	padding:10px 5px;
+}
+table input{
+	border:1px solid #c7c7c7;
+	line-height:35px;
+	border-radius:5px;
+	font-size:13px;
+}
+table button{
+
+position:relative;
+top:1px;
+left:10px;
+bottom:0px;
+	 width:100px;
+
+ font-weight:bold;
+ background-color:white;
+ border:none;
+ padding:5px;
+ border:1px solid #c7c7c7;
+ border-radius:5px;
+}
+table select{
+	border:1px solid #c7c7c7;
+	height:32px;
+	width:50px;
+	border-radius:5px;
+	font-size:13px;
+}
+#span_idDupChk{
+	position:relative;
+	top:168px;
+	left:130px;
+	font-size:11px;
+}
+#selectEmail{
+	position:relative;
+	width:100px;
+	top:2px;
+}
+#underBtns{
+	margin:70px 0;
+	position:relative;
+	text-align:center;
+	
+}
+#underBtns button{
+	background-color:#6ca435;
+	border:none;
+	color:white;
+	font-size:16px;
+	font-weight:bold;
+	letter-spacing:1px;
+	width:150px;
+	height:60px;
+	margin:0 30px;
+	font-family: 'Nanum Gothic', sans-serif; 
+}
+#underBtns button:hover{
+	filter:brightness(70%);
+}
