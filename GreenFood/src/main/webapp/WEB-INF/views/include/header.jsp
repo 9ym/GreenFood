@@ -5,13 +5,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< HEAD
+=======
+<meta charset="UTF-8">
+>>>>>>> 8e08f6ae73c2ad79ebb0f69cba27bcc6c4c0103a
 <meta name="viewport" content="width=device-width, initial-scale=1">													
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">													
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>													
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>													
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>													
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<<<<<<< HEAD
 <meta charset="UTF-8">
+=======
+<!-- icon -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+>>>>>>> 8e08f6ae73c2ad79ebb0f69cba27bcc6c4c0103a
 <title>ܤܤ그린푸드ܤܤ</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link

@@ -1,7 +1,11 @@
 @charset "UTF-8";
 
 	content{
+<<<<<<< HEAD
 		display:block;
+=======
+/* 		display:block; */
+>>>>>>> 8e08f6ae73c2ad79ebb0f69cba27bcc6c4c0103a
 		width:600px;
 		height:200px;
 		margin:0 auto;
