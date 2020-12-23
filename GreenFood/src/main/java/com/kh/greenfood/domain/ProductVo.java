@@ -11,12 +11,13 @@ public class ProductVo {
 	private int product_shelf_life;
 	private String product_sub_title;
 	private String product_content;
+	private int product_heart;
 	
 	public ProductVo() { }
 
 	public ProductVo(String product_code, String product_category, String product_title, int product_price,
 			Timestamp product_registrantion_date, int product_shelf_life, String product_sub_title,
-			String product_content) {
+			String product_content, int product_heart) {
 		super();
 		this.product_code = product_code;
 		this.product_category = product_category;
@@ -26,6 +27,7 @@ public class ProductVo {
 		this.product_shelf_life = product_shelf_life;
 		this.product_sub_title = product_sub_title;
 		this.product_content = product_content;
+		this.product_heart = product_heart;
 	}
 
 	public String getProduct_code() {
@@ -52,6 +54,9 @@ public class ProductVo {
 	public String getProduct_content() {
 		return product_content;
 	}
+	public int getProduct_heart() {
+		return product_heart;
+	}
 	public void setProduct_code(String product_code) {
 		this.product_code = product_code;
 	}
@@ -76,13 +81,16 @@ public class ProductVo {
 	public void setProduct_content(String product_content) {
 		this.product_content = product_content;
 	}
-
+	public void setProduct_heart(int product_heart) {
+		this.product_heart = product_heart;
+	}
+	
 	@Override
 	public String toString() {
 		return "ProductVo [product_code=" + product_code + ", product_category=" + product_category + ", product_title="
 				+ product_title + ", product_price=" + product_price + ", product_registrantion_date="
 				+ product_registrantion_date + ", product_shelf_life=" + product_shelf_life + ", product_sub_title="
-				+ product_sub_title + ", product_content=" + product_content + "]";
+				+ product_sub_title + ", product_content=" + product_content + ", product_heart=" + product_heart + "]";
 	}
 	
 }

@@ -1,4 +1,4 @@
-package com.kh.greenfood;
+package com.kh.greenfood.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

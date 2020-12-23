@@ -18,61 +18,55 @@ $(function() {
 	$("#boardNames").text("상품 상세");/* 게시판 이름 */
 });
 
-/* 갯수에 따라서 최종 가격 변경 (일단은, [회원가]로 계산) */
-
 /* 최종 가격 표현 */
 $(function() {
 	var priceGeneral = "${productVo.product_price}";
-	$("#priceGeneral").text(addComma(${productVo.product_price}));
-	
-// 	var priceMember = parseInt($("#priceMember").text());
-	var priceDiscount = (100 - $("#priceDiscount").attr("data-discount")) / 100;
-	
-	var priceMember = priceGeneral * priceDiscount;
-	$("#priceMember").text(addComma(priceMember));
-	console.log("hh-" + priceMember);
-	
-	var count = parseInt($("#productCount").text());
-	var totalPrice = priceMember * count;
+	$("#priceGeneral").text(addComma(priceGeneral));
+	var count = parseInt($("#productCount").val());
+	var totalPrice = priceGeneral * count;
 	$("#totalPrice").text(addComma(totalPrice));
 });
 
 function btnCountUp(obj) {
-	var count = parseInt($("#productCount").text());
-	$("#productCount").text(count + 1);
-	count= parseInt($("#productCount").text());
-	var priceStr = $("#priceMember").text();
+	var count = parseInt($("#productCount").val());
+	$("#productCount").val(count + 1);
+	count= parseInt($("#productCount").val());
+	var priceStr = $("#priceGeneral").text();
 	var productPrice = parseInt(subComma(priceStr));
 	var totalPrice = productPrice * count;
 	$("#totalPrice").text(addComma(totalPrice));
-	
-	/* 가격 숫자로 */
-	/* var nums = $("#priceMember").text().split(",");
-	var totalNum = "";
-	var productPrice = 0;
-	for (i = 0; i < nums.length; i++) {
-		totalNum += nums[i];
-		productPrice = parseInt(totalNum);
-	}
-	var totalPrice = productPrice * countNew;
-	totalPrice = addComma(totalPrice); */
 }
 
 function btnCountDown(obj) {
-	var count = parseInt($("#productCount").text());
-	$("#productCount").text(count - 1);
-	count= parseInt($("#productCount").text());
-	var priceStr = $("#priceMember").text();
+	var count = parseInt($("#productCount").val());
+	$("#productCount").val(count - 1);
+	count= parseInt($("#productCount").val());
+	var priceStr = $("#priceGeneral").text();
 	var productPrice = parseInt(subComma(priceStr));
 	var totalPrice = productPrice * count;
 	$("#totalPrice").text(addComma(totalPrice));
 	
 	if (count == 0) {
-		$("#productCount").text(1);
+		$("#productCount").val(1);
 		alert("최소 갯수는 1개입니다.");
 		$("#totalPrice").text(addComma(productPrice));
 	}
 }
+
+function inputCount(obj) {
+	var count = parseInt($("#productCount").val());
+	console.log(count);
+	var productPrice = parseInt(subComma($("#priceGeneral").text()));
+	var totalPrice = productPrice * count;
+	$("#totalPrice").text(addComma(totalPrice));
+	
+	if (count == 0 || isNaN(count) ) {
+		$("#productCount").val(1);
+		alert("최소 갯수는 1개입니다.");
+		$("#totalPrice").text(addComma(productPrice));
+	}
+}
+
 </script>
 
 <style>
@@ -104,8 +98,21 @@ function btnCountDown(obj) {
 .infoPrice li {
 	padding : 10px 20px;
 }
-#priceDiscount {
-	padding-left : 10px;
+.li-count {
+	float : left;
+}
+.li-count strong{
+	padding-top : 3px;
+	float : left;
+}
+.li-count input {
+ 	border : solid 1px gray;
+	text-align : center;
+	float : left; 
+	margin-left : 30px;
+}
+.li-count div {
+	float : left; 
 }
 .infoPrice span {
 	padding-left : 20px;
@@ -114,7 +121,7 @@ function btnCountDown(obj) {
 	margin-left : 10px;
 }
 .li-delivery {
-	margin-top : 20px;
+	margin-top : 25px;
 	clear : left;
 }
 .li-delivery span{
@@ -142,19 +149,24 @@ function btnCountDown(obj) {
 	border-bottom : 5px solid #6ca435;
 }
 .img-detail {
- 	width : 600px;
- 	height : 600px;
+ 	width : 700px;
+ 	height : 400px;
  	display: block;
   	margin-left: auto;
  	margin-right: auto;
 }
 .infoDetail h1 {
-	text-align: center;
-	padding-top : 20px;
-}
-.infoDetail p {
+	margin : 0px;
 	text-align: center;
 	padding : 10px;
+}
+.infoDetail p {
+	margin : 0px;
+	text-align: center;
+	padding-top : 10px;
+}
+.info-btn span{
+	padding-left : 0px;
 }
 </style>
 
@@ -177,7 +189,7 @@ function btnCountDown(obj) {
 		<div class="viewInfo">
 			<div class="infoImage">
 				<!-- 임시로... image_file_name 파일 이름만 DB에서 가져와서 사용 -->
-				<img class="img-product" alt="상품 이미지" src="${path}/resources/images/${productImageDto.image_file_name}">
+				<img class="img-product" alt="상품 이미지" src="${path}/resources/images/${productImageDto.image_info_file_name}">
 			</div>
 			<div class="infoNamePrice">
 				<div class="infoName">
@@ -191,20 +203,14 @@ function btnCountDown(obj) {
 							<span>상온</span>
 						</li>
 						<li>
-							<strong>일반 가격</strong>
+							<strong>판매 가격</strong>
 							<span id="priceGeneral">${productVo.product_price}</span>
 						</li>
-						<li>
-							<strong>회원 가격</strong>
-							<span id="priceMember">0</span>
-							<span id="priceDiscount" data-discount="30">(30%)</span>
-						</li>
-						<li>
-							<strong style="float:left;">구매수량</strong>
-							<div style="float:left;">
-								<div class="productCount count" id="productCount" 
-									style="float:left; margin-left:30px;">1</div>
-								<div style="float:left;">
+						<li class="li-count">
+							<strong>구매수량</strong>
+							<div>
+								<input type="text" size="2" id="productCount" value="1" oninput="javascript:inputCount(this)"/>
+								<div>
 									<span class="glyphicon glyphicon glyphicon-plus count-up"
 										onclick="javascript:btnCountUp(this);"></span>
 									<span class="glyphicon glyphicon glyphicon-minus count-down"
@@ -220,13 +226,15 @@ function btnCountDown(obj) {
 							<strong>최종 가격</strong>
 							<span id="totalPrice">0</span>
 						</li>
-						<li>
-							<button type="button">찜(임시)</button>
+						<li class="info-btn">
+							<button type="button">
+								<span class="glyphicon glyphicon-heart"></span> ${productVo.product_heart}
+							</button>
 							<button type="button" class="btn btn-success">
-								<span class="glyphicon glyphicon-shopping-cart" style="padding-left:0px;">장바구니</span>
+								<span class="glyphicon glyphicon-shopping-cart">장바구니</span>
 							</button>
 							<button type="button" class="btn btn-primary">
-								<span class="glyphicon glyphicon-credit-card" style="padding-left:0px;">바로구매</span>
+								<span class="glyphicon glyphicon-credit-card">바로구매</span>
 							</button>
 						</li>
 					</ul>
@@ -243,10 +251,13 @@ function btnCountDown(obj) {
 		<div class="col-md-6">
 			<!-- 상세 정보 -->
 			<div class="infoDetail">
-				<div><img class="img-detail" alt="상세 사진" src="${path}/resources/images/${productImageDto.image_file_name}"/></div>
-				<h1>${productVo.product_title}</h1>
+				<div><img class="img-detail" alt="상세 사진" src="${path}/resources/images/${productImageDto.image_content_file_name}"/></div>
 				<p>${productVo.product_sub_title}</p>
-				<p>${productVo.product_content}</p>
+				<h1>${productVo.product_title}</h1>
+<%-- 				<p>${productVo.product_content}</p> --%>
+				<span>고구마는 맛과 영양을 고루 갖춘 팔방미인 식재료죠. 얼핏 보면 비슷하게 생긴 고구마도 종류에 따라 다양한 맛과 식감을 자랑하는데요. 
+				컬리가 준비한 제품은 붉은색 껍질과 연노랑 속살의 밤고구마예요. 밤처럼 포근하고 고소하면서도, 씹을수록 달콤하고 담백하죠. 
+				취향에 맞게 찌거나 구워서 간단한 식사처럼 즐기거나, 간식으로 활용하세요.</span>
 			</div>
 			<!--// 상세 정보 -->
 		</div>

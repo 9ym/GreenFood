@@ -30,8 +30,4 @@ public class MemberServiceImpl implements MemberService {
 		return testVo;
 	}
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 8e08f6ae73c2ad79ebb0f69cba27bcc6c4c0103a

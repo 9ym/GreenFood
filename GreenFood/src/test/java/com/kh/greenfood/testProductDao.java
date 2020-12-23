@@ -20,13 +20,13 @@ public class testProductDao {
 
 	@Test
 	public void testGetProduct() throws Exception {
-		ProductVo productVo = productDao.getProduct("10001");
+		ProductVo productVo = productDao.getProduct("1001");
 		System.out.println("productVo :" + productVo);
 	}
 	
 	@Test
 	public void testGetProductImage() throws Exception {
-		ProductImageDto productImageDto = productDao.getProductImage("20001"); 
+		ProductImageDto productImageDto = productDao.getProductImage("2001"); 
 		System.out.println("productImageDto :" + productImageDto);
 	}
 	
