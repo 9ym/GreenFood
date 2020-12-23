@@ -105,27 +105,7 @@
 
 		});
 		
-		// 아이디 중복 체크
-		$("#btnIdDupChk").click(function(){
-			$("#div_idDupChk").attr("style", "display");
-			var id_regex = /^[a-zA-Z0-9]+$/;
-			var user_id = $("#user_id").val().trim();
-			if(id_regex.test(user_id) === false){
-				alert("영어와 숫자만 써주세요.");
-				return;
-			}
-			var url = "/checkDupId/" + user_id;
-			$.get(url, function(data){
-				if(data == "idExist"){
-					$("#div_idDupChk").text("사용 불가능한 아이디입니다. 아이디가 존재합니다.").css("color","red");
-				} else {
-					$("#div_idDupChk").text("사용 가능한 아이디 입니다.").css("color", "blue");
-				}
-			});
-		});
-		
-		// 비밀번호 중복 확인 숨김
-		
+		// 비밀번호 중복 확인 숨김	
 		$("#alert-success").hide();
 		$("#alert-danger").hide();
 		$("#alert-dont").hide();
@@ -140,19 +120,22 @@
 			var pw_test = pw_regex.test(pw);
 			var pw_test1 = pw_regex.test(pw1);
 			
-			if(pw != "" || pw1 != ""){
+			if(pw != "" && pw_test === false && pw1 != "" && pw_test1 === false){
 				$("#alert-success").hide();
+				$("#alert-danger").hide();
+				$("#alert-dont").show();
+				$("#alert-primary").hide();
+			} else if (pw == pw1 && pw_test === true && pw_test1 === true){
+				$("#alert-success").show();
 				$("#alert-danger").hide();
 				$("#alert-dont").hide();
 				$("#alert-primary").hide();
+			} else if(pw != pw1){
+				$("#alert-success").hide();
+				$("#alert-danger").show();
+				$("#alert-dont").hide();
+				$("#alert-primary").hide();
 			} else {
-				
-				// 수정했습니다 2020 12 23 10 13
-				
-				// 수정했습니다 2020 12 23 10 30
-				
-				// 충돌 해결중, 되라
-				
 				$("#alert-success").hide();
 				$("#alert-danger").hide();
 				$("#alert-dont").hide();
@@ -160,16 +143,22 @@
 			}
 		});
 		
-	/* 	else if(pw == pw1){
-			$("#alert-dont").show();
-			$("#alert-success").hide();
-			$("#alert-danger").hide();
-		} else if(pw != pw1){
-			$("#alert-success").hide();
-			$("#alert-danger").show();
-			$("#alert-dont").hide();
-		} */
+		// 이름 정규식 특수문자 x 한글, 영어 2~10글자까지
+		$("#alert-ilegalName").hide();
+		$("#alert-legalName").hide();
 		
+		$("#user_name").keyup(function(){
+			var user_name = $("#user_name").val().trim();
+			var user_name_regex = /^[가-힣a-zA-z]{2,10}$/;
+			if(user_name_regex.test(user_name) === false){
+				$("#alert-ilegalName").show();
+				$("#alert-legalName").hide();
+			} else {
+				$("#alert-ilegalName").hide();
+				$("#alert-legalName").show();
+			}
+		});
+	
 		// 이메일 도메인 값 변환체크
 		$("#selectEmail").on("change", function(){
 				var emailDomain = $(this).val();
@@ -179,17 +168,28 @@
 				}
 		});
 		
-		// 가입완료 폼전송 후 로그인 페이지로
-		$("#btnSubCompleted").click(function(){
+		// 아이디 중복 체크
+		$("#btnIdDupChk").click(function(){
 			
-			// 이름 체크
-			var user_name_regex = /^[가-힣]+$/;
-			var user_name = $("#user_name").val().trim();
-			if(user_name_regex.test(user_name) === false){
-				
-			} else {
-				
+			$("#div_idDupChk").attr("style", "display");
+			var id_regex = /^[a-zA-Z0-9]+$/;
+			var user_id = $("#user_id").val().trim();
+			if(id_regex.test(user_id) === false){
+				alert("영어와 숫자만 써주세요.");
 			}
+			var url = "/checkDupId/" + user_id;
+			$.get(url, function(data){
+				if(data == "idExist"){
+					$("#div_idDupChk").text("사용 불가능한 아이디입니다. 아이디가 존재합니다.").css("color","red");
+				} else {
+					$("#div_idDupChk").text("사용 가능한 아이디 입니다.").css("color", "blue");
+				}
+			});
+		});
+		
+		// 가입완료 폼전송 후 로그인 페이지로
+		$("#frmMemberJoin").submit(function(){
+			
 			
 			// email 아이디 + 도메인
 			var emailId = $("#emailId").val();
@@ -235,7 +235,6 @@
 				$("#frmMemberJoin > input[type=hidden]").eq(2).val(address);
 			}
 			
-//   			$("#frmMemberJoin").submit();
 		});
 
 	});
@@ -245,37 +244,37 @@
 <div id="first">
 	<p>약관동의</p>
 				<div id="div_chkBox">
-					<input type="checkbox" required>이용약관에 동의합니다.(필수)</input>
+					<input type="checkbox" required>이용약관에 동의합니다.(필수)
 					<!--  <button type="button" class="whiteBtn" id="terms_1">전체보기</button> -->
 					<button id="myModal" href="#modal-container-323508" role="button" class="whiteBtn" data-toggle="modal">전체보기</button>
-					<br > 
-					<input type="checkbox" required>개인정보취급방침에 동의합니다.(필수)</input>
+					<br/> 
+					<input type="checkbox" required>개인정보취급방침에 동의합니다.(필수)
 					<button type="button" class="whiteBtn" id="terms_2">전체보기</button><br/>
-					<input type="checkbox" required>본인은 만 14세 이상입니다.(선택)</input><br/>
-					<input type="checkbox" required>문자 수신에 동의합니다.(선택)</input><br/>
-					<input type="checkbox" required>이메일 수신에 동의합니다.(선택)</input>
+					<input type="checkbox" required>본인은 만 14세 이상입니다.(선택)<br/>
+					<input type="checkbox" required>문자 수신에 동의합니다.(선택)<br/>
+					<input type="checkbox" required>이메일 수신에 동의합니다.(선택)
 				</div>
-	<input type="checkbox" id="chkAll">이용약관,개인정보취급방침,문자,이메일 수신에 모두 동의합니다.</input>
+	<input type="checkbox" id="chkAll">이용약관,개인정보취급방침,문자,이메일 수신에 모두 동의합니다.
 </div>
 
 <hr>
 
-
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			<form role="form" id="frmMemberJoin" action="/member/customerMemberJoinRun" method="post">
+			<form role="form" id="frmMemberJoin" action="/customer/customerMemberJoinRun" method="post">
 			<!-- 히든정보 이메일 폰번호 주소 -->
 					<input type="hidden" name="user_email"/>
 					<input type="hidden" name="user_phone"/>
 					<input type="hidden" name="user_address"/>
 					
+					<!-- 아이디 비밀번호 확인 row -->	
 					<div class="row">
 						<div class="col-md-6">
 							<label for="user_id">
 							아이디
 							</label>
-							<input type="text" class="form-control" id="user_id" name="user_id"/>
+							<input type="text" class="form-control" id="user_id" name="user_id" required/>
 						</div>
 						
 						<div class="col-md-6">
@@ -284,7 +283,7 @@
 						</div>
 						
 					</div>
-					
+
 					<!-- 아이디 중복확인 텍스트 나타나는곳 -->
 					<div class="row">
 						<div class="col-md-12" id="div_idDupChk" style="display:none;">
@@ -296,28 +295,30 @@
 					<label for="user_pw">
 						비밀번호
 					</label>
-					<input id="user_pw" name="user_pw" class="form-control" type="password" placeholder="비밀번호">
+					<input id="user_pw" name="user_pw" class="form-control" type="password" placeholder="비밀번호" required>
 					<label for="user_pw">
 						비밀번호 확인
 					</label>
-					<input id="user_pw1" type="password" class="form-control" placeholder="비밀번호 확인">
+					<input id="user_pw1" type="password" class="form-control" placeholder="비밀번호 확인" required>
 				</div>
 				
 				<div class="form-row">
-					<div class="col-md-6">
+					<div class="col-md-10">
 						<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
 						<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
-						<div class="alert alert-warning" id="alert-dont">특수문자,문자,숫자가 하나 포함되어야 합니다.</div>
+						<div class="alert alert-warning" id="alert-dont">특수문자,문자,숫자가 하나 포함되어야 하고 최소 8글자 입니다.</div>
 						<div class="alert alert-primary" id="alert-primary">비밀번호는 특수문자, 문자, 숫자포함 10글자까지 입니다.</div>
 					</div>
 				</div>
+				<!-- //아이디 비밀번호 확인 row -->	
 				
-		<div class="form-row">
+	<!-- 이름 핸드폰입력 row -->
+	<div class="form-row user_name">
 		<div class="form-group col-md-6">
 			<label class="small">이름 입력</label>
-			<input id="user_name" name="user_name" type="text" class="form-control" placeholder="이름 입력">
+			<input id="user_name" name="user_name" type="text" class="form-control" placeholder="한글 영어 10자까지 입니다." required>
 		</div>
-		
+
 		<div class="form-group col-md-2">
 			<label class="small">핸드폰 번호</label>
 			<select id="phoneIMEI" class="form-control">
@@ -339,11 +340,20 @@
 			<input type="text" id="lastPhoneNum" class="form-control" required />
 		</div>
 	</div>
+			
+	<div class="form-row">
+		<div class="col-md-5">
+			<div class="alert alert-danger" id="alert-ilegalName">부적합한 이름입니다.</div>
+			<div class="alert alert-success" id="alert-legalName">적합한 이름입니다.</div>
+		</div>
+	</div>
+	<!-- //이름 핸드폰입력 row 끝 -->
 	
+	<!-- 이메일 div row -->
 	<div class="form-row">
 		<div class="form-group col-md-4">
 			<label class="small" for="emailId">이메일</label>
-			<input type="text" id="emailId" class="form-control" placeholder="이메일 아이디"/>
+			<input type="text" id="emailId" class="form-control" placeholder="이메일 아이디" required/>
 		</div>
 		<div class="form-group col-md-1">
 			<label class="small"></label>
@@ -351,7 +361,7 @@
 		</div>
 		<div class="form-group col-md-4">
 			<label class="small" for="emailDomain">도메인</label>
-			<input type="text" id="emailDomain" class="form-control" placeholder="도메인 입력"/>
+			<input type="text" id="emailDomain" class="form-control" placeholder="도메인 입력" required/>
 		</div>
 		<div class="form-group col-3">
 			<label class="small"></label> <select id="selectEmail"
@@ -365,6 +375,7 @@
 			</select>
 		</div>
 	</div>
+	<!-- //이메일 row 끝 -->
 	
 	<!--
 	<div class="form-row">
@@ -376,31 +387,36 @@
 	-->
 	
 	<hr>
-
+		
+		<!-- 주소란 -->
 		<div class="form-row">
 				
 			<div class="col-md-6">
 				<label class="small">주소(기본배송지)</label>
 				<input type="text" placeholder="우편번호" id="postalCode" class="form-control" required />
 			</div>
+			
 			<div class="col-md-6">
 				<label class="small">빈공백</label>
-				<button type="button" class="form-control" id="btnFindPostalCode">우편번호 찾기</button>
+				<button type="button" class="form-control btn btn-warning" id="btnFindPostalCode">우편번호 찾기</button>
 			</div>
 				
-	
 			<div class="col-md-12">
 				<label class="small">주소</label>
 				<input type="text" id="roadAddress" class="form-control" placeholder="주소를 입력해주세요" required id="roadAddress" />
 			</div>
+			
 			<div class="col-md-12">
 				<label class="small">상세주소</label>
 				<input type="text" id="detailAddress" class="form-control" placeholder="상세주소를 입력해주세요" required id="detailAddress" />
 			</div>
+			
 		</div>
+		<!-- //주소란 끝 -->
 		
+		<!-- 가입완료 submit 버튼 -->
 		<div class="form-row">
-			<button type="button" id="btnSubCompleted" class="btn btn-primary">가입완료</button>
+			<button type="submit" class="btn btn-primary">가입완료</button>
 			<button type="button" class="btn btn-danger">취소</button>
 		</div>
 		
@@ -413,7 +429,6 @@
 <div class="row">
 	<div class="col-md-12">
 		
-
 		<div class="modal fade" id="modal-container-323508" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">

@@ -13,7 +13,7 @@ public class MainController {
 	}
 	@RequestMapping(value="/loginPage")
 	public String loginPage() throws Exception{
-		return "loginPage";
+		return "/main/loginPage";
 		
 	}
 }

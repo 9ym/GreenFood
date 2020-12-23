@@ -20,8 +20,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void insertMember(TestVo testVo) {
-		memberDao.insertMember(testVo);
+	public int insertMember(TestVo testVo) {
+		int count = memberDao.insertMember(testVo);
+		return count;
 	}
 
 	@Override

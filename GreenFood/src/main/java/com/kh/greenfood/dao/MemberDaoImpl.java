@@ -28,8 +28,9 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public void insertMember(TestVo testVo) {
-		sqlSession.insert(NAMESPACE + "insertMember", testVo);
+	public int insertMember(TestVo testVo) {
+		int count = sqlSession.insert(NAMESPACE + "insertMember", testVo);
+		return count;
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="include/header.jsp"%>
+<%@include file="../include/header.jsp"%>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/css_loginPage.css"/>
 <script>
 $(function(){
@@ -14,6 +14,8 @@ $(function(){
 	var msg = "${msg}";
 	if(msg == "loginFail"){
 		alert("로그인 실패");
+	} else if(msg == "memberJoinSuccess"){
+		alert("회원가입 성공");
 	}
 
 	$("#btnLogin").click(function(){
