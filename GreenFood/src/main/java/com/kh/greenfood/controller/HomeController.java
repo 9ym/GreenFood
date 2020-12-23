@@ -21,9 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.MemberService;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class HomeController {
 	
