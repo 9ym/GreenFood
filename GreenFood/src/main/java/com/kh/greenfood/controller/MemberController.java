@@ -25,7 +25,7 @@ public class MemberController {
 	@RequestMapping(value="/customerMemberJoinRun", method=RequestMethod.POST)
 	public String customerMemberJoinRun(TestVo testVo) throws Exception {
 		System.out.println("customerMemberJoinRun:" + testVo);
-		memberService.insertMember(testVo);
+//		memberService.insertMember(testVo);
 		return "loginPage";
 	}
 	

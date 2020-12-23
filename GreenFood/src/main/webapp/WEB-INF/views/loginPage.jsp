@@ -22,7 +22,10 @@ $(function(){
 
 });
 </script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7bf95ba7f4776b2e359efab70ee27ac01cebe427
 <content>
 	<form id="frmlogin" action="/login" method="post">
 		<div id="div_loginForm">

@@ -30,4 +30,13 @@ public class MemberServiceImpl implements MemberService {
 		return testVo;
 	}
 
+<<<<<<< HEAD
 }
+=======
+	@Override
+	public void test() {
+		// TODO Auto-generated method stub
+		
+	}
+}
+>>>>>>> 7bf95ba7f4776b2e359efab70ee27ac01cebe427
