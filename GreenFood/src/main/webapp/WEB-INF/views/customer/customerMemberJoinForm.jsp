@@ -107,6 +107,7 @@
 		
 		// 아이디 중복 체크
 		$("#btnIdDupChk").click(function(){
+			$("#div_idDupChk").attr("style", "display");
 			var id_regex = /^[a-zA-Z0-9]+$/;
 			var user_id = $("#user_id").val().trim();
 			if(id_regex.test(user_id) === false){
@@ -116,34 +117,51 @@
 			var url = "/checkDupId/" + user_id;
 			$.get(url, function(data){
 				if(data == "idExist"){
-					$("#span_idDupChk").text("사용 불가능한 아이디입니다. 아이디가 존재합니다.").css("color","red");
+					$("#div_idDupChk").text("사용 불가능한 아이디입니다. 아이디가 존재합니다.").css("color","red");
 				} else {
-					$("#span_idDupChk").text("사용 가능한 아이디 입니다.").css("color", "blue");
+					$("#div_idDupChk").text("사용 가능한 아이디 입니다.").css("color", "blue");
 				}
 			});
 		});
 		
 		// 비밀번호 중복 확인 숨김
+		
 		$("#alert-success").hide();
 		$("#alert-danger").hide();
+		$("#alert-dont").hide();
+		$("#alert-primary").show();
 		
 		// 비밀번호 확인
 		$("input[type=password]").keyup(function(){
-			var pw = $("#user_pw").val();
-			var pw1 = $("#user_pw1").val();
+			var pw = $("#user_pw").val().trim();
+			var pw1 = $("#user_pw1").val().trim();
+			var pw_regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+			
+			var pw_test = pw_regex.test(pw);
+			var pw_test1 = pw_regex.test(pw1);
+			
 			if(pw != "" || pw1 != ""){
-				if(pw != pw1){
-					$("#alert-success").hide();
-					$("#alert-danger").show();
-				} else if(pw == pw1){
-					$("#alert-danger").hide();
-					$("#alert-success").show();
-				}
+				$("#alert-success").hide();
+				$("#alert-danger").hide();
+				$("#alert-dont").hide();
+				$("#alert-primary").hide();
 			} else {
 				$("#alert-success").hide();
 				$("#alert-danger").hide();
+				$("#alert-dont").hide();
+				$("#alert-primary").show();
 			}
 		});
+		
+	/* 	else if(pw == pw1){
+			$("#alert-dont").show();
+			$("#alert-success").hide();
+			$("#alert-danger").hide();
+		} else if(pw != pw1){
+			$("#alert-success").hide();
+			$("#alert-danger").show();
+			$("#alert-dont").hide();
+		} */
 		
 		// 이메일 도메인 값 변환체크
 		$("#selectEmail").on("change", function(){
@@ -210,7 +228,7 @@
 				$("#frmMemberJoin > input[type=hidden]").eq(2).val(address);
 			}
 			
- 			$("#frmMemberJoin").submit();
+//   			$("#frmMemberJoin").submit();
 		});
 
 	});
@@ -233,120 +251,155 @@
 	<input type="checkbox" id="chkAll">이용약관,개인정보취급방침,문자,이메일 수신에 모두 동의합니다.</input>
 </div>
 
-<div id="divForm">
-	<!-- 회원가입 폼 -->
-	<form id="frmMemberJoin" action="/member/customerMemberJoinRun" method="post">
-		<input type="hidden" name="user_email"/>
-		<input type="hidden" name="user_phone"/>
-		<input type="hidden" name="user_address"/>
-	<p>필수정보입력</p>
-	<div>
-		<table>
-		
-			<thead>
-			<tr>
-				<th>구분</th>
-				<th>구매회원</th>
-			</tr>
-			</thead>
-			
-			<tbody>
-			
-				<tr>
-					<th>
-					이름
-					<span class="ico">*</span>
-					</th>
-					<td><input style="width: 100%;" type="text"
-						placeholder="이름을 입력해주세요" id="user_name" name="user_name" required /></td>
-				</tr>
+<hr>
+
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<form role="form" id="frmMemberJoin" action="/member/customerMemberJoinRun" method="post">
+			<!-- 히든정보 이메일 폰번호 주소 -->
+					<input type="hidden" name="user_email"/>
+					<input type="hidden" name="user_phone"/>
+					<input type="hidden" name="user_address"/>
+					
+					<div class="row">
+						<div class="col-md-6">
+							<label for="user_id">
+							아이디
+							</label>
+							<input type="text" class="form-control" id="user_id" name="user_id"/>
+						</div>
+						
+						<div class="col-md-6">
+							<label class="small mb-1">빈공백</label>
+							<button type="button" class="form-control btn btn-primary" id="btnIdDupChk">중복확인</button>
+						</div>
+						
+					</div>
+					
+					<!-- 아이디 중복확인 텍스트 나타나는곳 -->
+					<div class="row">
+						<div class="col-md-12" id="div_idDupChk" style="display:none;">
+							
+						</div>
+					</div>
+	
+				<div class="form-group">
+					<label for="user_pw">
+						비밀번호
+					</label>
+					<input id="user_pw" name="user_pw" class="form-control" type="password" placeholder="비밀번호">
+					<label for="user_pw">
+						비밀번호 확인
+					</label>
+					<input id="user_pw1" type="password" class="form-control" placeholder="비밀번호 확인">
+				</div>
 				
-				<tr>
-					<td>아이디</td>
-					<td><input type="text" style="width: 150px;"
-						placeholder="아이디를 입력해주세요" id="user_id" name="user_id" required/>
-						<button id="btnIdDupChk">중복확인</button><br/>
-						<span id="span_idDupChk">아이디 중복 확인</span>
-					</td>
-				</tr>
-				
-				<tr>
-					<td>비밀번호</td>
-					<td><input type="password" style="width: 100%;"
-						placeholder="특수문자(!,@,#)을 포함하여 최대 10자" id="user_pw" name="user_pw" required /></td>
-				</tr>
-				
-				<tr>
-					<td>비밀번호 확인</td>
-					<td><input type="password" style="width: 100%;" id="user_pw1"
-						placeholder="비밀번호 확인을 위해 한번 더 입력해주세요" required /></td>
-				</tr>
-				
-				<tr>
-					<td>
+				<div class="form-row">
+					<div class="col-md-6">
 						<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
 						<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
-					</td>
-				</tr>
+						<div class="alert alert-warning" id="alert-dont">특수문자,문자,숫자가 하나 포함되어야 합니다.</div>
+						<div class="alert alert-primary" id="alert-primary">비밀번호는 특수문자, 문자, 숫자포함 10글자까지 입니다.</div>
+					</div>
+				</div>
 				
-				<tr>
-					<td>연락처</td>
-					<td><select id="phoneIMEI">
+		<div class="form-row">
+		<div class="form-group col-md-6">
+			<label class="small">이름 입력</label>
+			<input id="user_name" name="user_name" type="text" class="form-control" placeholder="이름 입력">
+		</div>
+		
+		<div class="form-group col-md-2">
+			<label class="small">핸드폰 번호</label>
+			<select id="phoneIMEI" class="form-control">
 							<option>010</option>
 							<option>011</option>
 							<option>016</option>
 							<option>017</option>
 							<option>019</option>
-					</select>
-					 - <input type="text" style="width: 70px;" id="midPhoneNum" required />
-					 - <input type="text" style="width: 70px;" id="lastPhoneNum" required /></td>
-				</tr>
-				
-				<tr>
-					<td>이메일</td>
-					<td style="margin: 0 auto;">
-					<input type="text" style="width: 120px;" placeholder="" id="emailId" required /> @ 
-					<input type="text" style="width: 180px;" placeholder="" id="emailDomain" required />
-						<select	id="selectEmail">
-							<option>직접입력</option>
-							<option>gmail.com</option>
-							<option>naver.com</option>
-							<option>nate.com</option>
-							<option>hanmail.net</option>
-							<option>hotmail.com</option>
-					</select></td>
-				</tr>
-				
-				<tr rowspan="3">
-					<td>주소<br> (기본배송지)
-					</td>
-					<td><input type="text" placeholder="우편번호" required
-						id="postalCode" />
-						<button type="button" style="width: 120px;" id="btnFindPostalCode">우편번호
-							찾기</button></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><input type="text" style="width: 100%;"
-						placeholder="주소를 입력해주세요" required id="roadAddress" /></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><input type="text" style="width: 100%;"
-						placeholder="상세주소를 입력해주세요" required id="detailAddress" /></td>
-				</tr>
-			</tbody>
-		</table>
+			</select>
+		</div>
+		
+		<div class="form-group col-md-2">
+			<label class="small">　</label>
+			<input type="text" id="midPhoneNum" class="form-control" required />
+		</div>
+
+		<div class="form-group col-md-2">
+			<label class="small">　</label>
+			<input type="text" id="lastPhoneNum" class="form-control" required />
+		</div>
 	</div>
 	
-</form>
-<!-- // 회원가입 폼 끝-->
+	<div class="form-row">
+		<div class="form-group col-md-4">
+			<label class="small" for="emailId">이메일</label>
+			<input type="text" id="emailId" class="form-control" placeholder="이메일 아이디"/>
+		</div>
+		<div class="form-group col-md-1">
+			<label class="small"></label>
+			<span class="form-control" style="border: none;">@</span>
+		</div>
+		<div class="form-group col-md-4">
+			<label class="small" for="emailDomain">도메인</label>
+			<input type="text" id="emailDomain" class="form-control" placeholder="도메인 입력"/>
+		</div>
+		<div class="form-group col-3">
+			<label class="small"></label> <select id="selectEmail"
+				class="form-control">
+				<option>직접입력</option>
+				<option>gmail.com</option>
+				<option>naver.com</option>
+				<option>nate.com</option>
+				<option>hanmail.net</option>
+				<option>hotmail.com</option>
+			</select>
+		</div>
+	</div>
+	
+	<!--
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label class="small">생년월일</label>
+			<input type="date" class="form-control" name="user_birth">
+		</div>
+	</div>
+	-->
+	
+	<hr>
 
-</div>
-
-<div id="underBtns">
-	<button type="button" id="btnSubCompleted">가입완료</button>
-	<button type="button">취소</button>
+		<div class="form-row">
+				
+			<div class="col-md-6">
+				<label class="small">주소(기본배송지)</label>
+				<input type="text" placeholder="우편번호" id="postalCode" class="form-control" required />
+			</div>
+			<div class="col-md-6">
+				<label class="small">빈공백</label>
+				<button type="button" class="form-control" id="btnFindPostalCode">우편번호 찾기</button>
+			</div>
+				
+	
+			<div class="col-md-12">
+				<label class="small">주소</label>
+				<input type="text" id="roadAddress" class="form-control" placeholder="주소를 입력해주세요" required id="roadAddress" />
+			</div>
+			<div class="col-md-12">
+				<label class="small">상세주소</label>
+				<input type="text" id="detailAddress" class="form-control" placeholder="상세주소를 입력해주세요" required id="detailAddress" />
+			</div>
+		</div>
+		
+		<div class="form-row">
+			<button type="button" id="btnSubCompleted" class="btn btn-primary">가입완료</button>
+			<button type="button" class="btn btn-danger">취소</button>
+		</div>
+		
+	</form>
+		</div>
+	</div>
 </div>
 
 <!-- 이용약관 동의 모달 -->

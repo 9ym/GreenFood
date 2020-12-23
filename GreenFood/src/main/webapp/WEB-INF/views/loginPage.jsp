@@ -22,10 +22,6 @@ $(function(){
 
 });
 </script>
-<<<<<<< HEAD
-=======
-
->>>>>>> 8e08f6ae73c2ad79ebb0f69cba27bcc6c4c0103a
 <content>
 	<form id="frmlogin" action="/login" method="post">
 		<div id="div_loginForm">
@@ -41,8 +37,3 @@ $(function(){
 		
 </form>
 </content>
-<<<<<<< HEAD
-	
-=======
-	
->>>>>>> 8e08f6ae73c2ad79ebb0f69cba27bcc6c4c0103a

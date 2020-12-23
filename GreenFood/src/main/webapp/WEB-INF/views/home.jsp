@@ -18,11 +18,7 @@
 $(function(){
 	var msg = "${msg}";
 	if(msg == "loginSuccess"){
-<<<<<<< HEAD
-		alert("로그인 성공");
-=======
 		alert("로그인 성공했습니다.");
->>>>>>> 8e08f6ae73c2ad79ebb0f69cba27bcc6c4c0103a
 	}
 });	
 </script>
@@ -400,22 +396,14 @@ ${testVo.user_id}
 		
 		<div id="first_floor">
 			<div>
-<<<<<<< HEAD
-			<a href="#"><img src="${path}/resources/images/prac1.png"></a>
-=======
 			<a href="/product/detail/10001"><img src="${path}/resources/images/prac1.png"></a>
->>>>>>> 8e08f6ae73c2ad79ebb0f69cba27bcc6c4c0103a
 			<div class="dscImage">
 				<p>고구마</p>
 				<p>1500</p>
 				
 			</div>
 			<div class="showPoints">
-<<<<<<< HEAD
-			<a href="#">	<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
-=======
-				<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
->>>>>>> 8e08f6ae73c2ad79ebb0f69cba27bcc6c4c0103a
+			<a href="#">	<img src="https://www.oasis.co.kr/images/shop/pd_like.png"></a>
 				<span class="spanShowPoints">97.7%</span>
 				</div>
 			</div>
@@ -445,11 +433,7 @@ ${testVo.user_id}
 		
 		<div id="second_floor">
 		<div>
-<<<<<<< HEAD
-			<a href="#"><img src="${path}/resources/images/prac4.png"></a>
-=======
 			<a href="product/detail/10002"><img src="${path}/resources/images/prac4.png"></a>
->>>>>>> 8e08f6ae73c2ad79ebb0f69cba27bcc6c4c0103a
 			<div class="dscImage">
 				<p>시금치시금치</p>
 				<p>가격</p>
@@ -483,24 +467,12 @@ ${testVo.user_id}
 			</div>
 		</div>
 	</div>
-<<<<<<< HEAD
-	<!--코딩 들어갈 부분!!-->
+	<!--//코딩 들어갈 부분!!-->
 	
 	
-	
-	
-		
-	</div>
-	<div id="makeSpace">
-	</div>
-</content>	
-=======
-	<!--// 코딩 들어갈 부분!!-->
 	
 	
 		
 	<div id="makeSpace">
 	</div>
 </content>	
-
->>>>>>> 8e08f6ae73c2ad79ebb0f69cba27bcc6c4c0103a

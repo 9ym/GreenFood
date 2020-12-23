@@ -128,9 +128,4 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 			</div>
 		</div>
 	</div >
-<<<<<<< HEAD
 </content>
-=======
-</content>
-
->>>>>>> 8e08f6ae73c2ad79ebb0f69cba27bcc6c4c0103a

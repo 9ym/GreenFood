@@ -11,4 +11,6 @@ public interface MemberService {
 	public void insertMember(TestVo testVo);
 
 	public TestVo selectMember(String user_id);
+	
+	public void test();
 }
