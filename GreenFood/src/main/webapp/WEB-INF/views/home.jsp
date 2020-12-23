@@ -6,12 +6,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">													
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>													
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>													
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>													
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>													
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>													
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>													
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>													
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	
 <!-- 스크립트 -->
 <script>
@@ -19,7 +19,10 @@ $(function(){
 	var msg = "${msg}";
 	if(msg == "loginSuccess"){
 		alert("로그인 성공했습니다.");
+<<<<<<< HEAD
+=======
 	}
+>>>>>>> 7bf95ba7f4776b2e359efab70ee27ac01cebe427
 });	
 </script>
 <!-- 스크립트 끝 -->
@@ -396,14 +399,23 @@ ${testVo.user_id}
 		
 		<div id="first_floor">
 			<div>
+<<<<<<< HEAD
+			<a href="/product/detail/1001"><img src="${path}/resources/images/prac1.png"></a>
+=======
 			<a href="/product/detail/10001"><img src="${path}/resources/images/prac1.png"></a>
+>>>>>>> 7bf95ba7f4776b2e359efab70ee27ac01cebe427
 			<div class="dscImage">
 				<p>고구마</p>
 				<p>1500</p>
 				
 			</div>
 			<div class="showPoints">
+<<<<<<< HEAD
+			<a href="#"><img src="https://www.oasis.co.kr/images/shop/pd_like.png"></a>
+				<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
+=======
 			<a href="#">	<img src="https://www.oasis.co.kr/images/shop/pd_like.png"></a>
+>>>>>>> 7bf95ba7f4776b2e359efab70ee27ac01cebe427
 				<span class="spanShowPoints">97.7%</span>
 				</div>
 			</div>
@@ -433,7 +445,11 @@ ${testVo.user_id}
 		
 		<div id="second_floor">
 		<div>
+<<<<<<< HEAD
+			<a href="product/detail/1002"><img src="${path}/resources/images/prac4.png"></a>
+=======
 			<a href="product/detail/10002"><img src="${path}/resources/images/prac4.png"></a>
+>>>>>>> 7bf95ba7f4776b2e359efab70ee27ac01cebe427
 			<div class="dscImage">
 				<p>시금치시금치</p>
 				<p>가격</p>
@@ -467,12 +483,15 @@ ${testVo.user_id}
 			</div>
 		</div>
 	</div>
+<<<<<<< HEAD
+=======
 	<!--//코딩 들어갈 부분!!-->
 	
 	
 	
 	
 		
+>>>>>>> 7bf95ba7f4776b2e359efab70ee27ac01cebe427
 	<div id="makeSpace">
 	</div>
 </content>	

@@ -104,7 +104,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 				</div>
 			</div>
 			<div id="orderedList">
-				<p class="bigText">주문중인 내역</p><p id="orderedList_secondP">전체 <span class="showsign">></span></p>
+				<p class="bigText">주문중인 내역</p><p id="orderedList_secondP">전체 <span class="showsign"></span></p>
 				<table>
 					<thead>
 						<th>주문번호</th>
