@@ -146,6 +146,9 @@
 				$("#alert-dont").hide();
 				$("#alert-primary").hide();
 			} else {
+				
+				// 수정했습니다 2020 12 23 10 13
+				
 				$("#alert-success").hide();
 				$("#alert-danger").hide();
 				$("#alert-dont").hide();
