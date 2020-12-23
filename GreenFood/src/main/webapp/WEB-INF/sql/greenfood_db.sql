@@ -1,2 +1,3 @@
---멤버 테이블 생성
+-- oracle sql db query
+
 

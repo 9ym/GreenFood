@@ -246,14 +246,16 @@
 				<div id="div_chkBox">
 					<input type="checkbox" required>이용약관에 동의합니다.(필수)
 					<!--  <button type="button" class="whiteBtn" id="terms_1">전체보기</button> -->
-					<button id="myModal" href="#modal-container-323508" role="button" class="whiteBtn" data-toggle="modal">전체보기</button>
+					<button type="button" class="whiteBtn" data-toggle="modal" data-target="#myModal1">전체보기</button>
 					<br/> 
+					
 					<input type="checkbox" required>개인정보취급방침에 동의합니다.(필수)
-					<button type="button" class="whiteBtn" id="terms_2">전체보기</button><br/>
+					<button type="button" class="whiteBtn" data-toggle="modal" data-target="#myModal2">전체보기</button>
+					<br/>
 					<input type="checkbox" required>본인은 만 14세 이상입니다.(선택)<br/>
-					<input type="checkbox" required>문자 수신에 동의합니다.(선택)<br/>
 					<input type="checkbox" required>이메일 수신에 동의합니다.(선택)
 				</div>
+				
 	<input type="checkbox" id="chkAll">이용약관,개인정보취급방침,문자,이메일 수신에 모두 동의합니다.
 </div>
 
@@ -274,7 +276,7 @@
 							<label for="user_id">
 							아이디
 							</label>
-							<input type="text" class="form-control" id="user_id" name="user_id" required/>
+							<input type="text" class="form-control" id="user_id" name="user_id" required value="user"/>
 						</div>
 						
 						<div class="col-md-6">
@@ -295,11 +297,11 @@
 					<label for="user_pw">
 						비밀번호
 					</label>
-					<input id="user_pw" name="user_pw" class="form-control" type="password" placeholder="비밀번호" required>
+					<input id="user_pw" name="user_pw" class="form-control" type="password" placeholder="비밀번호" required value="@rnlghks1">
 					<label for="user_pw">
 						비밀번호 확인
 					</label>
-					<input id="user_pw1" type="password" class="form-control" placeholder="비밀번호 확인" required>
+					<input id="user_pw1" type="password" class="form-control" placeholder="비밀번호 확인" required value="@rnlghks1">
 				</div>
 				
 				<div class="form-row">
@@ -316,7 +318,7 @@
 	<div class="form-row user_name">
 		<div class="form-group col-md-6">
 			<label class="small">이름 입력</label>
-			<input id="user_name" name="user_name" type="text" class="form-control" placeholder="한글 영어 10자까지 입니다." required>
+			<input id="user_name" name="user_name" type="text" class="form-control" placeholder="한글 영어 10자까지 입니다." required value="신귀환">
 		</div>
 
 		<div class="form-group col-md-2">
@@ -332,12 +334,12 @@
 		
 		<div class="form-group col-md-2">
 			<label class="small">　</label>
-			<input type="text" id="midPhoneNum" class="form-control" required />
+			<input type="text" id="midPhoneNum" class="form-control" required value="6428"/>
 		</div>
 
 		<div class="form-group col-md-2">
 			<label class="small">　</label>
-			<input type="text" id="lastPhoneNum" class="form-control" required />
+			<input type="text" id="lastPhoneNum" class="form-control" required value="4092"/>
 		</div>
 	</div>
 			
@@ -353,7 +355,7 @@
 	<div class="form-row">
 		<div class="form-group col-md-4">
 			<label class="small" for="emailId">이메일</label>
-			<input type="text" id="emailId" class="form-control" placeholder="이메일 아이디" required/>
+			<input type="text" id="emailId" class="form-control" placeholder="이메일 아이디" required value="zerll5100"/>
 		</div>
 		<div class="form-group col-md-1">
 			<label class="small"></label>
@@ -361,7 +363,7 @@
 		</div>
 		<div class="form-group col-md-4">
 			<label class="small" for="emailDomain">도메인</label>
-			<input type="text" id="emailDomain" class="form-control" placeholder="도메인 입력" required/>
+			<input type="text" id="emailDomain" class="form-control" placeholder="도메인 입력" required value="naver.com"/>
 		</div>
 		<div class="form-group col-3">
 			<label class="small"></label> <select id="selectEmail"
@@ -393,7 +395,7 @@
 				
 			<div class="col-md-6">
 				<label class="small">주소(기본배송지)</label>
-				<input type="text" placeholder="우편번호" id="postalCode" class="form-control" required />
+				<input type="text" placeholder="우편번호" id="postalCode" class="form-control" required value="44024"/>
 			</div>
 			
 			<div class="col-md-6">
@@ -403,12 +405,12 @@
 				
 			<div class="col-md-12">
 				<label class="small">주소</label>
-				<input type="text" id="roadAddress" class="form-control" placeholder="주소를 입력해주세요" required id="roadAddress" />
+				<input type="text" id="roadAddress" class="form-control" placeholder="주소를 입력해주세요" required id="roadAddress" value="울산 북구 신천로 26"/>
 			</div>
 			
 			<div class="col-md-12">
 				<label class="small">상세주소</label>
-				<input type="text" id="detailAddress" class="form-control" placeholder="상세주소를 입력해주세요" required id="detailAddress" />
+				<input type="text" id="detailAddress" class="form-control" placeholder="상세주소를 입력해주세요" required id="detailAddress" value="(신천효성해링턴) 103동 2104호"/>
 			</div>
 			
 		</div>
@@ -426,19 +428,15 @@
 </div>
 
 <!-- 이용약관 동의 모달 -->
-<div class="row">
-	<div class="col-md-12">
-		
-		<div class="modal fade" id="modal-container-323508" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="myModalLabel">이용 약관</h5>
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
+<div class="modal" id="myModal1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">이용 약관</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
 					<div class="modal-body" style="height: 500px;overflow-y: auto;">
 						<pre style="white-space: pre-wrap;">제 1 장 총칙
 제 1 조 (목 적)
@@ -569,23 +567,73 @@
 이 약관은 2020년 12월 18일부터 시행합니다.		
 						</pre>
 					</div>
-					<div class="modal-footer">
+					
+					 <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
 
-						<button type="button" class="btn btn-primary">Save
-							changes</button>
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    </div>
+  </div>
 </div>
 <!-- /이용약관 동의 모달 -->
 
+<!-- 개인정보 취급 방침 모달 -->
+<div class="modal" id="myModal2">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
-<!-- 개인정보 취급 방침 모달 --> 
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">개인정보 수집 이용 동의서</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
 
+      <!-- Modal body -->
+     <div class="modal-body" style="height: 500px;overflow-y: auto;">
+     <pre style="white-space: pre-wrap;">
+ Ⅰ. 개인정보의 수집 및 이용 동의서
+- 이용자가 제공한 모든 정보는 다음의 목적을 위해 활용하며, 하기 목적 이외의 용도로는 사용되지 않습니다.
+① 개인정보 수집 항목 및 수집·이용 목적
+가) 수집 항목 (필수항목)
+- 성명(국문, 영어), 주소, 전화번호(휴대전화), 사진, 이메일
+신청서에 기재된 정보 또는 신청자가 제공한 정보
+나) 수집 및 이용 목적
+- 그린푸드 구매자 수집
+- 그린푸드 구매자 연락 및 관리
+- 그린푸드 구매자 사랑
+② 개인정보 보유 및 이용기간
+- 수집·이용 동의일로부터 개인정보의 수집·이용목적을 달성할 때까지
+③ 동의거부관리
+- 귀하께서는 본 안내에 따른 개인정보 수집, 이용에 대하여 동의를 거부 권리가 없습니다. 다만,
+귀하가 개인정보의 수집/이용에 동의를 거부하시는 경우에 구매 과정에 있어 불이익이 발생할 수
+있음을 알려드립니다.
+		
+Ⅱ. 고유식별정보 처리 동의서
+① 고유식별정보 수집 항목 및 수집·이용 목적
+가) 수집 항목 (필수항목)
+- 이름, 이메일, 주소, 전화번호
+나) 수집 및 이용 목적
+- 그린푸드 구매자 수집
+- 그린푸드 구매자 연락 및 관리
+- 그린푸드 구매자 사랑
+② 개인정보 보유 및 이용기간
+- 수집·이용 동의일로부터 개인정보의 수집·이용목적을 달성할 때까지
+③ 동의거부관리
+- 귀하께서는 본 안내에 따른 개인정보 수집, 이용에 대하여 동의를 거부하실 권리가 없습니다. 다만,
+귀하가 개인정보의 수집/이용에 동의를 거부하시는 경우에 구매 과정에 있어 불이익이 발생할 수
+있음을 알려드립니다.
+	</pre>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
 <!-- /개인정보 취급 방침 모달 --> 
