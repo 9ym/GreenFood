@@ -1,5 +1,7 @@
 package com.kh.greenfood.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -24,6 +26,18 @@ public class ProductServiceImpl implements ProductService {
 	public ProductImageDto getProductImage(String product_code) {
 		ProductImageDto productImageDto = productDao.getProductImage(product_code);
 		return productImageDto;
+	}
+	
+	@Override
+	public List<ProductVo> getProductList() {
+		List<ProductVo> productList = productDao.getProductList();
+		return productList;
+	}
+	
+	@Override
+	public List<ProductImageDto> getProductImageList() {
+		List<ProductImageDto> productImageList = productDao.getProductImageList();
+		return productImageList;
 	}
 
 }

@@ -2,6 +2,7 @@ package com.kh.greenfood.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -18,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.greenfood.domain.ProductImageDto;
+import com.kh.greenfood.domain.ProductVo;
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.MemberService;
+import com.kh.greenfood.service.ProductService;
 
 @Controller
 public class HomeController {
@@ -29,17 +33,22 @@ public class HomeController {
 	@Inject
 	private MemberService memberService;
 	
+	@Inject
+	private ProductService productService;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
 		String formattedDate = dateFormat.format(date);
-		
 		model.addAttribute("serverTime", formattedDate );
 		
+		List<ProductVo> productList = productService.getProductList();
+		model.addAttribute("productList", productList);
+		List<ProductImageDto> productImageList = productService.getProductImageList();
+		model.addAttribute("productImageList", productImageList);
 		return "home";
 	}
 	
@@ -78,4 +87,13 @@ public class HomeController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	/*@RequestMapping(value="/")
+	public String productShowHome(Model model) throws Exception {
+		List<ProductVo> productList = productService.getProductList();
+		System.out.println("--" + productList);
+		model.addAttribute("productList", productList);
+		return "home";
+	}*/
+	
 }
