@@ -254,10 +254,10 @@ function inputCount(obj) {
 				<div><img class="img-detail" alt="상세 사진" src="${path}/resources/images/${productImageDto.image_content_file_name}"/></div>
 				<p>${productVo.product_sub_title}</p>
 				<h1>${productVo.product_title}</h1>
-<%-- 				<p>${productVo.product_content}</p> --%>
-				<span>고구마는 맛과 영양을 고루 갖춘 팔방미인 식재료죠. 얼핏 보면 비슷하게 생긴 고구마도 종류에 따라 다양한 맛과 식감을 자랑하는데요. 
-				컬리가 준비한 제품은 붉은색 껍질과 연노랑 속살의 밤고구마예요. 밤처럼 포근하고 고소하면서도, 씹을수록 달콤하고 담백하죠. 
-				취향에 맞게 찌거나 구워서 간단한 식사처럼 즐기거나, 간식으로 활용하세요.</span>
+				<p>${productVo.product_content}</p>
+				<!-- <span>고구마는 맛과 영양을 고루 갖춘 팔방미인 식재료죠. 얼핏 보면 비슷하게 생긴 고구마도 종류에 따라 다양한 맛과 식감을 자랑하는데요. 
+				그린푸드가 준비한 제품은 붉은색 껍질과 연노랑 속살의 고구마예요. 포근하고 고소하면서도, 씹을수록 달콤하고 담백하죠. 
+				취향에 맞게 찌거나 구워서 간단한 식사처럼 즐기거나, 간식으로 활용하세요.</span> -->
 			</div>
 			<!--// 상세 정보 -->
 		</div>

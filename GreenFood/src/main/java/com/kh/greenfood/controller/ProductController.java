@@ -20,9 +20,8 @@ public class ProductController {
 	private ProductService productService;
 
 	@RequestMapping(value="/detail/{product_code}", method=RequestMethod.GET)
-	public String detail(@PathVariable String product_code, /*@PathVariable String image_code,*/ Model model) throws Exception {
+	public String detail(@PathVariable String product_code, Model model) throws Exception {
 		ProductVo productVo = productService.getProduct(product_code);
-		/* 일단 product_code -> home.jsp 이미지 1개만  */
 		ProductImageDto productImageDto = productService.getProductImage(product_code); 
 		model.addAttribute("productVo", productVo);
 		model.addAttribute("productImageDto", productImageDto);

@@ -15,4 +15,14 @@
 		where product_code = #{product_code}
 	</select>
 
+	<select id="getProductList" resultType="ProductVo">
+		select * from tbl_product
+		order by product_code desc
+	</select>
+	
+	<select id="getProductImageList" resultType="ProductImageDto">
+		select * from tbl_product_image
+		order by image_code desc
+	</select>
+
 </mapper>

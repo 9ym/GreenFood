@@ -1,5 +1,7 @@
 package com.kh.greenfood.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -26,6 +28,18 @@ public class ProductDaoImpl implements ProductDao {
 	public ProductImageDto getProductImage(String product_code) {
 		ProductImageDto productImageDto = sqlSession.selectOne(NAMESPACE + "getProductImage", product_code);
 		return productImageDto;
+	}
+	
+	@Override
+	public List<ProductVo> getProductList() {
+		List<ProductVo> productList = sqlSession.selectList(NAMESPACE + "getProductList");
+		return productList;
+	}
+	
+	@Override
+	public List<ProductImageDto> getProductImageList() {
+		List<ProductImageDto> productImageList = sqlSession.selectList(NAMESPACE + "getProductImageList");
+		return productImageList;
 	}
 
 }
