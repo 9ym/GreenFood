@@ -337,7 +337,7 @@ ${testVo.user_id}
 		 	</c:otherwise>
 		</c:choose>	
 		<a href="#">주문배송</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-		<a href="#">고객센터</a>
+		<a href="/main/customer/customerCenter">고객센터</a>
 	</div>
 	<div id="header_menu">
 		<a href="/"><img src="${path}/resources/images/greenfood_logo.png"></a>
@@ -356,7 +356,7 @@ ${testVo.user_id}
 		<li><a href="#">추천상품</a></li>
 		<li><a href="#">세일상품</a></li>
 		<li><a href="#">후기모음</a></li>
-		<li><a href="#">이벤트</a></li>
+		<li><a href="/main/event/eventMain">이벤트</a></li>
 		</ul>
 		<div id="header_menu_right">
 			<a href="#"><img src="https://www.oasis.co.kr/images/common/gnbSearch.png"></a>

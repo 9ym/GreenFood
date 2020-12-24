@@ -16,4 +16,16 @@ public class MainController {
 		return "/main/loginPage";
 		
 	}
+	
+	@RequestMapping(value="/event/eventMain")
+	public String eventMain() throws Exception{
+		return "event/eventMain";
+		
+	}
+	
+	@RequestMapping(value="/customer/customerCenter")
+	public String customerCenter() throws Exception{
+		return "customer/customerCenter";
+		
+	}
 }
