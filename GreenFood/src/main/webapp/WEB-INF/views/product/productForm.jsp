@@ -77,7 +77,7 @@ function inputCount(obj) {
 .viewInfo {
 	margin : 20px;
 	padding : 30px 10px;
-	border-top : 5px solid #6ca435;
+	border-top : 1px solid #6ca435;
 }
 .infoImage{
 	float : left;
@@ -92,10 +92,10 @@ function inputCount(obj) {
 .infoName {
 	padding-left : 40px;
 }
-.infoPrice {
+.productInfo {
 	padding : 10px 20px;
 }
-.infoPrice li {
+.productInfo li {
 	padding : 10px 20px;
 }
 .li-count {
@@ -106,37 +106,37 @@ function inputCount(obj) {
 	float : left;
 }
 .li-count input {
- 	border : solid 1px gray;
+ 	border : solid 1.5px gray;
 	text-align : center;
-	float : left; 
-	margin-left : 30px;
+	margin : 0px 5px;
 }
 .li-count div {
 	float : left; 
+ 	padding-left : 8px;
 }
-.infoPrice span {
+.productInfo span {
 	padding-left : 20px;
 }
-.infoPrice button {
+.productInfo button {
 	margin-left : 10px;
+}
+.productInfo button span span{
+	font-weight : bold;
+	margin-left : 5px;
 }
 .li-delivery {
 	margin-top : 25px;
 	clear : left;
 }
 .li-delivery span{
-	padding-left:40px;
-}
-.count {
-	border : 1px solid Gainsboro;
-	width : 30px;
-	text-align: center;
+	padding-left : 40px;
 }
 .count-up {
-	color : LightCoral;
+	color : MediumSeaGreen;
+	padding-left : 0px;
 }
 .count-down {
-	color : LightSkyBlue;
+	color : MediumSeaGreen;
 }
 #totalPrice {
 	font-weight : bold;
@@ -145,8 +145,8 @@ function inputCount(obj) {
 .infoDetail {
 	margin : 20px;
 	padding : 30px 10px;
-	border-top : 5px solid #6ca435;
-	border-bottom : 5px solid #6ca435;
+	border-top : 1px solid #6ca435;
+	border-bottom : 1px solid #6ca435;
 }
 .img-detail {
  	width : 700px;
@@ -196,7 +196,7 @@ function inputCount(obj) {
 					<h3>${productVo.product_title}</h3>
 					<p>${productVo.product_sub_title}</p>
 				</div>
-				<div class="infoPrice">
+				<div class="productInfo">
 					<ul class="priceList">
 						<li>
 							<strong>보관방법</strong>
@@ -209,13 +209,11 @@ function inputCount(obj) {
 						<li class="li-count">
 							<strong>구매수량</strong>
 							<div>
+								<span class="glyphicon glyphicon glyphicon-minus count-down"
+									onclick="javascript:btnCountDown(this);"></span>
 								<input type="text" size="2" id="productCount" value="1" oninput="javascript:inputCount(this)"/>
-								<div>
-									<span class="glyphicon glyphicon glyphicon-plus count-up"
-										onclick="javascript:btnCountUp(this);"></span>
-									<span class="glyphicon glyphicon glyphicon-minus count-down"
-										onclick="javascript:btnCountDown(this);"></span>
-								</div>
+								<span class="glyphicon glyphicon glyphicon-plus count-up"
+									onclick="javascript:btnCountUp(this);" style="padding-left:0px;"></span>
 							</div>
 						</li>
 						<li class="li-delivery">
@@ -227,14 +225,17 @@ function inputCount(obj) {
 							<span id="totalPrice">0</span>
 						</li>
 						<li class="info-btn">
-							<button type="button">
+							<%-- <span class="badge badge-danger">
+								<span class="glyphicon glyphicon-heart"></span> ${productVo.product_heart}
+							</span> --%>
+							<button type="button" class="btn btn-danger btn-sm">
 								<span class="glyphicon glyphicon-heart"></span> ${productVo.product_heart}
 							</button>
-							<button type="button" class="btn btn-success">
-								<span class="glyphicon glyphicon-shopping-cart">장바구니</span>
+							<button id="btnBuyNow" type="button" class="btn btn-outline-success">
+								<span class="glyphicon glyphicon-credit-card"><span>바로구매</span></span>
 							</button>
-							<button type="button" class="btn btn-primary">
-								<span class="glyphicon glyphicon-credit-card">바로구매</span>
+							<button id="btnCart" type="button" class="btn btn-success">
+								<span class="glyphicon glyphicon-shopping-cart"><span>장바구니</span></span>
 							</button>
 						</li>
 					</ul>
