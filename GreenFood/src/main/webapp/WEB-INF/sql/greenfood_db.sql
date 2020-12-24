@@ -1,3 +1,0 @@
--- oracle sql db query
-
-
