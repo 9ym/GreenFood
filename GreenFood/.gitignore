@@ -68,6 +68,10 @@ local.properties
 # Spring Boot Tooling
 .sts4-cache/
 
+### Eclipse Patch ###
+# Eclipse Core
+.project
+
 ### Java ###
 # Compiled class file
 *.class
