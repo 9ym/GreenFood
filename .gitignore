@@ -1,5 +1,6 @@
-# Created by https://www.toptal.com/developers/gitignore/api/windows,eclipse,java
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,eclipse,java
+
+# Created by https://www.toptal.com/developers/gitignore/api/windows,eclipse,java-web,java
+# Edit at https://www.toptal.com/developers/gitignore?templates=windows,eclipse,java-web,java
 
 ### Eclipse ###
 .metadata
@@ -92,6 +93,10 @@ local.properties
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+### Java-Web ###
+## ignoring target file
+target/
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -118,4 +123,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,eclipse,java
+# End of https://www.toptal.com/developers/gitignore/api/windows,eclipse,java-web,java
