@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<!-- 클래스 단위 지정 -->
+		<!-- <typeAlias type="com.kh.sample01.domain.MemberVo" alias="MemberVo"/> 
+			보통 패키지 단위로 씀 -->
+		<!-- 클래스 단위 지정 -->
+		<!-- 패키지 단위 지정 -->
+		<package name="com.kh.greenfood.domain"/>
+		<!-- 패키지 단위 지정 -->
+
+	</typeAliases>
+</configuration>
+  
