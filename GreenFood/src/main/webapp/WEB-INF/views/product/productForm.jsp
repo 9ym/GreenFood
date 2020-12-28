@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <c:set var="path" value="${pageContext.request.contextPath}" /> --%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <!-- <link rel="stylesheet" type="text/css" href="#"/>css 하다가 따로 파일 만들어서 저장 -->
@@ -55,7 +54,6 @@ function btnCountDown(obj) {
 
 function inputCount(obj) {
 	var count = parseInt($("#productCount").val());
-	console.log(count);
 	var productPrice = parseInt(subComma($("#priceGeneral").text()));
 	var totalPrice = productPrice * count;
 	$("#totalPrice").text(addComma(totalPrice));
@@ -67,17 +65,32 @@ function inputCount(obj) {
 	}
 }
 
+/* 관련 상품 가격에 , 추가 */
+$(function() {
+	var len = $(".li-related").each(function() {
+		var p = $(this).find("p").eq(1);
+		var price = p.text();
+		p.text(addComma(price) + "원");
+	});
+});
+
 </script>
 
 <style>
+.row {
+	font-family: 'Black Han Sans', sans-serif;
+	font-family: 'Noto Serif KR', serif;
+}
 .menuInfo {
 	margin-top : 20px;
 	margin-left : 20px;
 }
 .viewInfo {
-	margin : 20px;
-	padding : 30px 10px;
+	margin : 30px 20px;
+	padding : 30px 20px;
+	padding-top : 40px;
 	border-top : 1px solid #6ca435;
+	border-bottom : 1px solid #6ca435;
 }
 .infoImage{
 	float : left;
@@ -90,23 +103,47 @@ function inputCount(obj) {
   	float : left;  
 }
 .infoName {
-	padding-left : 40px;
+	padding-left : 45px;
+}
+.infoName h3 {
+	margin-top : 10px;
+}
+.infoName p {
+	color : gray;
 }
 .productInfo {
-	padding : 10px 20px;
+	padding : 0px 20px;
 }
 .productInfo li {
-	padding : 10px 20px;
+	padding : 10px 30px;
+}
+.li-price #priceWon {
+	font-weight : bold;
+	font-size : 15px;
+	padding-left : 3px;
+}
+.li-price #priceGeneral {
+	fonf-weight : bold;
+	font-size : 20px;
+	padding-left : 0px;
+}
+.li-totalPrice {
+	float : right;
+}
+.li-totalPrice #totalPrice {
+	font-weight : bold;
+	font-size : 25px;
+	padding-left : 3px;
 }
 .li-count {
 	float : left;
 }
-.li-count strong{
+.li-count strong {
 	padding-top : 3px;
 	float : left;
 }
 .li-count input {
- 	border : solid 1.5px gray;
+ 	border : solid 1.5px LightGray;
 	text-align : center;
 	margin : 0px 5px;
 }
@@ -114,23 +151,36 @@ function inputCount(obj) {
 	float : left; 
  	padding-left : 8px;
 }
+.info-btn {
+	clear : both;
+}
+.info-btn #btnBuyNow {
+	border : 1px solid MediumSeaGreen;
+}
 .productInfo span {
 	padding-left : 20px;
 }
-.productInfo button {
+.productInfo li #span-shelf {
+	padding-left : 80px;
+}
+.productInfo .info-btn{
 	margin-left : 10px;
+	padding : 10px 10px;
+}
+.productInfo button {
+	margin-left : 20px;
 }
 .productInfo button span span{
 	font-weight : bold;
 	margin-left : 5px;
 }
-.li-delivery {
+ .li-delivery {
 	margin-top : 25px;
 	clear : left;
-}
+} 
 .li-delivery span{
 	padding-left : 40px;
-}
+} 
 .count-up {
 	color : MediumSeaGreen;
 	padding-left : 0px;
@@ -138,13 +188,9 @@ function inputCount(obj) {
 .count-down {
 	color : MediumSeaGreen;
 }
-#totalPrice {
-	font-weight : bold;
-	color : red;
-}
 .infoDetail {
 	margin : 20px;
-	padding : 30px 10px;
+	padding : 40px 20px;
 	border-top : 1px solid #6ca435;
 	border-bottom : 1px solid #6ca435;
 }
@@ -168,25 +214,64 @@ function inputCount(obj) {
 .info-btn span{
 	padding-left : 0px;
 }
+.tbl-review {
+	margin : 10px 20px;
+	padding : 10px 20px;
+}
+.related-list {
+	margin : 5px;
+	padding-left : 40px;
+}
+.ul-related {
+	width : 820px;
+}
+.info-related {
+	border-bottom : solid 1px LightGray;
+	border-left : solid 1px LightGray;
+	border-right : solid 1px LightGray;
+	width : 140px;
+	padding : 10px;
+}
+.li-related img {
+	width : 140px;
+	height : 140px;
+}
+.li-related {
+	margin : 0px 5px;
+	margin-bottom : 10px;
+}
+.li-related p {
+	margin-bottom : 5px;
+}
+.related-name {
+	font-weight : bold;
+}
+.related-list button {
+	margin-right : 3px; 
+	padding : 105px 5px;
+	border : 0px;
+	float : left;
+/* 	display : none; */
+}
 </style>
 
 <div class="container-fluid">
 
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-md-3"></div>
 		<div class="col-md-6">
-			<!-- 메뉴 안내? -->
+			메뉴 안내?
 			<div class="menuInfo">메뉴 메뉴</div>
-			<!--// 메뉴 안내? -->
+			// 메뉴 안내?
 		</div>
 		<div class="col-md-3"></div>
-	</div>
+	</div> -->
 	
 	<div class="row">
 		<div class="col-md-3"></div>
-		<div class="col-md-6">
+		<div class="col-md-6 viewInfo">
 		<!-- 상품 개요 -->
-		<div class="viewInfo">
+		<div>
 			<div class="infoImage">
 				<!-- 임시로... image_file_name 파일 이름만 DB에서 가져와서 사용 -->
 				<img class="img-product" alt="상품 이미지" src="${path}/resources/images/${productImageDto.image_info_file_name}">
@@ -198,13 +283,43 @@ function inputCount(obj) {
 				</div>
 				<div class="productInfo">
 					<ul class="priceList">
-						<li>
+						<li class="li-price">
+<!-- 							<strong>판매 가격</strong> -->
+							<span id="priceGeneral">${productVo.product_price}</span>
+							<span id="priceWon">원</span>
+						</li>
+						<!-- <li>
 							<strong>보관방법</strong>
 							<span>상온</span>
+						</li> -->
+						<c:if test="${productVo.product_sales_unit != null}">
+							<li>
+								<strong>판매단위</strong>
+								<span>${productVo.product_sales_unit}</span>
+							</li>
+						</c:if>		
+						<c:if test="${productVo.product_weight != null}">				
+							<li>
+								<strong>중량/용량</strong>
+								<span style="padding-left:17px;">${productVo.product_weight}</span>
+							</li>
+						</c:if>
+						<li>
+							<strong>원산지</strong>
+							<span style="padding-left:36px;">${productVo.product_origin}</span>
 						</li>
 						<li>
-							<strong>판매 가격</strong>
-							<span id="priceGeneral">${productVo.product_price}</span>
+							<strong>유통기한</strong>
+							<c:choose>
+								<c:when test="${productVo.product_shelf_life != 0}">
+									<span>${productVo.product_shelf_life}</span>
+									<span style="padding-left:0px;">일</span>
+								</c:when>
+								<c:otherwise>
+									<span>농산물로 별도의 유통기한은 없으나</span><br/>
+									<span id="span-shelf">가급적 빠르게 드시기 바랍니다.</span>
+								</c:otherwise>
+							</c:choose>
 						</li>
 						<li class="li-count">
 							<strong>구매수량</strong>
@@ -220,14 +335,11 @@ function inputCount(obj) {
 							<strong>배송비</strong>
 							<span>3,000원 (30,000원 이상 무료)</span>
 						</li>
-						<li>
-							<strong>최종 가격</strong>
+						<li class="li-totalPrice">
+							<strong>총 상품금액 : </strong>
 							<span id="totalPrice">0</span>
 						</li>
 						<li class="info-btn">
-							<%-- <span class="badge badge-danger">
-								<span class="glyphicon glyphicon-heart"></span> ${productVo.product_heart}
-							</span> --%>
 							<button type="button" class="btn btn-danger btn-sm">
 								<span class="glyphicon glyphicon-heart"></span> ${productVo.product_heart}
 							</button>
@@ -249,9 +361,47 @@ function inputCount(obj) {
 	
 	<div class="row">
 		<div class="col-md-3"></div>
-		<div class="col-md-6">
+		<!-- 관련 상품 -->
+		<div class="col-md-6 related-list">
+			<div>
+				<button type="button" class="btn btn-default btn-sm">
+		        	<span class="glyphicon glyphicon-chevron-left"></span>
+		        </button>
+		        <button type="button" class="btn btn-default btn-sm" style="float:right;">
+		        	<span class="glyphicon glyphicon-chevron-right"></span>
+		        </button>
+				<ul class="ul-related">
+					<c:forEach var="productVoList" items="${productBestList}">
+					<c:forEach var="productImageDtoList" items="${productImageList}">
+					<c:if test="${productVoList.product_code == productImageDtoList.product_code}">
+					<c:if test="${productVoList.product_title != productVo.product_title}">
+					<li class="li-related" style="float:left;">
+						<div class="image-related">
+							<a href="/product/detail/${productVoList.product_code}">
+								<img src="${path}/resources/images/${productImageDtoList.image_info_file_name}"/>
+							</a>
+						</div>
+						<div class="info-related">
+							<p class="related-name">${productVoList.product_title} ${productVoList.product_weight}</p>
+							<p class="related-price">${productVoList.product_price}</p>
+						</div>
+					</li>
+					</c:if>
+					</c:if>
+					</c:forEach>
+					</c:forEach>
+				</ul>
+			</div>
+		</div>
+		<!--// 관련 상품 -->
+		<div class="col-md-3"></div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6 infoDetail">
 			<!-- 상세 정보 -->
-			<div class="infoDetail">
+			<div>
 				<div><img class="img-detail" alt="상세 사진" src="${path}/resources/images/${productImageDto.image_content_file_name}"/></div>
 				<p>${productVo.product_sub_title}</p>
 				<h1>${productVo.product_title}</h1>
@@ -261,6 +411,28 @@ function inputCount(obj) {
 				취향에 맞게 찌거나 구워서 간단한 식사처럼 즐기거나, 간식으로 활용하세요.</span> -->
 			</div>
 			<!--// 상세 정보 -->
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6 tbl-review">
+			<p>후기 게시판?</p>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>1</th>
+						<th>2</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>11</td>
+						<td>22</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		<div class="col-md-3"></div>
 	</div>

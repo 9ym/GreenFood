@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
 
@@ -40,6 +41,24 @@ public class ProductDaoImpl implements ProductDao {
 	public List<ProductImageDto> getProductImageList() {
 		List<ProductImageDto> productImageList = sqlSession.selectList(NAMESPACE + "getProductImageList");
 		return productImageList;
+	}
+	
+	@Override
+	public List<ProductVo> getProductBest(int best_count) {
+		List<ProductVo> productBestList = sqlSession.selectList(NAMESPACE + "getProductBest", best_count);
+		return productBestList;
+	}
+	
+	@Override
+	public List<ProductVo> getProductCategory(String product_category) {
+		List<ProductVo> productCategoryList = sqlSession.selectList(NAMESPACE + "getProductCategory", product_category);
+		return productCategoryList;
+	}
+	
+	@Override
+	public List<ProductCategoryDto> getCategory() {
+		List<ProductCategoryDto> categoryList = sqlSession.selectList(NAMESPACE + "getCategory");
+		return categoryList;
 	}
 
 }
