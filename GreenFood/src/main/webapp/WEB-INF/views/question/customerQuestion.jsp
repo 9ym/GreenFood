@@ -8,18 +8,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Customer Center</title>
+<title>Customer Question</title>
 
 <script>
 $(function(){
 	
-	$("#btnNoticeWrite").click(function(){
-		location.href="/main/notice/noticeWriteForm";
+	$("#btnQuestionWrite").click(function(){
+		location.href="/main/question/questionWriteForm";
 	});
 	
-});
+}); 
 </script>
-
 
 <!-- <script>
 	var data = $(this).attr("data");
@@ -68,23 +67,77 @@ div {
     vertical-align: 3px;
 }
 
-#btnNoticeWrite {
-	width:120px;
-	height: 30px;
-	font-size: 14px;
+#btnQuestionWrite {
+	width:100px;
+	height: 35px;
+	font-size: 15px;
 	font-style: bold;
 	color:#6ca435;
 	background-color: #FFFFFF;
 	float: right;
     padding: 4px;
     padding-top: 4px;
-    padding-right: 4px;
+    padding-right: 0;
     padding-bottom: 4px;
     padding-left: 4px;
     border-color: #5AB63F;
 	border-width: 2px;
 }
 
+#dropdownMenuButton {
+	width:135px;
+	height: 35px;
+	font-size: 15px;
+	font-style: bold;
+	color:#6ca435;
+	background-color: #FFFFFF;
+	float: right;
+    padding: 4px;
+    padding-top: 4px;
+    padding-right: 0;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    border-color: #5AB63F;
+	border-width: 2px;
+}
+
+.dropdown-menu {
+    
+    z-index: 1000;
+    float: left;
+    min-width: 160px;
+    padding: 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 10px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #B9B5B9;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0.5px;
+    
+}
+
+.dropdown-item:hover {
+    background: #fafafa  no-repeat 230px 52%;
+    background-size: 6px 11px;
+    font-weight: 700;
+    color: #5AB63F;
+}
 
 #snb .inner_snb {
     border: 1px solid #f2f2f2;
@@ -94,18 +147,33 @@ div {
 #snb .list_menu li {
     border-bottom: 1px solid #f2f2f2;
 }
+ 
 
-#snb .list_menu li.on a, #snb .list_menu li a{
-	/* background: #fafafa url(https://res.kurly.com/pc/ico/2008/ico_arrow_6x11_on.svg) no-repeat 230px 52%; */
+#snb .list_menu li.on a{
+	background: #ffffff no-repeat 230px 52%;
 	color: #B9B5B9;
 }
 
-#snb .list_menu li.on a, #snb .list_menu li a:hover {
+#snb .list_menu li a{
+	color: #B9B5B9;
+}
+
+#snb .list_menu li.on a:hover{
     background: #fafafa url(https://res.kurly.com/pc/ico/2008/ico_arrow_6x11_on.svg) no-repeat 230px 52%;
     background-size: 6px 11px;
     font-weight: 700;
     color: #5AB63F;
 }
+
+#snb .list_menu li a{
+    background: #fafafa url(https://res.kurly.com/pc/ico/2008/ico_arrow_6x11_on.svg) no-repeat 230px 52%;
+    background-size: 6px 11px;
+    font-weight: 700;
+    color: #5AB63F;
+}
+
+
+
 
 #snb .list_menu li a {
     display: block;
@@ -154,7 +222,24 @@ tbody tr {
 }
 
 
-.xans-board-listheader th{
+.xans-board-listheader th:nth-child(1){
+	width: 70px;
+    padding: 20px 0;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 13px;
+}
+
+.xans-board-listheader th:nth-child(2){
+	width: 135px;
+    padding: 20px 0;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 13px;
+}
+
+.xans-board-listheader th:nth-child(3){
+	width: 600px;
     padding: 20px 0;
     vertical-align: middle;
     text-align: center;
@@ -162,6 +247,7 @@ tbody tr {
 }
 
 .xans-board-listheader td:nth-child(1) {
+	width: 70px;
     padding: 15px 0;
     vertical-align: middle;
     text-align: center;
@@ -169,31 +255,20 @@ tbody tr {
 }
 
 .xans-board-listheader td:nth-child(2) {
-    padding: 15px 0 15px 30px;
+	width: 135px;
+    padding: 15px 0;
     vertical-align: middle;
+    text-align: center;
     font-size: 13px;
 }
 
 .xans-board-listheader td:nth-child(3) {
-    padding: 15px 0;
+    padding: 15px 0 15px 40px;
     vertical-align: middle;
-    text-align: center;
     font-size: 13px;
 }
 
-.xans-board-listheader td:nth-child(4) {
-    padding: 15px 0;
-    vertical-align: middle;
-    text-align: center;
-    font-size: 13px;
-}
 
-.xans-board-listheader td:nth-child(5) {
-    padding: 15px 0;
-    vertical-align: middle;
-    text-align: center;
-    font-size: 13px;
-}
 </style>
 
 
@@ -211,8 +286,8 @@ tbody tr {
 								<h2 class="tit_snb">고객센터</h2>
 								<div class="inner_snb">
 									<ul class="list_menu">
-										<li class="on"><a href="#">공지사항</a></li>
-										<li><a href="/main/question/customerQuestion">자주하는 질문</a></li>
+										<li class="on"><a href="/main/customer/customerCenter">공지사항</a></li>
+										<li><a href="#">자주하는 질문</a></li>
 										<!-- <li><a href="#">1:1 문의</a></li>
 										<li><a href="#">상품 제안</a></li>
 										<li><a href="#">에코포장 피드백</a></li> -->
@@ -225,12 +300,33 @@ tbody tr {
 							</div>
 
 
-				<!-- ------------------------- 공지사항 메인 창 --------------------------- -->
+				<!-- ------------------------- 자주하는 질문 메인 창 --------------------------- -->
 							<div class="col-md-9">
 								<div class="head_aticle">
 									<h2 class="tit">
-										공지사항 <span class="tit_sub"> 새로운 공지사항과 소식을 확인해주세요.</span>
-										<button type="button" id="btnNoticeWrite">공지사항 작성</button>
+										자주하는 질문 <span class="tit_sub"> 자주하시는 질문을 모두 모았습니다.</span>
+										<!-- <button type="button" id="btnNoticeWrite">공지사항 작성</button> -->
+										
+										<!-- 자주하는 질문 드롭다운 -->
+										
+											<div class="col-md-12">
+												<div class="dropdown">
+													<button type="button" id="btnQuestionWrite">Q&A 작성</button>
+													<button class="btn btn-primary dropdown-toggle"
+														type="button" id="dropdownMenuButton"
+														data-toggle="dropdown">카테고리 선택</button>
+													<div class="dropdown-menu"	aria-labelledby="dropdownMenuButton">
+														<a class="dropdown-item" href="#">회원문의</a> 
+														<a class="dropdown-item" href="#">주문/결제</a> 
+														<a class="dropdown-item" href="#">취소/교환/반품</a>
+														<a class="dropdown-item" href="#">쿠폰/적립금</a>
+														<a class="dropdown-item" href="#">이용 및 기타</a>
+													</div>
+												</div>
+											</div>
+										
+										<!-- // 자주하는 질문 드롭다운  -->
+
 									</h2>
 									
 								</div>
@@ -251,6 +347,9 @@ tbody tr {
 										}
 									</style>
 
+
+							<!-- ----------------- 자주하는 질문 리스트 테이블 -------------------- -->
+							
 									<table width="100%" align="center" cellpadding="0" cellspacing="0">
 										<tbody>
 											<tr>
@@ -262,49 +361,16 @@ tbody tr {
 															<thead>
 																<tr>
 																	<th>번호</th>
+																	<th>카테고리</th>
 																	<th>제목</th>
-																	<th>작성자</th>
-																	<th>작성일</th>
-																	<th>조회수</th>
-																</tr>
+																	</tr>
 															</thead>
 															<tbody>
 																<tr>
-																	<td>${noticeVo.notice_no}</td>
-																	<td><a href="/main/notice/notice">${noticeVo.notice_title}</a></td>
-																	<td>관리자</td>
-																	<td>${noticeVo.notice_date}</td>
-																	<td>230010</td>
+																	<td>1</td>
+																	<td>회원문의</td>
+																	<td><a href="#">아이디와 비밀번호가 기억나지 않습니다. 어떻게 확인하나요?</a></td>
 																</tr>
-																<tr>
-																	<td>11</td>
-																	<td><a href="/main/notice/notice">[작업현황알림] [현재시각] 12-24-00-49 크리스마스 이브네 ㅎㅎ</a></td>
-																	<td>관리자</td>
-																	<td>2020-12-23</td>
-																	<td>230010</td>
-																</tr>
-																<tr>
-																	<td>111</td>
-																	<td>[작업현황알림] [현재시각] 12-24-00-49 크리스마스 이브네 ㅎㅎ</td>
-																	<td>관리자</td>
-																	<td>2020-12-23</td>
-																	<td>230010</td>
-																</tr>
-																<tr>
-																	<td>1111</td>
-																	<td>[작업현황알림] [현재시각] 12-24-00-49  ㅎㅎ</td>
-																	<td>관리자</td>
-																	<td>2020-12-23</td>
-																	<td>230010</td>
-																</tr>
-																<tr>
-																	<td>11111</td>
-																	<td>[작업현황알림] [현재시각] 12-24-01-23 크리스마스 이브네 ㅎㅎ</td>
-																	<td>관리자</td>
-																	<td>2020-12-23</td>
-																	<td>230010</td>
-																</tr>
-																
 															</tbody>
 
 														</table>
