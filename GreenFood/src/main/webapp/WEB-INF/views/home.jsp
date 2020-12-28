@@ -14,12 +14,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <!-- 스크립트 -->
+<script type="text/javascript" src="${path}/resources/js/myScript.js"></script>
 <script>
 $(function(){
 	var msg = "${msg}";
 	if(msg == "loginSuccess"){
 		alert("로그인 성공했습니다.");
 	}
+	
+	var len = "${mainProductCount}";
+	for (i = 0; i < len; i++) {
+		var price = parseInt($(".price-p").eq(i).text());
+		$(".price-p").eq(i).text(addComma(price));
+	}	
+	
 });	
 </script>
 <!-- 스크립트 끝 -->
@@ -254,15 +262,6 @@ ul li a{ text-decoration:none; }
 		margin-left:30px;
 		margin-top:30px;
 	}
-	/* #second_floor{
-		clear:both;
-		margin-left:30px;
-		padding-top:100px;
-	}
-	#second_floor>div{
-		float:left;
-		margin:0 40px;
-	} */
 	.dscImage{
 		text-align:center;
 		position:relative;
@@ -344,12 +343,13 @@ ${testVo.user_id}
 		<ul>
 		<li id="first_li"><a href="#">전체 보기</a>	
 			<ul class="hide">
+				<!-- <li><a href="#">하위메뉴</a></li>
 				<li><a href="#">하위메뉴</a></li>
 				<li><a href="#">하위메뉴</a></li>
-				<li><a href="#">하위메뉴</a></li>
-				<li><a href="#">하위메뉴</a></li>
-				<li><a href="#">하위메뉴</a></li>
-				<li><a href="#">하위메뉴</a></li>
+				<li><a href="#">하위메뉴</a></li> -->
+				<c:forEach var="productCategoryDto" items="${categoryList}">
+					<li><a href="/product/category/${productCategoryDto.product_category}">${productCategoryDto.product_category_dsc}</a></li>
+				</c:forEach>
 			</ul>		
 		</li>
 		<li><a href="#">신상품</a></li>
@@ -371,14 +371,10 @@ ${testVo.user_id}
 	<div id="make_line">
 	</div>
 	
-<%-- 	${productList} --%>
-<%-- 	${productImageList} --%>
-<%-- 	${productImageDto} --%>
-	
 	<!--코딩 들어갈 부분!!-->
 	<div id="best_products">
 		<div id="first_floor">
-			<c:forEach var="productVo" items="${productList}">
+			<c:forEach var="productVo" items="${productBestList}">
 			<c:forEach var="productImageDto" items="${productImageList}">
 			<c:if test="${productVo.product_code == productImageDto.product_code}">
 				<div>
@@ -386,7 +382,7 @@ ${testVo.user_id}
 					<img src="${path}/resources/images/${productImageDto.image_info_file_name}" style="width:240px; height:240px;"></a>
 					<div class="dscImage">
 						<p>${productVo.product_title}</p>
-						<p>${productVo.product_price}</p>
+						<p class="price-p">${productVo.product_price}</p>
 					</div>
 					<div class="showPoints">
 						<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
@@ -396,88 +392,7 @@ ${testVo.user_id}
 			</c:if>
 			</c:forEach>
 			</c:forEach>
-			<%-- <div>
-				<c:if test="${productVo.product_title == '고구마'}">
-				<a href="/product/detail/1001">
-				<img src="${path}/resources/images/sweetPotato_info.jpg" style="width:240px; height:240px;"></a>
-				</c:if>
-
-				<div class="dscImage">
-					<p>고구마</p>
-					<p>1500</p>
-				</div>
-				
-				<div class="showPoints">
-					<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
-					<span class="spanShowPoints">97.7%</span>
-				</div>
-			</div> --%>
-			
-			<%-- <div>
-				<a href="product/detail/1004"><img src="${path}/resources/images/prac2.png"></a>
-				<div class="dscImage">
-					<p>감자감자감자</p>
-					<p>가격</p>
-				</div>
-				<div class="showPoints">
-					<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
-					<span class="spanShowPoints">97.7%</span>
-				</div>
-			</div>
-			
-			<div>
-				<a href="product/detail/1005"><img src="${path}/resources/images/prac3.png"></a>
-				<div class="dscImage">
-					<p>옥수수옥수수</p>
-					<p>가격</p>
-				</div>
-				<div class="showPoints">
-					<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
-					<span class="spanShowPoints">97.7%</span>
-				</div>
-			</div> --%>
-			
 		</div>
-		
-		<%-- <div id="second_floor">
-		
-			<div>
-				<a href="product/detail/1002"><img src="${path}/resources/images/prac4.png"></a>
-				<div class="dscImage">
-					<p>시금치시금치</p>
-					<p>가격</p>
-				</div>
-				<div class="showPoints">
-					<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
-					<span class="spanShowPoints">97.7%</span>
-				</div>
-			</div>
-			
-			<div>
-				<a href="product/detail/1006"><img src="${path}/resources/images/prac5.png"></a>
-				<div class="dscImage">
-					<p>상추</p>
-					<p>가격</p>
-				</div>
-				<div class="showPoints">
-					<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
-					<span class="spanShowPoints">97.7%</span>
-				</div>
-			</div>
-			
-			<div>
-				<a href="product/detail/1003"><img src="${path}/resources/images/prac6.png"></a>
-				<div class="dscImage">
-					<p>당근</p>
-					<p>5000</p>
-				</div>
-				<div class="showPoints">
-					<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
-					<span class="spanShowPoints">97.7%</span>
-				</div>
-			</div>
-			
-		</div> --%>
 	</div>
 	<!--//코딩 들어갈 부분!!-->
 	

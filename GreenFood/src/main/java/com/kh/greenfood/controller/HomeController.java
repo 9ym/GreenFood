@@ -1,7 +1,6 @@
 package com.kh.greenfood.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
 import com.kh.greenfood.domain.TestVo;
@@ -38,17 +37,26 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+		logger.info("Welcome -GreenFood-! The client locale is {}.", locale);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		String formattedDate = dateFormat.format(date);
-		model.addAttribute("serverTime", formattedDate );
+		/* 베스트 6 상품 목록 */
+		List<ProductVo> productBestList = productService.getProductBest(6);
+		model.addAttribute("productBestList", productBestList);
+		model.addAttribute("mainProductCount", productBestList.size());
 		
-		List<ProductVo> productList = productService.getProductList();
-		model.addAttribute("productList", productList);
-		List<ProductImageDto> productImageList = productService.getProductImageList();
+		/* 베스트 6 상품 목록 - 이미지 */
+		List<ProductImageDto> productImageList = new ArrayList<>();
+		for (ProductVo vo : productBestList) {
+			String product_code_img = vo.getProduct_code();
+			ProductImageDto imgdto = productService.getProductImage(product_code_img);
+			productImageList.add(imgdto);
+		}
 		model.addAttribute("productImageList", productImageList);
+		
+		/* 상품 카테고리 */
+		List<ProductCategoryDto> categoryList = productService.getCategory();
+		model.addAttribute("categoryList", categoryList);
+		
 		return "home";
 	}
 	

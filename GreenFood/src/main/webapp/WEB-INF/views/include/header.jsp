@@ -14,7 +14,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>										
 <!-- icon -->										
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">										
-										
+<!-- font -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
+
 <title>ܤܤ그린푸드ܤܤ</title>										
 <link rel="preconnect" href="https://fonts.gstatic.com">										
 <link										

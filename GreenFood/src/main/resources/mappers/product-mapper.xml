@@ -24,5 +24,25 @@
 		select * from tbl_product_image
 		order by image_code desc
 	</select>
+	
+	<select id="getProductBest" resultType="ProductVo">
+		select * from
+		    (select rownum, a.*from 
+		        (select * from tbl_product
+		        order by product_order_count desc)a
+		    )b
+		where rownum between 1 and #{best_count}
+		order by rownum asc
+	</select>
+	
+	<select id="getProductCategory" resultType="ProductVo">
+		select * from tbl_product
+		where product_category = #{product_category}
+		order by product_code desc
+	</select>
+	
+	<select id="getCategory" resultType="ProductCategoryDto">
+		select * from tbl_product_category
+	</select>
 
 </mapper>
