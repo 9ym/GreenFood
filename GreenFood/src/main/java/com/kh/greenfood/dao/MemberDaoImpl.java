@@ -12,7 +12,7 @@ import com.kh.greenfood.domain.TestVo;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
-	
+
 	private final String NAMESPACE = "com.kh.greenfood.member.";
 	
 	@Inject
@@ -37,6 +37,12 @@ public class MemberDaoImpl implements MemberDao {
 	public TestVo selectMember(String user_id) {
 		TestVo testVo = sqlSession.selectOne(NAMESPACE + "selectMember", user_id);
 		return testVo;
+	}
+
+	@Override
+	public TestVo profilePwCheck(String user_id, String user_pw) {
+		
+		return null;
 	}
 
 }

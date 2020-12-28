@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -56,7 +58,6 @@ public class HomeController {
 	@ResponseBody
 	public String checkDupId(@PathVariable("user_id") String user_id) {
 		TestVo testVo = memberService.selectMember(user_id);
-		System.out.println(testVo);
 		String message = "";
 		if(testVo == null) {
 			message = "idDontExist";
@@ -66,15 +67,36 @@ public class HomeController {
 		return message;
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(String user_id, String user_pw, HttpSession session, RedirectAttributes rttr,Model model) {
+	@RequestMapping(value="/loginRun", method=RequestMethod.POST)
+	public String login(String user_id, String user_pw, String checked_id, HttpSession session, RedirectAttributes rttr,Model model, HttpServletResponse response) {
 		TestVo testVo = memberService.login(user_id, user_pw);
+
 		String page = "";
 		if(testVo != null) {
+			
+			Cookie cookie = new Cookie("save_id", user_id);
+			if(checked_id != null && !checked_id.equals("")) {
+				cookie.setMaxAge(60 * 60 * 60);
+			} else {
+				cookie.setMaxAge(0);
+			}
+			response.addCookie(cookie);
+			
+			String user_date = testVo.getUser_date();
+			int lastIndex = user_date.lastIndexOf("-") + 3;
+			String user_join_date = user_date.substring(0, lastIndex);
+			testVo.setUser_date(user_join_date);
+			System.out.println(user_date);
 			session.setAttribute("testVo", testVo);
+//			String targetLocation = (String)session.getAttribute("targetLocation");
+//			session.removeAttribute("targetLocation");
+//			System.out.println(targetLocation);
+//			if(targetLocation != null) {
+//				page = "redirect:" + targetLocation;
+//			} else {
+//			}
+			page = "redirect:/";
 			rttr.addFlashAttribute("msg", "loginSuccess");
-			model.addAttribute("loginOn", testVo.getUser_id());
-			page="redirect:/";
 		} else {
 			rttr.addFlashAttribute("msg", "loginFail");
 			page="redirect:main/loginPage";

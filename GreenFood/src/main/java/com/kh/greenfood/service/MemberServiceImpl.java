@@ -36,5 +36,11 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public TestVo profilePwCheck(String user_id, String user_pw) {
+		
+		return null;
+	}
 }
 

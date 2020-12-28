@@ -27,7 +27,6 @@
 
 		/*주소 찾기 버튼 클릭*/
 		$("#btnFindPostalCode").click(function() {
-			console.log("클릭");
 			sample6_execDaumPostcode();
 		});
 
@@ -93,16 +92,6 @@
 			} else {
 				$("#div_chkBox input[type=checkbox]").prop("checked", false);
 			}
-		});
-		
-		// 이용약관 동의 전체보기 모달
-		$("#terms_1").click(function(){
-			
-		});
-		
-		// 개인정보 취급방침 모달
-		$("#terms_2").click(function() {
-
 		});
 		
 		// 비밀번호 중복 확인 숨김	

@@ -14,6 +14,7 @@ $(function(){
 });
 </script>
 <content>
+${testVo}
 	<div id="content_left" style="width:300px;
 height: 700px;
 float:left;
@@ -27,12 +28,12 @@ padding:0;">
 					</div>
 			<p>반갑습니다!</p>
 			<p>구매자</p>
-			<p><span id="spanUserName">000</span>님</p>
+			<p><span id="spanUserName">${sessionScope.testVo.user_id}</span>님</p>
 		</div>
 		
 		
 		<div id="left_bottom">
-			<div>프로필</div>
+			<div><a href="/customer/customerProfile">프로필</a>></div>
 			<div>나의 쇼핑 활동</div>
 			<div>Q&amp;A</div>
 		</div>
@@ -45,21 +46,21 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 			<p class="bigText">구매자 등급</p>
 			<div id="memberLevel">
 				<p>회원등급</p>
-				<p class="p_left" id="p_memberLevel">LV.3</p>
+				<p class="p_left" id="p_memberLevel">LV.${sessionScope.testVo.user_level}</p>
 				<P style="clear:both">다음 등급까지 <span>000</span>점 남았습니다.</P>
 			</div>
 			<div   id="memberLevel_right">
 			<P >등급 혜택 보기 <span class="showsign">></span> </P>
-			<p >가입일:<span>2000-01-01</span></p>
+			<p >가입일:<span>${sessionScope.testVo.user_date}</span></p>
 			</div>
 			<div id="points_review">
 				<div id="chkpoints">
-					<img src="${path }/resources/images/moneybook.png" style="width:70px;">
+					<img src="${path}/resources/images/moneybook.png" style="width:70px;">
 					<p>적립금 <span class="showsign">></span></p><img src="">
 					<p><span>00000</span>원</p>
 				</div>
 				<div id="makeReview">
-					<img src="${path }/resources/images/pencil_review.png" style="width:70px;">
+					<img src="${path}/resources/images/pencil_review.png" style="width:70px;">
 					<p>후기작성 <span class="showsign">></span></p><img src="">
 					<p><span>후기 갯수</span></p>
 				</div>
