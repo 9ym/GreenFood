@@ -1,5 +1,8 @@
 package com.kh.greenfood;
 
+
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -8,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kh.greenfood.dao.ProductDao;
+import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
 
@@ -28,6 +32,24 @@ public class testProductDao {
 	public void testGetProductImage() throws Exception {
 		ProductImageDto productImageDto = productDao.getProductImage("2001"); 
 		System.out.println("productImageDto :" + productImageDto);
+	}
+	
+	@Test
+	public void testGetProductBest() throws Exception {
+		List<ProductVo> bestList = productDao.getProductBest(3);
+		System.out.println("bestList :" + bestList);
+	}
+	
+	@Test
+	public void testGetProductCategory() throws Exception {
+		List<ProductVo> categoryList = productDao.getProductCategory("2002");
+		System.out.println("categoryList :" + categoryList);
+	}
+	
+	@Test
+	public void testGetCategory() throws Exception {
+		List<ProductCategoryDto> list = productDao.getCategory();
+		System.out.println("category :" + list);
 	}
 	
 }

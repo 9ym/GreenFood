@@ -21,21 +21,29 @@ $(function(){
 	$("#btnLogin").click(function(){
 		$("#frmlogin").submit();
 	});
+	
+	$("#btnJoin").click(function(){
+		
+	});
 
 });
 </script>
 <content>
-	<form id="frmlogin" action="/login" method="post">
+	<form id="frmlogin" action="/loginRun" method="post">
 		<div id="div_loginForm">
 		<p>로그인</p>
 		아이디
-		<input type="text" id="user_id" name="user_id" class="input_login" placeholder="아이디를 입력해주세요" required value="user"></input>
+		<input type="text" id="user_id" name="user_id" class="input_login" placeholder="아이디를 입력해주세요" required value="${cookie.save_id.value}"></input>
 		비밀번호
 		<input type="password" id="user_pw" name="user_pw" class="input_login" placeholder="비밀번호를 입력해주세요" required value="@rnlghks1"></input>
-		<input type="checkbox" id="input_checkBox"><span>로그인유지</span></input><a href="#" id="a_searchId" class="a_login">아이디 찾기</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png"><a href="#" class="a_login">비밀번호 찾기</a>
+		<input type="checkbox" id="input_checkBox" name="checked_id"
+			<c:if test="${not empty cookie.save_id.value}">
+				checked
+			</c:if>
+		><span>로그인유지</span><a href="#" id="a_searchId" class="a_login">아이디 찾기</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png"><a href="#" class="a_login">비밀번호 찾기</a>
 		<button type="button" id="btnLogin" >로그인</button>
 		<button type="button" id="btnJoin">회원가입하기</button>
 		</div>
 		
-</form>
+	</form>
 </content>

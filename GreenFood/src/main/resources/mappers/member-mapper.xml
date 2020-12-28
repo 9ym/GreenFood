@@ -30,4 +30,11 @@
 			where user_id = #{user_id}
 	</select>
 	
+	<!-- 비밀 번호 체크 -->
+	<select id="" resultType="TestVo">
+		select * from tbl_member
+			where user_id = #{user_id}
+			and user_pw = #{user_pw}
+	</select>
+	
 </mapper>

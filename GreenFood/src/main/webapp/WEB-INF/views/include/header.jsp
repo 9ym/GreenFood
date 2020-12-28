@@ -14,7 +14,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>										
 <!-- icon -->										
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">										
-										
+<!-- font -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
+
 <title>ܤܤ그린푸드ܤܤ</title>										
 <link rel="preconnect" href="https://fonts.gstatic.com">										
 <link										
@@ -306,11 +309,19 @@ $(function(){
 		<header>								
 		<div id="page_background">								
 		</div>								
-			<div id="header_small_menu">							
+			<div id="header_small_menu">		
+			<c:choose>
+			<c:when test="${not empty sessionScope.testVo }">
+				<a href="/logout">로그아웃</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+				<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+			</c:when>
+			<c:otherwise>
 				<a href="/main/loginPage">로그인 |</a><!-- <img						
 					src="https://www.oasis.co.kr/images/common/bg_footer.png">  -->
 					<a href="/main/memberJoinForm">회원가입 |</a><!-- <img					
 					src="https://www.oasis.co.kr/images/common/bg_footer.png"> --> 
+			</c:otherwise>
+			</c:choose>					
 					<a href="#">주문배송 |</a><!-- <img					
 					src="https://www.oasis.co.kr/images/common/bg_footer.png">  -->
 					<a href="/main/customer/customerCenter" id="customerCenter" data="고객센터">고객센터</a>					

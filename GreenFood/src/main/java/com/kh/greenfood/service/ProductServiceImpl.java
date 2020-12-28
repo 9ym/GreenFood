@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kh.greenfood.dao.ProductDao;
+import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
 
@@ -40,4 +41,22 @@ public class ProductServiceImpl implements ProductService {
 		return productImageList;
 	}
 
+	@Override
+	public List<ProductVo> getProductBest(int best_count) {
+		List<ProductVo> productBestList = productDao.getProductBest(best_count);
+		return productBestList;
+	}
+	
+	@Override
+	public List<ProductVo> getProductCategory(String product_category) {
+		List<ProductVo> productCategoryList = productDao.getProductCategory(product_category);
+		return productCategoryList;
+	}
+	
+	@Override
+	public List<ProductCategoryDto> getCategory() {
+		List<ProductCategoryDto> categoryList = productDao.getCategory();
+		return categoryList;
+	}
+	
 }
