@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ include file="../include/header.jsp"%>
+<%@ include file="../../include/header.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -87,7 +87,7 @@
 				<div class="row">
 					<div class="col-md-4"></div>
 					<div  class="col-md-4">
-						<form role="form" action="/notice/insertNotice" method="get">
+						<form role="form" action="/customerCenter/notice/insertNotice" method="get">
 							<div id="tit-sub" class="form-group">
 
 								<label id="notice-title-label" for="exampleInputText1">제목 </label> 

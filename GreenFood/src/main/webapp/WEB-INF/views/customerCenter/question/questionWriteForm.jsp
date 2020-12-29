@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ include file="../include/header.jsp"%>
+<%@ include file="../../include/header.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@
 $(function(){
 	
 	$("#btnQuestionOk").click(function(){
-		location.href="/main/question/customerQuestion";
+		location.href="/customerCenter/question/questionContent";
 	});
 	
 });

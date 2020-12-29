@@ -17,18 +17,16 @@ public class NoticeServiceImpl implements NoticeService {
 	private NoticeDao noticeDao;
 
 	@Override
-	/*@Transactional*/
+	
 	public void insertNotice(NoticeVo noticeVo) throws Exception {
-		int notice_no = noticeDao.getNoticenoNextVal();
-		noticeVo.setNotice_no(notice_no);
+		
 		noticeDao.insertNotice(noticeVo);
 	}
-	
-	
 
 	@Override
-	public List<NoticeVo> getNoticeList(int notice_no) throws Exception {
-		List<NoticeVo> noticeList = noticeDao.getNotinceList(notice_no);
+	public List<NoticeVo> noticeList() throws Exception {
+		List<NoticeVo> noticeList = noticeDao.noticeList();
+		System.out.println("NoticeServiceImpl, noticeList, noticeList:" + noticeList);
 		return noticeList;
 	}
 
@@ -38,7 +36,6 @@ public class NoticeServiceImpl implements NoticeService {
 		NoticeVo noticeVo = noticeDao.selectNotice(notice_no);
 		return noticeVo;
 	}
-	
 	
 	
 }

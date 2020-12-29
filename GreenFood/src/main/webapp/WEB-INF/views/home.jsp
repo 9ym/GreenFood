@@ -336,7 +336,7 @@ ${testVo.user_id}
 		 	</c:otherwise>
 		</c:choose>	
 		<a href="#">주문배송</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-		<a href="/main/customer/customerCenter">고객센터</a>
+		<a href="/customerCenter/customerCenterMain">고객센터</a>
 	</div>
 	<div id="header_menu">
 		<a href="/"><img src="${path}/resources/images/greenfood_logo.png"></a>

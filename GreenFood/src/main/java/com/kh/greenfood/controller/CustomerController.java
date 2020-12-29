@@ -4,12 +4,15 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.greenfood.domain.NoticeVo;
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.MemberService;
+import com.kh.greenfood.service.NoticeService;
 
 @Controller
 @RequestMapping(value="/customer")
@@ -17,6 +20,9 @@ public class CustomerController {
 	
 	@Inject
 	private MemberService memberService;
+	
+	@Inject
+	private NoticeService noticeService;
 	
 	@RequestMapping(value="/customerMyPage")
 	public String customerMyPage() throws Exception{
@@ -33,6 +39,7 @@ public class CustomerController {
 		
 		return "customer/customerProfile";
 	}
+	
 	
 	@RequestMapping(value="/customerProfileRun", method=RequestMethod.POST)
 	public String cutomerProfileRun(HttpSession session, String user_pw) throws Exception{

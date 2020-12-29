@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ include file="../include/header.jsp"%>
+<%@ include file="../../include/header.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@
 $(function(){
 	
 	$("#btnList").click(function(){
-		location.href="/main/customer/customerCenter";
+		location.href="/customerCenter/customerCenterMain";
 	});
 	
 });
@@ -109,7 +109,7 @@ table {
 }
 </style>
 
-<%-- ${noticeVo} --%>
+
 
 	<div class="container-fluid">
 		<div class="row">
@@ -125,7 +125,7 @@ table {
 							<tbody>
 								<tr>
 									<th>제목</th>
-									<td colspan="5" value="">${noticeVo.notice_title}</td>
+									<td colspan="5">${noticeVo.notice_title}</td>
 									</tr>
 								<tr>
 									<th>작성자</th>

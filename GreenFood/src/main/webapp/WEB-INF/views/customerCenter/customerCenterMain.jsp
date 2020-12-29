@@ -9,26 +9,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Customer Center</title>
-
-<script>
-$(function(){
-	
-	$("#btnNoticeWrite").click(function(){
-		location.href="/main/notice/noticeWriteForm";
-	});
-	
-});
-</script>
-
-
-<!-- <script>
-	var data = $(this).attr("data");
-	console.log("data:"+data);
-	
-	$("#boardNames").text(data);
-</script> -->
-</head>
-<body>
 <style>
 .page_aticle.aticle_type2 {
     padding-top: 65px;
@@ -194,8 +174,39 @@ tbody tr {
     text-align: center;
     font-size: 13px;
 }
+
+
 </style>
 
+<script>
+$(function(){
+	
+	$("#btnNoticeWrite").click(function(){
+		location.href="/customerCenter/notice/noticeWriteForm";
+	});
+	
+		
+	$(".notice_title").click(function(e){
+		e.preventDefault();
+		var n_no = $(this).attr("data-bno");
+		
+		location.href="/customerCenter/notice/noticeContent/" + n_no;
+	});
+	
+});
+</script>
+
+
+<!-- <script>
+	var data = $(this).attr("data");
+	console.log("data:"+data);
+	
+	$("#boardNames").text(data);
+</script> -->
+
+</head>
+<body>
+<%-- noticeVo:${noticeVo} --%>
 
 	<div class="container-fluid">
 		<div class="row">
@@ -212,7 +223,7 @@ tbody tr {
 								<div class="inner_snb">
 									<ul class="list_menu">
 										<li class="on"><a href="#">공지사항</a></li>
-										<li><a href="/main/question/customerQuestion">자주하는 질문</a></li>
+										<li><a href="/customerCenter/question/questionContent">자주하는 질문</a></li>
 										<!-- <li><a href="#">1:1 문의</a></li>
 										<li><a href="#">상품 제안</a></li>
 										<li><a href="#">에코포장 피드백</a></li> -->
@@ -269,42 +280,15 @@ tbody tr {
 																</tr>
 															</thead>
 															<tbody>
+															<c:forEach var="noticeVo" items="${noticeList}">
 																<tr>
 																	<td>${noticeVo.notice_no}</td>
-																	<td><a href="/main/notice/notice">${noticeVo.notice_title}</a></td>
+																	<td><a class="notice_title" href="#" data-bno="${noticeVo.notice_no}">${noticeVo.notice_title}</a></td>
 																	<td>관리자</td>
 																	<td>${noticeVo.notice_date}</td>
 																	<td>230010</td>
 																</tr>
-																<tr>
-																	<td>11</td>
-																	<td><a href="/main/notice/notice">[작업현황알림] [현재시각] 12-24-00-49 크리스마스 이브네 ㅎㅎ</a></td>
-																	<td>관리자</td>
-																	<td>2020-12-23</td>
-																	<td>230010</td>
-																</tr>
-																<tr>
-																	<td>111</td>
-																	<td>[작업현황알림] [현재시각] 12-24-00-49 크리스마스 이브네 ㅎㅎ</td>
-																	<td>관리자</td>
-																	<td>2020-12-23</td>
-																	<td>230010</td>
-																</tr>
-																<tr>
-																	<td>1111</td>
-																	<td>[작업현황알림] [현재시각] 12-24-00-49  ㅎㅎ</td>
-																	<td>관리자</td>
-																	<td>2020-12-23</td>
-																	<td>230010</td>
-																</tr>
-																<tr>
-																	<td>11111</td>
-																	<td>[작업현황알림] [현재시각] 12-24-01-23 크리스마스 이브네 ㅎㅎ</td>
-																	<td>관리자</td>
-																	<td>2020-12-23</td>
-																	<td>230010</td>
-																</tr>
-																
+															</c:forEach>
 															</tbody>
 
 														</table>

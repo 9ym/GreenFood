@@ -8,22 +8,27 @@
 
 
 	<!-- b_no.nextval 얻어오기 -->
-	<select id="getNoticenoNextVal" resultType="int">
-		select seq_notice_no.nextval
-		from dual
-	</select>
+
+		<!-- <select resultType="int" id="getNoticenoNextVal">
+			select seq_notice_no.nextval from dual
+		</select> -->
+
 
 	<!-- 공지사항 글쓰기 -->
-	<insert id="insertNotice">
-		insert into tbl_notice (notice_no, notice_title, notice_content)
-			values(seq_notice_no.nextval, #{notice_title}, #{notice_content})
-	</insert>
-	
+		<insert id="insertNotice">
+			insert into tbl_notice (notice_no, notice_title, notice_content)
+				values(seq_notice_no.nextval, #{notice_title}, #{notice_content}) 
+		</insert>
+
 	<!-- 목록 -->
-	<select id="getNoticeList" resultType="NoticeVo">
+		<select  id="noticeList" resultType="NoticeVo">
+				select * from tbl_notice 
+		</select>
+		
+	<!-- 글 선택 -->
+	<select id="selectNotice" resultType="NoticeVo">
 		select * from tbl_notice
 		where notice_no = #{notice_no}
-		order by notice_no desc		
 	</select>
-	
+
 </mapper>

@@ -23,9 +23,9 @@ public class MainController {
 		
 	}
 	
-	@RequestMapping(value="/customer/customerCenter")
+	@RequestMapping(value="/customerCenter/customerCenterMain")
 	public String customerCenter() throws Exception{
-		return "customer/customerCenter";
+		return "customerCenter/customerCenterMain";
 		
 	}
 }

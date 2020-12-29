@@ -22,8 +22,8 @@ public class noticeDaoTest {
 	public void testInsertNotice() throws Exception {
 		NoticeVo noticeVo = new NoticeVo();
 		/*noticeVo.setNotice_no(notice_no);*/
-		noticeVo.setNotice_title("ê³µì§€ì‚¬í•­2");
-		noticeVo.setNotice_content("ê³µì§€ì‚¬í•­2ë‚´ìš©ìž…ë‹ˆë‹¤.");
+		noticeVo.setNotice_title("Á¦¸ñÁ¦¸ñÁ¦¸ñ");
+		noticeVo.setNotice_content("³»¿ë³»¿ë³»¿ë");
 		/*noticeVo.setAdmin_id("admin");*/
 		noticeDao.insertNotice(noticeVo);
 		System.out.println("noticeVo :" + noticeVo);
