@@ -214,16 +214,6 @@
 				$("#frmMemberJoin > input[type=hidden]").eq(1).val(phoneNum);
 			}
 			
-			// 주소 받아와서 hidden에 넣기
-			var postalCode = $("#postalCode").val().trim();
-			var roadAddress = $("#roadAddress").val().trim();
-			var detailAddress = $("#detailAddress").val().trim();
-			
-			var address = postalCode + roadAddress + detailAddress;
-			if(address){
-				$("#frmMemberJoin > input[type=hidden]").eq(2).val(address);
-			}
-			
 		});
 
 	});
@@ -257,7 +247,7 @@
 			<!-- 히든정보 이메일 폰번호 주소 -->
 					<input type="hidden" name="user_email"/>
 					<input type="hidden" name="user_phone"/>
-					<input type="hidden" name="user_address"/>
+<!-- 					<input type="hidden" name="user_address"/> -->
 					
 					<!-- 아이디 비밀번호 확인 row -->	
 					<div class="row">
@@ -384,7 +374,7 @@
 				
 			<div class="col-md-6">
 				<label class="small">주소(기본배송지)</label>
-				<input type="text" placeholder="우편번호" id="postalCode" class="form-control" required value="44024"/>
+				<input type="text" placeholder="우편번호" id="postalCode" name="user_addr1" class="form-control" required value="44024"/>
 			</div>
 			
 			<div class="col-md-6">
@@ -394,12 +384,12 @@
 				
 			<div class="col-md-12">
 				<label class="small">주소</label>
-				<input type="text" id="roadAddress" class="form-control" placeholder="주소를 입력해주세요" required id="roadAddress" value="울산 북구 신천로 26"/>
+				<input type="text" id="roadAddress" class="form-control" placeholder="주소를 입력해주세요" required id="roadAddress" name="user_addr2" value="울산 북구 신천로 26"/>
 			</div>
 			
 			<div class="col-md-12">
 				<label class="small">상세주소</label>
-				<input type="text" id="detailAddress" class="form-control" placeholder="상세주소를 입력해주세요" required id="detailAddress" value="(신천효성해링턴) 103동 2104호"/>
+				<input type="text" id="detailAddress" class="form-control" placeholder="상세주소를 입력해주세요" required id="detailAddress" name="user_addr3" value="(신천효성해링턴) 103동 2104호"/>
 			</div>
 			
 		</div>

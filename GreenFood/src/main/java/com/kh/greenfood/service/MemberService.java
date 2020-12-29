@@ -13,6 +13,7 @@ public interface MemberService {
 	// 회원가입 -> 아이디 중복체크
 	public TestVo selectMember(String user_id);
 	
+	// 로그인 -> 마이페이지 -> 프로필 비밀번호 체크
 	public TestVo profilePwCheck(String user_id, String user_pw);
 	
 	public void test();

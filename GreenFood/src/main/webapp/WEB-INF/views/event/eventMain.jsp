@@ -77,7 +77,10 @@ img {
     -webkit-transition:opacity 0.5s;transition:opacity 0.5s
 } */
 
-						
+.container-fluid {
+	padding-top : 150px;
+}
+					
 </style>
 
 	<div class="container-fluid">

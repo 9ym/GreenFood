@@ -8,14 +8,14 @@
 
 <script src="/resources/js/myScript.js"></script>
 <script type="text/javascript">
-$(function() {
-	/* 헤더 배경화면, 게시판 이름 바꾸는 부분 */
-	/* url 뒤에 사진 넣으면됩니다. */
-	$("#page_background").css({"background-image":"url('${path}/resources/images/display2.jpg')"});
-	$("#page_background").css({"background-size":"100% 100%"});
-	$("#page_background").css({"background-repeat":"no-repeat"});
-	$("#boardNames").text("상품 상세");/* 게시판 이름 */
-});
+// $(function() {
+// 	/* 헤더 배경화면, 게시판 이름 바꾸는 부분 */
+// 	/* url 뒤에 사진 넣으면됩니다. */
+// 	$("#page_background").css({"background-image":"url('${path}/resources/images/display2.jpg')"});
+// 	$("#page_background").css({"background-size":"100% 100%"});
+// 	$("#page_background").css({"background-repeat":"no-repeat"});
+// 	$("#boardNames").text("상품 상세");/* 게시판 이름 */
+// }); 
 
 /* 최종 가격 표현 */
 $(function() {
@@ -88,9 +88,10 @@ $(function() {
 .viewInfo {
 	margin : 30px 20px;
 	padding : 30px 20px;
+/* 	padding-right : 0px; */
 	padding-top : 40px;
 	border-top : 1px solid #6ca435;
-	border-bottom : 1px solid #6ca435;
+/* 	border-bottom : 1px solid #6ca435; */
 }
 .infoImage{
 	float : left;
@@ -161,7 +162,7 @@ $(function() {
 	padding-left : 20px;
 }
 .productInfo li #span-shelf {
-	padding-left : 80px;
+	padding-left : 87px;
 }
 .productInfo .info-btn{
 	margin-left : 10px;
@@ -191,8 +192,8 @@ $(function() {
 .infoDetail {
 	margin : 20px;
 	padding : 40px 20px;
-	border-top : 1px solid #6ca435;
-	border-bottom : 1px solid #6ca435;
+/* 	border-top : 1px solid #6ca435; */
+/* 	border-bottom : 1px solid #6ca435; */
 }
 .img-detail {
  	width : 700px;
@@ -221,6 +222,7 @@ $(function() {
 .related-list {
 	margin : 5px;
 	padding-left : 40px;
+/* 	border-top : 1px solid #6ca435; */
 }
 .ul-related {
 	width : 820px;
@@ -251,8 +253,22 @@ $(function() {
 	padding : 105px 5px;
 	border : 0px;
 	float : left;
-/* 	display : none; */
 }
+.container-fluid {
+	padding-top : 150px;
+}
+.div-content {
+/* 	display:block; */
+	width:900px;
+ 	left:450px; 
+ 	height: 100%;
+	
+	position: relative;
+	left: 50%;
+	ms-transform: translate(-50%);
+	transform: translate(-50%);
+}
+
 </style>
 
 <div class="container-fluid">
@@ -267,31 +283,25 @@ $(function() {
 		<div class="col-md-3"></div>
 	</div> -->
 	
-	<div class="row">
-		<div class="col-md-3"></div>
-		<div class="col-md-6 viewInfo">
+	<div class="div-content">
+		<div class="viewInfo">
 		<!-- 상품 개요 -->
 		<div>
 			<div class="infoImage">
 				<!-- 임시로... image_file_name 파일 이름만 DB에서 가져와서 사용 -->
-				<img class="img-product" alt="상품 이미지" src="${path}/resources/images/${productImageDto.image_info_file_name}">
+				<img class="img-product" alt="상품 이미지" src="${path}/resources/images/product/${productImageDto.image_info_file_name}">
 			</div>
 			<div class="infoNamePrice">
 				<div class="infoName">
 					<h3>${productVo.product_title}</h3>
-					<p>${productVo.product_sub_title}</p>
+					<span>${productVo.product_sub_title}</span>
 				</div>
 				<div class="productInfo">
 					<ul class="priceList">
 						<li class="li-price">
-<!-- 							<strong>판매 가격</strong> -->
 							<span id="priceGeneral">${productVo.product_price}</span>
 							<span id="priceWon">원</span>
 						</li>
-						<!-- <li>
-							<strong>보관방법</strong>
-							<span>상온</span>
-						</li> -->
 						<c:if test="${productVo.product_sales_unit != null}">
 							<li>
 								<strong>판매단위</strong>
@@ -335,7 +345,11 @@ $(function() {
 							<strong>배송비</strong>
 							<span>3,000원 (30,000원 이상 무료)</span>
 						</li>
-						<li class="li-totalPrice">
+						<li class="li-totalPrice"
+							<c:if test="${productVo.product_shelf_life != 0}">
+							style="padding-right : 10px;"
+							</c:if>
+						>
 							<strong>총 상품금액 : </strong>
 							<span id="totalPrice">0</span>
 						</li>
@@ -356,13 +370,11 @@ $(function() {
 		</div>
 		<!--// 상품 개요 -->
 		</div>
-		<div class="col-md-3"></div>
 	</div>
 	
-	<div class="row">
-		<div class="col-md-3"></div>
+	<div class="div-content">
 		<!-- 관련 상품 -->
-		<div class="col-md-6 related-list">
+		<div class="related-list">
 			<div>
 				<button type="button" class="btn btn-default btn-sm">
 		        	<span class="glyphicon glyphicon-chevron-left"></span>
@@ -378,7 +390,7 @@ $(function() {
 					<li class="li-related" style="float:left;">
 						<div class="image-related">
 							<a href="/product/detail/${productVoList.product_code}">
-								<img src="${path}/resources/images/${productImageDtoList.image_info_file_name}"/>
+								<img src="${path}/resources/images/product/${productImageDtoList.image_info_file_name}"/>
 							</a>
 						</div>
 						<div class="info-related">
@@ -394,15 +406,13 @@ $(function() {
 			</div>
 		</div>
 		<!--// 관련 상품 -->
-		<div class="col-md-3"></div>
 	</div>
 	
-	<div class="row">
-		<div class="col-md-3"></div>
-		<div class="col-md-6 infoDetail">
-			<!-- 상세 정보 -->
+	<div class="div-content">
+		<!-- 상세 정보 -->
+		<div class="infoDetail">
 			<div>
-				<div><img class="img-detail" alt="상세 사진" src="${path}/resources/images/${productImageDto.image_content_file_name}"/></div>
+				<div><img class="img-detail" alt="상세 사진" src="${path}/resources/images/product/${productImageDto.image_content_file_name}"/></div>
 				<p>${productVo.product_sub_title}</p>
 				<h1>${productVo.product_title}</h1>
 				<p>${productVo.product_content}</p>
@@ -410,14 +420,12 @@ $(function() {
 				그린푸드가 준비한 제품은 붉은색 껍질과 연노랑 속살의 고구마예요. 포근하고 고소하면서도, 씹을수록 달콤하고 담백하죠. 
 				취향에 맞게 찌거나 구워서 간단한 식사처럼 즐기거나, 간식으로 활용하세요.</span> -->
 			</div>
-			<!--// 상세 정보 -->
 		</div>
-		<div class="col-md-3"></div>
+		<!--// 상세 정보 -->
 	</div>
 	
-	<div class="row">
-		<div class="col-md-3"></div>
-		<div class="col-md-6 tbl-review">
+	<div class="div-content">
+		<div class="tbl-review">
 			<p>후기 게시판?</p>
 			<table class="table table-bordered">
 				<thead>
@@ -434,7 +442,6 @@ $(function() {
 				</tbody>
 			</table>
 		</div>
-		<div class="col-md-3"></div>
 	</div>
 	
 </div>

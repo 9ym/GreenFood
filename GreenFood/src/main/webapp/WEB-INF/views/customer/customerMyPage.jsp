@@ -14,8 +14,7 @@ $(function(){
 });
 </script>
 <content>
-${testVo}
-	<div id="content_left" style="width:300px;
+<div id="content_left" style="width:300px;
 height: 700px;
 float:left;
 border-top:2px solid #6ca435;
