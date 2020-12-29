@@ -13,10 +13,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>										
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>										
 <!-- icon -->										
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">										
-<!-- font -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Serif+KR:wght@300&display=swap" rel="stylesheet">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">										 -->
 
 <title>ܤܤ그린푸드ܤܤ</title>										
 <link rel="preconnect" href="https://fonts.gstatic.com">										
@@ -79,16 +76,29 @@ ul li a {
 	font-weight: bold;									
 	font-size: 30px;									
 }										
+		
+#header_menu_out {
+	margin-top : 80px;
+	position : fixed;
+	z-index:10; 
+	left: 0px; 
+	top : 0px;
+	background-color : white;
+	height : 70px;
+	width : 100%;
+}		
 										
 #header_menu {										
-	left: 400px;									
-	position: absolute;									
-	z-index: 1;									
-	top: 70px;									
-	background-color: white;									
-	width: 1200px;									
-	height: 70px;									
-	border-radius: 30px;									
+	height : 70px;
+	width : 1200px;
+	border-radius: 0px;
+	
+	margin: 0;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);							
 }										
 										
 #header_menu img {										
@@ -121,15 +131,18 @@ ul li a {
 }										
 										
 #header_menu #first_li {										
-	height: 70px;									
-	border-top: #6ca435 3px solid;									
-	padding-bottom: -3px;									
-	border-bottom: #6ca435 3px solid;									
-	width: 120px;									
+	height: 70px;
+	width:120px;									
 	text-align: center;									
 }										
+#a-first_li {										
+	display:inline;	
+	border-top: #6ca435 1px solid;
+	border-bottom: #6ca435 1px solid;
+	padding : 20px 20px;	
+}										
 #header_menu #first_li a{										
-	display:inline;									
+	display:inline;	
 }										
 #header_menu .hide {										
 	width: 120px;									
@@ -191,27 +204,32 @@ ul li a {
 	z-index: 1;									
 	top: 35px;									
 	left: 1315px;									
-	min-width:270px;									
+	min-width:270px;	
+		
+	margin: 0;
+	left: 79%;
+	ms-transform: translate(-79%);
+	transform: translate(-79%);								
 }										
 										
 #header_small_menu a {										
 	margin-right: 5px;									
 	text-decoration: none;									
-	color: white;									
+	color: DimGray;									
 	font-size: 14px;									
 	margin-right: 5px;									
 	margin-left: 5px;									
 }										
 										
 #header_menu .hide {										
-	opacity: 0;									
-	visibility: hidden;									
+	opacity: 0;
+	visibility: hidden;								
 }										
 										
 #header_menu .hide li {										
 	padding: 0;									
 	margin: 0;									
-	display: block;									
+ 	display: block;									 
 	width: 120px;									
 	background-color: white;									
 	color: black;									
@@ -222,7 +240,7 @@ ul li a {
 }										
 										
 #header_menu .hide li a {										
-	display: block;									
+ 	display: block;									 
 	width: 120px;									
 	background-color: white;									
 }										
@@ -273,42 +291,61 @@ animation:fade 8s infinite;
 									
 </style>	
 
-<!-- <script>
+<script>
 $(function(){
 	
 	$("#eventWrite").click(function(e){
 		e.preventDefault();
-		
 		var data = $(this).attr("data");
 		console.log("data:"+ data);
-		
 		$("#boardNames").text(data);
-		
 		location.href = "/main/event/eventMain";
-		
-		
 	});
 
 	$("#customerCenter").click(function(e){
 		e.preventDefault();
-		
 		var data = $(this).attr("data");
 		console.log("data:"+ data);
-		
 		$("#boardNames").text(data);
-		
 		location.href = "/main/customer/customerCenter";
 	});
 	
-})
-
-</script>	 --> 								
+	/* 스크롤에 따라서 메뉴 상단에 고정 */
+	var didScroll; 
+	// 스크롤시에 사용자가 스크롤했다는 것을 알림 
+	$(window).scroll(function(event){ 
+		didScroll = true; 
+	}); 
+	// hasScrolled()를 실행하고 didScroll 상태를 재설정 
+	setInterval(function() {
+		if (didScroll) { 
+			hasScrolled(); didScroll = false; 
+		} 
+	}, 250); 
+	function hasScrolled() {
+		// 동작을 구현 
+		var st = $(this).scrollTop(); 
+		console.log("GG-" + st);
+		
+		if (st > 55) {
+			$("#header_menu_out").css("transition-property", "margin-top");
+			$("#header_menu_out").css("transition-duration", "1s");
+			$("#header_menu_out").css("margin-top", "0px");
+			$("#header_menu_out").css("box-shadow", "0px 3px 3px WhiteSmoke");
+		} else if (st <= 55) {
+			$("#header_menu_out").css("margin-top", "80px");
+			$("#header_menu_out").css("box-shadow", "0px 0px 0px WhiteSmoke");
+		} 
+	}
+	
+});
+</script>								
 </head>										
 <body>										
 										
 		<header>								
-		<div id="page_background">								
-		</div>								
+<!-- 		<div id="page_background">								 -->
+<!-- 		</div>								 -->
 			<div id="header_small_menu">		
 			<c:choose>
 			<c:when test="${not empty sessionScope.testVo }">
@@ -325,34 +362,34 @@ $(function(){
 					<a href="#">주문배송 |</a><!-- <img					
 					src="https://www.oasis.co.kr/images/common/bg_footer.png">  -->
 					<a href="/main/customer/customerCenter" id="customerCenter" data="고객센터">고객센터</a>					
-			</div>							
-			<div id="header_menu">							
-				<a href="/"><img src="${path}/resources/images/greenfood_logo.png"></a>						
-				<ul>						
-					<li id="first_li"><a href="#">전체 보기</a>					
-						<ul class="hide">				
-							<li><a href="#">하위메뉴</a></li>			
-							<li><a href="#">하위메뉴</a></li>			
-							<li><a href="#">하위메뉴</a></li>			
-							<li><a href="#">하위메뉴</a></li>			
-							<li><a href="#">하위메뉴</a></li>			
-							<li><a href="#">하위메뉴</a></li>			
-						</ul></li>				
-					<li><a href="#">신상품</a></li>					
-		<li><a href="#">추천상품</a></li>								
-		<li><a href="#">세일상품</a></li>								
-		<li><a href="#">후기모음</a></li>								
-		<li><a href="/main/event/eventMain" id="eventWrite" data="이벤트">이벤트</a></li>								
-				</ul>						
-				<div id="header_menu_right">						
-					<a href="#"><img					
-						src="https://www.oasis.co.kr/images/common/gnbSearch.png"></a> <input				
-						type="text" placeholder="무엇이 궁금하세요?"></input>				
-				</div>						
-										
-			</div>							
-			<div id="boardName">							
-			</div>							
+			</div>	
+			<div id="header_menu_out">						
+				<div id="header_menu">							
+					<a href="/"><img src="${path}/resources/images/greenfood_logo.png"></a>						
+					<ul>						
+						<li id="first_li"><a id="a-first_li" href="#">전체 보기</a>					
+							<ul class="hide">				
+								<c:forEach var="productCategoryDto" items="${categoryList}">
+									<li><a href="/product/category/${productCategoryDto.product_category}">${productCategoryDto.product_category_dsc}</a></li>
+								</c:forEach>		
+							</ul>
+						</li>				
+						<li><a href="#">신상품</a></li>					
+						<li><a href="#">추천상품</a></li>								
+						<li><a href="#">세일상품</a></li>								
+						<li><a href="#">후기모음</a></li>								
+						<li><a href="/main/event/eventMain" id="eventWrite" data="이벤트">이벤트</a></li>								
+					</ul>						
+					<div id="header_menu_right">						
+						<a href="#"><img					
+							src="https://www.oasis.co.kr/images/common/gnbSearch.png"></a> <input				
+							type="text" placeholder="무엇이 궁금하세요?"></input>				
+					</div>						
+											
+				</div>	
+			</div>						
+<!-- 			<div id="boardName">							 -->
+<!-- 			</div>							 -->
 			<!-- 게시판 이름을 입력해주세요 -->							
 			<span id="boardNames"></span>							
 			<!-- //게시판 이름을 입력해주세요 -->							

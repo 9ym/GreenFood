@@ -23,19 +23,21 @@ public class ProductController {
 	@Inject
 	private ProductService productService;
 
+	/* 상품 상세 페이지 */
 	@RequestMapping(value="/detail/{product_code}", method=RequestMethod.GET)
 	public String detail(@PathVariable String product_code, Model model) throws Exception {
+		/* 개별 상품에 대한 정보 */
 		ProductVo productVo = productService.getProduct(product_code);
 		ProductImageDto productImageDto = productService.getProductImage(product_code); 
 		model.addAttribute("productVo", productVo);
 		model.addAttribute("productImageDto", productImageDto);
 		
+		/* 베스트 상품 6개 */
 		List<ProductVo> productBestList = productService.getProductBest(6);
 		model.addAttribute("productBestList", productBestList);
 		model.addAttribute("mainProductCount", productBestList.size());
 		
-		/*List<ProductImageDto> productImageList = productService.getProductImageList();
-		model.addAttribute("productImageList", productImageList);*/
+		/* 베스트 상품 각각에 대한 ProductImageDto */
 		List<ProductImageDto> productImageList = new ArrayList<>();
 		for (ProductVo vo : productBestList) {
 			String product_code_img = vo.getProduct_code();
@@ -44,13 +46,24 @@ public class ProductController {
 		}
 		model.addAttribute("productImageList", productImageList);
 		
+		/* 상품 카테고리 */
+		List<ProductCategoryDto> categoryList = productService.getCategory();
+		model.addAttribute("categoryList", categoryList);
+		
 		return "product/productForm";
 	}
 	
+	/* 카테고리에 따른 상품 목록 */
 	@RequestMapping(value="/category/{product_category}", method=RequestMethod.GET)
 	public String category(@PathVariable String product_category, Model model) throws Exception {
+		/* 해당 카테고리 상품 목록 */
 		List<ProductVo> productCategoryList = productService.getProductCategory(product_category);
 		model.addAttribute("productCategoryList", productCategoryList);
+		
+		/* 상품 카테고리 */
+		List<ProductCategoryDto> categoryList = productService.getCategory();
+		model.addAttribute("categoryList", categoryList);
+		
 		return "product/productCategory";
 	}
 	
