@@ -22,11 +22,44 @@ $(function(){
 		alert("로그인 성공했습니다.");
 	}
 	
+	/* 베스트 상품 가격에 , 추가 */
 	var len = "${mainProductCount}";
 	for (i = 0; i < len; i++) {
 		var price = parseInt($(".price-p").eq(i).text());
 		$(".price-p").eq(i).text(addComma(price));
 	}	
+	
+	/* 스크롤에 따라서 메뉴 상단에 고정 */
+	var didScroll; 
+	// 스크롤시에 사용자가 스크롤했다는 것을 알림 
+	$(window).scroll(function(event){ 
+		didScroll = true; 
+	}); 
+	// hasScrolled()를 실행하고 didScroll 상태를 재설정 
+	setInterval(function() {
+		if (didScroll) { 
+			hasScrolled(); didScroll = false; 
+		} 
+	}, 250); 
+	function hasScrolled() {
+		// 동작을 구현 
+		var st = $(this).scrollTop(); 
+		console.log("GG-" + st);
+		
+		if (st > 55) {
+			$("#header_menu_out").css("transition-property", "margin-top");
+			$("#header_menu_out").css("transition-duration", "1s");
+			$("#header_menu_out").css("margin-top", "0px");
+			if (st > 380) {
+				$("#header_menu_out").css("box-shadow", "0px 3px 3px WhiteSmoke");
+			}
+		} else if (st <= 55) {
+			$("#header_menu_out").css("margin-top", "80px");
+			if (st <= 380) {
+				$("#header_menu_out").css("box-shadow", "0px 0px 0px WhiteSmoke");
+			}
+		} 
+	}
 	
 });	
 </script>
@@ -46,7 +79,7 @@ header{ margin:0;padding:0; }
 ul,li{ list-style:none; }
 ul li a{ text-decoration:none; }
 
-.slide{height:900px;overflow:hidden;}
+.slide{height:300px;overflow:hidden;margin-top:170px;}
 .slide ul{position:relative;height:100%;}
 .slide li{position:absolute;left:0;right:0;top:0;bottom:0;opacity:0;animation:fade 8s infinite;}
 .slide li:nth-child(1){background-image:url("https://file.mk.co.kr/meet/neds/2020/01/image_readtop_2020_83302_15800838754063133.jpg");animation-delay:0s;background-repeat:no-repeat;background-size:100%100%;}
@@ -70,7 +103,7 @@ ul li a{ text-decoration:none; }
 		background-color:yellow;
 	}
 	
-	#main_text{
+	/* #main_text{
 		position:absolute;
 		top:500px;
 		left:750px;
@@ -90,24 +123,37 @@ ul li a{ text-decoration:none; }
 	#main_text p:nth-child(3) #main_text_span{
 		font-weight:bold;
 		font-size:30px;
+	} */
+	
+	#header_menu_out {
+		margin-top : 80px;
+		position : fixed;
+ 		z-index:10; 
+ 		left: 0px; 
+		top : 0px;
+		background-color : white;
+		height : 70px;
+		width : 100%;
 	}
 	
 	#header_menu{
-		left: 350px;
-		position:absolute;
-		z-index:1;
-		top:70px;
-		background-color:white;
-		width:1200px;
-		height:70px;
-		border-radius: 30px;
+		height : 70px;
+		width : 1200px;
+		border-radius: 0px;
+		
+		margin: 0;
+		position: relative;
+		top: 50%;
+		left: 50%;
+ 		ms-transform: translate(-50%, -50%);
+ 		transform: translate(-50%, -50%);
 	}
 	
 	#header_menu img{
 		float:left;
 		margin-left:30px;
 		padding:0;
-		height:70px;
+		height:65px;
 	}
 	#header_menu ul{
 		display:inline-block;
@@ -121,18 +167,20 @@ ul li a{ text-decoration:none; }
 		color:black;
 	}
 	#header_menu #first_li{
-		height:64px;
-		border-top: #6ca435 3px solid;
-		padding-bottom:-3px;
-		border-bottom: #6ca435 3px solid;
+		height: 70px;
 		width:120px;
-		text-align:center;
-		
+		text-align : center;
 	}
-	
-	#header_menu #first_li a{
+	#a-first_li {										
+		display:inline;	
+		border-top: #6ca435 1px solid;
+		border-bottom: #6ca435 1px solid;
+		padding : 20px 20px;	
+	}										
+	#first_li a{
 		display:inline;
 	}
+	
 	#header_menu .hide {
 		width:120px;
 	}
@@ -160,7 +208,7 @@ ul li a{ text-decoration:none; }
 		margin-top:20px;
 		margin-right:45px;
 		height:30px;
-		border:1px solid #c7c7c7;
+		border:1px solid Gainsboro;
 	}
 	#header_menu_right input{
 	float:left;
@@ -178,27 +226,40 @@ ul li a{ text-decoration:none; }
 	
 	#header_small_menu{
 		min-width:270px;
-		position:absolute;
-		z-index:1;
-		top:35px;
-		left:1315px;
+ 		position:absolute; 
+ 		top:35px;
+		
+		margin: 0;
+		left: 79%;
+ 		ms-transform: translate(-79%);
+ 		transform: translate(-79%);
 	}
 	#header_small_menu a{
 		margin-right:5px;
 		text-decoration:none;
-		color:white;
+		color : DimGray;
+		font-weight : bold;
 		font-size:14px;
 		margin-right:5px;
 		margin-left:5px;
 	}
+	
+	#header_small_menu #a-join {
+		color : MediumSeaGreen;
+	}
+	
 	.products-list{
-		position:absolute;
 		display:block;
 		width:1000px;
 		left:450px;
 		height:100%;
 		margin:0;
 		padding:0;
+		
+		position: relative;
+		left: 50%;
+		ms-transform: translate(-50%);
+		transform: translate(-50%);
 	}
 	#best_text{
 		margin-top:50px;
@@ -228,7 +289,7 @@ ul li a{ text-decoration:none; }
 		float:right;
 	}
 	#header_menu .hide {
-		 opacity: 0;
+		opacity: 0;
 		visibility: hidden;
 	}
 	#header_menu .hide li{
@@ -240,10 +301,16 @@ ul li a{ text-decoration:none; }
 		line-height:40px;
 		font-size:12px;
 		text-align:center;
+		margin-left : 0px;
 	}
 	#header_menu #first_li:hover .hide{
 		opacity:1;
 		visibility:visible;
+	}
+	
+	.products-list #best_text img{
+		height : 110px;
+		padding-left : 35px;
 	}
 	
 	.products-list #best_products{
@@ -304,6 +371,26 @@ ul li a{ text-decoration:none; }
 		width:100%;
 		height: 100px;
 	}
+	.div-top {
+		position : absolute;
+		width : 100%;
+		height : 30px;
+		background-color : #6ca435;
+		display:block;
+		left : 0px;
+		top : 0px;
+		text-align : center;
+	}
+	.div-top a {
+		color : black;
+	}
+	.div-top a button {
+/* 		font-size: 10px; */
+		border: none;
+		background-color: #6ca435;
+		display: inline-block;
+/* 		margin-left : 300px; */
+	}
 </style>
 <!-- 스타일 끝 -->
 </head>
@@ -311,6 +398,13 @@ ul li a{ text-decoration:none; }
 ${testVo}
 ${testVo.user_id}
 <header>
+	<div class="div-top">	
+		<a href="#">
+			<span>dngkgkgkgkgkgkgk</span>
+			<button type="button">X</button>
+		</a>
+	</div>
+	
 	<div class="slide">
 	  <ul>
 	    <li></li>
@@ -319,11 +413,11 @@ ${testVo.user_id}
 	    <li></li>
 	  </ul>
 	</div>
-	<div id="main_text">
+	<!-- <div id="main_text">
 		<p>바른 먹거리 신뢰와 상생</p>
 		<p id=>농산물 직거래 플랫폼</p>
 		<p>우리 지역 농산물의 <span id="main_text_span">신선함</span>을 그대로 전달해 드립니다</p>
-	</div>
+	</div> -->
 	<div id="header_small_menu">
 		<c:choose>
 			<c:when test="${not empty sessionScope.testVo }">
@@ -332,35 +426,33 @@ ${testVo.user_id}
 		 	</c:when>
 			<c:otherwise>
 			<a href="/main/loginPage">로그인</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-			<a href="/main/memberJoinForm">회원가입</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+			<a id="a-join" href="/main/memberJoinForm">회원가입</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 		 	</c:otherwise>
 		</c:choose>	
 		<a href="#">주문배송</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 		<a href="/main/customer/customerCenter">고객센터</a>
 	</div>
-	<div id="header_menu">
-		<a href="/"><img src="${path}/resources/images/greenfood_logo.png"></a>
-		<ul>
-		<li id="first_li"><a href="#">전체 보기</a>	
-			<ul class="hide">
-				<!-- <li><a href="#">하위메뉴</a></li>
-				<li><a href="#">하위메뉴</a></li>
-				<li><a href="#">하위메뉴</a></li>
-				<li><a href="#">하위메뉴</a></li> -->
-				<c:forEach var="productCategoryDto" items="${categoryList}">
-					<li><a href="/product/category/${productCategoryDto.product_category}">${productCategoryDto.product_category_dsc}</a></li>
-				</c:forEach>
-			</ul>		
-		</li>
-		<li><a href="#">신상품</a></li>
-		<li><a href="#">추천상품</a></li>
-		<li><a href="#">세일상품</a></li>
-		<li><a href="#">후기모음</a></li>
-		<li><a href="/main/event/eventMain">이벤트</a></li>
-		</ul>
-		<div id="header_menu_right">
-			<a href="#"><img src="https://www.oasis.co.kr/images/common/gnbSearch.png"></a>
-			<input type="text" placeholder="무엇이 궁금하세요?"></input>
+	<div id="header_menu_out">
+		<div id="header_menu">
+			<a href="/"><img src="${path}/resources/images/greenfood_logo.png"></a>
+			<ul>
+				<li id="first_li"><a id="a-first_li" href="#">전체 보기</a>	
+					<ul class="hide">
+						<c:forEach var="productCategoryDto" items="${categoryList}">
+							<li><a href="/product/category/${productCategoryDto.product_category}">${productCategoryDto.product_category_dsc}</a></li>
+						</c:forEach>
+					</ul>		
+				</li>
+				<li><a href="#">신상품</a></li>
+				<li><a href="#">추천상품</a></li>
+				<li><a href="#">세일상품</a></li>
+				<li><a href="#">후기모음</a></li>
+				<li><a href="/main/event/eventMain">이벤트</a></li>
+			</ul>
+			<div id="header_menu_right">
+				<a href="#"><img src="https://www.oasis.co.kr/images/common/gnbSearch.png"></a>
+				<input type="text" placeholder="무엇이 궁금하세요?"></input>
+			</div>
 		</div>
 	</div>
  </header>
@@ -379,7 +471,7 @@ ${testVo.user_id}
 			<c:if test="${productVo.product_code == productImageDto.product_code}">
 				<div>
 					<a href="/product/detail/${productVo.product_code}">
-					<img src="${path}/resources/images/${productImageDto.image_info_file_name}" style="width:240px; height:240px;"></a>
+					<img src="${path}/resources/images/product/${productImageDto.image_info_file_name}" style="width:240px; height:240px;"></a>
 					<div class="dscImage">
 						<p>${productVo.product_title}</p>
 						<p class="price-p">${productVo.product_price}</p>

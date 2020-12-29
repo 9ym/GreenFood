@@ -20,7 +20,7 @@ public interface ProductDao {
 	/* 상품 사진 목록 (임시로 사진 전부 다) */
 	public List<ProductImageDto> getProductImageList();
 	
-	/* 상품 목록 - 잘 팔리는 6개 */
+	/* 상품 목록 - 베스트 */
 	public List<ProductVo> getProductBest(int best_count);
 	
 	/* 상품 목록 - 카테고리 별로 */
