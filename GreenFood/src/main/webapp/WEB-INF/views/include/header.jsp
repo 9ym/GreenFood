@@ -307,7 +307,7 @@ $(function(){
 		var data = $(this).attr("data");
 		console.log("data:"+ data);
 		$("#boardNames").text(data);
-		location.href = "/main/customer/customerCenter";
+		location.href = "/customerCenter/customerCenterMain";
 	});
 	
 	/* 스크롤에 따라서 메뉴 상단에 고정 */
