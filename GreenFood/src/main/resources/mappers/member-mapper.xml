@@ -14,8 +14,8 @@
 	
 	<!-- 회원가입 -->
 	<insert id="insertMember">
-		insert into tbl_member (user_id, user_pw, user_name, user_email, user_address, user_phone)
-			values(#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_address}, #{user_phone})
+		insert into tbl_member (user_id, user_pw, user_name, user_email, user_phone, user_addr1, user_addr2, user_addr3)
+			values(#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_phone}, #{user_addr1}, #{user_addr2}, #{user_addr3})
 	</insert>
 	
 	<!-- 회원탈퇴 -->
@@ -28,13 +28,6 @@
 	<select id="selectMember" resultType="TestVo">
 		select * from tbl_member
 			where user_id = #{user_id}
-	</select>
-	
-	<!-- 비밀 번호 체크 -->
-	<select id="" resultType="TestVo">
-		select * from tbl_member
-			where user_id = #{user_id}
-			and user_pw = #{user_pw}
 	</select>
 	
 </mapper>

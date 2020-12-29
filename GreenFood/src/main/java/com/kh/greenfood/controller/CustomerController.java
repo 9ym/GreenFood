@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.domain.TestVo;
@@ -29,21 +30,26 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value="/customerProfile")
-	public String customerProfile(String user_pw) throws Exception{
-		
+	public String customerProfile() throws Exception{
 		return "customer/customerProfile";
 	}
 	
 	@RequestMapping(value="/customerProfileRun", method=RequestMethod.POST)
-	public String cutomerProfileRun(HttpSession session, String user_pw) throws Exception{
-		System.out.println(user_pw);
+	@ResponseBody
+	public String customerProfileRun(HttpSession session, String user_pw) throws Exception{
 		TestVo testVo = (TestVo)session.getAttribute("testVo");
+		// 프로필상 입력한 user_pw == session의 user_pw
 		if (testVo.getUser_pw().equals(user_pw)) {
-			
+			return "success";
 		} else {
-			
+			return "fail";
 		}
-		return null;
+	}
+	
+	@RequestMapping(value="/customerProfileModifyRun", method=RequestMethod.POST)
+	public void customerProfileModifyRun(TestVo testVo) throws Exception{
+		System.out.println("customerProfileModifyRun: " + testVo);
+		
 	}
 	
 	@RequestMapping(value="/customerMemberJoinRun", method=RequestMethod.POST)
