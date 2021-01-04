@@ -13,8 +13,16 @@
 <script>
 $(function(){
 	
+	// 자주하는 질문 작성 버튼 누르면 작성창으로 이동
 	$("#btnQuestionWrite").click(function(){
 		location.href="/customerCenter/question/questionWriteForm";
+	});
+	
+	$(".question_title").click(function(e){
+		e.preventDefault();
+		var q_no = $(this).attr("data-bno");
+		
+		location.href="/customerCenter/question/questionAnswer/" + q_no;
 	});
 	
 }); 
@@ -26,6 +34,13 @@ $(function(){
 	
 	$("#boardNames").text(data);
 </script> -->
+
+
+
+
+
+
+
 </head>
 <body>
 <style>
@@ -173,8 +188,6 @@ div {
 }
 
 
-
-
 #snb .list_menu li a {
     display: block;
     overflow: hidden;
@@ -216,7 +229,7 @@ tbody tr {
    
 }
 
-.xans-board-listheader tbody tr td a:hover {
+.xans-board-listheader tbody tr td:nth-child(3):hover {
 	color: #5AB63F;
    
 }
@@ -268,6 +281,10 @@ tbody tr {
     font-size: 13px;
 }
 
+
+.container-fluid {
+	padding-top: 150px;
+}
 
 </style>
 
@@ -363,14 +380,17 @@ tbody tr {
 																	<th>번호</th>
 																	<th>카테고리</th>
 																	<th>제목</th>
-																	</tr>
+																</tr>
 															</thead>
 															<tbody>
+															<c:forEach var="questionVo" items="${questionList}">
 																<tr>
-																	<td>1</td>
-																	<td>회원문의</td>
-																	<td><a href="#">아이디와 비밀번호가 기억나지 않습니다. 어떻게 확인하나요?</a></td>
+																	<td>${questionVo.question_no}</td>
+																	<td>${questionVo.question_category_dsc}</td>
+																	<td><a class="question_title" href="#" data-bno="${questionVo.question_no}">${questionVo.question_title}</a></td>
 																</tr>
+																
+															</c:forEach>
 															</tbody>
 
 														</table>
@@ -380,7 +400,7 @@ tbody tr {
 										</tbody>
 									</table>
 							</div>
-							<!-- // 공지사항메인창  -->
+							<!-- // 자주하는 질문 메인창  -->
 
 
 

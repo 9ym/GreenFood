@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.kh.greenfood.question">
+
+
+	
+	<!-- 자주하는 질문 글쓰기 -->
+		<insert id="insertQuestion">
+			insert into tbl_question (question_no, question_title, question_content, question_category, question_category_dsc)
+				values(seq_question_no.nextval, #{question_title}, #{question_content}, #{question_category}, #{question_category_dsc}) 
+		</insert>
+
+	<!-- 목록 -->
+		<select  id="questionList" resultType="QuestionVo">
+			select * from tbl_question
+			order by question_no desc
+		</select>
+		
+	<!-- 글 선택 -->
+	<select id="selectQuestion" resultType="QuestionVo">
+		select * from tbl_question
+		where question_no = #{question_no}
+	</select>
+	
+	<!-- category 조인하기 -->
+	<select id="getQuestionCategory" resultType="QuestionVo">
+		select q.* , c.question_category_dsc
+		from tbl_question q, tbl_question_category c
+		where q.question_category = c.question_category;
+	</select>
+	
+	
+	<!-- 카테고리 받아오기 -->
+	<!-- <select id="getQuestionCategory" resultType="QuestionVo">
+		select * from tbl_question
+		where question_category = #{question_category}
+	</select> -->
+	
+	<!-- <select id="getCategoryList" resultType="QuestionCategoryDto">
+		select * from tbl_question_category
+		order by question_category asc
+	</select> -->
+	
+	<!-- 삭제 -->
+	<delete id="deleteQuestion">
+		delete from tbl_question
+			where question_no = #{question_no} 
+	</delete>
+</mapper>

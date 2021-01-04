@@ -75,6 +75,10 @@
  	height:40px;
  	font-size:15px;
 }
+
+.container-fluid {
+	padding-top: 150px;
+}
 </style>
 
 	<div class="container-fluid">

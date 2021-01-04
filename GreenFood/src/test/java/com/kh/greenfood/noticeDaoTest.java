@@ -29,5 +29,15 @@ public class noticeDaoTest {
 		System.out.println("noticeVo :" + noticeVo);
 	}
 	
+	@Test
+	public void testUpdateNotice() throws Exception {
+		NoticeVo noticeVo = new NoticeVo();
+		noticeVo.setNotice_title("공지사항 5  수정");
+		noticeVo.setNotice_content("내용5 수정");
+		noticeVo.setNotice_no(61);
+		noticeDao.updateNotice(noticeVo);
+		System.out.println("noticeVo :" + noticeVo);
+	}
+	
 	
 }

@@ -34,8 +34,12 @@ img {
   justify-content: center;
 }
 		
+.container-fluid {
+	padding-top: 150px;
+}
 		
 </style>
+<div class="container-fluid">
 	<div class="event_event1221_02">
 		<div id="event1221_02" class="section_event">
 			<ul class="list">
@@ -56,7 +60,7 @@ img {
 	<div></div>
 	<div></div>
 	<div></div>
-	
+</div>
 	
 	
 	

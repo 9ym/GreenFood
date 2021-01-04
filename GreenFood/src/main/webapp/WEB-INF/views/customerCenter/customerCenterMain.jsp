@@ -81,7 +81,7 @@ div {
 }
 
 #snb .list_menu li.on a, #snb .list_menu li a:hover {
-    background: #fafafa url(https://res.kurly.com/pc/ico/2008/ico_arrow_6x11_on.svg) no-repeat 230px 52%;
+    background: #fafafa url(https://res.kurly.com/pc/ico/2008/ico_arrow_6x11_on.svg)  no-repeat 230px 52%;
     background-size: 6px 11px;
     font-weight: 700;
     color: #5AB63F;
@@ -175,6 +175,10 @@ tbody tr {
     font-size: 13px;
 }
 
+
+.container-fluid {
+	padding-top: 150px;
+}
 
 </style>
 

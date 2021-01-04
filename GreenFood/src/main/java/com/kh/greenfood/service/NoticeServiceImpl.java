@@ -5,7 +5,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.greenfood.dao.NoticeDao;
 import com.kh.greenfood.domain.NoticeVo;
@@ -26,7 +25,7 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public List<NoticeVo> noticeList() throws Exception {
 		List<NoticeVo> noticeList = noticeDao.noticeList();
-		System.out.println("NoticeServiceImpl, noticeList, noticeList:" + noticeList);
+//		System.out.println("NoticeServiceImpl, noticeList, noticeList:" + noticeList);
 		return noticeList;
 	}
 
@@ -36,6 +35,19 @@ public class NoticeServiceImpl implements NoticeService {
 		NoticeVo noticeVo = noticeDao.selectNotice(notice_no);
 		return noticeVo;
 	}
+	
+	@Override
+	public void updateNotice(NoticeVo noticeVo) throws Exception {
+		noticeDao.updateNotice(noticeVo);
+		
+	}
+	
+	@Override
+	public void deleteNotice(int notice_no) throws Exception {
+		noticeDao.deleteNotice(notice_no);
+	}
+
+	
 	
 	
 }

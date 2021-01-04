@@ -33,9 +33,13 @@ img {
   align-items: center;
   justify-content: center;
 }
-		
+	
+.container-fluid {
+	padding-top: 150px;
+}	
 		
 </style>
+<div class="container-fluid">
 	<div class="event_event1221_03">
 		<div id="event1221_03" class="section_event">
 			<ul class="list">
@@ -54,6 +58,6 @@ img {
 		<button type="submit" id="btnEventMain" class="btn btn-success">목록</button>
 	</div>
 	</div>
-	
+</div>	
 </body>
 </html>

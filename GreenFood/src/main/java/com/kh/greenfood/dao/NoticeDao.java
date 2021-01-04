@@ -17,4 +17,10 @@ public interface NoticeDao {
 		
 		// 글조회
 		public NoticeVo selectNotice(int notice_no) throws Exception;
+		
+		// 글 수정
+		public void updateNotice(NoticeVo noticeVo) throws Exception;
+		
+		// 글 삭제
+		public void deleteNotice(int notice_no) throws Exception;
 }

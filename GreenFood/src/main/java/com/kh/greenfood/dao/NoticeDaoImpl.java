@@ -48,7 +48,20 @@ public class NoticeDaoImpl implements NoticeDao {
 		return noticeVo;
 	}
 	
+	@Override
+	public void updateNotice(NoticeVo noticeVo) throws Exception {
+		sqlSession.update(NAMESPACE + "updateNotice", noticeVo);
+		
+	}
+	
 
+	@Override
+	public void deleteNotice(int notice_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "deleteNotice", notice_no);
+		
+	}
+
+	
 
 	
 }

@@ -17,6 +17,36 @@ $(function(){
 		location.href="/customerCenter/customerCenterMain";
 	});
 	
+// ---------------- 수정 버튼 누르면 수정할수 있게 -------------------------	
+	$("#btnUpdateNotice").click(function() {
+		$(".update").prop("readonly", false); // 제목, 내용 입력 읽기 전용 제거
+		$(this).hide("slow"); // "fast", "normal", "slow"
+		$("#btnUpdateFinish").show(1000); // millisecond
+	});
+	 
+// --------------------- 수정 후 수정완료 누르면 입력한 값 넘겨주기 -----------------------
+	$("#btnUpdateFinish").click(function() {
+		var notice_title = $("#notice_title").val(); // title 입력한 값 지정
+		var notice_content = $("#notice_content").val(); // content 입력한 값 지정
+		$("#frmUpdate > input[type=hidden]").eq(1).val(notice_title); // 붙여넣기
+		$("#frmUpdate > input[type=hidden]").eq(2).val(notice_content); // 붙여넣기
+		$("#frmUpdate").submit(); // 서밋 해 줘야함..
+	});
+	
+	// 수정 완료 버튼
+	/* $("#btnUpdateFinish").click(function() {
+		$("#frmPaging > input").prependTo($("#frmUpdate")); // A.appendTo(B) : A를 B에 붙이기
+		// A.append(B) : A에 B를 붙이기
+		$("#frmUpdate").submit();
+	}); */
+	
+	// 삭제 버튼 ---> 필요없음...
+	/* $("#btnDeleteNotice").click(function(e) {
+		e.preventDefault();
+		$("#btnDeleteNotice").attr("action", "/customerCenter/notice/deleteNotice")
+		$("#btnDeleteNotice").submit();
+	}); */
+	
 });
 </script>
 
@@ -107,6 +137,10 @@ table {
 	padding-right: 10px;
     padding-left: 10px;
 }
+
+.container-fluid {
+	padding-top: 150px;
+}
 </style>
 
 
@@ -125,21 +159,27 @@ table {
 							<tbody>
 								<tr>
 									<th>제목</th>
-									<td colspan="5">${noticeVo.notice_title}</td>
+									<td colspan="5">
+									<input type="text" style="background-color: white" style="border: none"
+										class="form-control update" id="notice_title" 
+										placeholder="제목을 입력해주세요" value="${noticeVo.notice_title}" readonly
+										required />
+										</td>
 									</tr>
 								<tr>
 									<th>작성자</th>
-									<td>빈칸</td>
+									<td>관리자</td>
 									<th>작성일</th>
-									<td>빈칸</td>
+									<td>${noticeVo.notice_date}</td>
 									<th>조회수</th>
-									<td>빈칸</td>
+									<td>202020</td>
 								</tr>
 								</tbody>
 						</table>
 						<div class="noticeContent">
 						<div class="contentArea">
-							<p value="">${noticeVo.notice_content}</p>
+							<textarea style="background-color: white" style="border: none" class="form-control update" id="notice_content"
+						placeholder="내용을 입력해주세요." readonly>${noticeVo.notice_content}</textarea>
 						</div>
 						</div>
 					</div>
@@ -151,7 +191,22 @@ table {
 	
 	<div>
 	<div class="btnList" >
-		<button type="submit" id="btnList" class="btn btn-success">목록</button>
+			<button type="button" id="btnList" class="btn btn-success">목록</button>
+			<button type="button" id="btnUpdateNotice" class="btn btn-warning" style="margin-left: 10px">수정</button>
+		
+		<form id="frmUpdate" action="/customerCenter/notice/updateNotice" method="get">
+			<input type="hidden" name="notice_no" class="btn btn-warning" value="${noticeVo.notice_no }"/>
+			<input type="hidden" name="notice_title" class="btn btn-warning"/>
+			<input type="hidden" name="notice_content" class="btn btn-warning"/>
+			<button type="button" id="btnUpdateFinish" class="btn btn-warning" style="margin-left: 10px; display: none;">수정완료</button>
+		</form>
+		
+		<form action="/customerCenter/notice/deleteNotice" method="get">
+			<input type="hidden" name="notice_no" class="btn btn-danger" value="${noticeVo.notice_no }"/>
+			<button type="submit" id="btnDeleteNotice" class="btn btn-danger" style="margin-left: 10px">삭제</button>
+		</form>
+		
+		
 	</div>
 	</div>
 

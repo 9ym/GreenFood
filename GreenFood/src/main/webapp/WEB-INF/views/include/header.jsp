@@ -133,7 +133,7 @@ ul li a {
 #header_menu #first_li {										
 	height: 70px;
 	width:120px;									
-	text-align: center;									
+	text-align: center;		
 }										
 #a-first_li {										
 	display:inline;	
@@ -367,7 +367,7 @@ $(function(){
 				<div id="header_menu">							
 					<a href="/"><img src="${path}/resources/images/greenfood_logo.png"></a>						
 					<ul>						
-						<li id="first_li"><a id="a-first_li" href="#">전체 보기</a>					
+						<li id="first_li"><a id="a-_li" href="#">전체 보기</a>					
 							<ul class="hide">				
 								<c:forEach var="productCategoryDto" items="${categoryList}">
 									<li><a href="/product/category/${productCategoryDto.product_category}">${productCategoryDto.product_category_dsc}</a></li>
