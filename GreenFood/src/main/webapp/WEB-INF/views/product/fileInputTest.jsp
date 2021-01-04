@@ -20,7 +20,7 @@
 	<div class="col-md-6">
 		<h2>File Input Test</h2><br/><br/>
 	
-		<form id="frmTest" action="/product/fileTest" method="post" enctype="multipart/form-data">
+		<form id="frmTest" action="/upload/fileTest" method="post" enctype="multipart/form-data">
 			
 <!-- 			상품 코드 : <input type="text" name="product_code"><br/> -->
 			카테고리 : <input type="text" name="product_category"><br/>

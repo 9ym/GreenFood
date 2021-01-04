@@ -66,6 +66,22 @@ $(function(){
 		} 
 	}
 	
+	/* amazon s3 이미지 불러오기 */
+	$(".imgInfo").each(function() {
+		var thisImg = $(this);
+		var fileName = thisImg.attr("data-img");
+		var category = thisImg.attr("data-category");
+		var sendData = {
+				"fileName" : fileName,
+				"category" : category
+		};
+		var url = "upload/getImageUrl";
+		$.post(url, sendData, function(data) {
+// 			console.log(data);
+			thisImg.attr("src", data);
+		});
+	});
+	
 });	
 </script>
 <!-- 스크립트 끝 -->
@@ -416,13 +432,16 @@ ul li a{ text-decoration:none; }
 ${testVo}
 ${testVo.user_id}
 <header>
+	<!-- 제일 상단 버튼 : 회원가입 혜택 안내?? -->
 	<div class="div-top">	
 		<a href="#">
 			<span>dngkgkgkgkgkgkgk</span>
 			<button type="button">X</button>
 		</a>
 	</div>
+	<!--// 제일 상단 버튼 -->
 	
+	<!-- 이미지 슬라이드 -->
 	<div class="slide">
 	  <ul>
 	    <li></li>
@@ -431,11 +450,14 @@ ${testVo.user_id}
 	    <li></li>
 	  </ul>
 	</div>
+	<!--// 이미지 슬라이드 -->
+	
 	<!-- <div id="main_text">
 		<p>바른 먹거리 신뢰와 상생</p>
 		<p id=>농산물 직거래 플랫폼</p>
 		<p>우리 지역 농산물의 <span id="main_text_span">신선함</span>을 그대로 전달해 드립니다</p>
 	</div> -->
+	
 	<div id="header_small_menu">
 		<c:choose>
 			<c:when test="${not empty sessionScope.testVo }">
@@ -474,7 +496,9 @@ ${testVo.user_id}
 		</div>
 	</div>
  </header>
+ 
 <div class="products-list">
+
 	<div id="best_text">
 		<img src="${path}/resources/images/best_text.png">
 		<a type="button" href="/product/fileInputTest">파일 인풋 테스트</a>
@@ -482,7 +506,7 @@ ${testVo.user_id}
 	<div id="make_line">
 	</div>
 	
-	<!--코딩 들어갈 부분!!-->
+	<!-- 베스트 6 상품 -->
 	<div id="best_products">
 		<div id="first_floor">
 			<c:forEach var="productVo" items="${productBestList}">
@@ -490,8 +514,9 @@ ${testVo.user_id}
 			<c:if test="${productVo.product_code == productImageDto.product_code}">
 				<div>
 					<a href="/product/detail/${productVo.product_code}">
-<%-- 					<img src="${path}/resources/images/product/${productImageDto.image_info_file_name}" style="width:240px; height:240px;"></a> --%>
-					<img src="https://greenfood.s3.ap-northeast-2.amazonaws.com/category_2003/${productImageDto.image_info_file_name}" style="width:240px; height:240px;"></a>
+						<img class="imgInfo" src="${path}/resources/images/right.PNG" style="width:240px; height:240px;"
+							data-img="${productImageDto.image_info_file_name}" data-category="${productVo.product_category}">
+					</a>
 					<div class="dscImage">
 						<p>${productVo.product_title}</p>
 						<p class="price-p">${productVo.product_price}</p>
@@ -506,8 +531,9 @@ ${testVo.user_id}
 			</c:forEach>
 		</div>
 	</div>
-	<!--//코딩 들어갈 부분!!-->
+	<!--// 베스트 6 상품 -->
 	
 	<div id="makeSpace">
 	</div>
+	
 </div>	

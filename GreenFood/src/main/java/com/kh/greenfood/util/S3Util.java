@@ -44,13 +44,14 @@ public class S3Util implements Keys, BucketFolder {
 		s3.deleteObject(BUCKET, fileName);
 	}
 	
-	/* 파일 url 불러오기?? */
+	/* 이미지 파일 url 불러오기 => 버킷주소/폴더 이름/파일 이름.### 생성 */
+	// S3Util.getImageUrl(fileName, category);
 	public static String getImageUrl(String fileName, String category) {
 		String imageUrl= BUCKET_URL + setS3FileName(fileName, category);
 		return imageUrl;
 	}
 	
-	/* 파일이름 => 폴더/파일 이름.### 생성 */
+	/* 파일 이름 => 폴더 이름/파일 이름.### 생성 */
 	private static String setS3FileName(String fileName, String category) {
 		String folderName = findFolder(category);
 		String s3FileName = folderName + "/" + fileName;

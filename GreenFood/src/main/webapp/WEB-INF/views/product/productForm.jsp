@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <!-- <link rel="stylesheet" type="text/css" href="#"/>css 하다가 따로 파일 만들어서 저장 -->
@@ -17,15 +18,32 @@
 // 	$("#boardNames").text("상품 상세");/* 게시판 이름 */
 // }); 
 
-/* 최종 가격 표현 */
 $(function() {
+	/* 최종 가격 표현 */
 	var priceGeneral = "${productVo.product_price}";
 	$("#priceGeneral").text(addComma(priceGeneral));
 	var count = parseInt($("#productCount").val());
 	var totalPrice = priceGeneral * count;
 	$("#totalPrice").text(addComma(totalPrice));
+	
+	/* amazon s3 이미지 불러오기 */
+	$(".img-s3").each(function() {
+		var thisImg = $(this);
+		var fileName = thisImg.attr("data-img");
+		var category = thisImg.attr("data-category");
+		var sendData = {
+				"fileName" : fileName,
+				"category" : category
+		};
+		var url = "/upload/getImageUrl";
+		$.post(url, sendData, function(data) {
+// 			console.log(data);
+			thisImg.attr("src", data);
+		});
+	});
 });
 
+/* 갯수 올리는 버튼 */
 function btnCountUp(obj) {
 	var count = parseInt($("#productCount").val());
 	$("#productCount").val(count + 1);
@@ -36,6 +54,7 @@ function btnCountUp(obj) {
 	$("#totalPrice").text(addComma(totalPrice));
 }
 
+/* 갯수 내리는 버튼 */
 function btnCountDown(obj) {
 	var count = parseInt($("#productCount").val());
 	$("#productCount").val(count - 1);
@@ -52,6 +71,7 @@ function btnCountDown(obj) {
 	}
 }
 
+/* 갯수 직접 입력 */
 function inputCount(obj) {
 	var count = parseInt($("#productCount").val());
 	var productPrice = parseInt(subComma($("#priceGeneral").text()));
@@ -318,13 +338,12 @@ $(function() {
 	
 	<div class="row div-content">
 		<div class="col-md-3"></div>
-		<div class="col-md-6 viewInfo">
 		<!-- 상품 개요 -->
+		<div class="col-md-6 viewInfo">
 		<div>
 			<div class="infoImage">
-				<!-- 임시로... image_file_name 파일 이름만 DB에서 가져와서 사용 -->
-<%-- 				<img class="img-product" alt="상품 이미지" src="${path}/resources/images/product/${productImageDto.image_info_file_name}"> --%>
-				<img class="img-product" alt="상품 이미지" src="https://greenfood.s3.ap-northeast-2.amazonaws.com/category_2003/${productImageDto.image_info_file_name}">
+				<img class="img-product img-s3" alt="상품 이미지" src="${path}/resources/images/right.PNG"
+					data-img="${productImageDto.image_info_file_name}" data-category="${productVo.product_category}">
 			</div>
 			<div class="infoNamePrice">
 				<div class="infoName">
@@ -392,8 +411,8 @@ $(function() {
 				</div>
 			</div>
 		</div>
-		<!--// 상품 개요 -->
 		</div>
+		<!--// 상품 개요 -->
 		<div class="col-md-3"></div>
 	</div>
 	
@@ -402,18 +421,21 @@ $(function() {
 		<!-- 관련 상품 -->
 		<div class="col-md-6 related-list">
 			<div>
+				<c:if test="${fn:length(productBestList) > 5}">
 				<button type="button" class="btn btn-default btn-sm">
 					<img src="${path}/resources/images/left.PNG">
 		        </button>
+				</c:if>
 				<ul class="ul-related">
-					<c:forEach var="productVoList" items="${productBestList}">
+					<c:forEach var="productVoList" items="${productCategoryList}">
 					<c:forEach var="productImageDtoList" items="${productImageList}">
 					<c:if test="${productVoList.product_code == productImageDtoList.product_code}">
 					<c:if test="${productVoList.product_title != productVo.product_title}">
 					<li class="li-related" style="float:left;">
 						<div class="image-related">
 							<a href="/product/detail/${productVoList.product_code}">
-								<img src="${path}/resources/images/product/${productImageDtoList.image_info_file_name}"/>
+								<img class="img-related img-s3" alt="관련 상품 사진" src="${path}/resources/images/right.PNG"
+									data-img="${productImageDtoList.image_info_file_name}" data-category="${productVoList.product_category}">
 							</a>
 						</div>
 						<div class="info-related">
@@ -426,9 +448,11 @@ $(function() {
 					</c:forEach>
 					</c:forEach>
 				</ul>
+				<c:if test="${fn:length(productBestList) > 5}">
 				<button type="button" class="btn btn-default btn-sm">
 					<img src="${path}/resources/images/right.PNG">
 		        </button>
+		        </c:if>
 			</div>
 		</div>
 		<!--// 관련 상품 -->
@@ -440,8 +464,10 @@ $(function() {
 		<!-- 상세 정보 -->
 		<div class="col-md-6 infoDetail">
 			<div>
-<%-- 				<div><img class="img-detail" alt="상세 사진" src="${path}/resources/images/product/${productImageDto.image_content_file_name}"/></div> --%>
-				<div><img class="img-detail" alt="상세 사진" src="https://greenfood.s3.ap-northeast-2.amazonaws.com/category_2003/${productImageDto.image_content_file_name}"/></div>
+				<div>
+					<img class="img-detail img-s3" alt="상세 사진" src="${path}/resources/images/right.PNG"
+						data-img="${productImageDto.image_content_file_name}" data-category="${productVo.product_category}">
+				</div>
 				<p>${productVo.product_sub_title}</p>
 				<h1>${productVo.product_title}</h1>
 				<p>${productVo.product_content}</p>
@@ -456,6 +482,7 @@ $(function() {
 	
 	<div class="row div-content">
 		<div class="col-md-3"></div>
+		<!-- 후기 모음 -->
 		<div class="col-md-6 tbl-review">
 			<p>후기 게시판?</p>
 			<table class="table table-bordered">
@@ -473,6 +500,7 @@ $(function() {
 				</tbody>
 			</table>
 		</div>
+		<!--// 후기 모음  -->
 		<div class="col-md-3"></div>
 	</div>
 	
