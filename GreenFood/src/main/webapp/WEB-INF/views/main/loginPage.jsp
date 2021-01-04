@@ -2,6 +2,25 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/css_loginPage.css"/>
+
+<!-- 토글 -->
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<!-- 토글 끝 -->
+<style>
+.container-fluid {
+	padding-top : 150px;
+}
+
+.toggle.ios, .toggle-on.ios, .toggle-off.ios {
+	border-radius: 10px; }
+  
+.toggle.ios .toggle-handle {
+	border-radius: 10px;
+}
+
+</style>
+
 <script>
 $(function(){
 	/* 헤더 배경화면, 게시판 이름 바꾸는 부분 */
@@ -16,6 +35,8 @@ $(function(){
 		alert("로그인 실패");
 	} else if(msg == "memberJoinSuccess"){
 		alert("회원가입 성공");
+	} else if(msg == "tempPasswordCreate"){
+		alert("임시 비밀번호가 발급되었습니다. 이메일을 확인해주세요.");
 	}
 
 	$("#btnLogin").click(function(){
@@ -29,6 +50,7 @@ $(function(){
 });
 </script>
 <content>
+<div class="container-fluid">
 	<form id="frmlogin" action="/loginRun" method="post">
 		<div id="div_loginForm">
 		<p>로그인</p>
@@ -36,14 +58,26 @@ $(function(){
 		<input type="text" id="user_id" name="user_id" class="input_login" placeholder="아이디를 입력해주세요" required value="${cookie.save_id.value}"></input>
 		비밀번호
 		<input type="password" id="user_pw" name="user_pw" class="input_login" placeholder="비밀번호를 입력해주세요" required value="@rnlghks1"></input>
-		<input type="checkbox" id="input_checkBox" name="checked_id"
-			<c:if test="${not empty cookie.save_id.value}">
+		
+		<!-- 토글 -->
+  		<div>
+    		<input type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-style="ios" id="input_checkBox" name="checked_id"
+    		<c:if test="${not empty cookie.save_id.value}">
 				checked
 			</c:if>
-		><span>로그인유지</span><a href="#" id="a_searchId" class="a_login">아이디 찾기</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png"><a href="#" class="a_login">비밀번호 찾기</a>
+    		>
+   			<label for="input_checkBox">로그인 유지</label>
+  		</div>
+		<!-- // 토글 -->
+		
+		
+		
+		<a href="/main/customerFindId" id="a_searchId" class="a_login">아이디 찾기</a>
+		<img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+		<a href="/main/customerFindPw" id="a_searchPw" class="a_login">비밀번호 찾기</a>
 		<button type="button" id="btnLogin" >로그인</button>
 		<button type="button" id="btnJoin">회원가입하기</button>
-		</div>
-		
+		</div>		
 	</form>
+</div>
 </content>

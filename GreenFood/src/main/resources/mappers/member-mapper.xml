@@ -6,6 +6,7 @@
 <mapper namespace="com.kh.greenfood.member">
 
 	<!-- 로그인 -->
+	<!-- 프로필 -> 현재 비밀번호 확인 -->
 	<select id="login" resultType="TestVo">
 		select * from tbl_member
 		where user_id = #{user_id}
@@ -29,5 +30,23 @@
 		select * from tbl_member
 			where user_id = #{user_id}
 	</select>
+	
+	<!-- 프로필 비밀번호 수정  -->
+	<update id="changePw">
+		update tbl_member set
+			user_pw = #{user_pw}
+			where user_id = #{user_id}
+	</update>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="customerModify">
+		update tbl_member set
+			user_addr1 = #{user_addr1},
+			user_addr2 = #{user_addr2},
+			user_addr3 = #{user_addr3},
+			user_phone = #{user_phone},
+			user_email = #{user_email}
+			where user_id = #{user_id}
+	</update>
 	
 </mapper>

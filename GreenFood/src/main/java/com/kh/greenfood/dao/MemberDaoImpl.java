@@ -40,9 +40,26 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public TestVo profilePwCheck(String user_id, String user_pw) {
-		
-		return null;
+	public int changePw(String user_id, String user_pw) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("user_pw", user_pw);
+		int count = sqlSession.update(NAMESPACE + "changePw", map);
+		return count;
 	}
+
+	@Override
+	public int customerModify(TestVo testVo) {
+		int count = sqlSession.update(NAMESPACE + "customerModify", testVo);
+		return count;
+	}
+
+//	@Override
+//	public TestVo profilePwCheck(String user_id, String user_pw) {
+//		
+//		return null;
+//	}
+	
+	
 
 }

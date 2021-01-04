@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/css_customerMyPage.css"/>
+<style>
+.container-fluid {
+	padding-top : 150px;
+}
+</style>
 <script>
 $(function(){
 	/* 헤더 배경화면, 게시판 이름 바꾸는 부분 */
@@ -11,9 +16,17 @@ $(function(){
 	$("#page_background").css({"background-repeat":"no-repeat"});
 	$("#boardNames").text("마이페이지");/* 게시판 이름 */
 	
+	var msg = "${msg}";
+	if(msg == "pwChangeSuccess"){
+		alert("비밀번호가 변경되었습니다.");
+	} else if(msg == "modifySuccess"){
+		alert("회원정보가 수정되었습니다.");
+	}
+	
 });
 </script>
 <content>
+<div class="container-fluid">
 <div id="content_left" style="width:300px;
 height: 700px;
 float:left;
@@ -128,4 +141,5 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 			</div>
 		</div>
 	</div >
+</div>
 </content>
