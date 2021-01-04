@@ -60,5 +60,23 @@ public class ProductDaoImpl implements ProductDao {
 		List<ProductCategoryDto> categoryList = sqlSession.selectList(NAMESPACE + "getCategory");
 		return categoryList;
 	}
+	
+	@Override
+	public int insertProduct(ProductVo productVo) {
+		int count = sqlSession.insert(NAMESPACE + "insertProduct", productVo);
+		return count;
+	}
+	
+	@Override
+	public int insertProductImage(ProductImageDto productImageDto) {
+		int count = sqlSession.insert(NAMESPACE + "insertProductImage", productImageDto);
+		return count;
+	}
+	
+	@Override
+	public ProductVo getProductLatest() {
+		ProductVo productVo = sqlSession.selectOne(NAMESPACE + "getProductLatest");
+		return productVo;
+	}
 
 }

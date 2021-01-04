@@ -44,19 +44,24 @@ $(function(){
 	function hasScrolled() {
 		// 동작을 구현 
 		var st = $(this).scrollTop(); 
-		console.log("GG-" + st);
+// 		console.log("GG-" + st);
 		
 		if (st > 55) {
 			$("#header_menu_out").css("transition-property", "margin-top");
-			$("#header_menu_out").css("transition-duration", "1s");
+// 			$("#header_menu_out").css("transition-duration", "0.2s");
 			$("#header_menu_out").css("margin-top", "0px");
-			if (st > 380) {
+			if (st > 390) {
+				$("#header_menu_out").css("transition-property", "box-shadow");
 				$("#header_menu_out").css("box-shadow", "0px 3px 3px WhiteSmoke");
 			}
-		} else if (st <= 55) {
-			$("#header_menu_out").css("margin-top", "80px");
-			if (st <= 380) {
-				$("#header_menu_out").css("box-shadow", "0px 0px 0px WhiteSmoke");
+		} 
+		if (st <= 400) {
+			$("#header_menu_out").css("transition-property", "box-shadow");
+			$("#header_menu_out").css("box-shadow", "0px 0px 0px WhiteSmoke");
+			if (st <= 55) {
+				$("#header_menu_out").css("transition-property", "margin-top");
+// 				$("#header_menu_out").css("transition-duration", "0.1s");
+				$("#header_menu_out").css("margin-top", "80px");
 			}
 		} 
 	}
@@ -169,16 +174,29 @@ ul li a{ text-decoration:none; }
 	#header_menu #first_li{
 		height: 70px;
 		width:120px;
-		text-align : center;
+/* 		text-align : center; */
+/* 		float : left; */
 	}
 	#a-first_li {										
 		display:inline;	
-		border-top: #6ca435 1px solid;
-		border-bottom: #6ca435 1px solid;
-		padding : 20px 20px;	
+/* 		border-top: #6ca435 1px solid; */
+/* 		border-bottom: #6ca435 1px solid; */
+/* 		padding : 20px 20px;	 */
 	}										
 	#first_li a{
 		display:inline;
+	}
+	#first_li img{
+		height : 20px;
+		width : 20px;
+		margin-left : 15px;
+		margin-right : 5px;
+		margin-top : 28px;
+		
+		/* display: block;
+		margin-left: auto;
+		margin-right: auto;
+		hight: 50%; */
 	}
 	
 	#header_menu .hide {
@@ -436,7 +454,7 @@ ${testVo.user_id}
 		<div id="header_menu">
 			<a href="/"><img src="${path}/resources/images/greenfood_logo.png"></a>
 			<ul>
-				<li id="first_li"><a id="a-first_li" href="#">전체 보기</a>	
+				<li id="first_li"><img src="${path}/resources/images/stripe3.png"><a id="a-first_li" href="#">전체 보기</a>	
 					<ul class="hide">
 						<c:forEach var="productCategoryDto" items="${categoryList}">
 							<li><a href="/product/category/${productCategoryDto.product_category}">${productCategoryDto.product_category_dsc}</a></li>
@@ -459,6 +477,7 @@ ${testVo.user_id}
 <div class="products-list">
 	<div id="best_text">
 		<img src="${path}/resources/images/best_text.png">
+		<a type="button" href="/product/fileInputTest">파일 인풋 테스트</a>
 	</div>
 	<div id="make_line">
 	</div>
@@ -471,7 +490,8 @@ ${testVo.user_id}
 			<c:if test="${productVo.product_code == productImageDto.product_code}">
 				<div>
 					<a href="/product/detail/${productVo.product_code}">
-					<img src="${path}/resources/images/product/${productImageDto.image_info_file_name}" style="width:240px; height:240px;"></a>
+<%-- 					<img src="${path}/resources/images/product/${productImageDto.image_info_file_name}" style="width:240px; height:240px;"></a> --%>
+					<img src="https://greenfood.s3.ap-northeast-2.amazonaws.com/category_2003/${productImageDto.image_info_file_name}" style="width:240px; height:240px;"></a>
 					<div class="dscImage">
 						<p>${productVo.product_title}</p>
 						<p class="price-p">${productVo.product_price}</p>

@@ -38,9 +38,21 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public TestVo profilePwCheck(String user_id, String user_pw) {
-		
-		return null;
+	public int changePw(String user_id, String user_pw) {
+		int count = memberDao.changePw(user_id, user_pw);
+		return count;
 	}
+
+	@Override
+	public int customerModify(TestVo testVo) {
+		int count = memberDao.customerModify(testVo);
+		return count;
+	}
+
+//	@Override
+//	public TestVo profilePwCheck(String user_id, String user_pw) {
+//		TestVo testVo = memberDao.profilePwCheck(user_id, user_pw);
+//		return testVo;
+//	}
 }
 

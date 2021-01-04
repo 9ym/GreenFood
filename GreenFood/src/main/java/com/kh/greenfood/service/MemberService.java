@@ -4,17 +4,21 @@ import com.kh.greenfood.domain.TestVo;
 
 public interface MemberService {
 	
-	// ¾ÆÀÌµğ ·Î±×ÀÎ
 	public TestVo login(String user_id, String user_pw);
 	
-	// È¸¿ø°¡ÀÔ
+	// íšŒì›ê°€ì…
 	public int insertMember(TestVo testVo);
 	
-	// È¸¿ø°¡ÀÔ -> ¾ÆÀÌµğ Áßº¹Ã¼Å©
+	// íšŒì›ì¡°íšŒ ì•„ì´ë”” ê°’ìœ¼ë¡œ DB ì •ë³´ë¶ˆëŸ¬ì˜¤ê¸°
 	public TestVo selectMember(String user_id);
 	
-	// ·Î±×ÀÎ -> ¸¶ÀÌÆäÀÌÁö -> ÇÁ·ÎÇÊ ºñ¹Ğ¹øÈ£ Ã¼Å©
-	public TestVo profilePwCheck(String user_id, String user_pw);
+//	public TestVo profilePwCheck(String user_id, String user_pw);
+	
+	// í”„ë¡œí•„ìƒ ë¹„ë°€ë²ˆí˜¸ ë³€ê²½, ë¡œê·¸ì¸í˜ì´ì§€ ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸° -> ì„ì‹œë¹„ë°€ë²ˆí˜¸ ë°œê¸‰
+	public int changePw(String user_id, String user_pw);
 	
 	public void test();
+	
+	// í”„ë¡œí•„ íšŒì›ì •ë³´ ìˆ˜ì •
+	public int customerModify(TestVo testVo);
 }

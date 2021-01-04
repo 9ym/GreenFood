@@ -3,6 +3,15 @@
 <%@include file="../include/header.jsp"%>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/css_customerMyPage.css"/>
 <style>
+
+.container-fluid1 {
+	padding-top : 150px;
+}
+
+.container-fluid{
+	padding-top : 30px;
+}
+
 .t_tit{
 	font-family: 'Noto Sans KR';
     font-weight: 800;
@@ -74,6 +83,14 @@ $(function(){
 	$("#btnFindPostalCode").click(function() {
 		sample6_execDaumPostcode();
 	});
+	
+	// 비밀번호 변경 실패시 알림창
+	var msg = "${msg}";
+	if(msg == "pwChangeFail"){
+		alert("비밀번호 변경을 실패하였습니다.");
+	} else if(msg == "modifySuccess"){
+		alert("회원정보 수정 실패.");
+	}
 
 	/*주소 찾기 함수*/
 	function sample6_execDaumPostcode() {
@@ -190,9 +207,56 @@ $(function(){
 				$(".modifyModal").trigger("click");
 			});
 			
-			// 비밀번호 변경 모달창 -> 비밀번호 폼 전송
+			// 비밀번호 변경 모달 -> 다음에 변경 -> 입력값 초기화
+			$("#btnModalPwNextChange").click(function(){
+				$("#presentPw").val("");
+				$("#newPw1").val("");
+				$("#newPw2").val("");
+			});
+			
+			// 비밀번호 변경 모달창 -> 비밀번호 controller에 전송
 			$("#btnModalPwChange").click(function(){
-				console.log("클릭");
+				var presentPw = $("#presentPw").val().trim();
+				var newPw1 = $("#newPw1").val().trim();
+				var newPw2 = $("#newPw2").val().trim();
+				
+				var pw_regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+				
+				var pw_test = pw_regex.test(newPw1);
+				var pw_test1 = pw_regex.test(newPw2);
+
+				var url = "/customer/customerProfilePwChangeChkRun";
+				var sendData = {
+						"presentPw" : presentPw
+				};
+				
+				$.post(url, sendData, function(data){
+					console.log(data);
+					if(data == "equals" && newPw1 == newPw2 && pw_test === true && pw_test1 === true && newPw1 != "" && newPw2 != "" && presentPw != newPw1 && presentPw != newPw2){
+						
+						$("#frmProfilePwChk").attr("action", "/customer/customerProfilePwChange");
+						$("#frmProfilePwChk > input[type=hidden]").val(newPw1);
+						$("#frmProfilePwChk").submit();
+
+						$("#presentPw").val("");
+						$("#newPw1").val("");
+						$("#newPw2").val("");
+						
+						return;
+					} else if(data == "fail"){
+						alert("현재 비밀번호가 일치하지않습니다");
+					} else if(newPw1 != newPw2){
+						alert("비밀번호가 다릅니다 다시입력해 주세요.");
+					} else if(presentPw == newPw1 || presentPw == newPw2){
+						alert("현재 비밀번호와 같습니다. 다른 비밀번호를 사용하세요.");
+					} else if(pw_test === false || pw_test1 === false){
+						alert("비밀번호는 8~10 영문/숫자/특수문자 조합입니다.");
+					}
+					$("#newPw1").val("");
+					$("#newPw2").val("");
+					$(".modifyModal").trigger("click");
+				}); //$.post 끝
+	
 			});
 			
 		});
@@ -213,6 +277,7 @@ $(function(){
 		
 		if(email_regex.test(email) === false){
 			alert("이메일을 확인해 주세요.");
+			return;
 		} else{
 			$("#frmMemberModify > input[type=hidden]").eq(0).val(email);
 		}
@@ -228,8 +293,10 @@ $(function(){
 
 		if(lengthBlankCheck_regex.test(midNum) === false || midNum.length < 3 || midNum.length > 4){
 			alert("핸드폰 중간 번호를 다시확인해 주세요");
+			return;
 		} else if(lengthBlankCheck_regex.test(lastNum) === false || lastNum.length < 4 || lastNum.length > 4){
 			alert("핸드폰 마지막 번호를 다시확인해 주세요");
+			return;
 		} else {
 			var phoneNum = phoneIMEI + "-" + midNum + "-" + lastNum;
 			$("#frmMemberModify > input[type=hidden]").eq(1).val(phoneNum);
@@ -243,6 +310,7 @@ $(function(){
 <content>
 ${testVo}
 <body>
+<div class="container-fluid1">
 
   <button type="button" class="btn btn-primary modifyModal" data-toggle="modal" data-target="#myModal" style="display:none;">
     비밀번호 변경 모달창
@@ -264,13 +332,13 @@ ${testVo}
           		<span>${sessionScope.testVo.user_name}</span>님 비밀번호를 변경해주세요.
         	</div>
           <div class="form-group">
-          	<input type="password" class="form-control form-control-lg" placeholder="현재 비밀번호 입력">
+          	<input type="password" class="form-control form-control-lg" id="presentPw" placeholder="현재 비밀번호 입력" value="${sessionScope.testVo.user_pw}">
           </div>
           <div class="form-group">
-          	<input type="password" class="form-control form-control-lg" placeholder="새 비밀번호 입력(8~10 영문/숫자/특수문자 조합)">
+          	<input type="password" class="form-control form-control-lg" id="newPw1" placeholder="새 비밀번호 입력(8~10 영문/숫자/특수문자 조합)">
           </div>
           <div class="form-group">
-          	<input type="password" class="form-control form-control-lg" placeholder="비밀번호를 한번더 입력해주세요.">
+          	<input type="password" class="form-control form-control-lg" id="newPw2" placeholder="비밀번호를 한번더 입력해주세요.">
           </div>
         </div>
         
@@ -280,15 +348,16 @@ ${testVo}
 		          <button type="button" class="btn btn-outline-success" id="btnModalPwChange" data-dismiss="modal">비밀번호 변경하기</button>	        
 		        </div>
 		        <div class="form-group">
-		          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">다음에 변경하겠습니다.</button>
+		          <button type="button" class="btn btn-outline-secondary" id="btnModalPwNextChange" data-dismiss="modal">다음에 변경하겠습니다.</button>
 		        </div>
         </div>
         
       </div>
     </div>
   </div>
-</body>
-<div id="content_left" style="width:300px;
+  </div>
+  
+  <div id="content_left" style="width:300px;
 height: 700px;
 float:left;
 border-top:2px solid #6ca435;
@@ -309,7 +378,7 @@ padding:0;">
 			<div>나의 쇼핑 활동</div>
 			<div>Q&amp;A</div>
 		</div>
-	</div>
+</div>
 	<!--오른쪽 메뉴-->
 	<div id="content_right" style="float:right;
 width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-bottom:200px;">
@@ -323,12 +392,13 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 		<div class="col-md-12" id="divForm">
 			<h3 class="t_tit">회원 정보를 보호하기 위해 비밀번호를 재확인합니다.</h3>
 			<form role="form" id="frmProfilePwChk" action="/customer/customerProfileRun" method="post">
+			<input type="hidden" name="user_pw">
 			<div class="row">
 				<div class="form-group col-md-6">	 
 					<label for="user_id" class="t_tit1">
 						아이디
 					</label>
-					<input type="text" class="form-control" id="user_id" value="${sessionScope.testVo.user_id}" readonly/>
+					<input type="text" class="form-control" id="user_id" name ="user_id" value="${sessionScope.testVo.user_id}" readonly/>
 				</div>
 			</div>
 			<div class="row">
@@ -336,7 +406,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 					<label for="user_pw" class="t_tit1">
 						비밀번호 확인
 					</label>
-					<input type="password" class="form-control" name="user_pw" id="user_pw" placeholder="현재 비밀번호를 입력해주세요"/>
+					<input type="password" class="form-control" id="user_pw" value="${sessionScope.testVo.user_pw}" placeholder="현재 비밀번호를 입력해주세요"/>
 				</div>
 			</div>
 				<button type="button" id="btnPassCheckComplete" class="btn btn-primary">
@@ -360,7 +430,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 			<span aria-label="필수 항목" class="required">*</span>
 			표시는 필수 항목입니다
 		</p>
-			<form role="form" id="frmMemberModify" action="/customer/customerProfileModifyRun" method="post">
+	<form role="form" id="frmMemberModify" action="/customer/customerProfileModifyRun" method="post">
 			<!-- 히든정보 이메일 폰번호 주소 -->
 					<input type="hidden" name="user_email"/>
 					<input type="hidden" name="user_phone"/>
@@ -497,4 +567,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 <!-- //나의 정보 확인 -->
 
 </div >
+</body>
+
+
 </content>

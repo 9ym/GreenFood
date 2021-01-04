@@ -52,4 +52,18 @@ public class testProductDao {
 		System.out.println("category :" + list);
 	}
 	
+	@Test
+	public void testInsertProduct() throws Exception {
+		ProductVo vo = new ProductVo("2001", "잡곡4", 2500, 30, "잡곡 잡곡 잡곡", "ㄱㅇㅇㄴㄷㄹㄴ 잡곡", "50g", "10kg", "수입산");
+		int count = productDao.insertProduct(vo);
+		System.out.println("count :" + count);
+	}
+	
+	@Test
+	public void testInsertProductImage() throws Exception {
+		ProductImageDto dto = new ProductImageDto("1101", "ggg.jpg", "ttt.png");
+		int count = productDao.insertProductImage(dto);
+		System.out.println("count :" + count);
+	}
+	
 }
