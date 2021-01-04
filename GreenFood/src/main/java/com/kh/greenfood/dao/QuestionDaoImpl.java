@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.kh.greenfood.domain.QuestionCategoryDto;
 import com.kh.greenfood.domain.QuestionVo;
 
 @Repository
@@ -25,8 +24,8 @@ public class QuestionDaoImpl implements QuestionDao {
 	}
 
 	@Override
-	public List<QuestionVo> questionList() throws Exception {
-		List<QuestionVo> questionList = sqlSession.selectList(NAMESPACE + "questionList");
+	public List<QuestionVo> getQuestionList() throws Exception {
+		List<QuestionVo> questionList = sqlSession.selectList(NAMESPACE + "getQuestionList");
 //		System.out.println("QuestionDaoImpl, questionList :" + questionList);
 		return questionList;
 	}
@@ -37,10 +36,16 @@ public class QuestionDaoImpl implements QuestionDao {
 		return questionVo;
 	}
 
-	@Override
+	/*@Override
 	public QuestionVo getQuestionCategory(int question_category) throws Exception {
 		QuestionVo questionVo = sqlSession.selectOne(NAMESPACE + "getQuestionCategory", question_category);
 		return questionVo;
+	}*/
+	
+	@Override
+	public void updateQuestion(QuestionVo questionVo) throws Exception {
+		sqlSession.update(NAMESPACE + "updateQuestion", questionVo);
+		
 	}
 
 	@Override
@@ -48,6 +53,14 @@ public class QuestionDaoImpl implements QuestionDao {
 		sqlSession.delete(NAMESPACE + "deleteQuestion", question_no);
 		
 	}
+
+	@Override
+	public List<QuestionVo> getQuestionListOfCategory(int questino_category) throws Exception {
+		List<QuestionVo> questionListOfCategory = sqlSession.selectList(NAMESPACE + "getQuestionListOfCategory", questino_category);
+		return questionListOfCategory;
+	}
+
+	
 	
 	
 

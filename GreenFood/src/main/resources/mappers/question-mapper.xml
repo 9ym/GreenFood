@@ -10,8 +10,8 @@
 	
 	<!-- 자주하는 질문 글쓰기 -->
 		<insert id="insertQuestion">
-			insert into tbl_question (question_no, question_title, question_content, question_category, question_category_dsc)
-				values(seq_question_no.nextval, #{question_title}, #{question_content}, #{question_category}, #{question_category_dsc}) 
+			insert into tbl_question (question_no, question_title, question_content, question_category)
+				values(seq_question_no.nextval, #{question_title}, #{question_content}, #{question_category}) 
 		</insert>
 
 	<!-- 목록 -->
@@ -21,16 +21,28 @@
 		</select>
 		
 	<!-- 글 선택 -->
-	<select id="selectQuestion" resultType="QuestionVo">
+	<!-- <select id="selectQuestion" resultType="QuestionVo">
 		select * from tbl_question
 		where question_no = #{question_no}
+	</select> -->
+	
+	<!-- 글 선택 카테고리 값 까지 받아오기-->
+	<select id="selectQuestion" resultType="QuestionVo">
+	<!-- question 테이블의 모든 칼럼과 category 테이블의 dsc 칼럼을 받아오는데 -->
+			select q.* , c.question_category_dsc
+			from tbl_question q, tbl_question_category c
+			<!-- question 테이블의 카테고리 값과 category 테이블의 카테고리 값이 같고 -->
+			where q.question_category = c.question_category
+			<!-- question_no 값이 #... 인거 -->
+            and question_no = #{question_no}
 	</select>
 	
-	<!-- category 조인하기 -->
-	<select id="getQuestionCategory" resultType="QuestionVo">
+	<!-- category 조인하기 해서 카테고리 받아오기 -->
+	<select id="getQuestionList" resultType="QuestionVo">
 		select q.* , c.question_category_dsc
 		from tbl_question q, tbl_question_category c
-		where q.question_category = c.question_category;
+		where q.question_category = c.question_category
+		order by question_no desc
 	</select>
 	
 	
@@ -40,14 +52,26 @@
 		where question_category = #{question_category}
 	</select> -->
 	
-	<!-- <select id="getCategoryList" resultType="QuestionCategoryDto">
-		select * from tbl_question_category
-		order by question_category asc
-	</select> -->
+	
+	<!-- 수정 -->
+	<update id="updateQuestion">
+		update tbl_question set
+			question_title = #{question_title},
+			question_content = #{question_content}
+			where question_no = #{question_no} 
+	</update>
 	
 	<!-- 삭제 -->
 	<delete id="deleteQuestion">
 		delete from tbl_question
 			where question_no = #{question_no} 
 	</delete>
+	
+	<!-- 카테고리에 따른 자주하는 질문 리스트 받아오기 -->
+	<select id="getQuestionListOfCategory" resultType="questionVo">
+		select * from tbl_question
+		where question_category = #{question_category}
+		order by question_no desc
+	</select>
+	
 </mapper>

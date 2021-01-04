@@ -70,6 +70,7 @@ $(function(){
     line-height: 10px;
     letter-spacing: -.3px;
     text-align: center;
+    padding-top: 10px;
 }
 
 .notice_page_top {
@@ -179,7 +180,7 @@ table {
 						<div class="noticeContent">
 						<div class="contentArea">
 							<textarea style="background-color: white" style="border: none" class="form-control update" id="notice_content"
-						placeholder="내용을 입력해주세요." readonly>${noticeVo.notice_content}</textarea>
+							placeholder="내용을 입력해주세요." readonly>${noticeVo.notice_content}</textarea>
 						</div>
 						</div>
 					</div>

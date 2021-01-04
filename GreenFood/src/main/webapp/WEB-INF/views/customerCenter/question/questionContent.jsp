@@ -21,6 +21,7 @@ $(function(){
 	$(".question_title").click(function(e){
 		e.preventDefault();
 		var q_no = $(this).attr("data-bno");
+		/* var c_no = $(this).attr("data-cno"); */
 		
 		location.href="/customerCenter/question/questionAnswer/" + q_no;
 	});
@@ -152,6 +153,7 @@ div {
     background-size: 6px 11px;
     font-weight: 700;
     color: #5AB63F;
+    font-size: 16px;
 }
 
 #snb .inner_snb {
@@ -286,6 +288,10 @@ tbody tr {
 	padding-top: 150px;
 }
 
+.col-md-12 {
+	padding-top: 30px;
+}
+
 </style>
 
 
@@ -387,7 +393,8 @@ tbody tr {
 																<tr>
 																	<td>${questionVo.question_no}</td>
 																	<td>${questionVo.question_category_dsc}</td>
-																	<td><a class="question_title" href="#" data-bno="${questionVo.question_no}">${questionVo.question_title}</a></td>
+																	<td><a class="question_title" href="#" data-bno="${questionVo.question_no}">
+																		${questionVo.question_title}</a></td>
 																</tr>
 																
 															</c:forEach>

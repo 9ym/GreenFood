@@ -26,6 +26,12 @@ public class QuestionVo {
 	public String getQuestion_content() {
 		return question_content;
 	}
+	public String getQuestion_category_dsc() {
+		return question_category_dsc;
+	}
+	public void setQuestion_category_dsc(String question_category_dsc) {
+		this.question_category_dsc = question_category_dsc;
+	}
 	public void setQuestion_content(String question_content) {
 		this.question_content = question_content;
 	}
@@ -41,18 +47,14 @@ public class QuestionVo {
 	public void setQuestion_category(int question_category) {
 		this.question_category = question_category;
 	}
-	public String getQuestion_category_dsc() {
-		return question_category_dsc;
-	}
-	public void setQuestion_category_dsc(String question_category_dsc) {
-		this.question_category_dsc = question_category_dsc;
-	}
 	@Override
 	public String toString() {
 		return "QuestionVo [question_no=" + question_no + ", question_title=" + question_title + ", question_content="
 				+ question_content + ", question_date=" + question_date + ", question_category=" + question_category
 				+ ", question_category_dsc=" + question_category_dsc + "]";
 	}
+	
+	
 	
 	
 }

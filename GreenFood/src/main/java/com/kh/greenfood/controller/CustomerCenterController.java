@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.domain.NoticeVo;
-import com.kh.greenfood.domain.QuestionCategoryDto;
 import com.kh.greenfood.domain.QuestionVo;
 import com.kh.greenfood.service.NoticeService;
 import com.kh.greenfood.service.QuestionService;
@@ -125,7 +124,7 @@ public class CustomerCenterController {
 	// ------------------------ 자주하는 질문 입력 데이타 리스트에 보여주기 ---------------------
 	@RequestMapping(value="/question/questionContent")
 	public String questionListAll(Model model) throws Exception {
-		List<QuestionVo> questionList = questionService.questionList();
+		List<QuestionVo> questionList = questionService.getQuestionList();
 		System.out.println("CustomerCenterController, questionListAll, questionList:" + questionList);
 		model.addAttribute("questionList", questionList);
 		return "customerCenter/question/questionContent";
@@ -140,20 +139,18 @@ public class CustomerCenterController {
 			System.out.println("questionAnswer questionVo :" + questionVo);
 			return "customerCenter/question/questionAnswer";
 		}
+			
 		
-	// ------------------- question_category 받아오기 ---------------------
-
-		/*@RequestMapping(value="/question/questionAnswer/{question_category}", method=RequestMethod.GET)
-		public String category(@PathVariable("question_category") int question_category, Model model) throws Exception {
+		// --------------------------  자주하는 질문 수정하기	 -------------------------
+		@RequestMapping(value="/question/updateQuestion", method=RequestMethod.POST)
+		public String updateQuestion(QuestionVo questionVo) throws Exception {
+			System.out.println("updateQuestion, questionVo: " + questionVo);
+			questionService.updateQuestion(questionVo);
+//			rttr.addFlashAttribute("msg", "updateSuccess");
+			
+			return "redirect:/customerCenter/question/questionContent";
+		}
 		
-			QuestionCategoryDto questionCategoryDto = questionService.getQuestionCategory(question_category);
-			model.addAttribute("questionCategoryDto", questionCategoryDto);
-//			System.out.println("questionCategoryDto question_category:" + questionCategoryDto);
-			List<QuestionCategoryDto> categoryList = questionService.getCategoryList();
-			model.addAttribute("categoryList", categoryList);
-			System.out.println("questionCategoryDto categoryList:" + categoryList);
-			return "customerCenter/question/questionContent";
-		}*/
 		
 		// ----------------------- 자주하는 질문 삭제하기 ----------------------------------------
 		

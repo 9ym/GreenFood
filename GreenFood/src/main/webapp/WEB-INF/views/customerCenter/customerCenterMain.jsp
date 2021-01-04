@@ -180,6 +180,10 @@ tbody tr {
 	padding-top: 150px;
 }
 
+.col-md-12 {
+	padding-top: 30px;
+}
+
 </style>
 
 <script>

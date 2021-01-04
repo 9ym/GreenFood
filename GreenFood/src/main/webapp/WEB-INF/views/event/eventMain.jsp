@@ -36,6 +36,7 @@
     line-height: 10px;
     letter-spacing: -.3px;
     text-align: center;
+    padding-top: 10px;
 }/* 이벤트 설명 관련  */
 
 /* 이미지 중앙으로 배치시키기  */
@@ -79,6 +80,10 @@ img {
 
 .container-fluid {
 	padding-top : 150px;
+}
+
+.col-md-12 {
+	padding-top: 30px;
 }
 					
 </style>

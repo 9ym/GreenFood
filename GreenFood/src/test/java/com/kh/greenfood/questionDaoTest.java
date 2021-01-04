@@ -1,5 +1,7 @@
 package com.kh.greenfood;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -28,7 +30,25 @@ public class questionDaoTest {
 		
 	}
 	
+	@Test
+	public void testGetQuestionList() throws Exception {
+		List<QuestionVo> questionList = questionDao.getQuestionList();
+		System.out.println("questionList :" + questionList);
+	}
 	
+	@Test
+	public void testSelectQuestion() throws Exception {
+		QuestionVo questionVo = questionDao.selectQuestion(31);
+		System.out.println("questionVo :" + questionVo);
+		/*List<QuestionVo> questionList = questionDao.getQuestionList();
+		System.out.println("questionList :" + questionList);*/
+	}
+	
+	@Test
+	public void testGetQuestionListOfCategory() throws Exception {
+		List<QuestionVo> getQuestionListOfCategory = questionDao.getQuestionListOfCategory(201);
+		System.out.println("getQuestionListOfCategory :" + getQuestionListOfCategory);
+	}
 	
 	
 }
