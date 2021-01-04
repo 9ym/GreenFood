@@ -15,4 +15,8 @@ public interface MemberDao {
 	public int changePw(String user_id, String user_pw);
 
 	public int customerModify(TestVo testVo);
+
+	public TestVo findPw(String user_id, String user_email);
+
+	public TestVo findId(String user_name, String user_email, String user_phone);
 }

@@ -54,6 +54,26 @@ public class MemberDaoImpl implements MemberDao {
 		return count;
 	}
 
+	@Override
+	public TestVo findPw(String user_id, String user_email) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("user_email", user_email);
+		TestVo testVo = sqlSession.selectOne(NAMESPACE + "findPw", map);
+		return testVo;
+	}
+
+	@Override
+	public TestVo findId(String user_name, String user_email, String user_phone) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("user_name", user_name);
+		map.put("user_email", user_email);
+		map.put("user_phone", user_phone);
+		System.out.println(map);
+		TestVo testVo = sqlSession.selectOne(NAMESPACE + "findId", map);
+		return testVo;
+	}
+
 //	@Override
 //	public TestVo profilePwCheck(String user_id, String user_pw) {
 //		

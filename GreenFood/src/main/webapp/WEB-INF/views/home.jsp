@@ -18,8 +18,13 @@
 <script>
 $(function(){
 	var msg = "${msg}";
+	var user_id = "${findUser_id}";
 	if(msg == "loginSuccess"){
 		alert("로그인 성공했습니다.");
+	} else if(msg == "tempPasswordCreate"){
+		alert("임시 비밀번호가 발송되었습니다.");
+	} else if(user_id != ""){
+		alert("회원님의 아이디는" + user_id + "입니다.")
 	}
 	
 	/* 베스트 상품 가격에 , 추가 */
