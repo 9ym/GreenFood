@@ -7,8 +7,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">										
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>										
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>										
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>										
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
 
@@ -22,6 +21,10 @@ $(function(){
 	var msg = "${msg}";
 	if(msg == "emailNotEquals"){
 		alert("회원정보로 된 이메일이 없습니다");
+	} else if(msg == "tempPasswordCreateFail"){
+		alert("비밀번호 생성 실패.");
+	} else if(msg == "notFoundCustomerInfo"){
+		alert("회원정보가 없습니다. 아이디, 이메일을 다시 확인해주세요.")
 	}
 	
 });
@@ -37,11 +40,11 @@ $(function(){
             <div class="box_login">
                 <div class="inp_text">
                 <label for="loginId" class="screen_out">아이디</label>
-                <input type="text" id="user_id" name="user_id" placeholder="아이디" value="user02">
+                <input type="text" id="user_id" name="user_id" placeholder="아이디" value="user" required>
                 </div>
                 <div class="inp_text">
                 <label for="loginPw" class="screen_out">이메일</label>
-                <input type="text" id="user_email" name="user_email" placeholder="이메일" value="zerll9100@gmail.com">
+                <input type="text" id="user_email" name="user_email" placeholder="이메일" value="zerll9100@gmail.com" required>
                 </div>
             </div>
             <button type="submit" class="btn_findPw">비밀번호 찾기</button>

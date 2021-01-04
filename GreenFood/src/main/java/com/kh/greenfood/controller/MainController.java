@@ -3,8 +3,10 @@ package com.kh.greenfood.controller;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.dao.EmailDto;
@@ -55,8 +57,9 @@ public class MainController {
 	// 비밀번호 찾기 실행
 	@RequestMapping(value="/customerFindPwRun", method=RequestMethod.POST)
 	public String customerFindPwRun(TestVo testVo, RedirectAttributes rttr) throws Exception{
-		TestVo testVo1 = memberService.selectMember(testVo.getUser_id());
+		TestVo testVo1 = memberService.findPw(testVo.getUser_id(), testVo.getUser_email());
 		String page = "";
+		System.out.println(testVo1);
 		// DB에서 확인한 customer 정보가 있다면
 		if(testVo1 != null) {
 			String origin_email = testVo.getUser_email().trim();
@@ -74,15 +77,17 @@ public class MainController {
 						rttr.addFlashAttribute("msg", "tempPasswordCreate");
 						page = "redirect:/";
 					} else {
+						rttr.addFlashAttribute("msg", "tempPasswordCreateFail");
 						page = "redirect:/main/customerFindPw";
 					}
 					
 				} else {
+					rttr.addFlashAttribute("msg", "notFoundCustomerInfo");
 					page = "redirect:/main/customerFindPw";
 				}
 			}
 			
-		// DB에서 확인한 customer 정보가 없다면
+		// DB에서 확인한 customer 정보가 없다면 -> 비밀번호 찾기 화면으로 돌아가서 alert
 		} else {
 			rttr.addFlashAttribute("msg", "emailNotEquals");
 			page = "redirect:/main/customerFindPw";
@@ -98,7 +103,19 @@ public class MainController {
 	
 	// 아이디 찾기 실행
 	@RequestMapping(value="/customerFindIdRun", method=RequestMethod.POST)
-	public void customerFindIdRun() throws Exception{
+	public String customerFindIdRun(TestVo testVo, RedirectAttributes rttr, Model model) throws Exception{
+		System.out.println(testVo);
+		TestVo testVo1 = memberService.findId(testVo.getUser_name(), testVo.getUser_email(), testVo.getUser_phone());
+		String page = "";
+		if(testVo1 != null) {
+			String user_id = testVo1.getUser_id();
+			rttr.addFlashAttribute("findUser_id", user_id);
+			page = "redirect:/";
+		} else {
+			rttr.addFlashAttribute("msg", "notFoundCustomerInfo");
+			page = "redirect:/main/customerFindId";
+		}
 		
+		return page;
 	}
 }

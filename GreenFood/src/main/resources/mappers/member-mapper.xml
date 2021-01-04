@@ -13,6 +13,21 @@
 		and user_pw = #{user_pw}
 	</select>
 	
+	<!-- 비밀번호 찾기 -->
+	<select id="findPw" resultType="TestVo">
+		select * from tbl_member
+			where user_id = #{user_id}
+			and user_email = #{user_email}	
+	</select>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findId" resultType="TestVo">
+		select * from tbl_member
+			where user_name = #{user_name}
+			and user_email = #{user_email}
+			and user_phone = #{user_phone}
+	</select>
+	
 	<!-- 회원가입 -->
 	<insert id="insertMember">
 		insert into tbl_member (user_id, user_pw, user_name, user_email, user_phone, user_addr1, user_addr2, user_addr3)

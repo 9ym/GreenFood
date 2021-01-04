@@ -25,6 +25,7 @@ import com.kh.greenfood.domain.ProductVo;
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.MemberService;
 import com.kh.greenfood.service.ProductService;
+import com.kh.greenfood.util.S3Util;
 
 @Controller
 public class HomeController {
@@ -51,6 +52,9 @@ public class HomeController {
 		for (ProductVo vo : productBestList) {
 			String product_code_img = vo.getProduct_code();
 			ProductImageDto imgdto = productService.getProductImage(product_code_img);
+//			String info_file_name = imgdto.getImage_info_file_name();
+//			String content_file_name = imgdto.getImage_content_file_name();
+//			imgdto.setImage_info_file_name(S3Util.getImageUrl(info_file_name, vo.getProduct_category()));
 			productImageList.add(imgdto);
 		}
 		model.addAttribute("productImageList", productImageList);

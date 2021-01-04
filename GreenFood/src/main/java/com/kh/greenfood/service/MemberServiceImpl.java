@@ -49,6 +49,20 @@ public class MemberServiceImpl implements MemberService {
 		return count;
 	}
 
+	// 비밀번호 찾기
+	@Override
+	public TestVo findPw(String user_id, String user_email) {
+		TestVo testVo = memberDao.findPw(user_id, user_email);
+		return testVo;
+	}
+
+	// 아이디 찾기
+	@Override
+	public TestVo findId(String user_name, String user_email, String user_phone) {
+		TestVo testVo = memberDao.findId(user_name, user_email, user_phone);
+		return testVo;
+	}
+
 //	@Override
 //	public TestVo profilePwCheck(String user_id, String user_pw) {
 //		TestVo testVo = memberDao.profilePwCheck(user_id, user_pw);
