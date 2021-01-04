@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.greenfood.dao.ProductDao;
 import com.kh.greenfood.domain.ProductCategoryDto;
@@ -57,6 +58,23 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductCategoryDto> getCategory() {
 		List<ProductCategoryDto> categoryList = productDao.getCategory();
 		return categoryList;
+	}
+	
+	@Override
+	@Transactional
+	public boolean insertProductAll(ProductVo productVo, ProductImageDto productImageDto) {
+		Boolean resultInsert = false;
+		int countProduct = productDao.insertProduct(productVo);
+		ProductVo productVoLatest = productDao.getProductLatest();
+		if (countProduct > 0) {
+			productImageDto.setProduct_code(productVoLatest.getProduct_code());
+			System.out.println(productImageDto);
+			int countImage = productDao.insertProductImage(productImageDto);
+			if (countImage > 0) {
+				resultInsert = true;
+			}
+		}
+		return resultInsert;
 	}
 	
 }

@@ -11,6 +11,19 @@ public class ProductImageDto {
 	
 	public ProductImageDto() { }
 
+	public ProductImageDto(String image_info_file_name, String image_content_file_name) {
+		super();
+		this.image_info_file_name = image_info_file_name;
+		this.image_content_file_name = image_content_file_name;
+	}
+	
+	public ProductImageDto(String product_code, String image_info_file_name, String image_content_file_name) {
+		super();
+		this.product_code = product_code;
+		this.image_info_file_name = image_info_file_name;
+		this.image_content_file_name = image_content_file_name;
+	}
+
 	public ProductImageDto(String image_code, String product_code, String image_info_file_name,
 			String image_content_file_name, Timestamp image_registrantion_date) {
 		super();

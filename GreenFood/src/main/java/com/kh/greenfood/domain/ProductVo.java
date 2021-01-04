@@ -18,6 +18,21 @@ public class ProductVo {
 	private int product_order_count;
 	
 	public ProductVo() { }
+	
+	public ProductVo(String product_category, String product_title, int product_price, int product_shelf_life,
+			String product_sub_title, String product_content, String product_weight, String product_sales_unit,
+			String product_origin) {
+		super();
+		this.product_category = product_category;
+		this.product_title = product_title;
+		this.product_price = product_price;
+		this.product_shelf_life = product_shelf_life;
+		this.product_sub_title = product_sub_title;
+		this.product_content = product_content;
+		this.product_weight = product_weight;
+		this.product_sales_unit = product_sales_unit;
+		this.product_origin = product_origin;
+	}
 
 	public ProductVo(String product_code, String product_category, String product_title, int product_price,
 			Timestamp product_registrantion_date, int product_shelf_life, String product_sub_title,

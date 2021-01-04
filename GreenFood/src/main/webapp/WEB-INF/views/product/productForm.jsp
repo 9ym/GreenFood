@@ -88,10 +88,10 @@ $(function() {
 .viewInfo {
 	margin : 30px 20px;
 	padding : 30px 20px;
-/* 	padding-right : 0px; */
+ 	padding-right : 0px;
 	padding-top : 40px;
 	border-top : 1px solid #6ca435;
-/* 	border-bottom : 1px solid #6ca435; */
+ 	border-bottom : 1px solid #6ca435; 
 }
 .infoImage{
 	float : left;
@@ -130,6 +130,7 @@ $(function() {
 }
 .li-totalPrice {
 	float : right;
+	padding-right : 10px;
 }
 .li-totalPrice #totalPrice {
 	font-weight : bold;
@@ -143,17 +144,42 @@ $(function() {
 	padding-top : 3px;
 	float : left;
 }
-.li-count input {
- 	border : solid 1.5px LightGray;
+.li-count button {
+	border : 0px;
+/* 	padding : 10px; */
+	width : 20px;
+	height : 26px;
 	text-align : center;
-	margin : 0px 5px;
+	color : #6ca435;
+	font-weight : bold;
+	font-size : 17px;
+	float : left;
+	border : solid 1.5px LightGray;
+}
+.li-count input {
+ 	border-top : solid 1.5px LightGray;
+ 	border-bottom : solid 1.5px LightGray;
+ 	border-right : 0px;
+ 	border-left : 0px;
+	text-align : center;
+	height : 26px;
+	width : 40px;
+/* 	margin : 0px 5px; */
+	float : left;
+	font-size : 15px;
 }
 .li-count div {
 	float : left; 
- 	padding-left : 8px;
+ 	padding-left : 6px;
 }
 .info-btn {
 	clear : both;
+	padding-left : 25px;
+}
+.info-btn button {
+/* 	margin-left : 0px; */
+/* 	margin : 0px 5px; */
+	padding : 5px 20px;
 }
 .info-btn #btnBuyNow {
 	border : 1px solid MediumSeaGreen;
@@ -180,7 +206,7 @@ $(function() {
 	clear : left;
 } 
 .li-delivery span{
-	padding-left : 40px;
+	padding-left : 38px;
 } 
 .count-up {
 	color : MediumSeaGreen;
@@ -192,8 +218,9 @@ $(function() {
 .infoDetail {
 	margin : 20px;
 	padding : 40px 20px;
-/* 	border-top : 1px solid #6ca435; */
-/* 	border-bottom : 1px solid #6ca435; */
+ 	border-top : 1px solid #6ca435;
+ 	border-bottom : 1px solid #6ca435;  
+/*  	border-bottom : 1px solid red; */
 }
 .img-detail {
  	width : 700px;
@@ -221,8 +248,9 @@ $(function() {
 }
 .related-list {
 	margin : 5px;
-	padding-left : 40px;
-/* 	border-top : 1px solid #6ca435; */
+	padding-left : 30px;
+	padding-right : 0px;
+/*  border-bottom : 1px solid #6ca435;  */
 }
 .ul-related {
 	width : 820px;
@@ -249,16 +277,21 @@ $(function() {
 	font-weight : bold;
 }
 .related-list button {
-	margin-right : 3px; 
+	margin : 0px 5px; 
 	padding : 105px 5px;
 	border : 0px;
 	float : left;
 }
+.related-list button img{
+	height : 20px;
+	width : 20px;
+/* 	margin-right : 5px; */
+}
 .container-fluid {
 	padding-top : 150px;
 }
-.div-content {
-/* 	display:block; */
+/* .div-content {
+	display:block;
 	width:900px;
  	left:450px; 
  	height: 100%;
@@ -267,7 +300,7 @@ $(function() {
 	left: 50%;
 	ms-transform: translate(-50%);
 	transform: translate(-50%);
-}
+} */
 
 </style>
 
@@ -283,13 +316,15 @@ $(function() {
 		<div class="col-md-3"></div>
 	</div> -->
 	
-	<div class="div-content">
-		<div class="viewInfo">
+	<div class="row div-content">
+		<div class="col-md-3"></div>
+		<div class="col-md-6 viewInfo">
 		<!-- 상품 개요 -->
 		<div>
 			<div class="infoImage">
 				<!-- 임시로... image_file_name 파일 이름만 DB에서 가져와서 사용 -->
-				<img class="img-product" alt="상품 이미지" src="${path}/resources/images/product/${productImageDto.image_info_file_name}">
+<%-- 				<img class="img-product" alt="상품 이미지" src="${path}/resources/images/product/${productImageDto.image_info_file_name}"> --%>
+				<img class="img-product" alt="상품 이미지" src="https://greenfood.s3.ap-northeast-2.amazonaws.com/category_2003/${productImageDto.image_info_file_name}">
 			</div>
 			<div class="infoNamePrice">
 				<div class="infoName">
@@ -311,7 +346,7 @@ $(function() {
 						<c:if test="${productVo.product_weight != null}">				
 							<li>
 								<strong>중량/용량</strong>
-								<span style="padding-left:17px;">${productVo.product_weight}</span>
+								<span style="padding-left:15px;">${productVo.product_weight}</span>
 							</li>
 						</c:if>
 						<li>
@@ -334,35 +369,24 @@ $(function() {
 						<li class="li-count">
 							<strong>구매수량</strong>
 							<div>
-								<span class="glyphicon glyphicon glyphicon-minus count-down"
-									onclick="javascript:btnCountDown(this);"></span>
+								<button type="button" onclick="javascript:btnCountDown(this);">-</button>
 								<input type="text" size="2" id="productCount" value="1" oninput="javascript:inputCount(this)"/>
-								<span class="glyphicon glyphicon glyphicon-plus count-up"
-									onclick="javascript:btnCountUp(this);" style="padding-left:0px;"></span>
+								<button type="button" onclick="javascript:btnCountUp(this);" style="margin-left:0px;">+</button>
 							</div>
 						</li>
 						<li class="li-delivery">
 							<strong>배송비</strong>
 							<span>3,000원 (30,000원 이상 무료)</span>
 						</li>
-						<li class="li-totalPrice"
-							<c:if test="${productVo.product_shelf_life != 0}">
-							style="padding-right : 10px;"
-							</c:if>
-						>
+						<li class="li-totalPrice" style="padding-right:10px;">
 							<strong>총 상품금액 : </strong>
 							<span id="totalPrice">0</span>
 						</li>
 						<li class="info-btn">
-							<button type="button" class="btn btn-danger btn-sm">
-								<span class="glyphicon glyphicon-heart"></span> ${productVo.product_heart}
-							</button>
-							<button id="btnBuyNow" type="button" class="btn btn-outline-success">
-								<span class="glyphicon glyphicon-credit-card"><span>바로구매</span></span>
-							</button>
-							<button id="btnCart" type="button" class="btn btn-success">
-								<span class="glyphicon glyphicon-shopping-cart"><span>장바구니</span></span>
-							</button>
+							<button type="button" class="btn btn-danger btn-sm"
+								style="margin-left:15px; margin-right:5px;">♥</button>
+							<button id="btnBuyNow" type="button" class="btn btn-outline-success">바로구매</button>
+							<button id="btnCart" type="button" class="btn btn-success">장바구니 담기</button>
 						</li>
 					</ul>
 				</div>
@@ -370,17 +394,16 @@ $(function() {
 		</div>
 		<!--// 상품 개요 -->
 		</div>
+		<div class="col-md-3"></div>
 	</div>
 	
-	<div class="div-content">
+	<div class="row div-content">
+		<div class="col-md-3"></div>
 		<!-- 관련 상품 -->
-		<div class="related-list">
+		<div class="col-md-6 related-list">
 			<div>
 				<button type="button" class="btn btn-default btn-sm">
-		        	<span class="glyphicon glyphicon-chevron-left"></span>
-		        </button>
-		        <button type="button" class="btn btn-default btn-sm" style="float:right;">
-		        	<span class="glyphicon glyphicon-chevron-right"></span>
+					<img src="${path}/resources/images/left.PNG">
 		        </button>
 				<ul class="ul-related">
 					<c:forEach var="productVoList" items="${productBestList}">
@@ -403,16 +426,22 @@ $(function() {
 					</c:forEach>
 					</c:forEach>
 				</ul>
+				<button type="button" class="btn btn-default btn-sm">
+					<img src="${path}/resources/images/right.PNG">
+		        </button>
 			</div>
 		</div>
 		<!--// 관련 상품 -->
+		<div class="col-md-3"></div>
 	</div>
 	
-	<div class="div-content">
+	<div class="row div-content">
+		<div class="col-md-3"></div>
 		<!-- 상세 정보 -->
-		<div class="infoDetail">
+		<div class="col-md-6 infoDetail">
 			<div>
-				<div><img class="img-detail" alt="상세 사진" src="${path}/resources/images/product/${productImageDto.image_content_file_name}"/></div>
+<%-- 				<div><img class="img-detail" alt="상세 사진" src="${path}/resources/images/product/${productImageDto.image_content_file_name}"/></div> --%>
+				<div><img class="img-detail" alt="상세 사진" src="https://greenfood.s3.ap-northeast-2.amazonaws.com/category_2003/${productImageDto.image_content_file_name}"/></div>
 				<p>${productVo.product_sub_title}</p>
 				<h1>${productVo.product_title}</h1>
 				<p>${productVo.product_content}</p>
@@ -422,10 +451,12 @@ $(function() {
 			</div>
 		</div>
 		<!--// 상세 정보 -->
+		<div class="col-md-3"></div>
 	</div>
 	
-	<div class="div-content">
-		<div class="tbl-review">
+	<div class="row div-content">
+		<div class="col-md-3"></div>
+		<div class="col-md-6 tbl-review">
 			<p>후기 게시판?</p>
 			<table class="table table-bordered">
 				<thead>
@@ -442,6 +473,7 @@ $(function() {
 				</tbody>
 			</table>
 		</div>
+		<div class="col-md-3"></div>
 	</div>
 	
 </div>
