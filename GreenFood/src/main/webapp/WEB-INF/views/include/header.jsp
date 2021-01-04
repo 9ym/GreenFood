@@ -86,9 +86,10 @@ ul li a {
 	background-color : white;
 	height : 70px;
 	width : 100%;
+	box-shadow : 0px 3px 3px WhiteSmoke;
 }		
 										
-#header_menu {										
+#header_menu {		
 	height : 70px;
 	width : 1200px;
 	border-radius: 0px;
@@ -325,16 +326,15 @@ $(function(){
 	function hasScrolled() {
 		// 동작을 구현 
 		var st = $(this).scrollTop(); 
-		console.log("GG-" + st);
+// 		console.log("GG-" + st);
 		
 		if (st > 55) {
 			$("#header_menu_out").css("transition-property", "margin-top");
-			$("#header_menu_out").css("transition-duration", "1s");
+// 			$("#header_menu_out").css("transition-duration", "1s");
 			$("#header_menu_out").css("margin-top", "0px");
-			$("#header_menu_out").css("box-shadow", "0px 3px 3px WhiteSmoke");
 		} else if (st <= 55) {
+			$("#header_menu_out").css("transition-property", "margin-top");
 			$("#header_menu_out").css("margin-top", "80px");
-			$("#header_menu_out").css("box-shadow", "0px 0px 0px WhiteSmoke");
 		} 
 	}
 	

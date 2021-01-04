@@ -5,26 +5,57 @@
 
 <mapper namespace="com.kh.greenfood.product">
 
+	<!-- 상품 추가 -->
+	<insert id="insertProduct">
+		insert into tbl_product (product_code, product_category, product_title, 
+			product_price, product_shelf_life, product_sub_title, product_content, 
+			product_weight, product_sales_unit, product_origin)
+		values (seq_product_code.nextval, #{product_category}, #{product_title}, 
+			#{product_price}, #{product_shelf_life}, #{product_sub_title}, #{product_content}, 
+			#{product_weight}, #{product_sales_unit}, #{product_origin})
+	</insert>
+	
+	<!-- 제일 최근 추가된 상품 -->
+	<select id="getProductLatest" resultType="ProductVo">
+		select * from
+		    (select rownum, a.*from 
+		        (select * from tbl_product
+		        order by product_registration_date desc)a
+		    )b
+		where rownum between 1 and 1
+	</select>
+	
+	<!-- 상품 이미지 추가 -->
+	<insert id="insertProductImage">
+		insert into tbl_product_image (image_code, product_code, image_info_file_name, image_content_file_name)
+		values (seq_image_code.nextval, #{product_code}, #{image_info_file_name}, #{image_content_file_name})	
+	</insert>
+
+	<!-- 상품 하나 -->
 	<select id="getProduct" resultType="ProductVo">
 		select * from tbl_product
 		where product_code = #{product_code}
 	</select>
 	
+	<!-- 상품 하나에 대한 이미지 -->
 	<select id="getProductImage" resultType="ProductImageDto">
 		select * from tbl_product_image
 		where product_code = #{product_code}
 	</select>
 
+	<!-- 모든 상품 목록 -->
 	<select id="getProductList" resultType="ProductVo">
 		select * from tbl_product
 		order by product_code desc
 	</select>
 	
+	<!-- 모든 상품-사진 목록 -->
 	<select id="getProductImageList" resultType="ProductImageDto">
 		select * from tbl_product_image
 		order by image_code desc
 	</select>
 	
+	<!-- 제일 많이 팔린 상품 ?개 목록 -->
 	<select id="getProductBest" resultType="ProductVo">
 		select * from
 		    (select rownum, a.*from 
@@ -35,12 +66,14 @@
 		order by rownum asc
 	</select>
 	
+	<!-- 카테고리에 따른 상품 목록 -->
 	<select id="getProductCategory" resultType="ProductVo">
 		select * from tbl_product
 		where product_category = #{product_category}
 		order by product_code desc
 	</select>
 	
+	<!-- 카테고리 자체 목록 -->
 	<select id="getCategory" resultType="ProductCategoryDto">
 		select * from tbl_product_category
 	</select>

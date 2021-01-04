@@ -29,4 +29,7 @@ public interface ProductService {
 	/* 상품 카테고리 목록 */
 	public List<ProductCategoryDto> getCategory();
 	
+	/* 상품 등록 (ProductVo, ProductImageDto) */
+	public boolean insertProductAll(ProductVo productVo, ProductImageDto productImageDto);
+	
 }

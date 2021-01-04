@@ -29,4 +29,13 @@ public interface ProductDao {
 	/* 상품 카테고리 목록 */
 	public List<ProductCategoryDto> getCategory();
 	
+	/* 상품 추가 */
+	public int insertProduct(ProductVo productVo);
+	
+	/* 상품 이미지 추가 */
+	public int insertProductImage(ProductImageDto productImageDto);
+	
+	/* 제일 최근에 추가된 상품 */
+	public ProductVo getProductLatest();
+	
 }

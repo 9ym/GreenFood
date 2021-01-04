@@ -17,6 +17,9 @@ local.properties
 .project
 .classpath
 
+# S3 accessKey, secretKey
+Keys.java
+
 # External tool builders
 .externalToolBuilders/
 
