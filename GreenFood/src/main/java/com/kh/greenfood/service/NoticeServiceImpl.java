@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.greenfood.dao.NoticeDao;
 import com.kh.greenfood.domain.NoticeVo;
+import com.kh.greenfood.domain.PagingDto;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -23,8 +24,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<NoticeVo> noticeList() throws Exception {
-		List<NoticeVo> noticeList = noticeDao.noticeList();
+	public List<NoticeVo> noticeList(PagingDto pagingDto) throws Exception {
+		List<NoticeVo> noticeList = noticeDao.noticeList(pagingDto);
 //		System.out.println("NoticeServiceImpl, noticeList, noticeList:" + noticeList);
 		return noticeList;
 	}
@@ -32,6 +33,7 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Override
 	public NoticeVo selectNotice(int notice_no) throws Exception {
+		noticeDao.updateNoticeReadcount(notice_no);
 		NoticeVo noticeVo = noticeDao.selectNotice(notice_no);
 		return noticeVo;
 	}
@@ -47,7 +49,12 @@ public class NoticeServiceImpl implements NoticeService {
 		noticeDao.deleteNotice(notice_no);
 	}
 
-	
-	
+	// 전체 개시글 수 가져오기
+	@Override
+	public int noticeListCount(PagingDto pagingDto) throws Exception {
+		int count = noticeDao.noticeListCount(pagingDto);
+		return count;
+		
+	}
 	
 }

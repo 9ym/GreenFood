@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.QuestionVo;
 
 @Repository
@@ -24,9 +25,10 @@ public class QuestionDaoImpl implements QuestionDao {
 	}
 
 	@Override
-	public List<QuestionVo> getQuestionList() throws Exception {
-		List<QuestionVo> questionList = sqlSession.selectList(NAMESPACE + "getQuestionList");
-//		System.out.println("QuestionDaoImpl, questionList :" + questionList);
+	public List<QuestionVo> getQuestionList(PagingDto pagingDto) throws Exception {
+		List<QuestionVo> questionList = sqlSession.selectList(NAMESPACE + "getQuestionList", pagingDto);
+//		System.out.println("QuestionDaoImpl, questionList, pagingDto :" + pagingDto);
+//		System.out.println("QuestionDaoImpl, questionList, questionList :" + questionList);
 		return questionList;
 	}
 
@@ -36,11 +38,6 @@ public class QuestionDaoImpl implements QuestionDao {
 		return questionVo;
 	}
 
-	/*@Override
-	public QuestionVo getQuestionCategory(int question_category) throws Exception {
-		QuestionVo questionVo = sqlSession.selectOne(NAMESPACE + "getQuestionCategory", question_category);
-		return questionVo;
-	}*/
 	
 	@Override
 	public void updateQuestion(QuestionVo questionVo) throws Exception {
@@ -54,28 +51,19 @@ public class QuestionDaoImpl implements QuestionDao {
 		
 	}
 
+	// 카테고리 별 리스트 받아오기
 	@Override
-	public List<QuestionVo> getQuestionListOfCategory(int questino_category) throws Exception {
-		List<QuestionVo> questionListOfCategory = sqlSession.selectList(NAMESPACE + "getQuestionListOfCategory", questino_category);
+	public List<QuestionVo> getQuestionListOfCategory(int question_category) throws Exception {
+		List<QuestionVo> questionListOfCategory = sqlSession.selectList(NAMESPACE + "getQuestionListOfCategory", question_category);
 		return questionListOfCategory;
 	}
 
-	
-	
-	
-
-	/*@Override
-	public QuestionVo getQuestionCategory(int question_category) throws Exception {
-		QuestionVo questionVo = sqlSession.selectOne(NAMESPACE + "getQuestionCategory", question_category);
-		return questionVo;
-	}*/
-	
-
-	/*@Override
-	public List<QuestionCategoryDto> getCategoryList() {
-		List<QuestionCategoryDto> categoryList = sqlSession.selectList(NAMESPACE + "getCategoryList");
-		return categoryList;
-	}*/
+	@Override
+	public int questionListCount(PagingDto pagingDto) throws Exception {
+		int count = sqlSession.selectOne(NAMESPACE + "questionListCount", pagingDto);
+//		System.out.println("QuestionDaoImpl ,questionListCount, count :" + count);
+		return count;
+	}
 
 	
 

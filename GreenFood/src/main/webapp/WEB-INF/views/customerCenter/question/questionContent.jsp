@@ -10,24 +10,6 @@
 <meta charset="UTF-8">
 <title>Customer Question</title>
 
-<script>
-$(function(){
-	
-	// 자주하는 질문 작성 버튼 누르면 작성창으로 이동
-	$("#btnQuestionWrite").click(function(){
-		location.href="/customerCenter/question/questionWriteForm";
-	});
-	
-	$(".question_title").click(function(e){
-		e.preventDefault();
-		var q_no = $(this).attr("data-bno");
-		/* var c_no = $(this).attr("data-cno"); */
-		
-		location.href="/customerCenter/question/questionAnswer/" + q_no;
-	});
-	
-}); 
-</script>
 
 <!-- <script>
 	var data = $(this).attr("data");
@@ -36,14 +18,6 @@ $(function(){
 	$("#boardNames").text(data);
 </script> -->
 
-
-
-
-
-
-
-</head>
-<body>
 <style>
 .page_aticle.aticle_type2 {
     padding-top: 65px;
@@ -292,8 +266,114 @@ tbody tr {
 	padding-top: 30px;
 }
 
+.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #7f8284;
+    font-size: 13px;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #5AB63F;
+    border-color: #5AB63F;
+}
+
+.page-link:hover {
+    z-index: 2;
+    color: #fff;
+    text-decoration: none;
+    background-color: #92e978;
+    border-color: #92e978;
+}
+
 </style>
 
+<script>
+$(function(){
+	
+	// 자주하는 질문 작성 버튼 누르면 작성창으로 이동
+	$("#btnQuestionWrite").click(function(){
+		location.href="/customerCenter/question/questionWriteForm";
+
+	});
+	
+	$(".question_title").click(function(e){
+		e.preventDefault();
+		var q_no = $(this).attr("data-bno");
+		
+		location.href="/customerCenter/question/questionAnswer/" + q_no;
+	});
+	
+	// 페이지네이션 - 페이지 번호 클릭했을때
+	$("a.page-link").click(function(e){
+		e.preventDefault();
+		var page = $(this).attr("data-page");
+		console.log(page);
+		$("#frmQuestionPaging").find("input[name=page]").val(page);
+		$("#frmQuestionPaging").submit();
+	});
+	
+	// 카테고리별 리스트 넘겨주기
+	 /* $("#questinoMember").click(function(){
+		 var category_no = $(this).attr("data-category");
+		location.href="/customerCenter/question/questionContent/" + category_no;
+		
+		var url = "/customerCenter/question/questionListOfCategory";
+		var sendData = {
+				"question_category" 		: parseInt("${questionVo.question_category}"),
+				"question_category_dsc"		: $("#question_category_dsc").val()
+		};
+		console.log(sendData);
+//			$.post(url, sendData, function(data) {
+//				console.log(data); // success
+//			});
+		// $.get, $.post 원형
+		// header에 json형식임을 설정
+		// JSON.stringify(json) -> json형식을 문자열 형식
+		// dataType -> text
+		
+		$.ajax({
+			"url" : url,
+			"headers" : {
+				"Content-Type" : "application/json"
+			},
+			"method" : "post",
+			"dataType" : "text",
+			"data" : JSON.stringify(sendData),
+			"success" : function(data) {
+				console.log(data);
+				if (data == "success") {
+					$("#btnCommentList").trigger("click");
+					$("#c_content").val("");
+					$("#c_user_id").val("");
+				}
+			}
+		});
+	}); */
+	
+	/* $("#questionMember").click(function(e){
+		e.preventDefault();
+		var m_no = $(this).attr("data-mno");
+		
+		location.href="/customerCenter/question/questionContent/" + m_no;
+	}); */
+	
+}); 
+</script>
+
+<!-- ----------------  페이징 폼 넣어주기 -----------------------------------  -->
+
+<%@ include file="../../include/frmPaging.jsp" %>
+
+</head>
+<body>
 
 	<div class="container-fluid">
 		<div class="row">
@@ -333,18 +413,24 @@ tbody tr {
 										<!-- 자주하는 질문 드롭다운 -->
 										
 											<div class="col-md-12">
+												<button type="button" id="btnQuestionWrite">Q&A 작성</button>
 												<div class="dropdown">
-													<button type="button" id="btnQuestionWrite">Q&A 작성</button>
 													<button class="btn btn-primary dropdown-toggle"
 														type="button" id="dropdownMenuButton"
 														data-toggle="dropdown">카테고리 선택</button>
+													<!-- <form action="/customerCenter/question/questionContentOfCategory" method="get"> -->
 													<div class="dropdown-menu"	aria-labelledby="dropdownMenuButton">
-														<a class="dropdown-item" href="#">회원문의</a> 
+														
+														<%-- <c:forEach var="questionVo" items="${getQuestionListOfCategory}"> --%>
+														<%-- <a class="dropdown-item" href="/customerCenter/question/questionContent/${questionVo.question_category}">회원문의</a>  --%>
+														<a class="dropdown-item" id="questinoMember" href="#">회원문의</a> 
+														<%-- </c:forEach> --%>
 														<a class="dropdown-item" href="#">주문/결제</a> 
 														<a class="dropdown-item" href="#">취소/교환/반품</a>
 														<a class="dropdown-item" href="#">쿠폰/적립금</a>
 														<a class="dropdown-item" href="#">이용 및 기타</a>
 													</div>
+													<!-- </form> -->
 												</div>
 											</div>
 										
@@ -406,10 +492,45 @@ tbody tr {
 											</tr>
 										</tbody>
 									</table>
+									
+									
+									<!-- ----------------------------------- pagination -------------------------------- -->
+
+								<div class="row">
+									<div class="col-md-12 text-center">
+										<nav>
+											<ul class="pagination justify-content-center">
+												<!-- 이전 -->
+												<c:if test="${pagingDto.startPage != 1}">
+													<li class="page-item"><a class="page-link" href="#"
+														data-page="${pagingDto.startPage - 1}">이전</a></li>
+												</c:if>
+												<!-- 1 ~ 10 -->
+												<c:forEach var="i" begin="${pagingDto.startPage}"
+													end="${pagingDto.endPage}">
+													<li
+														<c:choose>
+															<c:when test="${i == pagingDto.page}">
+																class="page-item active"
+															</c:when>
+															<c:otherwise>
+																class="page-item"
+															</c:otherwise>
+														</c:choose>>
+														<a class="page-link" href="#" data-page="${i}">${i}</a></li>
+												</c:forEach>
+												<!-- 다음 -->
+												<c:if test="${pagingDto.endPage < pagingDto.totalPage}">
+													<li class="page-item"><a class="page-link" href="#"
+														data-page="${pagingDto.endPage + 1}">다음</a></li>
+												</c:if>
+											</ul>
+										</nav>
+									</div>
+								</div><!-- pagination -->
+									
 							</div>
 							<!-- // 자주하는 질문 메인창  -->
-
-
 
 						</div>
 					</div>

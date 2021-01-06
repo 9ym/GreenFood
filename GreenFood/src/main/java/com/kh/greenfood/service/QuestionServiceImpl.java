@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kh.greenfood.dao.QuestionDao;
+import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.QuestionVo;
 
 @Service
@@ -22,8 +23,9 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public List<QuestionVo> getQuestionList() throws Exception {
-		List<QuestionVo> questionList = questionDao.getQuestionList();
+	public List<QuestionVo> getQuestionList(PagingDto pagingDto) throws Exception {
+		List<QuestionVo> questionList = questionDao.getQuestionList(pagingDto);
+//		System.out.println("QuestionServiceImpl, getQuestionList, pagingDto :" + pagingDto);
 //		System.out.println("QuestionServiceImpl, questionList :" + questionList);
 		return questionList;
 	}
@@ -53,9 +55,16 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	@Override
-	public List<QuestionVo> getQuestionListOfCategory(int questino_category) throws Exception {
-		List<QuestionVo> questionListOfCategory = questionDao.getQuestionListOfCategory(questino_category);
+	public List<QuestionVo> getQuestionListOfCategory(int question_category) throws Exception {
+		List<QuestionVo> questionListOfCategory = questionDao.getQuestionListOfCategory(question_category);
 		return questionListOfCategory;
+	}
+
+	// 전체 개시글 수 가져오기
+	@Override
+	public int questionListCount(PagingDto pagingDto) throws Exception {
+		int count = questionDao.questionListCount(pagingDto);
+		return count;
 	}
 
 	
