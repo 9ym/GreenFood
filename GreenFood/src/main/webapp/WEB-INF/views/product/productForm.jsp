@@ -98,20 +98,22 @@ $(function() {
 
 <style>
 .row {
-	font-family: 'Black Han Sans', sans-serif;
+	font-family: 'Black Han Sans', sans-serif, ;
 	font-family: 'Noto Serif KR', serif;
+	font-size : 15px;
+	color : DimGray;
 }
 .menuInfo {
 	margin-top : 20px;
 	margin-left : 20px;
 }
 .viewInfo {
-	margin : 30px 20px;
-	padding : 30px 20px;
- 	padding-right : 0px;
-	padding-top : 40px;
-	border-top : 1px solid #6ca435;
- 	border-bottom : 1px solid #6ca435; 
+/* 	margin : 0px 0px; */
+	padding : 10px 0px;
+	padding-top : 20px;
+	padding-bottom : 0px;
+/* 	border-top : 1px solid #6ca435; */
+/*  	border-bottom : 1px solid #6ca435;  */
 }
 .infoImage{
 	float : left;
@@ -119,6 +121,7 @@ $(function() {
 .img-product {
 	width : 400px;
 	height : 400px;
+	padding-left : 0px;
 }
 .infoNamePrice {
   	float : left;  
@@ -199,7 +202,8 @@ $(function() {
 .info-btn button {
 /* 	margin-left : 0px; */
 /* 	margin : 0px 5px; */
-	padding : 5px 20px;
+	padding : 10px 20px;
+	font-weight : bold;
 }
 .info-btn #btnBuyNow {
 	border : 1px solid MediumSeaGreen;
@@ -236,28 +240,55 @@ $(function() {
 	color : MediumSeaGreen;
 }
 .infoDetail {
-	margin : 20px;
-	padding : 40px 20px;
- 	border-top : 1px solid #6ca435;
- 	border-bottom : 1px solid #6ca435;  
-/*  	border-bottom : 1px solid red; */
+	margin : 20px 0px;
+	padding : 0px 20px;
+/*  	border-top : 1px solid #6ca435; */
+/*  	border-bottom : 1px solid #6ca435;   */
+/* 	color : #666; */
 }
 .img-detail {
- 	width : 700px;
+ 	width : 865px;
  	height : 400px;
  	display: block;
   	margin-left: auto;
  	margin-right: auto;
 }
-.infoDetail h1 {
-	margin : 0px;
-	text-align: center;
-	padding : 10px;
+.text-detail {
+	margin-top : 50px;
 }
-.infoDetail p {
-	margin : 0px;
+.infoDetail h2 {
+	margin-top : 5px;
+	margin-bottom : 20px;
 	text-align: center;
-	padding-top : 10px;
+	padding : 0px;
+}
+.infoDetail .p-sub {
+	text-align: center;
+	font-size : 20px;
+	font-weight : bold;
+	margin-bottom : 0px;
+}
+.infoDetail .p-content {
+	border-top : 1px solid Gainsboro;
+	margin-bottom : 50px;
+	text-align: center;
+	padding-top : 30px;
+}
+.text-check {
+	margin-top : 150px;
+}
+.text-check h2 {
+    z-index: 1; 
+	border-top : solid 1px Gainsboro;
+	font-weight : bold;
+}
+.text-check span {
+  	position: relative;  
+  	width : 390px;
+    z-index: 10; 
+    display: inline-block;
+	background: white;
+	top : -20px;
 }
 .info-btn span{
 	padding-left : 0px;
@@ -267,10 +298,24 @@ $(function() {
 	padding : 10px 20px;
 }
 .related-list {
-	margin : 5px;
-	padding-left : 30px;
-	padding-right : 0px;
-/*  border-bottom : 1px solid #6ca435;  */
+	margin : 0px;
+	padding : 0px;
+/*     border-top: 2px dotted red;   */
+	position : relative;
+}
+.related-list #related-title {
+	border-top : 6px solid black;
+	width : 26px;
+	color : black;
+}
+.related-list #related-title p{
+	width : 200px;
+	font-weight : bold;
+}
+.related-list #relates-product-list {
+/* 	position : absolute; */
+	left : 0px; 
+	bottom : 0px;
 }
 .ul-related {
 	width : 820px;
@@ -307,9 +352,56 @@ $(function() {
 	width : 20px;
 /* 	margin-right : 5px; */
 }
+.tbl-review {
+/* 	border-top : 2px solid black; */
+	margin-left : 0px;
+	padding : 0px;
+}
 .container-fluid {
 	padding-top : 150px;
 }
+.view-wrap { 
+	position : relative;
+	padding-left : 0px;
+	padding-right : 0px;
+/* 	border-top : 2px dotted red; */
+}
+.view-tab ul  {
+/* 	display: block; */
+ 	margin-bottom : 0px;
+/* 	border-bottom : 1px solid DimGray; */
+	clear: both;
+}
+.view-tab ul li {
+ 	float: left;
+  	background-color : WhiteSmoke;
+}
+.view-tab ul li a {
+ 	position: relative; 
+    top: 1px; 
+	color : black;
+	text-align: center; 
+	text-decoration: none;
+	cursor: pointer;
+	border-top : 1px solid Silver;
+	border-right : 1px solid Silver;
+	display: block;
+	padding : 10px 0px;
+	width : 150px;
+}
+.view-wrap .view-content {
+	clear: both;
+ 	position : relative;
+	left : 0px;  
+ 	bottom : 0px; 
+ 	border-top : solid 1px Silver;
+	padding : 20px 0px;
+	padding-top : 50px;
+}
+/* .rox {
+	border-top : 2px dashed blue;
+	border-bottom : 2px dashed blue;
+} */
 /* .div-content {
 	display:block;
 	width:900px;
@@ -420,7 +512,8 @@ $(function() {
 		<div class="col-md-3"></div>
 		<!-- 관련 상품 -->
 		<div class="col-md-6 related-list">
-			<div>
+			<div id="related-title"><p>RELATED PRODUCT</p></div>
+			<div id="relates-product-list">
 				<c:if test="${fn:length(productBestList) > 5}">
 				<button type="button" class="btn btn-default btn-sm">
 					<img src="${path}/resources/images/left.PNG">
@@ -459,46 +552,88 @@ $(function() {
 		<div class="col-md-3"></div>
 	</div>
 	
-	<div class="row div-content">
+	<div class="row div-content" id="infoDetail-tab">
 		<div class="col-md-3"></div>
 		<!-- 상세 정보 -->
-		<div class="col-md-6 infoDetail">
-			<div>
+		<div class="col-md-6 infoDetail view-wrap">
+			<div class="view-tab">
+				<ul>
+					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver; border-bottom: 0px; 
+						background-color: white; z-index: 10;">상품설명</a></li>
+					<li><a href="#imsi-tab">임시</a></li>
+					<li><a href="#tbl-review-tab">후기</a></li>
+				</ul>
+			</div>
+			<div class="view-content">
 				<div>
 					<img class="img-detail img-s3" alt="상세 사진" src="${path}/resources/images/right.PNG"
 						data-img="${productImageDto.image_content_file_name}" data-category="${productVo.product_category}">
 				</div>
-				<p>${productVo.product_sub_title}</p>
-				<h1>${productVo.product_title}</h1>
-				<p>${productVo.product_content}</p>
-				<!-- <span>고구마는 맛과 영양을 고루 갖춘 팔방미인 식재료죠. 얼핏 보면 비슷하게 생긴 고구마도 종류에 따라 다양한 맛과 식감을 자랑하는데요. 
-				그린푸드가 준비한 제품은 붉은색 껍질과 연노랑 속살의 고구마예요. 포근하고 고소하면서도, 씹을수록 달콤하고 담백하죠. 
-				취향에 맞게 찌거나 구워서 간단한 식사처럼 즐기거나, 간식으로 활용하세요.</span> -->
+				<div class="text-detail">
+					<p class="p-sub">${productVo.product_sub_title}</p>
+					<h2>${productVo.product_title}</h2>
+					<p class="p-content">${productVo.product_content}</p>
+				</div>
+				<div class="text-check">
+					<h2>
+						<span>GreenFood's Check Point</span>
+					</h2>
+				</div>
+				<div>
+<%-- 					<img alt="상세 사진" src="${path}/resources/images/tempsnip.png"> --%>
+					<img alt="상세 사진" src="https://img-cf.kurly.com/shop/data/goodsview/20180719/gv10000027609_1.jpg">
+				</div>
 			</div>
 		</div>
 		<!--// 상세 정보 -->
 		<div class="col-md-3"></div>
 	</div>
 	
+	<div class="row div-content" id="imsi-tab">
+		<div class="col-md-3"></div>
+		<div class="col-md-6 view-wrap">
+			<div class="imsi view-tab">
+				<ul>
+					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver;">상품설명</a></li>
+					<li><a href="#imsi-tab" style="background-color: white; border-bottom: 0px; z-index: 10;">임시</a></li>
+					<li><a href="#tbl-review-tab">후기</a></li>
+				</ul>
+			</div>
+			<div class="view-content">
+				<p>ghghghgh</p>
+			</div>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+	
 	<div class="row div-content">
 		<div class="col-md-3"></div>
 		<!-- 후기 모음 -->
-		<div class="col-md-6 tbl-review">
-			<p>후기 게시판?</p>
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>1</th>
-						<th>2</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>11</td>
-						<td>22</td>
-					</tr>
-				</tbody>
-			</table>
+		<div class="col-md-6 tbl-review view-wrap" id="tbl-review-tab">
+			<div class="view-tab">
+				<ul>
+					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver;">상품설명</a></li>
+					<li><a href="#imsi-tab">임시</a></li>
+					<li><a href="#tbl-review-tab" style="background-color: white; border-bottom: 0px; z-index: 10;">후기</a></li>
+				</ul>
+			</div>
+			<div class="view-content">
+				<p>후기 게시판?</p>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>1</th>
+							<th>2</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>11</td>
+							<td>22</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<!--// 후기 모음  -->
 		<div class="col-md-3"></div>

@@ -506,7 +506,7 @@ ${testVo.user_id}
 
 	<div id="best_text">
 		<img src="${path}/resources/images/best_text.png">
-		<a type="button" href="/product/fileInputTest">파일 인풋 테스트</a>
+		<a type="button" href="/upload/fileInputTest">파일 인풋 테스트</a>
 	</div>
 	<div id="make_line">
 	</div>

@@ -24,7 +24,9 @@ public class UploadController {
 	private ProductService productService;
 
 	@RequestMapping(value="/fileInputTest", method=RequestMethod.GET)
-	public void test() throws Exception { }
+	public String test() throws Exception {
+		return "/product/fileInputTest";
+	}
 	
 	/* 상품 등록 -> ProductVo, ProductImageDto DB 생성 + 이미지 s3 업로드 */
 	@RequestMapping(value="/fileTest", method=RequestMethod.POST)
