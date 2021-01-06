@@ -1,10 +1,13 @@
 package com.kh.greenfood.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
 import com.kh.greenfood.dao.MemberDao;
+import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.TestVo;
 
 @Service
@@ -61,6 +64,20 @@ public class MemberServiceImpl implements MemberService {
 	public TestVo findId(String user_name, String user_email, String user_phone) {
 		TestVo testVo = memberDao.findId(user_name, user_email, user_phone);
 		return testVo;
+	}
+	
+	// 주문 전체내역 불러오기
+	@Override
+	public List<OrderVo> getOrderedList(String user_id) {
+		List<OrderVo> orderedList = memberDao.getOrderedList(user_id);
+		return orderedList;
+	}
+	
+	// 최근 주문내역 3개만 불러오기
+	@Override
+	public List<OrderVo> getLatestOrderedList(String user_id) {
+		List<OrderVo> latestOrderedList = memberDao.getLatestOrderedList(user_id);
+		return latestOrderedList;
 	}
 
 //	@Override

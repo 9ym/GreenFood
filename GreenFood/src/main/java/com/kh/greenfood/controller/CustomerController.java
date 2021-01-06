@@ -1,5 +1,7 @@
 package com.kh.greenfood.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.MemberService;
 
@@ -22,8 +25,37 @@ public class CustomerController {
 	
 	// 마이페이지 포워드
 	@RequestMapping(value="/customerMyPage")
-	public String customerMyPage() throws Exception{
+	public String customerMyPage(String user_id, Model model) throws Exception{
+		List<OrderVo> latestOrderedList = memberService.getLatestOrderedList(user_id);
+		model.addAttribute("latestOrderedList", latestOrderedList);
 		return "customer/customerMyPage";
+	}
+	
+	// 마이페이지 상의 등급별 혜택
+	@RequestMapping(value="/customerMembership")
+	public String customerMembership () throws Exception{
+		return "customer/customerMembership";
+	}
+	
+	// 마이페이지 상의 적립금
+	@RequestMapping(value="/customerPoint")
+	public String customerPoint () throws Exception{
+		return "customer/customerPoint";
+	}
+	
+	// 마이페이지 상의 주문내역 전체보기
+	@RequestMapping(value="/customerOrderdList", method=RequestMethod.GET)
+	public String customerOrderdList(String user_id, Model model) throws Exception{
+		List<OrderVo> orderedList = memberService.getOrderedList(user_id);
+		model.addAttribute("orderedList", orderedList);
+		return "customer/customerOrderdList";
+	}
+	
+	// 마이페이지 상의 order_code 클릭시 주문상세 내역 보여주기
+	@RequestMapping(value="/customerDetailOrder")
+	public String customerDetailOrder(String order_code)throws Exception{
+		
+		return "customer/customerDetailOrder";
 	}
 	
 	// 회원가입 포워드

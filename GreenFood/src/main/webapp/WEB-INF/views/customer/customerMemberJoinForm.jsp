@@ -4,7 +4,9 @@
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/css_customerMemberJoinForm.css"/>
 <!-- 주소 가져오기 api -->
 <style>
-
+.container-fluid {
+	padding-top : 150px;
+}
 </style>
 <script	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

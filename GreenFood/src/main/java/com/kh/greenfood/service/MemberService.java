@@ -1,5 +1,8 @@
 package com.kh.greenfood.service;
 
+import java.util.List;
+
+import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.TestVo;
 
 public interface MemberService {
@@ -27,5 +30,9 @@ public interface MemberService {
 	
 	// 프로필 회원정보 수정
 	public int customerModify(TestVo testVo);
+
+	public List<OrderVo> getOrderedList(String user_id);
+
+	public List<OrderVo> getLatestOrderedList(String user_id);
 
 }

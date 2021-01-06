@@ -1,6 +1,7 @@
 package com.kh.greenfood.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -8,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.TestVo;
 
 @Repository
@@ -73,6 +75,19 @@ public class MemberDaoImpl implements MemberDao {
 		TestVo testVo = sqlSession.selectOne(NAMESPACE + "findId", map);
 		return testVo;
 	}
+
+	@Override
+	public List<OrderVo> getOrderedList(String user_id) {
+		List<OrderVo> orderedList = sqlSession.selectList(NAMESPACE + "getOrderedList", user_id);
+		return orderedList;
+	}
+
+	@Override
+	public List<OrderVo> getLatestOrderedList(String user_id) {
+		List<OrderVo> latestOrderedList = sqlSession.selectList(NAMESPACE + "getLatestOrderedList", user_id);
+		return latestOrderedList;
+	}
+	
 
 //	@Override
 //	public TestVo profilePwCheck(String user_id, String user_pw) {

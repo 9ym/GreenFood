@@ -18,6 +18,11 @@ $(function(){
 		alert("입력된 정보로 된 회원이 없습니다.");
 	}
 	
+	// 돌아가기 버튼 클릭시 -> 로그인 페이지로 이동
+	$(".btn_returnLoginPage").click(function(){
+		location.href="/main/loginPage";
+	});
+	
 	// input이름, 이메일, 폰번호 popover
 	$('#user_name').popover({title: "이름", content: "한글,영어 8~10자", trigger: "hover"});
 	$('#user_email').popover({title: "이메일", content: "example@mail.com", trigger: "hover"});
