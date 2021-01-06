@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
+<%@include file="../include/frmOrdered.jsp" %>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/css_customerMyPage.css"/>
 <style>
 .container-fluid {
-	padding-top : 150px;
+	padding-top : 100px;
 }
 </style>
 <script>
@@ -23,8 +24,18 @@ $(function(){
 		alert("회원정보가 수정되었습니다.");
 	}
 	
+	// 주문내역 전체보기
+	$("#btn_allOrderShow").click(function(){
+		var user_id = "${sessionScope.testVo.user_id}";
+		$("#frmOrdered > input[name=user_id]").val(user_id);
+ 		$("#frmOrdered").submit();
+	});
+	
+	
+	
 });
 </script>
+
 <content>
 <div class="container-fluid">
 <div id="content_left" style="width:300px;
@@ -40,12 +51,12 @@ padding:0;">
 					</div>
 			<p>반갑습니다!</p>
 			<p>구매자</p>
-			<p><span id="spanUserName">${sessionScope.testVo.user_id}</span>님</p>
+			<p><span id="spanUserName">${sessionScope.testVo.user_name}</span>님</p>
 		</div>
 		
 		
 		<div id="left_bottom">
-			<div><a href="/customer/customerProfile">프로필</a>></div>
+			<div><a href="/customer/customerProfile" class="btn">프로필</a>></div>
 			<div>나의 쇼핑 활동</div>
 			<div>Q&amp;A</div>
 		</div>
@@ -57,19 +68,40 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 		<div id="MyPageContent">
 			<p class="bigText">구매자 등급</p>
 			<div id="memberLevel">
-				<p>회원등급</p>
-				<p class="p_left" id="p_memberLevel">LV.${sessionScope.testVo.user_level}</p>
-				<P style="clear:both">다음 등급까지 <span>000</span>점 남았습니다.</P>
+				<p class="p_left" id="p_memberLevel">LV.
+					<c:if test="${sessionScope.testVo.user_level == '0'}">
+						SILVER
+					</c:if>
+					<c:if test="${sessionScope.testVo.user_level == '1'}">
+						GOLD
+					</c:if>
+					<c:if test="${sessionScope.testVo.user_level == '2'}">
+						VIP
+					</c:if>
+				</p>
+				<c:choose>
+					<c:when test="${sessionScope.testVo.user_level == '2' }">
+						최고 등급 이십니다.
+					</c:when>
+					<c:otherwise>
+						다음 등급까지
+					<span>
+						111
+					</span>
+						점 남았습니다.
+					</c:otherwise>
+					
+				</c:choose>
 			</div>
-			<div   id="memberLevel_right">
-			<P >등급 혜택 보기 <span class="showsign">></span> </P>
-			<p >가입일:<span>${sessionScope.testVo.user_date}</span></p>
+			<div id="memberLevel_right">
+				<a href="/customer/customerMembership" class="btn btn-success">등급 혜택 보기 <span class="showsign">></span></a>
+				<p >가입일:<span>${sessionScope.testVo.user_date}</span></p>
 			</div>
 			<div id="points_review">
 				<div id="chkpoints">
 					<img src="${path}/resources/images/moneybook.png" style="width:70px;">
-					<p>적립금 <span class="showsign">></span></p><img src="">
-					<p><span>00000</span>원</p>
+					<p><a href="/customer/customerPoint" class="btn">적립금</a> <span class="showsign">></span></p><img src="">
+					<p><span>${sessionScope.testVo.user_point}</span>원</p>
 				</div>
 				<div id="makeReview">
 					<img src="${path}/resources/images/pencil_review.png" style="width:70px;">
@@ -117,29 +149,39 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 				</div>
 			</div>
 			<div id="orderedList">
-				<p class="bigText">주문중인 내역</p><p id="orderedList_secondP">전체 <span class="showsign"></span></p>
-				<table>
-					<thead>
-						<th>주문번호</th>
-						<th>상품명</th>
-						<th>주문금액</th>
-						<th>주문일자</th>
-					</thead>
-					<tbody>
-						<td>123456-789456</td>
-						<td>찰옥수수</td>
-						<td>150000원</td>
-						<td>2020-08-07</td>
-					</tbody>
-					<tbody>
-						<td>123456-789456</td>
-						<td>찰옥수수</td>
-						<td>150000원</td>
-						<td>2020-08-07</td>
-					</tbody>
-				</table>
+				<p class="bigText">최근 주문 내역</p><p id="orderedList_secondP">
+				<button type="button" id="btn_allOrderShow" class="btn">더보기</button>
+				<span class="showsign"></span></p>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12">
+							<table class="table table-bordered table-sm">
+								<thead>
+									<tr>
+										<th>주문일</th>
+										<th>주문번호</th>
+										<th>결제금액</th>
+<!-- 									<th>주문내역</th> -->
+										<th>주문상태</th>
+									</tr>
+								</thead>
+								<tbody>
+								<c:forEach var="latestOrderedList" items="${latestOrderedList}">
+									<tr>
+										<td>${latestOrderedList.order_date}</td>
+										<td><a href="/customer/customerDetailOrder?order_code=${latestOrderedList.order_code}">${latestOrderedList.order_code}</a></td>
+										<td>${latestOrderedList.order_total_price}</td>
+<%-- 									<td>${latestOrderedList.order_state}</td> --%>
+										<td>${latestOrderedList.order_state_dsc}</td>
+									</tr>
+								</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div >
-</div>
+	</div>
+</div >
 </content>

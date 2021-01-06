@@ -467,7 +467,7 @@ ${testVo.user_id}
 		<c:choose>
 			<c:when test="${not empty sessionScope.testVo }">
 		 	<a href="/logout">로그아웃</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-			<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+			<a href="/customer/customerMyPage?user_id=${sessionScope.testVo.user_id}">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 		 	</c:when>
 			<c:otherwise>
 			<a href="/main/loginPage">로그인</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
