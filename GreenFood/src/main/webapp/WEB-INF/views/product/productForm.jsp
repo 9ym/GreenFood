@@ -246,8 +246,8 @@ $(function() {
 /*  	border-bottom : 1px solid #6ca435;   */
 /* 	color : #666; */
 }
-.img-detail {
- 	width : 865px;
+.infoDetail .img-detail {
+ 	width : 100%;
  	height : 400px;
  	display: block;
   	margin-left: auto;
@@ -285,10 +285,13 @@ $(function() {
 .text-check span {
   	position: relative;  
   	width : 390px;
-    z-index: 10; 
+    z-index: 2; 
     display: inline-block;
 	background: white;
 	top : -20px;
+}
+.div-img {
+	margin-bottom : 70px;
 }
 .info-btn span{
 	padding-left : 0px;
@@ -298,8 +301,9 @@ $(function() {
 	padding : 10px 20px;
 }
 .related-list {
+	display : block;
 	margin : 0px;
-	padding : 0px;
+	padding-left : 157px;
 /*     border-top: 2px dotted red;   */
 	position : relative;
 }
@@ -316,9 +320,11 @@ $(function() {
 /* 	position : absolute; */
 	left : 0px; 
 	bottom : 0px;
+	display : block;
 }
 .ul-related {
-	width : 820px;
+	width : 900px;
+	display : block;
 }
 .info-related {
 	border-bottom : solid 1px LightGray;
@@ -341,12 +347,12 @@ $(function() {
 .related-name {
 	font-weight : bold;
 }
-.related-list button {
+/* .related-list button {
 	margin : 0px 5px; 
-	padding : 105px 5px;
+	padding : 100px 0px;
 	border : 0px;
 	float : left;
-}
+} */
 .related-list button img{
 	height : 20px;
 	width : 20px;
@@ -358,7 +364,7 @@ $(function() {
 	padding : 0px;
 }
 .container-fluid {
-	padding-top : 150px;
+	padding-top : 180px;
 }
 .view-wrap { 
 	position : relative;
@@ -509,25 +515,24 @@ $(function() {
 	</div>
 	
 	<div class="row div-content">
-		<div class="col-md-3"></div>
+		<div class="col-md-2"></div>
 		<!-- 관련 상품 -->
-		<div class="col-md-6 related-list">
+		<div class="col-md-8 related-list">
 			<div id="related-title"><p>RELATED PRODUCT</p></div>
 			<div id="relates-product-list">
-				<c:if test="${fn:length(productBestList) > 5}">
-				<button type="button" class="btn btn-default btn-sm">
-					<img src="${path}/resources/images/left.PNG">
-		        </button>
-				</c:if>
+<%-- 				<c:if test="${fn:length(productCategoryList) > 5}"> --%>
+<!-- 				<button type="button" class="btn btn-default btn-sm"> -->
+<%-- 					<img src="${path}/resources/images/left.PNG"> --%>
+<!-- 		        </button> -->
+<%-- 				</c:if> --%>
 				<ul class="ul-related">
-					<c:forEach var="productVoList" items="${productCategoryList}">
+					<c:forEach var="productVoList" items="${listRelated}">
 					<c:forEach var="productImageDtoList" items="${productImageList}">
 					<c:if test="${productVoList.product_code == productImageDtoList.product_code}">
-					<c:if test="${productVoList.product_title != productVo.product_title}">
 					<li class="li-related" style="float:left;">
 						<div class="image-related">
 							<a href="/product/detail/${productVoList.product_code}">
-								<img class="img-related img-s3" alt="관련 상품 사진" src="${path}/resources/images/right.PNG"
+								<img class="img-related img-s3" alt="관련 상품 사진" src="${path}/resources/images/item.png"
 									data-img="${productImageDtoList.image_info_file_name}" data-category="${productVoList.product_category}">
 							</a>
 						</div>
@@ -537,29 +542,28 @@ $(function() {
 						</div>
 					</li>
 					</c:if>
-					</c:if>
 					</c:forEach>
 					</c:forEach>
 				</ul>
-				<c:if test="${fn:length(productBestList) > 5}">
-				<button type="button" class="btn btn-default btn-sm">
-					<img src="${path}/resources/images/right.PNG">
-		        </button>
-		        </c:if>
+<%-- 				<c:if test="${fn:length(productCategoryList) > 5}"> --%>
+<!-- 				<button type="button" class="btn btn-default btn-sm"> -->
+<%-- 					<img src="${path}/resources/images/right.PNG"> --%>
+<!-- 		        </button> -->
+<%-- 		        </c:if> --%>
 			</div>
 		</div>
 		<!--// 관련 상품 -->
-		<div class="col-md-3"></div>
+		<div class="col-md-2"></div>
 	</div>
 	
-	<div class="row div-content" id="infoDetail-tab">
+	<div class="row div-content">
 		<div class="col-md-3"></div>
 		<!-- 상세 정보 -->
-		<div class="col-md-6 infoDetail view-wrap">
+		<div class="col-md-6 infoDetail view-wrap" id="infoDetail-tab">
 			<div class="view-tab">
 				<ul>
 					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver; border-bottom: 0px; 
-						background-color: white; z-index: 10;">상품설명</a></li>
+						background-color: white; z-index: 2;">상품설명</a></li>
 					<li><a href="#imsi-tab">임시</a></li>
 					<li><a href="#tbl-review-tab">후기</a></li>
 				</ul>
@@ -579,7 +583,7 @@ $(function() {
 						<span>GreenFood's Check Point</span>
 					</h2>
 				</div>
-				<div>
+				<div class="div-img">
 <%-- 					<img alt="상세 사진" src="${path}/resources/images/tempsnip.png"> --%>
 					<img alt="상세 사진" src="https://img-cf.kurly.com/shop/data/goodsview/20180719/gv10000027609_1.jpg">
 				</div>
@@ -595,7 +599,7 @@ $(function() {
 			<div class="imsi view-tab">
 				<ul>
 					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver;">상품설명</a></li>
-					<li><a href="#imsi-tab" style="background-color: white; border-bottom: 0px; z-index: 10;">임시</a></li>
+					<li><a href="#imsi-tab" style="background-color: white; border-bottom: 0px; z-index: 2;">임시</a></li>
 					<li><a href="#tbl-review-tab">후기</a></li>
 				</ul>
 			</div>
@@ -614,7 +618,7 @@ $(function() {
 				<ul>
 					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver;">상품설명</a></li>
 					<li><a href="#imsi-tab">임시</a></li>
-					<li><a href="#tbl-review-tab" style="background-color: white; border-bottom: 0px; z-index: 10;">후기</a></li>
+					<li><a href="#tbl-review-tab" style="background-color: white; border-bottom: 0px; z-index: 2;">후기</a></li>
 				</ul>
 			</div>
 			<div class="view-content">

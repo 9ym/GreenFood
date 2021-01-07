@@ -58,7 +58,7 @@
 	<!-- 제일 많이 팔린 상품 ?개 목록 -->
 	<select id="getProductBest" resultType="ProductVo">
 		select * from
-		    (select rownum, a.*from 
+		    (select rownum, a.* from 
 		        (select * from tbl_product
 		        order by product_order_count desc)a
 		    )b
@@ -76,6 +76,40 @@
 	<!-- 카테고리 자체 목록 -->
 	<select id="getCategory" resultType="ProductCategoryDto">
 		select * from tbl_product_category
+	</select>
+	
+	<!-- 신상품 목록 -->
+	<select id="getLatestProduct" resultType="ProductVo">
+		<![CDATA[
+			select * from tbl_product
+			where sysdate - #{conditionDate} < product_registration_date
+			order by product_registration_date desc
+		]]>
+	</select>
+	
+	<!-- 추천상품 목록 -->
+	<select id="getBestProduct" resultType="ProductVo">
+		<![CDATA[
+			select * from tbl_product
+			where product_order_count > #{conditionOrderCount}
+			order by product_order_count desc
+		]]>
+	</select>
+	
+	<!-- 세일상품 목록 -->
+	<select id="getSaleProduct" resultType="ProductVo">
+	</select>
+	
+	<!-- 관련 상품(=카테고리) 랜덤으로 6개 -->
+	<select id="getRelatedProduct" resultType="ProductVo">
+		<![CDATA[
+			select * from  
+			    (select * from tbl_product
+			    where product_category = #{product_category}
+			    and product_code != #{product_code}
+			    order by dbms_random.value)
+			where rownum <= 6
+		]]>
 	</select>
 
 </mapper>

@@ -70,8 +70,6 @@ public class UploadController {
 	@ResponseBody
 	public String getUrl(String fileName, String category) throws Exception {
 		fileName = S3Util.getImageUrl(fileName, category);
-//		System.out.println("fileName :" + fileName);
-//		System.out.println("category :" + category);
 		return fileName;
 	}
 	

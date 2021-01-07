@@ -66,4 +66,16 @@ public class testProductDao {
 		System.out.println("count :" + count);
 	}
 	
+	@Test
+	public void testLatest() throws Exception {
+		List<ProductVo> list = productDao.getLatestProduct(10);
+		System.out.println(list);
+	}
+	
+	@Test
+	public void testBest() throws Exception {
+		List<ProductVo> list = productDao.getProductBest(5);
+		System.out.println(list);
+	}
+	
 }

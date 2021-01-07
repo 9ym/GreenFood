@@ -88,6 +88,13 @@ $(function(){
 	});
 	
 });	
+
+function topClose() {
+// 	$(".div-top").hide();
+// 	$(".div-top").css("height", "0px");
+	$(".div-top").css("display", "none");
+// 	$(".div-top a div").css("position", none);
+}
 </script>
 <!-- 스크립트 끝 -->
 
@@ -105,10 +112,10 @@ header{ margin:0;padding:0; }
 ul,li{ list-style:none; }
 ul li a{ text-decoration:none; }
 
-.slide{height:300px;overflow:hidden;margin-top:170px;}
-.slide ul{position:relative;height:100%;}
-.slide li{position:absolute;left:0;right:0;top:0;bottom:0;opacity:0;animation:fade 8s infinite;}
-.slide li:nth-child(1){background-image:url("https://file.mk.co.kr/meet/neds/2020/01/image_readtop_2020_83302_15800838754063133.jpg");animation-delay:0s;background-repeat:no-repeat;background-size:100%100%;}
+.slide{height:270px;overflow:hidden; margin-left : 150px; margin-right : 150px; margin-top:170px;}
+.slide ul{position:relative;height:100%;  }
+.slide li{position:absolute;left:0;right:0;top:0;bottom:0;opacity:0;animation:fade 8s infinite; display:block;}
+.slide li:nth-child(1){background-image:url("https://file.mk.co.kr/meet/neds/2020/01/image_readtop_2020_83302_15800838754063133.jpg");animation-delay:0s;background-repeat:no-repeat;background-size: 100% 100%;}
 .slide li:nth-child(2){background-image:url("https://images.unsplash.com/photo-1591981093673-984cd7de9ca4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80");animation-delay:2s;background-repeat:no-repeat;background-size:100%100%;}
 .slide li:nth-child(3){background-image:url("https://images.unsplash.com/photo-1594069213067-8996d741badb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80");animation-delay:4s;background-repeat:no-repeat;background-size:100%100%;}
 .slide li:nth-child(4){background-image:url("https://images.unsplash.com/photo-1580910365203-91ea9115a319?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80");animation-delay:6s;background-repeat:no-repeat;background-size:100%100%;}
@@ -212,19 +219,16 @@ ul li a{ text-decoration:none; }
 		width : 20px;
 		margin-left : 15px;
 		margin-right : 5px;
-		margin-top : 28px;
-		
-		/* display: block;
-		margin-left: auto;
-		margin-right: auto;
-		hight: 50%; */
+		margin-top : 25px;
 	}
 	
 	#header_menu .hide {
 		width:120px;
 	}
 	#header_menu a:hover {
-		font-size:110%;
+/* 		font-size:110%; */
+		color : #6ca435;
+		text-decoration : none;
 	}
 	.hide ul{
 		width:120px;
@@ -250,14 +254,14 @@ ul li a{ text-decoration:none; }
 		border:1px solid Gainsboro;
 	}
 	#header_menu_right input{
-	float:left;
+		float:left;
 		width:200px;
-		height:30px;
+		height:29px;
 		border:none;
 	}
 	#header_menu_right input:focus { outline:none; }
 	#header_menu_right a img{
-			height:30px;
+			height:29px;
 			float:right;
 			margin:0;
 			padding:0;
@@ -380,7 +384,7 @@ ul li a{ text-decoration:none; }
 	}
 	.dscImage p:nth-child(2){
 		margin-top:0px;
-		color:red;
+		color: Tomato;
 	}
 	.showPoints{
 		position:relative;
@@ -395,7 +399,9 @@ ul li a{ text-decoration:none; }
 	.showPoints img{
 		position:relative;
 		left:45px;
-		top:7px;
+		top:5px;
+		width : 20px;
+		height : 20px;
 	}
 	.spanShowPoints{
 		display:block;
@@ -421,14 +427,39 @@ ul li a{ text-decoration:none; }
 		text-align : center;
 	}
 	.div-top a {
+		color : white;
+		display : block;
+		height : 100%;
+		font-size : 15px;
+	}
+	.div-top a span {
+		height : 100%;
+		display : inline-block;
+		padding-top : 4px;
+	}
+	.div-top a div {
+		position: absolute;
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    height: 100%;
+	}
+	.div-top a div div {
 		color : black;
+		position: relative;
+		display : inline-block;
+		height : 100%;
+		width : 800px;
+		margin: 0 auto;
 	}
 	.div-top a button {
-/* 		font-size: 10px; */
+		color : white;
+ 		float : right;
+ 		height : 100%;
 		border: none;
 		background-color: #6ca435;
 		display: inline-block;
-/* 		margin-left : 300px; */
+ 		margin-left : 300px; 
 	}
 </style>
 <!-- 스타일 끝 -->
@@ -440,8 +471,12 @@ ${testVo.user_id}
 	<!-- 제일 상단 버튼 : 회원가입 혜택 안내?? -->
 	<div class="div-top">	
 		<a href="#">
-			<span>dngkgkgkgkgkgkgk</span>
-			<button type="button">X</button>
+			<span>지금 가입하고 포인트 받으세요!</span>
+			<div>
+				<div>
+					<button type="button" onclick="javascript:topClose();">X</button>
+				</div>
+			</div>
 		</a>
 	</div>
 	<!--// 제일 상단 버튼 -->
@@ -488,8 +523,8 @@ ${testVo.user_id}
 						</c:forEach>
 					</ul>		
 				</li>
-				<li><a href="#">신상품</a></li>
-				<li><a href="#">추천상품</a></li>
+				<li><a href="/product/menu/new">신상품</a></li>
+				<li><a href="/product/menu/best">추천상품</a></li>
 				<li><a href="#">세일상품</a></li>
 				<li><a href="#">후기모음</a></li>
 				<li><a href="/main/event/eventMain">이벤트</a></li>
@@ -519,7 +554,7 @@ ${testVo.user_id}
 			<c:if test="${productVo.product_code == productImageDto.product_code}">
 				<div>
 					<a href="/product/detail/${productVo.product_code}">
-						<img class="imgInfo" src="${path}/resources/images/right.PNG" style="width:240px; height:240px;"
+						<img class="imgInfo" src="${path}/resources/images/item.png" style="width:240px; height:240px;"
 							data-img="${productImageDto.image_info_file_name}" data-category="${productVo.product_category}">
 					</a>
 					<div class="dscImage">
@@ -527,6 +562,7 @@ ${testVo.user_id}
 						<p class="price-p">${productVo.product_price}</p>
 					</div>
 					<div class="showPoints">
+<%-- 						<img src="${path}/resources/images/thumbs_up.png"> --%>
 						<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
 						<span class="spanShowPoints">97.7%</span>
 					</div>

@@ -141,7 +141,14 @@ ul li a {
 	border-top: #6ca435 1px solid;
 	border-bottom: #6ca435 1px solid;
 	padding : 20px 20px;	
-}										
+}	
+#first_li img{
+	height : 20px;
+	width : 20px;
+	margin-left : 15px;
+	margin-right : 5px;
+	margin-top : 25px;
+}									
 #header_menu #first_li a{										
 	display:inline;	
 }										
@@ -150,8 +157,9 @@ ul li a {
 }										
 										
 #header_menu a:hover {										
-	font-size: 110%;									
-	text-decoration:none;									
+/* 	font-size: 110%;									 */
+	text-decoration:none;	
+	color : #6ca435;								
 }										
 										
 .hide ul {										
@@ -185,7 +193,13 @@ ul li a {
 	float: left;									
 	width: 200px;									
 	height: 30px;									
-	border: none;									
+	border: none;	
+}										
+#header_menu_right_input {										
+	height: 29px;									
+}										
+#header_menu_right_img {										
+	height: 29px;									
 }										
 										
 #header_menu_right input:focus {										
@@ -289,7 +303,52 @@ animation:fade 8s infinite;
 	font-size:15px;									
 	font-weight:bold;									
 }	
-									
+
+.div-top {
+	position : absolute;
+	width : 100%;
+	height : 30px;
+	background-color : #6ca435;
+	display:block;
+	left : 0px;
+	top : 0px;
+	text-align : center;
+}
+.div-top a {
+	color : white;
+	display : block;
+	height : 100%;
+	font-size : 15px;
+}
+.div-top a span {
+	height : 100%;
+	display : inline-block;
+	padding-top : 4px;
+}
+.div-top a div {
+	position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.div-top a div div {
+	color : black;
+	position: relative;
+	display : inline-block;
+	height : 100%;
+	width : 800px;
+	margin: 0 auto;
+}
+.div-top a button {
+	color : white;
+		float : right;
+		height : 100%;
+	border: none;
+	background-color: #6ca435;
+	display: inline-block;
+		margin-left : 300px; 
+}							
 </style>	
 
 <script>
@@ -339,11 +398,29 @@ $(function(){
 	}
 	
 });
+
+function topClose() {
+	$(".div-top").hide();
+}
 </script>								
 </head>										
 <body>										
 										
-		<header>								
+		<header>	
+		
+		<!-- 제일 상단 버튼 : 회원가입 혜택 안내?? -->
+		<div class="div-top">	
+			<a href="#">
+				<span>지금 가입하고 포인트 받으세요!</span>
+				<div>
+					<div>
+						<button type="button" onclick="jsvascript:topClose();">X</button>
+					</div>
+				</div>
+			</a>
+		</div>
+		<!--// 제일 상단 버튼 -->
+									
 <!-- 		<div id="page_background">								 -->
 <!-- 		</div>								 -->
 			<div id="header_small_menu">		
@@ -367,23 +444,22 @@ $(function(){
 				<div id="header_menu">							
 					<a href="/"><img src="${path}/resources/images/greenfood_logo.png"></a>						
 					<ul>						
-						<li id="first_li"><a id="a-_li" href="#">전체 보기</a>					
+						<li id="first_li"><img src="${path}/resources/images/stripe3.png"><a id="a-_li" href="#">전체 보기</a>					
 							<ul class="hide">				
 								<c:forEach var="productCategoryDto" items="${categoryList}">
 									<li><a href="/product/category/${productCategoryDto.product_category}">${productCategoryDto.product_category_dsc}</a></li>
 								</c:forEach>		
 							</ul>
 						</li>				
-						<li><a href="#">신상품</a></li>					
-						<li><a href="#">추천상품</a></li>								
+						<li><a href="/product/menu/new">신상품</a></li>					
+						<li><a href="/product/menu/best">추천상품</a></li>								
 						<li><a href="#">세일상품</a></li>								
 						<li><a href="#">후기모음</a></li>								
 						<li><a href="/main/event/eventMain" id="eventWrite" data="이벤트">이벤트</a></li>								
 					</ul>						
 					<div id="header_menu_right">						
-						<a href="#"><img					
-							src="https://www.oasis.co.kr/images/common/gnbSearch.png"></a> <input				
-							type="text" placeholder="무엇이 궁금하세요?"></input>				
+						<a href="#"><img id="header_menu_right_img" src="https://www.oasis.co.kr/images/common/gnbSearch.png"></a> 
+						<input id="header_menu_right_input" type="text" placeholder="무엇이 궁금하세요?"></input>				
 					</div>						
 											
 				</div>	
@@ -391,6 +467,6 @@ $(function(){
 <!-- 			<div id="boardName">							 -->
 <!-- 			</div>							 -->
 			<!-- 게시판 이름을 입력해주세요 -->							
-			<span id="boardNames"></span>							
+<!-- 			<span id="boardNames"></span>							 -->
 			<!-- //게시판 이름을 입력해주세요 -->							
 		</header>								

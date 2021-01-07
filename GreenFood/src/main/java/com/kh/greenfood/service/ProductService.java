@@ -32,4 +32,16 @@ public interface ProductService {
 	/* 상품 등록 (ProductVo, ProductImageDto) */
 	public boolean insertProductAll(ProductVo productVo, ProductImageDto productImageDto);
 	
+	/* 신상품 (현재 날짜 - ?일 < 등록된 상품) */
+	public List<ProductVo> getLatestProduct(int conditionDate);
+	
+	/* 추천상품 (하트 많은 상품 목록) (임시로 주문 건수) */
+	public List<ProductVo> getBestProduct(int conditionOrderCount);
+	
+	/* 세일상품 (유통기한 임박한 상품 목록) */
+//	public List<ProductVo> getSaleProduct();
+	
+	/* 관련 상품(=카테고리) 랜덤으로 6개 */
+	public List<ProductVo> getRelatedProduct(ProductVo productVo);
+	
 }

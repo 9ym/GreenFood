@@ -1,5 +1,6 @@
 package com.kh.greenfood.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -87,6 +88,30 @@ public class ProductDaoImpl implements ProductDao {
 	public ProductVo getProductLatest() {
 		ProductVo productVo = sqlSession.selectOne(NAMESPACE + "getProductLatest");
 		return productVo;
+	}
+	
+	/* 신상품 (현재 날짜 - ?일 < 등록된 상품) */
+	@Override
+	public List<ProductVo> getLatestProduct(int conditionDate) {
+		List<ProductVo> listLatest = sqlSession.selectList(NAMESPACE + "getLatestProduct", conditionDate); 
+		return listLatest;
+	}
+	
+	/* 추천상품 (하트 많은 상품 목록) (임시로 주문 건수) */
+	@Override
+	public List<ProductVo> getBestProduct(int conditionOrderCount) {
+		List<ProductVo> listBest = sqlSession.selectList(NAMESPACE + "getBestProduct", conditionOrderCount); 
+		return listBest;
+	}
+	
+	/* 관련 상품(=카테고리) 랜덤으로 6개 */
+	@Override
+	public List<ProductVo> getRelatedProduct(ProductVo productVo) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("product_category", productVo.getProduct_category());
+		map.put("product_code", productVo.getProduct_code());
+		List<ProductVo> listRelated = sqlSession.selectList(NAMESPACE + "getRelatedProduct", map);
+		return listRelated;
 	}
 
 }
