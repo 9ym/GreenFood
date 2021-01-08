@@ -46,11 +46,11 @@ public class ProductServiceImpl implements ProductService {
 		return productImageList;
 	}
 
-	/* 상품 목록 - 잘 팔리는 6개 */
+	/* 상품 목록 - 많이 팔린 순서 */
 	@Override
-	public List<ProductVo> getProductBest(int best_count) {
-		List<ProductVo> productBestList = productDao.getProductBest(best_count);
-		return productBestList;
+	public List<ProductVo> getPopularProduct(int best_count) {
+		List<ProductVo> popularList = productDao.getPopularProduct(best_count);
+		return popularList;
 	}
 	
 	/* 상품 목록 - 카테고리 별로 */
@@ -97,6 +97,13 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVo> getBestProduct(int conditionOrderCount) {
 		List<ProductVo> listBest = productDao.getBestProduct(conditionOrderCount);
 		return listBest;
+	}
+	
+	/* 세일상품 (판매기한 임박한 상품 목록) */
+	@Override
+	public List<ProductVo> getSaleProduct(int deadline) {
+		List<ProductVo> listSale = productDao.getSaleProduct(deadline);
+		return listSale;
 	}
 	
 	/* 관련 상품(=카테고리) 랜덤으로 6개 */

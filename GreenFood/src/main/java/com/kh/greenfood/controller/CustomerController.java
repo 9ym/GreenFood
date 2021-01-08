@@ -7,25 +7,36 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.PointVo;
+import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.MemberService;
+import com.kh.greenfood.service.ProductService;
 
 @Controller
 @RequestMapping(value="/customer")
 public class CustomerController {
 	
 	@Inject
+	private ProductService productService;
+	
+	@Inject
 	private MemberService memberService;
 	
 	// 마이페이지 포워드
 	@RequestMapping(value="/customerMyPage")
-	public String customerMyPage(String user_id, Model model) throws Exception{
+	public String customerMyPage(HttpSession session, Model model) throws Exception{
+		// 전체보기 카테고리
+		getProductCate(model);
+		TestVo testVo = (TestVo)session.getAttribute("testVo");
+		String user_id = testVo.getUser_id();
 		List<OrderVo> latestOrderedList = memberService.getLatestOrderedList(user_id);
 		model.addAttribute("latestOrderedList", latestOrderedList);
 		return "customer/customerMyPage";
@@ -39,7 +50,11 @@ public class CustomerController {
 	
 	// 마이페이지 상의 적립금
 	@RequestMapping(value="/customerPoint")
-	public String customerPoint () throws Exception{
+	public String customerPoint (HttpSession session, Model model) throws Exception{
+		TestVo testVo = (TestVo)session.getAttribute("testVo");
+		String user_id = testVo.getUser_id();
+		List<PointVo> pointVo = memberService.getUserPoint(user_id);
+		model.addAttribute("pointVo", pointVo);
 		return "customer/customerPoint";
 	}
 	
@@ -83,18 +98,17 @@ public class CustomerController {
 		}
 	}
 	
-	// 마이페이지 -> 프로필 회원 정보 수정
+	// 마이페이지 -> 프로필 회원 정보 수정완료 버튼
 	@RequestMapping(value="/customerProfileModifyRun", method=RequestMethod.POST)
 	public String customerProfileModifyRun(HttpSession session, TestVo testVo, RedirectAttributes rttr) throws Exception{
 		int count = memberService.customerModify(testVo);
-		TestVo testVo1 = (TestVo)session.getAttribute("testVo");
-		String user_pw = testVo1.getUser_pw();
 		String page = "";
 		if(count > 0) {
-			testVo.setUser_pw(user_pw);
+			testVo.setUser_pw(((TestVo)session.getAttribute("testVo")).getUser_pw());
+			testVo.setUser_level(((TestVo)session.getAttribute("testVo")).getUser_level());
 			session.setAttribute("testVo", testVo);
 			rttr.addFlashAttribute("msg", "modifySuccess");
-			page = "redirect:/customer/customerMyPage"; 
+			page = "redirect:/customer/customerMyPage";
 		} else {
 			rttr.addFlashAttribute("msg", "modifyFail");
 			page = "redirect:/customer/customerProfile";
@@ -128,7 +142,7 @@ public class CustomerController {
 			testVo.setUser_pw(user_pw);
 			session.setAttribute("testVo", testVo);
 			rttr.addFlashAttribute("msg", "pwChangeSuccess");
-			page = "redirect:/customer/customerMyPage";
+			page = "redirect:/customer/customerProfile";
 		} else {
 			rttr.addFlashAttribute("msg", "pwChangeFail");
 			page = "redirect:/customer/customerProfile";
@@ -139,8 +153,9 @@ public class CustomerController {
 	// 회원가입
 	@RequestMapping(value="/customerMemberJoinRun", method=RequestMethod.POST)
 	public String customerMemberJoinRun(TestVo testVo, RedirectAttributes rttr) throws Exception {
+		// 회원가입시 포인트 1000점 부여
+		testVo.setUser_point(1000);
 		int count = memberService.insertMember(testVo);
-
 		String page = "";
 		// insert 성공시 loginPage로 이동, 실패시 joinForm으로 이동
 		if(count > 0) {
@@ -151,6 +166,12 @@ public class CustomerController {
 			page = "redirect:/customerMemberJoinForm";
 		}
 		return page;
+	}
+	
+	private void getProductCate (Model model) throws Exception{
+		/* 상품 카테고리 */
+		List<ProductCategoryDto> categoryList = productService.getCategory();
+		model.addAttribute("categoryList", categoryList);
 	}
 	
 }

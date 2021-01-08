@@ -36,8 +36,8 @@ public class testProductDao {
 	
 	@Test
 	public void testGetProductBest() throws Exception {
-		List<ProductVo> bestList = productDao.getProductBest(3);
-		System.out.println("bestList :" + bestList);
+		List<ProductVo> popularList = productDao.getPopularProduct(3);
+		System.out.println("bestList :" + popularList);
 	}
 	
 	@Test
@@ -54,9 +54,7 @@ public class testProductDao {
 	
 	@Test
 	public void testInsertProduct() throws Exception {
-//		ProductVo vo = new ProductVo("2001", "�옟怨�4", 2500, 30, "�옟怨� �옟怨� �옟怨�", "�꽦�뀋�뀋�꽩�꽬�꽮�꽩 �옟怨�", "50g", "10kg", "�닔�엯�궛");
-//		int count = productDao.insertProduct(vo);
-//		System.out.println("count :" + count);
+
 	}
 	
 	@Test
@@ -74,8 +72,14 @@ public class testProductDao {
 	
 	@Test
 	public void testBest() throws Exception {
-		List<ProductVo> list = productDao.getProductBest(5);
+		List<ProductVo> list = productDao.getBestProduct(10);
 		System.out.println(list);
 	}
 	
+	@Test
+	public void testSale() throws Exception {
+		List<ProductVo> list = productDao.getSaleProduct(5);
+		System.out.println(list);
+	}
+			
 }

@@ -20,8 +20,8 @@ public interface ProductService {
 	/* 상품 사진 목록 (임시로 사진 전부 다) */
 	public List<ProductImageDto> getProductImageList();
 	
-	/* 상품 목록 - 잘 팔리는 6개 */
-	public List<ProductVo> getProductBest(int best_count);
+	/* 상품 목록 - 많이 팔린 순서 */
+	public List<ProductVo> getPopularProduct(int best_count);
 	
 	/* 상품 목록 - 카테고리 별로 */
 	public List<ProductVo> getProductCategory(String product_category);
@@ -38,8 +38,8 @@ public interface ProductService {
 	/* 추천상품 (하트 많은 상품 목록) (임시로 주문 건수) */
 	public List<ProductVo> getBestProduct(int conditionOrderCount);
 	
-	/* 세일상품 (유통기한 임박한 상품 목록) */
-//	public List<ProductVo> getSaleProduct();
+	/* 세일상품 (판매기한 임박한 상품 목록) */
+	public List<ProductVo> getSaleProduct(int deadline);
 	
 	/* 관련 상품(=카테고리) 랜덤으로 6개 */
 	public List<ProductVo> getRelatedProduct(ProductVo productVo);

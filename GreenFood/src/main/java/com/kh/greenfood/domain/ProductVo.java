@@ -3,6 +3,7 @@ package com.kh.greenfood.domain;
 import java.sql.Timestamp;
 
 public class ProductVo {
+
         private String product_code;
         private String product_category;
         private String product_title;
@@ -17,6 +18,7 @@ public class ProductVo {
         private String product_sales_unit;
         private String product_origin;
         private int product_order_count;
+        private int product_star;
         
         public ProductVo() { }
         
@@ -113,6 +115,10 @@ public class ProductVo {
                 return product_order_count;
         }
 
+        public int getProduct_star() {
+                return product_star;
+        }
+
         public void setProduct_code(String product_code) {
                 this.product_code = product_code;
         }
@@ -169,6 +175,10 @@ public class ProductVo {
                 this.product_order_count = product_order_count;
         }
 
+        public void setProduct_star(int product_star) {
+                this.product_star = product_star;
+        }
+
         @Override
         public String toString() {
                 return "ProductVo [product_code=" + product_code + ", product_category=" + product_category + ", product_title="
@@ -177,7 +187,7 @@ public class ProductVo {
                                 + ", product_shelf_life=" + product_shelf_life + ", product_sub_title=" + product_sub_title
                                 + ", product_content=" + product_content + ", product_heart=" + product_heart + ", product_weight="
                                 + product_weight + ", product_sales_unit=" + product_sales_unit + ", product_origin=" + product_origin
-                                + ", product_order_count=" + product_order_count + "]";
+                                + ", product_order_count=" + product_order_count + ", product_star=" + product_star + "]";
         }
-        
+
 }

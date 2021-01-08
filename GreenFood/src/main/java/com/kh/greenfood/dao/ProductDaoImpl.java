@@ -48,11 +48,11 @@ public class ProductDaoImpl implements ProductDao {
 		return productImageList;
 	}
 	
-	/* 상품 목록 - 베스트 */
+	/* 상품 목록 - 많이 팔린 순서 */
 	@Override
-	public List<ProductVo> getProductBest(int best_count) {
-		List<ProductVo> productBestList = sqlSession.selectList(NAMESPACE + "getProductBest", best_count);
-		return productBestList;
+	public List<ProductVo> getPopularProduct(int best_count) {
+		List<ProductVo> productPopularList = sqlSession.selectList(NAMESPACE + "getPopularProduct", best_count);
+		return productPopularList;
 	}
 	
 	/* 상품 목록 - 카테고리 별로 */
@@ -102,6 +102,13 @@ public class ProductDaoImpl implements ProductDao {
 	public List<ProductVo> getBestProduct(int conditionOrderCount) {
 		List<ProductVo> listBest = sqlSession.selectList(NAMESPACE + "getBestProduct", conditionOrderCount); 
 		return listBest;
+	}
+	
+	/* 세일상품 (판매기한 임박한 상품 목록) */
+	@Override
+	public List<ProductVo> getSaleProduct(int deadline) {
+		List<ProductVo> listSale = sqlSession.selectList(NAMESPACE + "getSaleProduct", deadline);
+		return listSale;
 	}
 	
 	/* 관련 상품(=카테고리) 랜덤으로 6개 */

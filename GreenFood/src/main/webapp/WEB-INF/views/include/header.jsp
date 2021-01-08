@@ -427,7 +427,7 @@ function topClose() {
 			<c:choose>
 			<c:when test="${not empty sessionScope.testVo }">
 				<a href="/logout">로그아웃</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-				<a href="/customer/customerMyPage?user_id=${sessionScope.testVo.user_id}">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+				<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 			</c:when>
 			<c:otherwise>
 				<a href="/main/loginPage">로그인 |</a><!-- <img						
@@ -453,7 +453,7 @@ function topClose() {
 						</li>				
 						<li><a href="/product/menu/new">신상품</a></li>					
 						<li><a href="/product/menu/best">추천상품</a></li>								
-						<li><a href="#">세일상품</a></li>								
+						<li><a href="/product/menu/sale">세일상품</a></li>								
 						<li><a href="#">후기모음</a></li>								
 						<li><a href="/main/event/eventMain" id="eventWrite" data="이벤트">이벤트</a></li>								
 					</ul>						

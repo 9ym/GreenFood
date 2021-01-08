@@ -20,6 +20,7 @@ $(function(){
 });
 </script>
 <content>
+${pointVo}
 <div class="container-fluid">
 	<div id="content_left" style="width:300px; height: 700px; float:left; border-top:2px solid #6ca435; margin:0; padding:0;">
 	<div id="leftContent_top">
@@ -49,31 +50,25 @@ $(function(){
 							#
 						</th>
 						<th>
-							order_code
+							날짜
 						</th>
 						<th>
-							Point_score
+							내역
 						</th>
 						<th>
-							Point_date
+							포인트
 						</th>
 					</tr>
 				</thead>
 				<tbody>
+					<c:forEach var="pointVo" items="${pointVo}">
 					<tr>
-						<td>
-							1
-						</td>
-						<td>
-							TB - Monthly
-						</td>
-						<td>
-							dd
-						</td>
-						<td>
-							01/04/2012
-						</td>
+						<td>${pointVo.rnum}</td>
+						<td>${pointVo.point_date}</td>
+						<td>${pointVo.point_category_dsc}</td>
+						<td>${pointVo.point_score}</td>
 					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>

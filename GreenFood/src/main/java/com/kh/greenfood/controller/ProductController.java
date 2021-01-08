@@ -32,33 +32,12 @@ public class ProductController {
 		model.addAttribute("productVo", productVo);
 		model.addAttribute("productImageDto", productImageDto);
 		
-		/* 베스트 상품 6개 */
-		/*List<ProductVo> productBestList = productService.getProductBest(6);
-		model.addAttribute("productBestList", productBestList);
-		model.addAttribute("mainProductCount", productBestList.size());*/
-		
-		/* 같은 카테고리 상품 목록 */
-//		List<ProductVo> productCategoryList = productService.getProductCategory(productVo.getProduct_category());
-//		model.addAttribute("productCategoryList", productCategoryList);
-		
 		/* 관련 상품(=카테고리) 랜덤으로 6개 */
 		List<ProductVo> listRelated = productService.getRelatedProduct(productVo);
 		model.addAttribute("listRelated", listRelated);
-//		System.out.println(listRelated);
 		
-		/* 관련 상품(=카테고리) 각각에 대한 ProductImageDto */
-		List<ProductImageDto> productImageList = new ArrayList<>();
-		for (ProductVo vo : listRelated) {
-			String product_code_img = vo.getProduct_code();
-			ProductImageDto imgdto = productService.getProductImage(product_code_img);
-			productImageList.add(imgdto);
-		}
-		model.addAttribute("productImageList", productImageList);
-//		System.out.println(productImageList);
-		
-		/* 상품 카테고리 */
-		List<ProductCategoryDto> categoryList = productService.getCategory();
-		model.addAttribute("categoryList", categoryList);
+		addProductImageDtoList(listRelated, model);
+		addProductCategoryList(model);
 		
 		return "product/productForm";
 	}
@@ -70,54 +49,51 @@ public class ProductController {
 		List<ProductVo> productCategoryList = productService.getProductCategory(product_category);
 		model.addAttribute("productList", productCategoryList);
 		
-		/* 같은 카테고리 내의 상품 각각에 대한 ProductImageDto */
-		List<ProductImageDto> productImageList = new ArrayList<>();
-		for (ProductVo vo : productCategoryList) {
-			String product_code_img = vo.getProduct_code();
-			ProductImageDto imgdto = productService.getProductImage(product_code_img);
-			productImageList.add(imgdto);
-		}
-		model.addAttribute("productImageList", productImageList);
-		
-		/* 상품 카테고리 */
-		List<ProductCategoryDto> categoryList = productService.getCategory();
-		model.addAttribute("categoryList", categoryList);
+		addProductImageDtoList(productCategoryList, model);
+		addProductCategoryList(model);
 		
 		return "product/categoryListForm";
 	}
 	
-	/* 신상품(상품 등록 날짜) new / 베스트(임시:주문 건수) best / 세일상품(유통기한) sale */
+	/* 신상품(상품 등록 날짜) new / 베스트(임시:주문 건수) best / 세일상품(판매기한) sale */
 	@RequestMapping(value="/menu/{menu_type}", method=RequestMethod.GET)
 	public String menu(@PathVariable String menu_type, Model model) throws Exception {
 		/* 메뉴에 맞는 상품 목록 */
-		List<ProductVo> list = null;
+		List<ProductVo> menuList = null;
 		switch (menu_type) {
 		case "new":
-			list = productService.getLatestProduct(14); // 현재 날짜로부터 2주 전까지 등록된 상품
+			menuList = productService.getLatestProduct(14); // 현재 날짜로부터 2주 전까지 등록된 상품
 			break;
 		case "best":
-			list = productService.getBestProduct(5); // 임시 : 주문 건수 5 이상부터
+			menuList = productService.getBestProduct(5); // 임시 : 주문 건수 5 이상부터
 			break;
 		case "sale":
-			// 아직 노노
+			menuList = productService.getSaleProduct(14); // 현재 날짜로부터 2주 
 			break;
 		}
-		model.addAttribute("productList", list);
+		model.addAttribute("productList", menuList);
 		
-		/* 상품 각각에 대한 ProductImageDto */
-		List<ProductImageDto> productImageList = new ArrayList<>();
-		for (ProductVo vo : list) {
-			String product_code_img = vo.getProduct_code();
-			ProductImageDto imgdto = productService.getProductImage(product_code_img);
-			productImageList.add(imgdto);
-		}
-		model.addAttribute("productImageList", productImageList);
-		
-		/* 상품 카테고리 */
-		List<ProductCategoryDto> categoryList = productService.getCategory();
-		model.addAttribute("categoryList", categoryList);
+		addProductImageDtoList(menuList, model);
+		addProductCategoryList(model);
 		
 		return "product/menuListForm";
+	}
+	
+	/* 상품 각각에 대한 ProductImageDto */
+	private void addProductImageDtoList(List<ProductVo> productList, Model model) throws Exception {
+		List<ProductImageDto> listImageDto = new ArrayList<>();
+		for (ProductVo vo : productList) {
+			String product_code = vo.getProduct_code();
+			ProductImageDto imgDto = productService.getProductImage(product_code);
+			listImageDto.add(imgDto);
+		}
+		model.addAttribute("productImageList", listImageDto);
+	}
+	
+	/* 상품 카테고리 */
+	private void addProductCategoryList(Model model) throws Exception {
+		List<ProductCategoryDto> categoryList = productService.getCategory();
+		model.addAttribute("categoryList", categoryList);
 	}
 	
 }

@@ -19,9 +19,7 @@
 $(function(){
 	var msg = "${msg}";
 	var user_id = "${findUser_id}";
-	if(msg == "loginSuccess"){
-		alert("로그인 성공했습니다.");
-	} else if(msg == "tempPasswordCreate"){
+	if(msg == "tempPasswordCreate"){
 		alert("임시 비밀번호가 발송되었습니다.");
 	} else if(user_id != ""){
 		alert("회원님의 아이디는" + user_id + "입니다.")
@@ -502,7 +500,7 @@ ${testVo.user_id}
 		<c:choose>
 			<c:when test="${not empty sessionScope.testVo }">
 		 	<a href="/logout">로그아웃</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-			<a href="/customer/customerMyPage?user_id=${sessionScope.testVo.user_id}">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+			<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 		 	</c:when>
 			<c:otherwise>
 			<a href="/main/loginPage">로그인</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
@@ -525,7 +523,7 @@ ${testVo.user_id}
 				</li>
 				<li><a href="/product/menu/new">신상품</a></li>
 				<li><a href="/product/menu/best">추천상품</a></li>
-				<li><a href="#">세일상품</a></li>
+				<li><a href="/product/menu/sale">세일상품</a></li>
 				<li><a href="#">후기모음</a></li>
 				<li><a href="/main/event/eventMain">이벤트</a></li>
 			</ul>
@@ -549,7 +547,7 @@ ${testVo.user_id}
 	<!-- 베스트 6 상품 -->
 	<div id="best_products">
 		<div id="first_floor">
-			<c:forEach var="productVo" items="${productBestList}">
+			<c:forEach var="productVo" items="${productPopularList}">
 			<c:forEach var="productImageDto" items="${productImageList}">
 			<c:if test="${productVo.product_code == productImageDto.product_code}">
 				<div>
@@ -564,7 +562,7 @@ ${testVo.user_id}
 					<div class="showPoints">
 <%-- 						<img src="${path}/resources/images/thumbs_up.png"> --%>
 						<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
-						<span class="spanShowPoints">97.7%</span>
+						<span class="spanShowPoints">${productVo.product_star}%</span>
 					</div>
 				</div>
 			</c:if>

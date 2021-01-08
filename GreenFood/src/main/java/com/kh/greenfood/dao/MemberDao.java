@@ -3,6 +3,7 @@ package com.kh.greenfood.dao;
 import java.util.List;
 
 import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.PointVo;
 import com.kh.greenfood.domain.TestVo;
 
 public interface MemberDao {
@@ -26,4 +27,8 @@ public interface MemberDao {
 	public List<OrderVo> getOrderedList(String user_id);
 
 	public List<OrderVo> getLatestOrderedList(String user_id);
+
+	public List<PointVo> getUserPoint(String user_id);
+
+	public void insertPoint(String user_id, int point_score, int point_category);
 }

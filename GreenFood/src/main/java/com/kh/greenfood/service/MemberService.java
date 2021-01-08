@@ -3,6 +3,7 @@ package com.kh.greenfood.service;
 import java.util.List;
 
 import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.PointVo;
 import com.kh.greenfood.domain.TestVo;
 
 public interface MemberService {
@@ -31,8 +32,16 @@ public interface MemberService {
 	// 프로필 회원정보 수정
 	public int customerModify(TestVo testVo);
 
+	// 전체 주문정보 불러오기
 	public List<OrderVo> getOrderedList(String user_id);
 
+	// 최근 주문 리스트 3개만 불러오기
 	public List<OrderVo> getLatestOrderedList(String user_id);
+	
+	// 유저 포인트 정보 불러오기
+	public List<PointVo> getUserPoint(String user_id);
+
+	// 포인트 부여
+	public void insertPoint(String user_id);
 
 }
