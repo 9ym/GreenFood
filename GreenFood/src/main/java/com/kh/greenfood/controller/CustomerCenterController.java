@@ -205,17 +205,17 @@ public class CustomerCenterController {
 		
 		
 		// -------------------------- 1:1 문의 입력하기 --------------------------------
-		@RequestMapping(value="/questionOne/insertOuestionOne", method=RequestMethod.GET)
+		@RequestMapping(value="/questionOne/insertOuestionOne", method=RequestMethod.POST)
 		public String insertQuestionOne(QuestionOneVo questionOneVo, HttpSession session) throws Exception {
 //			MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 			
 //			commentVo.setUser_id(memberVo.getUser_id());
 //			System.out.println("noticeVo:" + noticeVo);
 			System.out.println("insertQuestionOne questionOneVo:" + questionOneVo);
-//			questionOneService.insertQuestionOne(questionOneVo);
+			questionOneService.insertQuestionOne(questionOneVo);
 		
 			
-			return "redirect:/customerCenter/question/questionContent";
+			return "redirect:/customerCenter/questionOne/questionOneContent";
 		}
 		
 		

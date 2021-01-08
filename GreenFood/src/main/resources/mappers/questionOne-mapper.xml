@@ -10,8 +10,8 @@
 	
 	<!-- 1:1 질문 글쓰기 -->
 		<insert id="insertQuestionOne">
-			insert into tbl_question_one (q_o_no, q_o_category, q_o_title, q_o_content, q_o_writer, q_o_image)
-				values(seq_question_one_qono.nextval, #{q_o_category}, #{q_o_title}, #{q_o_content},#{q_o_writer}, #{q_o_image, jdbcType=VARCHAR}) 
+			insert into tbl_question_one (q_o_no, q_o_category, q_o_title, q_o_content)
+				values(seq_question_one_qono.nextval, #{q_o_category}, #{q_o_title}, #{q_o_content}) 
 		</insert>
 	
 </mapper>

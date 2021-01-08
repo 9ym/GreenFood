@@ -250,22 +250,22 @@ $(function(){
 
 								<div class="row">
 									<div class="col-md-12">
-										<form action="customerCenter/questionOne/insertOuestionOne" method="post">
+										<form role="form" action="/customerCenter/questionOne/insertOuestionOne" method="post">
 										<table class="table">
 										
 											<tbody>
 												<tr>
 													<th>제목</th>
 													<td>
-													<select name="itemcd" required label="질문유형" class=select>
+													<select name="q_o_category" required label="질문유형" class=select>
 														<option value="">선택해주세요.</option>
-														<option class="option-item" value="201">회원문의</option>
-														<option class="option-item" value="202">주문/결제</option>
-														<option class="option-item" value="203">취소/교환/반품</option>
-														<option class="option-item" value="205">쿠폰/적립금</option>
-														<option class="option-item" value="206">이용 및 기타</option>
+														<option class="option-item questionOne" name="q_o_category" id="member" value="201">회원문의</option>
+														<option class="option-item questionOne" name="q_o_category" id="order" value="202">주문/결제</option>
+														<option class="option-item questionOne" name="q_o_category" id="cancel" value="203">취소/교환/반품</option>
+														<option class="option-item questionOne" name="q_o_category" id="point" value="205">쿠폰/적립금</option>
+														<option class="option-item questionOne" name="q_o_category" id="use" value="206">이용 및 기타</option>
 													</select><br>
-													<input type=text name=subject style="width: 100%"
+													<input type=text name="q_o_title" style="width: 100%"
 													required label="제목" value="" placeholder=" 제목을 입력해주세요.">
 													
 													</td>
@@ -273,7 +273,7 @@ $(function(){
 												<tr>
 													<th>주문번호</th>
 													<td>
-													<input type=text name=ordno style="width: 25%" value=""  placeholder=" 주문번호를 입력해주세요.">
+													<input type=text name="q_o_order_code" style="width: 25%" value=""  placeholder=" 주문번호를 입력해주세요.">
 													<input type="button" class="bhs_button yb" value="주문조회"
 													style="float: none; line-height: 21px; width: 100px;"><br>
 													<span id="span1" style="font-size:10pt; color: #5AB63F">* 주문내역이 없으면 비워두세요.</span>
@@ -282,8 +282,8 @@ $(function(){
 												<tr>
 													<th>이메일</th>
 													<td>
-													<input type=text name=email value="astro96@hanmail.net" size=26 
-													readonly="readonly" class="read_only" style="width: 200px;"> 
+													<input type=text name="q_o_email" value="astro96@hanmail.net" size=26 
+													class="read_only" style="width: 200px;"> 
 													<span class="noline smalle" style="padding-left: 10px">
 													<input type=checkbox name=mailling style="width: 20px;">
 													<span style="font-size: 8pt; color: #5AB63F" >답변 내용을 이메일로 받겠습니다.</span></span>
@@ -292,8 +292,8 @@ $(function(){
 												<tr>
 													<th>전화번호</th>
 													<td>
-													<input type=text name=mobile[] value="010-9398-6307" 
-													readonly="readonly" class="read_only" style="width: 130px;">
+													<input type=text name="q_o_phone" value="010-9398-6307" 
+													 class="read_only" style="width: 130px;">
 													<span class="noline smalle" style="padding-left: 10px">
 													<input type=checkbox name=sms style="width: 20px;">
 													<span style="font-size: 8pt; color: #5AB63F">답변 등록 안내를 문자메시지로 받겠습니다.</span></span></td>
@@ -301,7 +301,7 @@ $(function(){
 												<tr>
 													<th>내용</th>
 													<td class="edit_area" style="position: relative;">
-													<textarea name=contents
+													<textarea name="q_o_content"
 														style="width: 100%; height: 474px;" class="editing_area"
 														required  label="내용" placeholder=" 문의 내용을 입력해주세요."></textarea>
 													</td>
@@ -313,11 +313,11 @@ $(function(){
 														style="border: solid 1px #f4f4f4; border-collapse: collapse;">
 														<tr id="tr_0">
 															<td width=10px; nowrap align="center" style="width: 30px;">1</td>
-															<td width=100%><input type=file name="file[]"
-																style="width: 50%" class=linebg> <a
+															<td width=100%><input type=file name="q_o_image"
+																style="width: 50%" class=linebg> <!-- <a
 																href="javascript:add()"><img
 																	src="/shop/data/skin/designgj/img/common/btn_upload_plus.gif"
-																	align=absmiddle></a></td>
+																	align=absmiddle></a> --></td>
 														</tr>
 													</table>
 													<!-- <table>

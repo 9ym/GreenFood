@@ -57,7 +57,7 @@
 	
 	<!-- 제일 많이 팔린 상품 ?개 목록 -->
 	<select id="getProductBest" resultType="ProductVo">
-		select * from
+		select * from 
 		    (select rownum, a.* from 
 		        (select * from tbl_product
 		        order by product_order_count desc)a
