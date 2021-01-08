@@ -14,8 +14,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.domain.NoticeVo;
 import com.kh.greenfood.domain.PagingDto;
+import com.kh.greenfood.domain.QuestionOneVo;
 import com.kh.greenfood.domain.QuestionVo;
 import com.kh.greenfood.service.NoticeService;
+import com.kh.greenfood.service.QuestionOneService;
 import com.kh.greenfood.service.QuestionService;
 
 @Controller
@@ -27,6 +29,9 @@ public class CustomerCenterController {
 	
 	@Inject
 	private QuestionService questionService;
+	
+	@Inject
+	private QuestionOneService questionOneService;
 	
 	
 	@RequestMapping(value="/notice/noticeWriteForm")
@@ -184,4 +189,36 @@ public class CustomerCenterController {
 			questionService.deleteQuestion(question_no);
 			return "redirect:/customerCenter/question/questionContent";
 		}
+		
+		
+//  -------------------------  1 : 1 문의 관련 ---------------------------------------------------
+		
+		@RequestMapping(value="/questionOne/questionOneContent")
+		public String questionOneListAll() throws Exception{
+			return "/customerCenter/questionOne/questionOneContent";
+		}
+		
+		@RequestMapping(value="/questionOne/questionOneWrite")
+		public String questionOneWrite() throws Exception{
+			return "/customerCenter/questionOne/questionOneWrite";
+		}
+		
+		
+		// -------------------------- 1:1 문의 입력하기 --------------------------------
+		@RequestMapping(value="/questionOne/insertOuestionOne", method=RequestMethod.GET)
+		public String insertQuestionOne(QuestionOneVo questionOneVo, HttpSession session) throws Exception {
+//			MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
+			
+//			commentVo.setUser_id(memberVo.getUser_id());
+//			System.out.println("noticeVo:" + noticeVo);
+			System.out.println("insertQuestionOne questionOneVo:" + questionOneVo);
+//			questionOneService.insertQuestionOne(questionOneVo);
+		
+			
+			return "redirect:/customerCenter/question/questionContent";
+		}
+		
+		
+		
+		
 }

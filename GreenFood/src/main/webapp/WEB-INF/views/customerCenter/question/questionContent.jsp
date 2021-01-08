@@ -391,7 +391,8 @@ $(function(){
 									<ul class="list_menu">
 										<li class="on"><a href="/customerCenter/customerCenterMain">공지사항</a></li>
 										<li><a href="#">자주하는 질문</a></li>
-										<!-- <li><a href="#">1:1 문의</a></li>
+										<li class="on"><a href="/customerCenter/questionOne/questionOneContent" >1:1 문의</a></li>
+										<!--
 										<li><a href="#">상품 제안</a></li>
 										<li><a href="#">에코포장 피드백</a></li> -->
 									</ul>

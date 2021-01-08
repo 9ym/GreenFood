@@ -236,6 +236,7 @@ $(function(){
 		$("#frmNoticePaging").submit();
 	});
 	
+	
 });
 </script>
 
@@ -265,8 +266,8 @@ $(function(){
 									<ul class="list_menu">
 										<li class="on"><a href="#">공지사항</a></li>
 										<li><a href="/customerCenter/question/questionContent">자주하는 질문</a></li>
-										<!-- <li><a href="#">1:1 문의</a></li>
-										<li><a href="#">상품 제안</a></li>
+										<li><a href="/customerCenter/questionOne/questionOneContent" >1:1 문의</a></li>
+										<!-- <li><a href="#">상품 제안</a></li>
 										<li><a href="#">에코포장 피드백</a></li> -->
 									</ul>
 								</div>
@@ -290,18 +291,18 @@ $(function(){
 								<!-- <form name=frmList action="" onsubmit="return chkFormList(this)"> -->
 
 								<style>
-.notice .layout-pagination {
-	margin: 0
-}
-
-.eng2 {
-	color: #939393
-}
-
-.xans-board-listheader {
-	font-size: 12px
-}
-</style>
+								.notice .layout-pagination {
+									margin: 0
+								}
+								
+								.eng2 {
+									color: #939393
+								}
+								
+								.xans-board-listheader {
+									font-size: 12px
+								}
+								</style>
 
 								<table width="100%" align="center" cellpadding="0"
 									cellspacing="0">
