@@ -43,18 +43,15 @@ public class HomeController {
 		logger.info("Welcome -GreenFood-! The client locale is {}.", locale);
 		
 		/* 베스트 6 상품 목록 */
-		List<ProductVo> productBestList = productService.getProductBest(6);
-		model.addAttribute("productBestList", productBestList);
-		model.addAttribute("mainProductCount", productBestList.size());
+		List<ProductVo> productPopularList = productService.getPopularProduct(6);
+		model.addAttribute("productPopularList", productPopularList);
+		model.addAttribute("mainProductCount", productPopularList.size());
 		
 		/* 베스트 6 상품 목록 - 이미지 */
 		List<ProductImageDto> productImageList = new ArrayList<>();
-		for (ProductVo vo : productBestList) {
+		for (ProductVo vo : productPopularList) {
 			String product_code_img = vo.getProduct_code();
 			ProductImageDto imgdto = productService.getProductImage(product_code_img);
-//			String info_file_name = imgdto.getImage_info_file_name();
-//			String content_file_name = imgdto.getImage_content_file_name();
-//			imgdto.setImage_info_file_name(S3Util.getImageUrl(info_file_name, vo.getProduct_category()));
 			productImageList.add(imgdto);
 		}
 		model.addAttribute("productImageList", productImageList);

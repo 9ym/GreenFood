@@ -517,14 +517,10 @@ $(function() {
 	<div class="row div-content">
 		<div class="col-md-2"></div>
 		<!-- 관련 상품 -->
+		<c:if test="${not empty listRelated}">
 		<div class="col-md-8 related-list">
 			<div id="related-title"><p>RELATED PRODUCT</p></div>
 			<div id="relates-product-list">
-<%-- 				<c:if test="${fn:length(productCategoryList) > 5}"> --%>
-<!-- 				<button type="button" class="btn btn-default btn-sm"> -->
-<%-- 					<img src="${path}/resources/images/left.PNG"> --%>
-<!-- 		        </button> -->
-<%-- 				</c:if> --%>
 				<ul class="ul-related">
 					<c:forEach var="productVoList" items="${listRelated}">
 					<c:forEach var="productImageDtoList" items="${productImageList}">
@@ -545,13 +541,9 @@ $(function() {
 					</c:forEach>
 					</c:forEach>
 				</ul>
-<%-- 				<c:if test="${fn:length(productCategoryList) > 5}"> --%>
-<!-- 				<button type="button" class="btn btn-default btn-sm"> -->
-<%-- 					<img src="${path}/resources/images/right.PNG"> --%>
-<!-- 		        </button> -->
-<%-- 		        </c:if> --%>
 			</div>
 		</div>
+		</c:if>
 		<!--// 관련 상품 -->
 		<div class="col-md-2"></div>
 	</div>

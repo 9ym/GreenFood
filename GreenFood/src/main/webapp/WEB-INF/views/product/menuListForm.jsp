@@ -41,12 +41,38 @@
 }
 .item-thumb {
 	height : 280px;
+	display : block;
 }
 .item-thumb img {
+	display : block;
 	width : 280px;
 	height : 280px;
  	border : solid 1px LightGray; 
 }
+.item-thumb .span-sale {
+	display : block;
+	background-color : green;
+	opacity : 0.5;
+	position : relative;
+    top: 60px;
+    width: 60px;
+    height: 60px;
+    float : left;
+}
+.span-sale span {
+	display : block;
+	text-align : left;
+	padding-left : 10px;
+	padding-top : 2px;
+}
+.span-sale .span-ratio {
+	font-size : 18px;
+	font-weight : bold;
+/* 	opacity : 1.0; */
+}
+/* .span-sale .span-percentage { */
+/* 	clear : both; */
+/* } */
 /* .item-thumb .group-btn {
 	display : block;
  	position : relative;
@@ -59,6 +85,7 @@
 .item-title {
 	display : block;
 	padding-left : 0px;
+	margin-top : 60px;
 }
 .item-title span {
 	display : block;
@@ -104,11 +131,17 @@
 						<li>
 							<div class="item">
 								<div class="item-thumb">
+									<!-- sale 하면 보이게 -->
+									<span class="span-sale">
+										<span class="span-sale-title">save</span>
+										<span class="span-ratio">?? %</span>
+<!-- 										<span class="span-percentage">%</span> -->
+									</span>
 									<a href="/product/detail/${productVo.product_code}">
 										<img class="img-thumb" src="${path}/resources/images/item.png" 
 											data-img="${imageDto.image_info_file_name}" 
 											data-category="${productVo.product_category}">
-										</a>
+									</a>
 <!-- 									<div class="group-btn"><button></button></div> -->
 								</div>
 								<a class="item-title" href="/product/detail/${productVo.product_code}">

@@ -525,7 +525,7 @@ ${testVo.user_id}
 				</li>
 				<li><a href="/product/menu/new">신상품</a></li>
 				<li><a href="/product/menu/best">추천상품</a></li>
-				<li><a href="#">세일상품</a></li>
+				<li><a href="/product/menu/sale">세일상품</a></li>
 				<li><a href="#">후기모음</a></li>
 				<li><a href="/main/event/eventMain">이벤트</a></li>
 			</ul>
@@ -549,7 +549,7 @@ ${testVo.user_id}
 	<!-- 베스트 6 상품 -->
 	<div id="best_products">
 		<div id="first_floor">
-			<c:forEach var="productVo" items="${productBestList}">
+			<c:forEach var="productVo" items="${productPopularList}">
 			<c:forEach var="productImageDto" items="${productImageList}">
 			<c:if test="${productVo.product_code == productImageDto.product_code}">
 				<div>
@@ -564,7 +564,7 @@ ${testVo.user_id}
 					<div class="showPoints">
 <%-- 						<img src="${path}/resources/images/thumbs_up.png"> --%>
 						<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
-						<span class="spanShowPoints">97.7%</span>
+						<span class="spanShowPoints">${productVo.product_star}%</span>
 					</div>
 				</div>
 			</c:if>
