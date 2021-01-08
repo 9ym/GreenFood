@@ -90,6 +90,8 @@ $(function(){
 		alert("비밀번호 변경을 실패하였습니다.");
 	} else if(msg == "modifySuccess"){
 		alert("회원정보 수정 실패.");
+	} else if(msg == "pwChangeSuccess"){
+		alert("비밀번호를 변경하였습니다.");
 	}
 
 	/*주소 찾기 함수*/
@@ -302,6 +304,10 @@ $(function(){
 			$("#frmMemberModify > input[type=hidden]").eq(1).val(phoneNum);
 		}
 		
+		// 히든에 date값 넣어주기
+		var user_date = "${sessionScope.testVo.user_date}";
+		$("#frmMemberModify > input[type=hidden]").eq(2).val(user_date);
+		
 		$("#frmMemberModify").submit();
 	});
 	
@@ -370,7 +376,7 @@ padding:0;">
 					</div>
 			<p>반갑습니다!</p>
 			<p>구매자</p>
-			<p><span id="spanUserName">${sessionScope.testVo.user_id}</span>님</p>
+			<p><span id="spanUserName">${sessionScope.testVo.user_name}</span>님</p>
 		</div>
 		
 		<div id="left_bottom">
@@ -434,7 +440,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 			<!-- 히든정보 이메일 폰번호 주소 -->
 					<input type="hidden" name="user_email"/>
 					<input type="hidden" name="user_phone"/>
-					
+					<input type="hidden" name="user_date"/>
 					<div class="row">
 						<div class="form-group col-md-3">
 							<label for="user_id">

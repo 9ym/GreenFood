@@ -30,8 +30,8 @@
 	
 	<!-- 회원가입 -->
 	<insert id="insertMember">
-		insert into tbl_member (user_id, user_pw, user_name, user_email, user_phone, user_addr1, user_addr2, user_addr3)
-			values(#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_phone}, #{user_addr1}, #{user_addr2}, #{user_addr3})
+		insert into tbl_member (user_id, user_pw, user_name, user_email, user_point, user_phone, user_addr1, user_addr2, user_addr3)
+			values(#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_point} ,#{user_phone}, #{user_addr1}, #{user_addr2}, #{user_addr3})
 	</insert>
 	
 	<!-- 회원탈퇴 -->
@@ -79,5 +79,19 @@
     where p.order_state = d.order_state
     and rnum between 1 and 3 order by p.rnum desc
 	</select>
+	
+	<!-- 유저 포인트 내역 불러오기 -->
+	<select id="getUserPoint" resultType="PointVo">
+	select p.*, c.*, rownum rnum from tbl_point p, tbl_point_category c
+		where p.point_category = c.point_category
+			and user_id = #{user_id}
+			order by rnum desc
+	</select>
+	
+	<!-- 유저 포인트 부여 -->
+	<insert id="insertPoint">
+		insert into tbl_point(point_no, user_id, point_score, point_category)
+			 values(SEQ_POINT_NO.nextval, #{user_id}, #{point_score}, #{point_category})
+	</insert>
 	
 </mapper>

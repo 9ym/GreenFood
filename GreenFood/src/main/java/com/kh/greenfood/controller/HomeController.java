@@ -108,7 +108,6 @@ public class HomeController {
 //			} else {
 //			}
 			page = "redirect:/";
-			rttr.addFlashAttribute("msg", "loginSuccess");
 		} else {
 			rttr.addFlashAttribute("msg", "loginFail");
 			page="redirect:main/loginPage";

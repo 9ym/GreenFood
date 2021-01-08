@@ -19,9 +19,7 @@
 $(function(){
 	var msg = "${msg}";
 	var user_id = "${findUser_id}";
-	if(msg == "loginSuccess"){
-		alert("로그인 성공했습니다.");
-	} else if(msg == "tempPasswordCreate"){
+	if(msg == "tempPasswordCreate"){
 		alert("임시 비밀번호가 발송되었습니다.");
 	} else if(user_id != ""){
 		alert("회원님의 아이디는" + user_id + "입니다.")
@@ -502,7 +500,7 @@ ${testVo.user_id}
 		<c:choose>
 			<c:when test="${not empty sessionScope.testVo }">
 		 	<a href="/logout">로그아웃</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-			<a href="/customer/customerMyPage?user_id=${sessionScope.testVo.user_id}">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+			<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 		 	</c:when>
 			<c:otherwise>
 			<a href="/main/loginPage">로그인</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">

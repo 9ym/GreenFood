@@ -18,9 +18,7 @@ $(function(){
 	$("#boardNames").text("마이페이지");/* 게시판 이름 */
 	
 	var msg = "${msg}";
-	if(msg == "pwChangeSuccess"){
-		alert("비밀번호가 변경되었습니다.");
-	} else if(msg == "modifySuccess"){
+	if(msg == "modifySuccess"){
 		alert("회원정보가 수정되었습니다.");
 	}
 	
@@ -37,6 +35,7 @@ $(function(){
 </script>
 
 <content>
+${sessionScope.testVo}
 <div class="container-fluid">
 <div id="content_left" style="width:300px;
 height: 700px;
