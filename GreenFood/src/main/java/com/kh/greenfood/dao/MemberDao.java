@@ -1,5 +1,8 @@
 package com.kh.greenfood.dao;
 
+import java.util.List;
+
+import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.TestVo;
 
 public interface MemberDao {
@@ -19,4 +22,8 @@ public interface MemberDao {
 	public TestVo findPw(String user_id, String user_email);
 
 	public TestVo findId(String user_name, String user_email, String user_phone);
+	
+	public List<OrderVo> getOrderedList(String user_id);
+
+	public List<OrderVo> getLatestOrderedList(String user_id);
 }

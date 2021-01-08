@@ -24,7 +24,9 @@ public class UploadController {
 	private ProductService productService;
 
 	@RequestMapping(value="/fileInputTest", method=RequestMethod.GET)
-	public void test() throws Exception { }
+	public String test() throws Exception {
+		return "/product/fileInputTest";
+	}
 	
 	/* 상품 등록 -> ProductVo, ProductImageDto DB 생성 + 이미지 s3 업로드 */
 	@RequestMapping(value="/fileTest", method=RequestMethod.POST)
@@ -68,8 +70,6 @@ public class UploadController {
 	@ResponseBody
 	public String getUrl(String fileName, String category) throws Exception {
 		fileName = S3Util.getImageUrl(fileName, category);
-//		System.out.println("fileName :" + fileName);
-//		System.out.println("category :" + category);
 		return fileName;
 	}
 	

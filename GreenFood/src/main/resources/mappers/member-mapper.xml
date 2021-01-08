@@ -64,4 +64,20 @@
 			where user_id = #{user_id}
 	</update>
 	
+	<!-- 주문내역  All List -->
+	<select id="getOrderedList" resultType="OrderVo">
+		select o.*, d.* from tbl_order o, tbl_order_state_category d
+			where user_id = #{user_id} and o.order_state = d.order_state
+			order by order_date desc
+	</select>
+	
+	<!-- 최근 주문내역 3개까지만 -->
+	<select id="getLatestOrderedList" resultType="OrderVo">
+		select p.*, d.order_state_dsc from
+    (select rownum rnum, a.* from (select o.* from tbl_order o where user_id = #{user_id}) a) p,
+    tbl_order_state_category d
+    where p.order_state = d.order_state
+    and rnum between 1 and 3 order by p.rnum desc
+	</select>
+	
 </mapper>

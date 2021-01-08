@@ -374,7 +374,7 @@ padding:0;">
 		</div>
 		
 		<div id="left_bottom">
-			<div><a href="/customer/customerProfile">프로필</a>></div>
+			<div><a href="/customer/customerProfile" class="btn">프로필</a>></div>
 			<div>나의 쇼핑 활동</div>
 			<div>Q&amp;A</div>
 		</div>

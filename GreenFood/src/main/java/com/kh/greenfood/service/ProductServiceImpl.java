@@ -85,4 +85,25 @@ public class ProductServiceImpl implements ProductService {
 		return resultInsert;
 	}
 	
+	/* 신상품 (현재 날짜 - ?일 < 등록된 상품) */
+	@Override
+	public List<ProductVo> getLatestProduct(int conditionDate) {
+		List<ProductVo> listLatest = productDao.getLatestProduct(conditionDate);
+		return listLatest;
+	}
+	
+	/* 추천상품 (하트 많은 상품 목록) (임시로 주문 건수) */
+	@Override
+	public List<ProductVo> getBestProduct(int conditionOrderCount) {
+		List<ProductVo> listBest = productDao.getBestProduct(conditionOrderCount);
+		return listBest;
+	}
+	
+	/* 관련 상품(=카테고리) 랜덤으로 6개 */
+	@Override
+	public List<ProductVo> getRelatedProduct(ProductVo productVo) {
+		List<ProductVo> listRelated = productDao.getRelatedProduct(productVo);
+		return listRelated;
+	}
+	
 }

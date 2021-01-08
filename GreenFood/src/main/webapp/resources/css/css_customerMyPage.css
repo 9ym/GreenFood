@@ -197,9 +197,3 @@ float:right;
 	border-top:1px solid black;
 	border-bottom:1px solid black;
 }
-#orderedList thead th{
-	padding:10px 70px;
-}
-#orderedList tbody td{
-	padding:5px 70px;
-}

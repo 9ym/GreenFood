@@ -38,13 +38,15 @@ $(function(){
 	} else if(msg == "tempPasswordCreate"){
 		alert("임시 비밀번호가 발급되었습니다. 이메일을 확인해주세요.");
 	}
-
+	
+	// 로그인 버튼 클릭시 -> 회원 정보 폼 전송
 	$("#btnLogin").click(function(){
 		$("#frmlogin").submit();
 	});
 	
+	// 회원가입 버튼 클릭시 -> 회원가입 페이지 이동
 	$("#btnJoin").click(function(){
-		
+		location.href="/main/memberJoinForm";
 	});
 
 });
@@ -69,8 +71,6 @@ $(function(){
    			<label for="input_checkBox">로그인 유지</label>
   		</div>
 		<!-- // 토글 -->
-		
-		
 		
 		<a href="/main/customerFindId" id="a_searchId" class="a_login">아이디 찾기</a>
 		<img src="https://www.oasis.co.kr/images/common/bg_footer.png">
