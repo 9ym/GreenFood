@@ -56,21 +56,29 @@
 	</select>
 	
 	<!-- 제일 많이 팔린 상품 ?개 목록 -->
-	<select id="getProductBest" resultType="ProductVo">
-		select * from
-		    (select rownum, a.* from 
-		        (select * from tbl_product
-		        order by product_order_count desc)a
-		    )b
-		where rownum between 1 and #{best_count}
-		order by rownum asc
+	<select id="getPopularProduct" resultType="ProductVo">
+		<![CDATA[
+			select * from
+			    (select rownum, a.* from 
+			        (select * from tbl_product
+			        where ( sysdate < product_sales_deadlines 
+						or product_sales_deadlines is null )
+			        order by product_order_count desc)a
+			    )b
+			where rownum between 1 and #{best_count}
+			order by rownum asc
+		]]>
 	</select>
 	
 	<!-- 카테고리에 따른 상품 목록 -->
 	<select id="getProductCategory" resultType="ProductVo">
-		select * from tbl_product
-		where product_category = #{product_category}
-		order by product_code desc
+		<![CDATA[
+			select * from tbl_product
+			where ( sysdate < product_sales_deadlines 
+				or product_sales_deadlines is null )
+			and product_category = #{product_category}
+			order by product_code desc
+		]]>
 	</select>
 	
 	<!-- 카테고리 자체 목록 -->
@@ -91,13 +99,22 @@
 	<select id="getBestProduct" resultType="ProductVo">
 		<![CDATA[
 			select * from tbl_product
-			where product_order_count > #{conditionOrderCount}
+			where ( sysdate < product_sales_deadlines 
+				or product_sales_deadlines is null )
+			and product_order_count > #{conditionOrderCount}
 			order by product_order_count desc
 		]]>
 	</select>
 	
 	<!-- 세일상품 목록 -->
 	<select id="getSaleProduct" resultType="ProductVo">
+		<![CDATA[
+			select * from tbl_product
+			where ( sysdate < product_sales_deadlines
+			    and product_sales_deadlines is not null )
+			and sysdate + 14 >= product_sales_deadlines
+			order by product_sales_deadlines asc
+		]]>
 	</select>
 	
 	<!-- 관련 상품(=카테고리) 랜덤으로 6개 -->
@@ -105,11 +122,27 @@
 		<![CDATA[
 			select * from  
 			    (select * from tbl_product
-			    where product_category = #{product_category}
-			    and product_code != #{product_code}
+			    where ( sysdate < product_sales_deadlines
+					or product_sales_deadlines is null )
+			    and ( product_category = #{product_category}
+			   		and product_code != #{product_code} )
 			    order by dbms_random.value)
 			where rownum <= 6
 		]]>
 	</select>
+	
+	<!-- 후기, 별점 
+	tbl_star_point 후기 하나 쓸 때마다 별 5개(max, 1~5 정수만 가능) 주면서 테이블 생기고
+	상품 안에 product_heart(star) 는 후기 하나 쓸 때마다
+	후기-별점 받아서 서비스 안에서 
+	매퍼1 : 별 테이블 생성, 
+	(매퍼1 별 생성, 2 별 평균, 3 별 값 넣기?? -> 매퍼 3개 ??? ) 
+	매퍼2 : 생긴 별 테이블 상품 코드 조건 걸어서 star_point 평균내서 -> 0.0 ~ 5.0 사이, 소수 1자리 가능
+	그걸 상품 product_heart(star) 에 업데이트 해줌
+	
+	나중에 상품 불러올 때, product_heart(star) 나오게 하고 
+	여기에 별 5개 칸 채우기 
+	
+	-->
 
 </mapper>

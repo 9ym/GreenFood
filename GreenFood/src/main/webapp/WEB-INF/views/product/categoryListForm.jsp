@@ -80,17 +80,6 @@
 </style>
 
 <div class="container-fluid">
-
-<%-- 	${productCategoryList} --%>
-<%-- 	${productImageList} --%>
-	
-<!-- 	<div class="row"> -->
-<!-- 		<div class="col-md-2"></div> -->
-<!-- 		<div class="col-md-8"> -->
-<!-- 			<p>메뉴 보여주기</p> -->
-<!-- 		</div> -->
-<!-- 		<div class="col-md-2"></div> -->
-<!-- 	</div> -->
 	
 	<div class="row">
 		<div class="col-md-2"></div>
