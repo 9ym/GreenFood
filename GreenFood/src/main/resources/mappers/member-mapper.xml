@@ -73,11 +73,11 @@
 	
 	<!-- 최근 주문내역 3개까지만 -->
 	<select id="getLatestOrderedList" resultType="OrderVo">
-		select p.*, d.order_state_dsc from
-    (select rownum rnum, a.* from (select o.* from tbl_order o where user_id = #{user_id}) a) p,
-    tbl_order_state_category d
-    where p.order_state = d.order_state
-    and rnum between 1 and 3 order by p.rnum desc
+		select t.*
+			from (select rownum rnum, a.user_id, a.order_code, a.order_date, a.order_total_price, a.order_state, 
+      			p.order_state_dsc from (select o.* from tbl_order o order by order_date desc) a, tbl_order_state_category p
+				where user_id = #{user_id} and a.order_state = p.order_state) t
+				where rnum between 1 and 3
 	</select>
 	
 	<!-- 유저 포인트 내역 불러오기 -->
@@ -94,4 +94,15 @@
 			 values(SEQ_POINT_NO.nextval, #{user_id}, #{point_score}, #{point_category})
 	</insert>
 	
+	<!-- 유저 포인트 합계 -->
+	<select id="getPointSum" resultType="int">
+		select sum(point_score) from tbl_point
+			where user_id = #{user_id}
+	</select>
+	
+	<!-- 주문건수 -->
+	<select id="orderCount" resultType="int">
+		select count(*) from tbl_order
+			where user_id = #{user_id} and order_state = '10003'
+	</select>
 </mapper>

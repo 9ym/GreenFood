@@ -22,14 +22,10 @@ $(function(){
 		alert("회원정보가 수정되었습니다.");
 	}
 	
-	// 주문내역 전체보기
+	// 주문내역 상세보기
 	$("#btn_allOrderShow").click(function(){
-		var user_id = "${sessionScope.testVo.user_id}";
-		$("#frmOrdered > input[name=user_id]").val(user_id);
- 		$("#frmOrdered").submit();
+		location.href="/customer/customerOrderdList";
 	});
-	
-	
 	
 });
 </script>
@@ -83,11 +79,18 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 						최고 등급 이십니다.
 					</c:when>
 					<c:otherwise>
-						다음 등급까지
-					<span>
-						111
-					</span>
-						점 남았습니다.
+						다음 등급까지 주문
+						<span>
+							<c:choose>
+								<c:when test="${sessionScope.testVo.user_level eq '0'}">
+									${5 - orderCount}
+								</c:when>
+								<c:when test="${sessionScope.testVo.user_level eq '1'}">
+									${10 - orderCount}
+								</c:when>
+							</c:choose>
+						</span>
+						번 남았습니다.
 					</c:otherwise>
 					
 				</c:choose>
@@ -99,7 +102,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 			<div id="points_review">
 				<div id="chkpoints">
 					<img src="${path}/resources/images/moneybook.png" style="width:70px;">
-					<p><a href="/customer/customerPoint" class="btn">적립금</a> <span class="showsign">></span></p><img src="">
+					<p><a href="/customer/customerPoint" class="btn">적립금</a><span class="showsign">></span></p><img src="">
 					<p><span>${sessionScope.testVo.user_point}</span>원</p>
 				</div>
 				<div id="makeReview">
@@ -168,7 +171,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 								<c:forEach var="latestOrderedList" items="${latestOrderedList}">
 									<tr>
 										<td>${latestOrderedList.order_date}</td>
-										<td><a href="/customer/customerDetailOrder?order_code=${latestOrderedList.order_code}">${latestOrderedList.order_code}</a></td>
+										<td><a href="/customer/customerDetailOrder/${latestOrderedList.order_code}">${latestOrderedList.order_code}</a></td>
 										<td>${latestOrderedList.order_total_price}</td>
 <%-- 									<td>${latestOrderedList.order_state}</td> --%>
 										<td>${latestOrderedList.order_state_dsc}</td>

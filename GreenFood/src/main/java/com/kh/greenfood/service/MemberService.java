@@ -27,8 +27,6 @@ public interface MemberService {
 	// 아이디 찾기 -> 이름, 이메일, 핸드폰번호 확인
 	public TestVo findId(String user_name, String user_email, String user_phone);
 	
-	public void test();
-	
 	// 프로필 회원정보 수정
 	public int customerModify(TestVo testVo);
 
@@ -43,5 +41,11 @@ public interface MemberService {
 
 	// 포인트 부여
 	public void insertPoint(String user_id);
+
+	// 포인트 합계(마이페이지)
+	public int getPointSum(String user_id);
+	
+	// 주문갯수(배송완료)
+	public int orderCount(String user_id);
 
 }

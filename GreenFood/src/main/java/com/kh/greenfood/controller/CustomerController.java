@@ -8,11 +8,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.amazonaws.services.simpleworkflow.flow.worker.SynchronousActivityTaskPoller;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PointVo;
 import com.kh.greenfood.domain.ProductCategoryDto;
@@ -32,23 +34,32 @@ public class CustomerController {
 	
 	// 마이페이지 포워드
 	@RequestMapping(value="/customerMyPage")
-	public String customerMyPage(HttpSession session, Model model) throws Exception{
-		// 전체보기 카테고리
-		getProductCate(model);
+	public String customerMyPage(HttpSession session, Model model) throws Exception {
 		TestVo testVo = (TestVo)session.getAttribute("testVo");
 		String user_id = testVo.getUser_id();
+		// 상품 전체보기 카테고리
+		getProductCate(model);
+		// 최근 주문내역 List
 		List<OrderVo> latestOrderedList = memberService.getLatestOrderedList(user_id);
 		model.addAttribute("latestOrderedList", latestOrderedList);
+		// 주문완료 횟수(배송완료 10003)
+		int orderCount = memberService.orderCount(user_id);
+		model.addAttribute("orderCount", orderCount);
+		// 포인트 합계
+		if(testVo.getUser_point() != 0) {
+			int pointSum = memberService.getPointSum(user_id);
+			testVo.setUser_point(pointSum);
+		}
 		return "customer/customerMyPage";
 	}
 	
-	// 마이페이지 상의 등급별 혜택
+	// 마이페이지 -> 등급별 혜택
 	@RequestMapping(value="/customerMembership")
 	public String customerMembership () throws Exception{
 		return "customer/customerMembership";
 	}
 	
-	// 마이페이지 상의 적립금
+	// 마이페이지 -> 적립금 내역
 	@RequestMapping(value="/customerPoint")
 	public String customerPoint (HttpSession session, Model model) throws Exception{
 		TestVo testVo = (TestVo)session.getAttribute("testVo");
@@ -60,15 +71,17 @@ public class CustomerController {
 	
 	// 마이페이지 상의 주문내역 전체보기
 	@RequestMapping(value="/customerOrderdList", method=RequestMethod.GET)
-	public String customerOrderdList(String user_id, Model model) throws Exception{
+	public String customerOrderdList(HttpSession session, Model model) throws Exception{
+		TestVo testVo = (TestVo)session.getAttribute("testVo");
+		String user_id = testVo.getUser_id();
 		List<OrderVo> orderedList = memberService.getOrderedList(user_id);
 		model.addAttribute("orderedList", orderedList);
 		return "customer/customerOrderdList";
 	}
 	
 	// 마이페이지 상의 order_code 클릭시 주문상세 내역 보여주기
-	@RequestMapping(value="/customerDetailOrder")
-	public String customerDetailOrder(String order_code)throws Exception{
+	@RequestMapping(value="/customerDetailOrder/{order_code}")
+	public String customerDetailOrder(@PathVariable("order_code") String order_code, Model model)throws Exception{
 		
 		return "customer/customerDetailOrder";
 	}
