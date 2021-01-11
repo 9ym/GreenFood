@@ -11,6 +11,7 @@ import com.kh.greenfood.dao.ProductDao;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
+import com.kh.greenfood.domain.StarDto;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -92,17 +93,22 @@ public class ProductServiceImpl implements ProductService {
 		return listLatest;
 	}
 	
-	/* 추천상품 (하트 많은 상품 목록) (임시로 주문 건수) */
+	/* 추천상품 (별 많은 상품 목록) */
 	@Override
-	public List<ProductVo> getBestProduct(int conditionOrderCount) {
-		List<ProductVo> listBest = productDao.getBestProduct(conditionOrderCount);
+	public List<ProductVo> getBestProduct(int conditionStarCount) {
+		List<ProductVo> listBest = productDao.getBestProduct(conditionStarCount);
 		return listBest;
 	}
 	
-	/* 세일상품 (판매기한 임박한 상품 목록) */
+	/* 세일상품 (판매기한 임박한 상품 목록), 할인율 수정 */
 	@Override
-	public List<ProductVo> getSaleProduct(int deadline) {
+	public List<ProductVo> getSaleProduct(int deadline, int saleRate) {
 		List<ProductVo> listSale = productDao.getSaleProduct(deadline);
+		for (ProductVo vo : listSale) {
+			if (vo.getProduct_sale_rate() < saleRate) {
+				vo = productDao.updateSaleRate(saleRate, vo.getProduct_code());
+			}
+		}
 		return listSale;
 	}
 	
@@ -111,6 +117,21 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVo> getRelatedProduct(ProductVo productVo) {
 		List<ProductVo> listRelated = productDao.getRelatedProduct(productVo);
 		return listRelated;
+	}
+	
+	/* 상품 후기 - 후기글, 평점 별, ... ;;; 후기글 서비스, 별점 서비스 따로??? */
+	
+	/* 후기 별점 -> 생성, 평균, 상품에 업데이트 */
+	@Override
+	@Transactional
+	public int setStar(StarDto starDto) {
+		int countCreate = productDao.createStar(starDto);
+		int countUpdate = 0;
+		if (countCreate > 0) {
+			int star_avg = productDao.averageStar(starDto.getProduct_code());
+			countUpdate = productDao.updateStar(star_avg, starDto.getProduct_code());
+		}
+		return countUpdate;
 	}
 	
 }

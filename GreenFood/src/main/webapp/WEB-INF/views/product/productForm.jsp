@@ -41,6 +41,16 @@ $(function() {
 			thisImg.attr("src", data);
 		});
 	});
+	
+	/* 할인된 값 표현 */
+	var price = "${productVo.product_price}";
+	var saleRate = "${productVo.product_sale_rate}";
+	if (saleRate != 0) {
+// 		$("#priceGeneral").text(Math.ceil(price * (100 - saleRate) / 100));
+		$("#priceGeneral").text(addComma(Math.ceil(price * (100 - saleRate) / 100)));
+		$("#totalPrice").text(addComma(Math.ceil(price * (100 - saleRate) / 100)));
+	}
+// 	$("#priceSale").text(getSalePrice(price, saleRate));
 });
 
 /* 갯수 올리는 버튼 */
@@ -141,15 +151,34 @@ $(function() {
 .productInfo li {
 	padding : 10px 30px;
 }
-.li-price #priceWon {
+#priceWon {
 	font-weight : bold;
 	font-size : 15px;
 	padding-left : 3px;
 }
-.li-price #priceGeneral {
+#priceGeneral {
 	fonf-weight : bold;
 	font-size : 20px;
 	padding-left : 0px;
+}
+#priceSaleTitle {
+	font-size : 13px;
+	padding-left : 0px;
+	display : block;
+}
+.li-price-sale #priceGeneral {
+	display : inline-block;
+	margin-bottom : 10px;
+}
+.li-price-sale #priceSaleRate {
+	fonf-weight : bold;
+	font-size : 20px;
+	padding-left : 10px;
+	color : tomato;
+}
+#priceCanceled {
+	padding-left : 0px;
+	text-decoration: line-through;
 }
 .li-totalPrice {
 	float : right;
@@ -450,10 +479,23 @@ $(function() {
 				</div>
 				<div class="productInfo">
 					<ul class="priceList">
+						<c:choose>
+						<c:when test="${productVo.product_sale_rate == 0}">
 						<li class="li-price">
 							<span id="priceGeneral">${productVo.product_price}</span>
 							<span id="priceWon">원</span>
 						</li>
+						</c:when>
+						<c:otherwise>
+						<li class="li-price-sale">
+							<span id="priceSaleTitle">회원할인가</span>
+							<span id="priceGeneral">${productVo.product_price}</span>
+							<span id="priceWon">원</span>
+							<span id="priceSaleRate">${productVo.product_sale_rate}%</span><br/>
+							<span id="priceCanceled">${productVo.product_price} 원</span>
+						</li>
+						</c:otherwise>
+						</c:choose>
 						<c:if test="${productVo.product_sales_unit != null}">
 							<li>
 								<strong>판매단위</strong>
@@ -639,3 +681,5 @@ $(function() {
 
 </body>
 </html>
+
+<%@include file="../include/footer.jsp" %>

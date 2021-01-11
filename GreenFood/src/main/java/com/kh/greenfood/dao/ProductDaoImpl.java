@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
+import com.kh.greenfood.domain.StarDto;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
@@ -97,10 +98,10 @@ public class ProductDaoImpl implements ProductDao {
 		return listLatest;
 	}
 	
-	/* 추천상품 (하트 많은 상품 목록) (임시로 주문 건수) */
+	/* 추천상품 (별 많은 상품 목록) */
 	@Override
-	public List<ProductVo> getBestProduct(int conditionOrderCount) {
-		List<ProductVo> listBest = sqlSession.selectList(NAMESPACE + "getBestProduct", conditionOrderCount); 
+	public List<ProductVo> getBestProduct(int conditionStarCount) {
+		List<ProductVo> listBest = sqlSession.selectList(NAMESPACE + "getBestProduct", conditionStarCount); 
 		return listBest;
 	}
 	
@@ -111,6 +112,16 @@ public class ProductDaoImpl implements ProductDao {
 		return listSale;
 	}
 	
+	/* 할인율 수정*/
+	@Override
+	public ProductVo updateSaleRate(int saleRate, String product_code) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("saleRate", saleRate);
+		map.put("product_code", product_code);
+		ProductVo productVo = sqlSession.selectOne(NAMESPACE + "updateSaleRate", map);
+		return productVo;
+	}
+	
 	/* 관련 상품(=카테고리) 랜덤으로 6개 */
 	@Override
 	public List<ProductVo> getRelatedProduct(ProductVo productVo) {
@@ -119,6 +130,30 @@ public class ProductDaoImpl implements ProductDao {
 		map.put("product_code", productVo.getProduct_code());
 		List<ProductVo> listRelated = sqlSession.selectList(NAMESPACE + "getRelatedProduct", map);
 		return listRelated;
+	}
+	
+	/* 후기 별점 생성 */
+	@Override
+	public int createStar(StarDto starDto) {
+		int count = sqlSession.insert(NAMESPACE + "createStar", starDto);
+		return count;
+	}
+	
+	/* 후기 별점 평균 */
+	@Override
+	public int averageStar(String product_code) {
+		int star_avg = sqlSession.selectOne(NAMESPACE + "averageStar", product_code);
+		return star_avg;
+	}
+	
+	/* 후기 별점 평균값 -> 상품에 업데이트 */ 
+	@Override
+	public int updateStar(int star_avg, String product_code) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("star_avg", star_avg);
+		map.put("product_code", product_code);
+		int count = sqlSession.update(NAMESPACE + "updateStar", map);
+		return count;
 	}
 
 }

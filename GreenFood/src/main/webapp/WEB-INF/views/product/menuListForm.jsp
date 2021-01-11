@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <style>
@@ -30,6 +31,8 @@
 	float : left;
 	padding : 1px;
 	margin : 10px;
+	bottom : 60px;
+	position : relative;
 /* 	border : solid Coral 1px; */
 }
 .item {
@@ -50,9 +53,9 @@
  	border : solid 1px LightGray; 
 }
 .item-thumb .span-sale {
-	display : block;
+	display : inline-block;
 	background-color : green;
-	opacity : 0.5;
+	opacity : 0.7;
 	position : relative;
     top: 60px;
     width: 60px;
@@ -131,11 +134,13 @@
 						<li>
 							<div class="item">
 								<div class="item-thumb">
-									<!-- sale 하면 보이게 -->
-									<span class="span-sale">
+									<span class="span-sale"
+									<c:if test="${productVo.product_sale_rate == 0}">
+										style="opacity : 0;"
+									</c:if>
+									>
 										<span class="span-sale-title">save</span>
-										<span class="span-ratio">?? %</span>
-<!-- 										<span class="span-percentage">%</span> -->
+										<span class="span-ratio">${productVo.product_sale_rate} %</span>
 									</span>
 									<a href="/product/detail/${productVo.product_code}">
 										<img class="img-thumb" src="${path}/resources/images/item.png" 
@@ -190,7 +195,16 @@ $(function() {
 		$(this).text(addComma(price));
 	});
 	
+	/* 간격 조절 */
+	$(".list > li").each(function() {
+		if ($(this).index() > 3) {
+			$(this).css("bottom", "120px");
+		}
+	});
+	
 });
 </script>
 </body>
 </html>
+
+<%@include file="../include/footer.jsp" %>
