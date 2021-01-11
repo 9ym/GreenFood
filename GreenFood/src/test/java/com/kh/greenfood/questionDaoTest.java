@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.kh.greenfood.dao.QuestionDao;
+import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.QuestionVo;
 
 
@@ -18,21 +19,35 @@ public class questionDaoTest {
 	
 	@Inject
 	private QuestionDao questionDao;
+	
+	/*@Test
+	public void testInsertQuestion() throws Exception {
+		QuestionVo questionVo = new QuestionVo();
+		for( int i = 1; i < 100 ; i++) {
+
+			questionVo.setQuestion_title(i + " 번째 공지사항입니다.");
+			questionVo.setQuestion_content(i + " 번째 답변입니다.");
+			questionVo.setQuestion_category(201);
+		
+			questionDao.insertQuestion(questionVo);
+		System.out.println("questionVo :" + questionVo);
+	
+		}
+	}*/
 
 	@Test
 	public void testInsertQuestion() throws Exception {
 		QuestionVo questionVo = new QuestionVo();
-		/*questionVo.setQuestion_no(100);*/
+		questionVo.setQuestion_no(100);
 		questionVo.setQuestion_title("자주하는 질문 제목1");
 		questionVo.setQuestion_content("자주하는 질문 내용1");
 		questionDao.insertQuestion(questionVo);
 		System.out.println("testInsertQuestion questionVo : " + questionVo);
-		
 	}
 	
 	@Test
-	public void testGetQuestionList() throws Exception {
-		List<QuestionVo> questionList = questionDao.getQuestionList();
+	public void testGetQuestionList(PagingDto pagingDto) throws Exception {
+		List<QuestionVo> questionList = questionDao.getQuestionList(pagingDto);
 		System.out.println("questionList :" + questionList);
 	}
 	

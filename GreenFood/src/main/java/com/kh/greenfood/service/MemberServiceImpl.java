@@ -5,9 +5,11 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.greenfood.dao.MemberDao;
 import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.PointVo;
 import com.kh.greenfood.domain.TestVo;
 
 @Service
@@ -21,10 +23,13 @@ public class MemberServiceImpl implements MemberService {
 		TestVo testVo = memberDao.login(user_id, user_pw);
 		return testVo;
 	}
-
+	
+	@Transactional
 	@Override
 	public int insertMember(TestVo testVo) {
 		int count = memberDao.insertMember(testVo);
+		// 회원가입시 포인트부여(아이디, 포인트점수, 포인트 카테고리)
+		memberDao.insertPoint(testVo.getUser_id(), testVo.getUser_point(), 103);
 		return count;
 	}
 
@@ -78,6 +83,18 @@ public class MemberServiceImpl implements MemberService {
 	public List<OrderVo> getLatestOrderedList(String user_id) {
 		List<OrderVo> latestOrderedList = memberDao.getLatestOrderedList(user_id);
 		return latestOrderedList;
+	}
+
+	// 유저 포인트 불러오기
+	@Override
+	public List<PointVo> getUserPoint(String user_id) {
+		List<PointVo> pointVo = memberDao.getUserPoint(user_id);
+		return pointVo;
+	}
+
+	@Override
+	public void insertPoint(String user_id) {
+//		memberDao.insertPoint(user_id);
 	}
 
 //	@Override

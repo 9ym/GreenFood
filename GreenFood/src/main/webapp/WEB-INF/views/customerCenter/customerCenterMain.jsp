@@ -184,6 +184,32 @@ tbody tr {
 	padding-top: 30px;
 }
 
+.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #7f8284;
+    font-size: 13px;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #5AB63F;
+    border-color: #5AB63F;
+}
+
+.page-link:hover {
+    z-index: 2;
+    color: #fff;
+    text-decoration: none;
+    background-color: #92e978;
+    border-color: #92e978;
+}
 </style>
 
 <script>
@@ -201,20 +227,28 @@ $(function(){
 		location.href="/customerCenter/notice/noticeContent/" + n_no;
 	});
 	
+	// 페이지네이션 - 페이지 번호 클릭했을때
+	$("a.page-link").click(function(e){
+		e.preventDefault();
+		var page = $(this).attr("data-page");
+		console.log(page);
+		$("#frmNoticePaging").find("input[name=page]").val(page);
+		$("#frmNoticePaging").submit();
+	});
+	
+	
 });
 </script>
 
 
-<!-- <script>
-	var data = $(this).attr("data");
-	console.log("data:"+data);
-	
-	$("#boardNames").text(data);
-</script> -->
+<!-- ----------------  페이징 폼 넣어주기 -----------------------------------  -->
+
+<%@ include file="../include/frmPaging.jsp" %>
 
 </head>
 <body>
-<%-- noticeVo:${noticeVo} --%>
+
+
 
 	<div class="container-fluid">
 		<div class="row">
@@ -232,8 +266,8 @@ $(function(){
 									<ul class="list_menu">
 										<li class="on"><a href="#">공지사항</a></li>
 										<li><a href="/customerCenter/question/questionContent">자주하는 질문</a></li>
-										<!-- <li><a href="#">1:1 문의</a></li>
-										<li><a href="#">상품 제안</a></li>
+										<li><a href="/customerCenter/questionOne/questionOneContent" >1:1 문의</a></li>
+										<!-- <li><a href="#">상품 제안</a></li>
 										<li><a href="#">에코포장 피드백</a></li> -->
 									</ul>
 								</div>
@@ -251,60 +285,99 @@ $(function(){
 										공지사항 <span class="tit_sub"> 새로운 공지사항과 소식을 확인해주세요.</span>
 										<button type="button" id="btnNoticeWrite">공지사항 작성</button>
 									</h2>
-									
+
 								</div>
 
 								<!-- <form name=frmList action="" onsubmit="return chkFormList(this)"> -->
 
-									<style>
-										.notice .layout-pagination {
-											margin: 0
-										}
-										
-										.eng2 {
-											color: #939393
-										}
-										
-										.xans-board-listheader {
-											font-size: 12px
-										}
-									</style>
+								<style>
+								.notice .layout-pagination {
+									margin: 0
+								}
+								
+								.eng2 {
+									color: #939393
+								}
+								
+								.xans-board-listheader {
+									font-size: 12px
+								}
+								</style>
 
-									<table width="100%" align="center" cellpadding="0" cellspacing="0">
-										<tbody>
-											<tr>
-												<td>
-													<div class="xans-element- xans-myshop xans-myshop-couponserial ">
-														<table width="100%" class="xans-board-listheader jh"
-															cellpadding="0" cellspacing="0">
+								<table width="100%" align="center" cellpadding="0"
+									cellspacing="0">
+									<tbody>
+										<tr>
+											<td>
+												<div
+													class="xans-element- xans-myshop xans-myshop-couponserial ">
+													<table width="100%" class="xans-board-listheader jh"
+														cellpadding="0" cellspacing="0">
 
-															<thead>
-																<tr>
-																	<th>번호</th>
-																	<th>제목</th>
-																	<th>작성자</th>
-																	<th>작성일</th>
-																	<th>조회수</th>
-																</tr>
-															</thead>
-															<tbody>
+														<thead>
+															<tr>
+																<th>번호</th>
+																<th>제목</th>
+																<th>작성자</th>
+																<th>작성일</th>
+																<th>조회수</th>
+															</tr>
+														</thead>
+														<tbody>
 															<c:forEach var="noticeVo" items="${noticeList}">
 																<tr>
 																	<td>${noticeVo.notice_no}</td>
-																	<td><a class="notice_title" href="#" data-bno="${noticeVo.notice_no}">${noticeVo.notice_title}</a></td>
+																	<td><a class="notice_title" href="#"
+																		data-bno="${noticeVo.notice_no}">${noticeVo.notice_title}</a></td>
 																	<td>관리자</td>
 																	<td>${noticeVo.notice_date}</td>
-																	<td>230010</td>
+																	<td><span class="badge badge-success">${noticeVo.notice_readcount}</span></td>
 																</tr>
 															</c:forEach>
-															</tbody>
+														</tbody>
 
-														</table>
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
+													</table>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+
+								<!-- ----------------------------------- pagination -------------------------------- -->
+
+								<div class="row">
+									<div class="col-md-12 text-center">
+										<nav>
+											<ul class="pagination justify-content-center">
+												<!-- 이전 -->
+												<c:if test="${pagingDto.startPage != 1}">
+													<li class="page-item"><a class="page-link" href="#"
+														data-page="${pagingDto.startPage - 1}">이전</a></li>
+												</c:if>
+												<!-- 1 ~ 10 -->
+												<c:forEach var="i" begin="${pagingDto.startPage}"
+													end="${pagingDto.endPage}">
+													<li
+														<c:choose>
+															<c:when test="${i == pagingDto.page}">
+																class="page-item active"
+															</c:when>
+															<c:otherwise>
+																class="page-item"
+															</c:otherwise>
+														</c:choose>>
+														<a class="page-link" href="#" data-page="${i}">${i}</a></li>
+												</c:forEach>
+												<!-- 다음 -->
+												<c:if test="${pagingDto.endPage < pagingDto.totalPage}">
+													<li class="page-item"><a class="page-link" href="#"
+														data-page="${pagingDto.endPage + 1}">다음</a></li>
+												</c:if>
+											</ul>
+										</nav>
+									</div>
+								</div>
 							</div>
 							<!-- // 공지사항메인창  -->
 

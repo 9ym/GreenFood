@@ -515,7 +515,7 @@ $(function() {
 						<li>
 							<strong>유통기한</strong>
 							<c:choose>
-								<c:when test="${productVo.product_shelf_life != 0}">
+								<c:when test="${not empty productVo.product_shelf_life}">
 									<span>${productVo.product_shelf_life}</span>
 									<span style="padding-left:0px;">일</span>
 								</c:when>

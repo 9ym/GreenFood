@@ -17,6 +17,12 @@ $(function(){
 		location.href="/customerCenter/customerCenterMain";
 	});
 	
+	//목록 버튼 클릭 했을때 페이징 폼으로..
+	/* $("#btnList").click(function(e){
+		e.preventDefault();
+		$("#frmNoticePaging").submit(); // 페이징 폼으로 보낸다..
+	});
+	 */
 // ---------------- 수정 버튼 누르면 수정할수 있게 -------------------------	
 	$("#btnUpdateNotice").click(function() {
 		$(".update").prop("readonly", false); // 제목, 내용 입력 읽기 전용 제거
@@ -33,12 +39,6 @@ $(function(){
 		$("#frmUpdate").submit(); // 서밋 해 줘야함..
 	});
 	
-	// 수정 완료 버튼
-	/* $("#btnUpdateFinish").click(function() {
-		$("#frmPaging > input").prependTo($("#frmUpdate")); // A.appendTo(B) : A를 B에 붙이기
-		// A.append(B) : A에 B를 붙이기
-		$("#frmUpdate").submit();
-	}); */
 	
 	// 삭제 버튼 ---> 필요없음...
 	/* $("#btnDeleteNotice").click(function(e) {
@@ -144,7 +144,9 @@ table {
 }
 </style>
 
+<!-- ----------------  페이징 폼 넣어주기 -----------------------------------  -->
 
+<%@ include file="../../include/frmPaging.jsp" %>
 
 	<div class="container-fluid">
 		<div class="row">
@@ -173,7 +175,7 @@ table {
 									<th>작성일</th>
 									<td>${noticeVo.notice_date}</td>
 									<th>조회수</th>
-									<td>202020</td>
+									<td>${noticeVo.notice_readcount}</td>
 								</tr>
 								</tbody>
 						</table>

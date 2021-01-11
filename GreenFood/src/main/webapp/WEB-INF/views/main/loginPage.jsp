@@ -75,8 +75,8 @@ $(function(){
 		<a href="/main/customerFindId" id="a_searchId" class="a_login">아이디 찾기</a>
 		<img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 		<a href="/main/customerFindPw" id="a_searchPw" class="a_login">비밀번호 찾기</a>
-		<button type="button" id="btnLogin" >로그인</button>
-		<button type="button" id="btnJoin">회원가입하기</button>
+		<button type="button" class="btnLoginPage" id="btnLogin" >로그인</button>
+		<button type="button" class="btnLoginPage"id="btnJoin">회원가입하기</button>
 		</div>		
 	</form>
 </div>

@@ -49,7 +49,7 @@
 		font-size:13px;
 		
 	}
-	button{
+	.btnLoginPage{
 		width:100%;
 		height:70px;
 		margin:15px 0;
@@ -60,7 +60,7 @@
 		border:none;
 		border-radius:5px;
 	}
-	button:hover{
+	.btnLoginPage:hover{
 		filter:brightness(70%);
 	}
 	#btnLogin{

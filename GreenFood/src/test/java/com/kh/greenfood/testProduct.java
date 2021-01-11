@@ -59,9 +59,7 @@ public class testProduct {
 	
 	@Test
 	public void testInsertProduct() throws Exception {
-//		ProductVo vo = new ProductVo("2001", "잡곡4", 2500, 30, "잡곡 잡곡 잡곡", "ㄱㅇㅇㄴㄷㄹㄴ 잡곡", "50g", "10kg", "수입산");
-//		int count = productDao.insertProduct(vo);
-//		System.out.println("count :" + count);
+
 	}
 	
 	@Test

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.greenfood.domain.NoticeVo;
+import com.kh.greenfood.domain.PagingDto;
 
 @Repository
 public class NoticeDaoImpl implements NoticeDao {
@@ -18,9 +19,9 @@ public class NoticeDaoImpl implements NoticeDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<NoticeVo> noticeList() throws Exception {
-		List<NoticeVo> noticeList = sqlSession.selectList(NAMESPACE + "noticeList");
-//		System.out.println("NoticeDaoImpl, noticeList, noticeList:" + noticeList);
+	public List<NoticeVo> noticeList(PagingDto pagingDto) throws Exception {
+		List<NoticeVo> noticeList = sqlSession.selectList(NAMESPACE + "noticeList", pagingDto);
+//		System.out.println("NoticeDaoImpl, noticeList, pagingDto:" + pagingDto);
 		return noticeList;
 	}
 	
@@ -60,6 +61,22 @@ public class NoticeDaoImpl implements NoticeDao {
 		sqlSession.delete(NAMESPACE + "deleteNotice", notice_no);
 		
 	}
+
+	@Override
+	public void updateNoticeReadcount(int notice_no) throws Exception {
+		sqlSession.update(NAMESPACE + "updateNoticeReadcount", notice_no);
+		
+	}
+
+	@Override
+	public int noticeListCount(PagingDto pagingDto) throws Exception {
+		int count = sqlSession.selectOne(NAMESPACE + "noticeListCount", pagingDto);
+//		System.out.println("NoticeDaoImpl, noticeListCount, count :" + count);
+		return count;
+	}
+
+	
+	
 
 	
 

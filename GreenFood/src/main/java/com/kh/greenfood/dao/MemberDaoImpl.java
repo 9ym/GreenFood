@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.PointVo;
 import com.kh.greenfood.domain.TestVo;
 
 @Repository
@@ -87,14 +88,26 @@ public class MemberDaoImpl implements MemberDao {
 		List<OrderVo> latestOrderedList = sqlSession.selectList(NAMESPACE + "getLatestOrderedList", user_id);
 		return latestOrderedList;
 	}
-	
 
+	@Override
+	public List<PointVo> getUserPoint(String user_id) {
+		List<PointVo> pointVo = sqlSession.selectList(NAMESPACE + "getUserPoint", user_id);
+		return pointVo;
+	}
+
+	@Override
+	public void insertPoint(String user_id, int point_score, int point_category) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("point_score", point_score);
+		map.put("point_category", point_category);
+		sqlSession.insert(NAMESPACE + "insertPoint", map);
+	}
+	
 //	@Override
 //	public TestVo profilePwCheck(String user_id, String user_pw) {
 //		
 //		return null;
 //	}
-	
-	
 
 }

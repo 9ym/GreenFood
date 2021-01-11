@@ -22,9 +22,20 @@
 
 	<!-- 목록 -->
 		<select  id="noticeList" resultType="NoticeVo">
-				select * from tbl_notice 
-				order by notice_no desc
+			select * from           
+				(select rownum rnum, a.* from (select * from tbl_notice a order by notice_no desc) a)
+				where rnum between #{startRow} and #{endRow}
 		</select>
+		
+		
+		
+	<!-- 전체 글갯수 읽어오기 -->	
+	<select id="noticeListCount" resultType="int">
+		select count(*) from tbl_notice
+	</select>
+	
+		
+		
 		
 	<!-- 글 선택 -->
 	<select id="selectNotice" resultType="NoticeVo">
@@ -45,5 +56,12 @@
 		delete from tbl_notice
 		where notice_no = #{notice_no} 
 	</delete>
+	
+	<!-- 조회수 나타내기 -->
+	<update id="updateNoticeReadcount">
+		update tbl_notice set
+			notice_readcount = notice_readcount + 1
+			where notice_no = #{notice_no} 
+	</update>
 
 </mapper>

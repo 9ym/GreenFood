@@ -3,12 +3,16 @@ package com.kh.greenfood.service;
 import java.util.List;
 
 import com.kh.greenfood.domain.NoticeVo;
+import com.kh.greenfood.domain.PagingDto;
 
 public interface NoticeService {
 	
 		// 목록
-		public List<NoticeVo> noticeList() throws Exception;
+		public List<NoticeVo> noticeList(PagingDto pagingDto) throws Exception;
 
+		// 전체 개시글 수 가져오기
+		public int noticeListCount(PagingDto pagingDto) throws Exception;
+		
 		// 입력
 		public void insertNotice(NoticeVo noticeVo) throws Exception;
 		
