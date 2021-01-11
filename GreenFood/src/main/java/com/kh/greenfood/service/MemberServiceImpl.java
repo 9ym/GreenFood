@@ -40,12 +40,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void test() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public int changePw(String user_id, String user_pw) {
 		int count = memberDao.changePw(user_id, user_pw);
 		return count;
@@ -82,6 +76,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<OrderVo> getLatestOrderedList(String user_id) {
 		List<OrderVo> latestOrderedList = memberDao.getLatestOrderedList(user_id);
+		// 포인트 합계
 		return latestOrderedList;
 	}
 
@@ -95,6 +90,19 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void insertPoint(String user_id) {
 //		memberDao.insertPoint(user_id);
+	}
+
+	// 포인트 합계
+	@Override
+	public int getPointSum(String user_id) {
+		int pointSum = memberDao.getPointSum(user_id);
+		return pointSum;
+	}
+
+	@Override
+	public int orderCount(String user_id) {
+		int count = memberDao.orderCount(user_id);
+		return count;
 	}
 
 //	@Override

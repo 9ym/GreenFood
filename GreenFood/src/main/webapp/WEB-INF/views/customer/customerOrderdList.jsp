@@ -58,7 +58,7 @@ $(function(){
 				<c:forEach var="orderedList" items="${orderedList}">
 						<tr>
 							<td>${orderedList.order_date}</td>
-							<td><a href="/customer/customerDetailOrder?order_code=${latestOrderedList.order_code}">${orderedList.order_code}</a></td>
+							<td><a href="/customer/customerDetailOrder/${latestOrderedList.order_code}">${orderedList.order_code}</a></td>
 							<td>${orderedList.order_total_price}</td>
 <%-- 						<td>${orderedList.order_state}</td> --%>
 							<td>${orderedList.order_state_dsc}</td>

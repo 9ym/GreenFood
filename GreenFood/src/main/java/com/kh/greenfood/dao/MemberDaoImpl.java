@@ -103,11 +103,18 @@ public class MemberDaoImpl implements MemberDao {
 		map.put("point_category", point_category);
 		sqlSession.insert(NAMESPACE + "insertPoint", map);
 	}
-	
-//	@Override
-//	public TestVo profilePwCheck(String user_id, String user_pw) {
-//		
-//		return null;
-//	}
+
+	@Override
+	public int getPointSum(String user_id) {
+		int pointSum = sqlSession.selectOne(NAMESPACE + "getPointSum", user_id);
+		System.out.println("getPointSum : " + pointSum);
+		return pointSum;
+	}
+
+	@Override
+	public int orderCount(String user_id) {
+		int count = sqlSession.selectOne(NAMESPACE + "orderCount", user_id);
+		return count;
+	}
 
 }
