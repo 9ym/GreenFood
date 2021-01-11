@@ -3,15 +3,17 @@
 
 <!-- footer.jsp : 공간이 겹치는 등등... 애매해서 안 함... -->
 <style>
+.footer-row {
+	border-top:1px solid Gainsboro;
+}
 .footerArea {
-	border-top:2px solid Gainsboro;
 	padding: 20px 20px;
 /* 	position: absolute; */
   	bottom: 10px;
 }
 </style>
 
-	<div class="row">
+	<div class="row footer-row">
 		<div class="col-md-3">
 		</div>
 		<div class="col-md-6 footerArea">

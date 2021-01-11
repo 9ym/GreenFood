@@ -564,7 +564,11 @@ ${testVo.user_id}
 					<div class="showPoints">
 <%-- 						<img src="${path}/resources/images/thumbs_up.png"> --%>
 						<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
-						<span class="spanShowPoints">${productVo.product_star}%</span>
+						<span class="spanShowPoints">
+						<c:forEach begin="1" end="${productVo.product_star}">
+							★
+						</c:forEach>
+						</span>
 					</div>
 				</div>
 			</c:if>
@@ -578,3 +582,5 @@ ${testVo.user_id}
 	</div>
 	
 </div>	
+
+<%@include file="include/footer.jsp" %>

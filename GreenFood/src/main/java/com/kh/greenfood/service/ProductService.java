@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
+import com.kh.greenfood.domain.StarDto;
 
 public interface ProductService {
 	
@@ -35,13 +36,18 @@ public interface ProductService {
 	/* 신상품 (현재 날짜 - ?일 < 등록된 상품) */
 	public List<ProductVo> getLatestProduct(int conditionDate);
 	
-	/* 추천상품 (하트 많은 상품 목록) (임시로 주문 건수) */
-	public List<ProductVo> getBestProduct(int conditionOrderCount);
+	/* 추천상품 (별 많은 상품 목록) */
+	public List<ProductVo> getBestProduct(int conditionStarCount);
 	
-	/* 세일상품 (판매기한 임박한 상품 목록) */
-	public List<ProductVo> getSaleProduct(int deadline);
+	/* 세일상품 (판매기한 임박한 상품 목록), 할인율 수정 */
+	public List<ProductVo> getSaleProduct(int deadline, int saleRate);
 	
 	/* 관련 상품(=카테고리) 랜덤으로 6개 */
 	public List<ProductVo> getRelatedProduct(ProductVo productVo);
+	
+	/* 상품 후기 - 후기글, 평점 별, ... ;;; 후기글 서비스, 별점 서비스 따로??? */
+	
+	/* 후기 별점 -> 생성, 평균, 상품에 업데이트 */
+	public int setStar(StarDto starDto);
 	
 }

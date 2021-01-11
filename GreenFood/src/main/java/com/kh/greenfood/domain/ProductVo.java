@@ -18,12 +18,13 @@ public class ProductVo {
 	private String product_origin;
 	private int product_order_count;
 	private int product_star;
+	private int product_sale_rate;
 	
 	public ProductVo() { }
 	
 	public ProductVo(String product_category, String product_title, int product_price, Timestamp product_sales_deadlines,
 			int product_shelf_life, String product_sub_title, String product_content, String product_weight, 
-			String product_sales_unit, String product_origin) {
+			String product_sales_unit, String product_origin, int product_sale_rate) {
 		super();
 		this.product_category = product_category;
 		this.product_title = product_title;
@@ -35,12 +36,13 @@ public class ProductVo {
 		this.product_weight = product_weight;
 		this.product_sales_unit = product_sales_unit;
 		this.product_origin = product_origin;
+		this.product_sale_rate = product_sale_rate;
 	}
 
 	public ProductVo(String product_code, String product_category, String product_title, int product_price,
 			Timestamp product_registrantion_date, Timestamp product_sales_deadlines, int product_shelf_life,
 			String product_sub_title, String product_content, int product_heart, String product_weight,
-			String product_sales_unit, String product_origin, int product_order_count) {
+			String product_sales_unit, String product_origin, int product_order_count, int product_sale_rate) {
 		super();
 		this.product_code = product_code;
 		this.product_category = product_category;
@@ -56,6 +58,7 @@ public class ProductVo {
 		this.product_sales_unit = product_sales_unit;
 		this.product_origin = product_origin;
 		this.product_order_count = product_order_count;
+		this.product_sale_rate = product_sale_rate;
 	}
 
 	public String getProduct_code() {
@@ -178,6 +181,14 @@ public class ProductVo {
 		this.product_star = product_star;
 	}
 
+	public int getProduct_sale_rate() {
+		return product_sale_rate;
+	}
+
+	public void setProduct_sale_rate(int product_sale_rate) {
+		this.product_sale_rate = product_sale_rate;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductVo [product_code=" + product_code + ", product_category=" + product_category + ", product_title="
@@ -186,7 +197,8 @@ public class ProductVo {
 				+ ", product_shelf_life=" + product_shelf_life + ", product_sub_title=" + product_sub_title
 				+ ", product_content=" + product_content + ", product_heart=" + product_heart + ", product_weight="
 				+ product_weight + ", product_sales_unit=" + product_sales_unit + ", product_origin=" + product_origin
-				+ ", product_order_count=" + product_order_count + ", product_star=" + product_star + "]";
+				+ ", product_order_count=" + product_order_count + ", product_star=" + product_star
+				+ ", product_sale_rate=" + product_sale_rate + "]";
 	}
 
 }

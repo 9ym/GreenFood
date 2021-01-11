@@ -14,13 +14,18 @@ import com.kh.greenfood.dao.ProductDao;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
+import com.kh.greenfood.domain.StarDto;
+import com.kh.greenfood.service.ProductService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/*.xml" })
-public class testProductDao {
+public class testProduct {
 	
 	@Inject
 	private ProductDao productDao;
+	
+	@Inject
+	private ProductService productService;
 
 	@Test
 	public void testGetProduct() throws Exception {
@@ -82,6 +87,16 @@ public class testProductDao {
 	public void testSale() throws Exception {
 		List<ProductVo> list = productDao.getSaleProduct(5);
 		System.out.println(list);
+	}
+	
+	@Test
+	public void testSetService() throws Exception {
+		StarDto dto = new StarDto();
+		dto.setUser_id("user");
+		dto.setOrder_code("202101060007");
+		dto.setProduct_code("1003");
+		dto.setStar_point(2);
+		productService.setStar(dto);
 	}
 			
 }

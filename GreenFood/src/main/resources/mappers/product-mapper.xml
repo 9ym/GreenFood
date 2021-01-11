@@ -101,8 +101,8 @@
 			select * from tbl_product
 			where ( sysdate < product_sales_deadlines 
 				or product_sales_deadlines is null )
-			and product_order_count > #{conditionOrderCount}
-			order by product_order_count desc
+			and product_star >= #{conditionOrderCount}
+			order by product_star desc
 		]]>
 	</select>
 	
@@ -115,6 +115,13 @@
 			and sysdate + 14 >= product_sales_deadlines
 			order by product_sales_deadlines asc
 		]]>
+	</select>
+	
+	<!-- 할인율 수정 -->
+	<select id="updateSaleRate" resultType="ProductVo">
+		update tbl_product set
+			product_sale_rate = #{saleRate}
+		where product_code = #{product_code}
 	</select>
 	
 	<!-- 관련 상품(=카테고리) 랜덤으로 6개 -->
@@ -136,13 +143,33 @@
 	상품 안에 product_heart(star) 는 후기 하나 쓸 때마다
 	후기-별점 받아서 서비스 안에서 
 	매퍼1 : 별 테이블 생성, 
-	(매퍼1 별 생성, 2 별 평균, 3 별 값 넣기?? -> 매퍼 3개 ??? ) 
+	(매퍼1 별 생성, 2 별 평균 - 반올림 정수 만들기 !!!, 3 별 값 넣기?? -> 매퍼 3개 ??? ) 
 	매퍼2 : 생긴 별 테이블 상품 코드 조건 걸어서 star_point 평균내서 -> 0.0 ~ 5.0 사이, 소수 1자리 가능
 	그걸 상품 product_heart(star) 에 업데이트 해줌
 	
 	나중에 상품 불러올 때, product_heart(star) 나오게 하고 
 	여기에 별 5개 칸 채우기 
-	
 	-->
+	
+	<!-- 후기 별점 생성 -->
+	<insert id="createStar">
+		insert into tbl_star_point (star_point_no, user_id, order_code, product_code, star_point)
+		values (seq_star_no.nextval, #{user_id}, #{order_code}, #{product_code}, #{star_point})
+	</insert>
+	
+	<!-- 후기 별점 평균 -->
+	<select id="averageStar" resultType="int">
+		select round(avg(star_point)) star_avg
+		from tbl_star_point
+		where product_code = #{product_code}
+		group by product_code
+	</select>
+	
+	<!-- 후기 별점 평균값 -> 상품에 업데이트 -->
+	<update id="updateStar">
+		update tbl_product set
+			product_star = #{star_avg}
+		where product_code = #{product_code}
+	</update>
 
 </mapper>
