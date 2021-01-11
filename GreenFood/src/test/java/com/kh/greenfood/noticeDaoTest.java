@@ -26,13 +26,13 @@ public class noticeDaoTest {
 		NoticeVo noticeVo = new NoticeVo();
 		for( int i = 1; i < 200 ; i++) {
 
-			noticeVo.setNotice_title(i + " ¹øÂ° °Ô½Ã¹° ÀÔ´Ï´Ù.");
+			noticeVo.setNotice_title(i + " ï¿½ï¿½Â° ï¿½Ô½Ã¹ï¿½ ï¿½Ô´Ï´ï¿½.");
 
-			noticeVo.setNotice_content(i + " ¹øÂ° °Ô½Ã¹° ÀÔ´Ï´Ù.");
+			noticeVo.setNotice_content(i + " ï¿½ï¿½Â° ï¿½Ô½Ã¹ï¿½ ï¿½Ô´Ï´ï¿½.");
 		
 		/*noticeVo.setNotice_no(notice_no);*/
-		/*noticeVo.setNotice_title("Á¦¸ñÁ¦¸ñÁ¦¸ñ");
-		noticeVo.setNotice_content("³»¿ë³»¿ë³»¿ë");*/
+		/*noticeVo.setNotice_title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+		noticeVo.setNotice_content("ï¿½ï¿½ï¿½ë³»ï¿½ë³»ï¿½ï¿½");*/
 		/*noticeVo.setAdmin_id("admin");*/
 		noticeDao.insertNotice(noticeVo);
 		System.out.println("noticeVo :" + noticeVo);
@@ -41,18 +41,12 @@ public class noticeDaoTest {
 	}
 	
 
-
-
-	
-	
-	
-	
 	
 	@Test
 	public void testUpdateNotice() throws Exception {
 		NoticeVo noticeVo = new NoticeVo();
-		noticeVo.setNotice_title("°øÁö»çÇ× 5  ¼öÁ¤");
-		noticeVo.setNotice_content("³»¿ë5 ¼öÁ¤");
+		noticeVo.setNotice_title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 5  ï¿½ï¿½ï¿½ï¿½");
+		noticeVo.setNotice_content("ï¿½ï¿½ï¿½ï¿½5 ï¿½ï¿½ï¿½ï¿½");
 		noticeVo.setNotice_no(61);
 		noticeDao.updateNotice(noticeVo);
 		System.out.println("noticeVo :" + noticeVo);

@@ -118,4 +118,10 @@ public class MainController {
 		
 		return page;
 	}
+	
+	/*@RequestMapping(value="/review/reviewMain")
+	public String reviewMain() throws Exception{
+		return "review/reviewMain";
+		
+	}*/
 }

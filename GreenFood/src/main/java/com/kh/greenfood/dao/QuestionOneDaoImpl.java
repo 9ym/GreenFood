@@ -1,5 +1,7 @@
 package com.kh.greenfood.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,6 +21,20 @@ public class QuestionOneDaoImpl implements QuestionOneDao {
 	public void insertQuestionOne(QuestionOneVo questionOneVo) throws Exception {
 		sqlSession.insert(NAMESPACE + "insertQuestionOne", questionOneVo);
 
+	}
+
+	@Override
+	public List<QuestionOneVo> getQuestionOneList() throws Exception {
+		
+		List<QuestionOneVo> questionOneList = sqlSession.selectList(NAMESPACE + "getQuestionOneList");
+		System.out.println("QuestionOneDaoImpl, getQuestionOneList, questionOneList :" + questionOneList);
+		return questionOneList;
+	}
+
+	@Override
+	public QuestionOneVo selectQuestionOne(int q_o_no) throws Exception {
+		QuestionOneVo questionOneVo = sqlSession.selectOne(NAMESPACE + "selectQuestionOne", q_o_no);
+		return questionOneVo;
 	}
 
 }

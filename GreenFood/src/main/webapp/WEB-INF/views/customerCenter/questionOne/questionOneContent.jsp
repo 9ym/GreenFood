@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>QuestionOneWrite</title>
+<title>QuestionOneContent</title>
 
 
 
@@ -197,7 +197,7 @@ input {
 }
 
 .bhs_button.yb {
-    background-color: #80db65;
+    background-color: #62b748;
     color: #fff;
 }
 
@@ -210,6 +210,19 @@ input {
 
 .container-fluid {
 	padding-top: 150px;
+}
+
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 85%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
 
@@ -233,6 +246,13 @@ $(function(){
 	$("#btnQuestionOneWrite").click(function(){
 		location.href="/customerCenter/questionOne/questionOneWrite";
 
+	});
+	
+	$(".questionOne_title").click(function(e){
+		e.preventDefault();
+		var q_o_no = $(this).attr("data-bno");
+		
+		location.href="/customerCenter/questionOne/questionOneAnswer/" + q_o_no;
 	});
 }); 
 </script>
@@ -312,20 +332,25 @@ $(function(){
 																	<td colspan=6> 문의하신 내역이 없습니다.</td>
 																</tr>
 																
-															
+															<c:forEach var="questionOneVo" items="${questionOneList}">
 																<tr>
-																	<td>작업중</td>
-																	<td>작업중</td>
-																	<td><%-- <a class="notice_title" href="#"
-																		data-bno="${noticeVo.notice_no}">${noticeVo.notice_title}</a> --%>
-																	작업중
+																	<td>${questionOneVo.q_o_no }</td>
+																	<td>${questionOneVo.question_category_dsc }</td>
+																	<td><a class="questionOne_title" href="#"
+																		data-bno="${questionOneVo.q_o_no}">${questionOneVo.q_o_title}</a>
 																	</td>
-																	<td>작업중</td>
-																	<td>작업중</td>
-																	<td>작업중</td>
+																	<td>${questionOneVo.q_o_writer }</td>
+																	<td>${questionOneVo.q_o_date }</td>
+																	<td><!-- <span class="badge badge-success">처리중</span> -->
+																	
+																	<a style="color: white" class="badge badge-success" href="#">답변완료</a>
+																	</td>
+																	
+																	
 																	
 																</tr>
-															</tbody>
+															</c:forEach>
+														</tbody>
 
 													</table>
 												</div>

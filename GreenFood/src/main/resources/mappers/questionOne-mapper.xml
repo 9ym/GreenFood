@@ -9,9 +9,37 @@
 
 	
 	<!-- 1:1 질문 글쓰기 -->
-		<insert id="insertQuestionOne">
-			insert into tbl_question_one (q_o_no, q_o_category, q_o_title, q_o_content)
-				values(seq_question_one_qono.nextval, #{q_o_category}, #{q_o_title}, #{q_o_content}) 
-		</insert>
+	<insert id="insertQuestionOne">
+		insert into tbl_question_one (q_o_no, q_o_category, q_o_title, q_o_content, q_o_email, q_o_phone)
+		values(seq_question_one_qono.nextval, #{q_o_category}, #{q_o_title}, #{q_o_content}, #{q_o_email}, #{q_o_phone}) 
+	</insert>
+
+	<!-- 목록 -->
+	<select id="questionOneList" resultType="QuestionOneVo">
+		select * from tbl_question_one
+			order by q_o_no desc 
+	</select>
+
+	<!-- category 조인하기 해서 카테고리 받아오기 -->
+	<select id="getQuestionOneList" resultType="QuestionOneVo">
+		select q.* , c.question_category_dsc
+			from tbl_question_one q, tbl_question_category c
+			where q.q_o_category = c.question_category
+			order by q_o_no desc 
+	</select>
+
+	<!-- 글 선택 카테고리 값 까지 받아오기-->
+	
+	<select id="selectQuestionOne" resultType="QuestionOneVo">
+		<!-- questionOne 테이블의 모든 칼럼과 category 테이블의 dsc 칼럼을 받아오는데 -->
+		select q.* , c.question_category_dsc
+			from tbl_question_one q, tbl_question_category c 
+			
+		<!-- questionOne 테이블의 카테고리 값과 category 테이블의 카테고리 값이 같고 -->
+		where q.q_o_category = c.question_category 
+		<!-- q_o_no 값이 #... 인거 -->
+
+		and q_o_no = #{q_o_no} 
+	</select>
 	
 </mapper>

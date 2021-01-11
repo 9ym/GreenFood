@@ -15,7 +15,8 @@ public class QuestionOneVo {
 	private Timestamp q_o_date;
 	private String q_o_image;
 	private String q_o_ok;
-	
+	private String question_category_dsc;
+
 	public int getQ_o_no() {
 		return q_o_no;
 	}
@@ -82,12 +83,19 @@ public class QuestionOneVo {
 	public void setQ_o_ok(String q_o_ok) {
 		this.q_o_ok = q_o_ok;
 	}
+	public String getQuestion_category_dsc() {
+		return question_category_dsc;
+	}
+	public void setQuestion_category_dsc(String question_category_dsc) {
+		this.question_category_dsc = question_category_dsc;
+	}
 	@Override
 	public String toString() {
 		return "QuestionOneVo [q_o_no=" + q_o_no + ", q_o_category=" + q_o_category + ", q_o_order_code="
 				+ q_o_order_code + ", q_o_title=" + q_o_title + ", q_o_content=" + q_o_content + ", q_o_writer="
 				+ q_o_writer + ", q_o_email=" + q_o_email + ", q_o_phone=" + q_o_phone + ", q_o_date=" + q_o_date
-				+ ", q_o_image=" + q_o_image + ", q_o_ok=" + q_o_ok + "]";
+				+ ", q_o_image=" + q_o_image + ", q_o_ok=" + q_o_ok + ", question_category_dsc=" + question_category_dsc
+				+ "]";
 	}
 	
 	

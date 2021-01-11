@@ -15,3 +15,11 @@
 	<%-- <input type="hidden" name="searchType" value="${pagingDto.searchType}""/>
 	<input type="hidden" name="keyword" value="${pagingDto.keyword}"/> --%>
 </form>
+
+<form id="frmReviewPaging" action="/review/reviewMain" method="get">
+	<input type="hidden" name="review_no" value="${reviewVo.review_no}"/>
+	<input type="hidden" name="page" value="${pagingDto.page}">
+	<input type="hidden" name="perPage" value="${pagingDto.perPage}"/>
+	<%-- <input type="hidden" name="searchType" value="${pagingDto.searchType}""/>
+	<input type="hidden" name="keyword" value="${pagingDto.keyword}"/> --%>
+</form>

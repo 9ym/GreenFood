@@ -39,7 +39,7 @@ public class CustomerCenterController {
 		return "/customerCenter/notice/noticeWriteForm";
 	}
 	
-//	--------------------- °øÁö»çÇ× ÀÔ·ÂÇÏ±â ------------------------------
+//	--------------------- ê³µì§€ì‚¬í•­ ì…ë ¥í•˜ê¸° ------------------------------
 	@RequestMapping(value="/notice/insertNotice", method=RequestMethod.GET)
 	public String insertNotice(NoticeVo noticeVo, HttpSession session) throws Exception {
 //		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
@@ -51,14 +51,14 @@ public class CustomerCenterController {
 	}
 	
 	
-//	-------------------- °øÁö»çÇ× ÀÔ·Â µ¥ÀÌÅ¸ ¸®½ºÆ®¿¡ º¸¿©ÁÖ±â -------------------------
+//	-------------------- ê³µì§€ì‚¬í•­ ì…ë ¥ ë°ì´íƒ€ ë¦¬ìŠ¤íŠ¸ì— ë³´ì—¬ì£¼ê¸° -------------------------
 	@RequestMapping(value="/customerCenterMain", method=RequestMethod.GET)
 	public String listAll(Model model, PagingDto pagingDto) throws Exception {
 		
 		int count = noticeService.noticeListCount(pagingDto);
 		pagingDto.setTotalCount(count);
 		pagingDto.setPagingInfo();
-		System.out.println("CustomerCenterController, listAll, pagingDto : " + pagingDto);
+//		System.out.println("CustomerCenterController, listAll, pagingDto : " + pagingDto);
 		List<NoticeVo> noticeList = noticeService.noticeList(pagingDto);
 		
 //		System.out.println("CustomerCenterController, listAll, noticeList:" + noticeList);
@@ -69,7 +69,7 @@ public class CustomerCenterController {
 	
 	
 	
-// -------------------  °øÁö»çÇ× ¸®½ºÆ® ¹Ş¾Æ¿Í¼­ noticeContent ·Î º¸¿©ÁÖ±â --------------------
+// -------------------  ê³µì§€ì‚¬í•­ ë¦¬ìŠ¤íŠ¸ ë°›ì•„ì™€ì„œ noticeContent ë¡œ ë³´ì—¬ì£¼ê¸° --------------------
 	@RequestMapping(value="/notice/noticeContent/{notice_no}", method=RequestMethod.GET)
 	public String noticeContent(@PathVariable("notice_no") int notice_no, Model model) throws Exception{
 //		System.out.println("notice_no noticeContent :" + notice_no);
@@ -79,10 +79,10 @@ public class CustomerCenterController {
 	}
 	
 	
-// --------------------------  °øÁö»çÇ× ¼öÁ¤ÇÏ±â	 -------------------------
+// --------------------------  ê³µì§€ì‚¬í•­ ìˆ˜ì •í•˜ê¸°	 -------------------------
 	@RequestMapping(value="/notice/updateNotice", method=RequestMethod.GET)
 	public String updateNotice(NoticeVo noticeVo) throws Exception {
-		System.out.println("update: " + noticeVo);
+//		System.out.println("update: " + noticeVo);
 		noticeService.updateNotice(noticeVo);
 		/*rttr.addFlashAttribute("msg", "updateSuccess");*/
 		
@@ -91,7 +91,7 @@ public class CustomerCenterController {
 	
 	
 	
-// ----------------------- °øÁö»çÇ× »èÁ¦ÇÏ±â ----------------------------------------
+// ----------------------- ê³µì§€ì‚¬í•­ ì‚­ì œí•˜ê¸° ----------------------------------------
 	
 	
 	@RequestMapping(value="/notice/deleteNotice", method=RequestMethod.GET)
@@ -125,7 +125,7 @@ public class CustomerCenterController {
 		return "/customerCenter/question/questionWriteForm";
 	}
 	
-	// -------------------------- ÀÚÁÖÇÏ´Â Áú¹® ÀÔ·ÂÇÏ±â --------------------------------
+	// -------------------------- ìì£¼í•˜ëŠ” ì§ˆë¬¸ ì…ë ¥í•˜ê¸° --------------------------------
 	@RequestMapping(value="/question/insertQuestion", method=RequestMethod.GET)
 	public String insertQuestion(QuestionVo questionVo, HttpSession session) throws Exception {
 //		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
@@ -136,23 +136,23 @@ public class CustomerCenterController {
 		return "redirect:/customerCenter/question/questionContent";
 	}
 	
-	// ------------------------ ÀÚÁÖÇÏ´Â Áú¹® ÀÔ·ÂÇÑ µ¥ÀÌÅ¸ ¸®½ºÆ®¿¡ º¸¿©ÁÖ±â ---------------------
+	// ------------------------ ìì£¼í•˜ëŠ” ì§ˆë¬¸ ì…ë ¥í•œ ë°ì´íƒ€ ë¦¬ìŠ¤íŠ¸ì— ë³´ì—¬ì£¼ê¸° ---------------------
 	@RequestMapping(value="/question/questionContent", method=RequestMethod.GET)
 	public String questionListAll(Model model, PagingDto pagingDto) throws Exception {
 		int count = questionService.questionListCount(pagingDto);
 		pagingDto.setTotalCount(count);
 		pagingDto.setPagingInfo();
 		List<QuestionVo> questionList = questionService.getQuestionList(pagingDto);
-		System.out.println("CustomerCenterController, questionListAll, questionList:" + questionList);
+//		System.out.println("CustomerCenterController, questionListAll, questionList:" + questionList);
 		model.addAttribute("questionList", questionList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "customerCenter/question/questionContent";
 	}
 	
-	// ------------------------ ÀÚÁÖÇÏ´Â Áú¹® Ä«Å×°í¸®º° µ¥ÀÌÅ¸ ¸®½ºÆ®¿¡ º¸¿©ÁÖ±â ---------------------
+	// ------------------------ ìì£¼í•˜ëŠ” ì§ˆë¬¸ ì¹´í…Œê³ ë¦¬ë³„ ë°ì´íƒ€ ë¦¬ìŠ¤íŠ¸ì— ë³´ì—¬ì£¼ê¸° ---------------------
 		@RequestMapping(value="/question/questionListOfCategory/{question_category}", method=RequestMethod.POST)
 		public String getQuestionListOfCategory(@PathVariable int question_category, Model model) throws Exception {
-			System.out.println("getQuestionListOfCategory question_category :" + question_category);
+//			System.out.println("getQuestionListOfCategory question_category :" + question_category);
 			List<QuestionVo> questionListOfCategory = questionService.getQuestionListOfCategory(question_category);
 //			System.out.println("CustomerCenterController,questionListOfCategory:" + questionListOfCategory);
 			model.addAttribute("questionListOfCategory", questionListOfCategory);
@@ -160,21 +160,21 @@ public class CustomerCenterController {
 		}
 	
 	
-	// -------------------  ÀÚÁÖÇÏ´Â Áú¹® ¸®½ºÆ®¿¡ ÇØ´çÇÏ´Â ´äº¯±Û ¹Ş¾Æ¿À±â --------------------
+	// -------------------  ìì£¼í•˜ëŠ” ì§ˆë¬¸ ë¦¬ìŠ¤íŠ¸ì— í•´ë‹¹í•˜ëŠ” ë‹µë³€ê¸€ ë°›ì•„ì˜¤ê¸° --------------------
 		@RequestMapping(value="/question/questionAnswer/{question_no}", method=RequestMethod.GET)
 		public String questionAnswer(@PathVariable("question_no") int question_no, Model model) throws Exception{
-			System.out.println("questionAnswer question_no  :" + question_no);
+//			System.out.println("questionAnswer question_no  :" + question_no);
 			QuestionVo questionVo = questionService.selectQuestion(question_no);
 			model.addAttribute("questionVo", questionVo);
-			System.out.println("questionAnswer questionVo :" + questionVo);
+//			System.out.println("questionAnswer questionVo :" + questionVo);
 			return "customerCenter/question/questionAnswer";
 		}
 			
 		
-		// --------------------------  ÀÚÁÖÇÏ´Â Áú¹® ¼öÁ¤ÇÏ±â	 -------------------------
+		// --------------------------  ìì£¼í•˜ëŠ” ì§ˆë¬¸ ìˆ˜ì •í•˜ê¸°	 -------------------------
 		@RequestMapping(value="/question/updateQuestion", method=RequestMethod.POST)
 		public String updateQuestion(QuestionVo questionVo) throws Exception {
-			System.out.println("updateQuestion, questionVo: " + questionVo);
+//			System.out.println("updateQuestion, questionVo: " + questionVo);
 			questionService.updateQuestion(questionVo);
 //			rttr.addFlashAttribute("msg", "updateSuccess");
 			
@@ -182,7 +182,7 @@ public class CustomerCenterController {
 		}
 		
 		
-		// ----------------------- ÀÚÁÖÇÏ´Â Áú¹® »èÁ¦ÇÏ±â ----------------------------------------
+		// ----------------------- ìì£¼í•˜ëŠ” ì§ˆë¬¸ ì‚­ì œí•˜ê¸° ----------------------------------------
 		
 		@RequestMapping(value="/question/deleteQuestion", method=RequestMethod.GET)
 		public String deleteQuestion(int question_no) throws Exception {
@@ -191,12 +191,9 @@ public class CustomerCenterController {
 		}
 		
 		
-//  -------------------------  1 : 1 ¹®ÀÇ °ü·Ã ---------------------------------------------------
+//  -------------------------  1 : 1 ë¬¸ì˜ ê´€ë ¨ ---------------------------------------------------
 		
-		@RequestMapping(value="/questionOne/questionOneContent")
-		public String questionOneListAll() throws Exception{
-			return "/customerCenter/questionOne/questionOneContent";
-		}
+		
 		
 		@RequestMapping(value="/questionOne/questionOneWrite")
 		public String questionOneWrite() throws Exception{
@@ -204,21 +201,40 @@ public class CustomerCenterController {
 		}
 		
 		
-		// -------------------------- 1:1 ¹®ÀÇ ÀÔ·ÂÇÏ±â --------------------------------
+		// -------------------------- 1:1 ë¬¸ì˜ ì…ë ¥í•˜ê¸° --------------------------------
 		@RequestMapping(value="/questionOne/insertOuestionOne", method=RequestMethod.POST)
 		public String insertQuestionOne(QuestionOneVo questionOneVo, HttpSession session) throws Exception {
 //			MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
-			
+		
 //			commentVo.setUser_id(memberVo.getUser_id());
 //			System.out.println("noticeVo:" + noticeVo);
 			System.out.println("insertQuestionOne questionOneVo:" + questionOneVo);
 			questionOneService.insertQuestionOne(questionOneVo);
 		
-			
 			return "redirect:/customerCenter/questionOne/questionOneContent";
 		}
 		
+//		-------------------- 1:1 ë¬¸ì˜ ë°ì´íƒ€ ë¦¬ìŠ¤íŠ¸ì— ë³´ì—¬ì£¼ê¸° -------------------------
+		@RequestMapping(value="/questionOne/questionOneContent", method=RequestMethod.GET)
+		public String questionOneListAll(Model model) throws Exception {
+			
+//			List<NoticeVo> noticeList = noticeService.noticeList(pagingDto);
+			List<QuestionOneVo> questionOneList = questionOneService.getQuestionOneList();
+			
+//			System.out.println("CustomerCenterController, listAll, noticeList:" + noticeList);
+			model.addAttribute("questionOneList", questionOneList);
+			return "/customerCenter/questionOne/questionOneContent";
+		}
 		
+		// -------------------  1:1 ë¬¸ì˜ ë¦¬ìŠ¤íŠ¸ì— í•´ë‹¹í•˜ëŠ” ë‹µë³€ê¸€ ë°›ì•„ì˜¤ê¸° --------------------
+				@RequestMapping(value="/questionOne/questionOneAnswer/{q_o_no}", method=RequestMethod.GET)
+				public String questionOneAnswer(@PathVariable("q_o_no") int q_o_no, Model model) throws Exception{
+					System.out.println("questionOneAnswer q_o_no  :" + q_o_no);
+					QuestionOneVo questionOneVo = questionOneService.selectQuestionOne(q_o_no);
+					model.addAttribute("questionOneVo", questionOneVo);
+					System.out.println("questionAnswer questionOneVo :" + questionOneVo);
+					return "customerCenter/questionOne/questionOneAnswer";
+				}
 		
 		
 }

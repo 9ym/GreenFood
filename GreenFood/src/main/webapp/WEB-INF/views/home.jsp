@@ -524,7 +524,7 @@ ${testVo.user_id}
 				<li><a href="/product/menu/new">신상품</a></li>
 				<li><a href="/product/menu/best">추천상품</a></li>
 				<li><a href="/product/menu/sale">세일상품</a></li>
-				<li><a href="#">후기모음</a></li>
+				<li><a href="/review/reviewMain">후기모음</a></li>
 				<li><a href="/main/event/eventMain">이벤트</a></li>
 			</ul>
 			<div id="header_menu_right">
