@@ -5,9 +5,10 @@
 <style>
 .footer-row {
 	border-top:1px solid Gainsboro;
+	margin-top : 50px;
 }
 .footerArea {
-	padding: 20px 20px;
+	padding: 40px 20px;
 /* 	position: absolute; */
   	bottom: 10px;
 }

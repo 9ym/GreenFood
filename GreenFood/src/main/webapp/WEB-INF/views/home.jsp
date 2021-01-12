@@ -97,9 +97,11 @@ function topClose() {
 <!-- 스크립트 끝 -->
 
 <title>ܤܤ그린푸드ܤܤ</title>
+<!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+<!-- <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> -->
+<!-- <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet"> -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
 
 <!-- 스타일 -->
 <style>
@@ -155,6 +157,10 @@ ul li a{ text-decoration:none; }
 		font-weight:bold;
 		font-size:30px;
 	} */
+	
+	* {
+		font-family: 'Noto Sans', sans-serif;
+	}
 	
 	#header_menu_out {
 		margin-top : 80px;
@@ -236,7 +242,8 @@ ul li a{ text-decoration:none; }
 		color:#6ca435;
 	}
 	#header_menu ul a{
-		font-family: 'Nanum Gothic', sans-serif;
+/* 		font-family: 'Nanum Gothic', sans-serif; */
+		font-family: 'Noto Sans', sans-serif;
 		color:black;
 		font-weight:bold;
 	}
@@ -507,6 +514,7 @@ ${testVo.user_id}
 			<a id="a-join" href="/main/memberJoinForm">회원가입</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 		 	</c:otherwise>
 		</c:choose>	
+		<a href="/order/cart" id="anchorCart">장바구니</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 		<a href="#">주문배송</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 		<a href="/customerCenter/customerCenterMain">고객센터</a>
 	</div>
