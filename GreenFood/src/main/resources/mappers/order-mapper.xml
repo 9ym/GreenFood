@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.greenfood.order">
+
+	<!-- 장바구니  cart -->
+	
+	<!-- 장바구니에 상품 1개 넣기 -->
+	<insert id="createCart">
+		insert into tbl_cart (cart_no, user_id, product_code, cart_quantity)
+		values (seq_cart_no.nextval, #{user_id}, #{product_code}, #{cart_quantity})
+	</insert>
+	
+	<!-- 장바구니 7일치, 불러오기 -->
+	<select id="getCartList" resultType="CartDto">
+		<![CDATA[
+			select * from tbl_cart
+			where sysdate - 7 <= cart_date
+			and user_id = #{user_id}
+			order by cart_date desc
+		]]>
+	</select>
+	
+	<!-- 장바구니 7일치, 안에 중복 상품 있는지 -->
+	<select id="findDup" resultType="CartDto">
+		<![CDATA[
+			select * from tbl_cart
+			where sysdate - 7 <= cart_date
+			and user_id = #{user_id}
+			and product_code = #{product_code}
+		]]>
+	</select>
+	
+	<!-- 장바구니 7일치, 중복 상품 : 수량, 생성일 업데이트 -->
+	<update id="updateDup">
+		update tbl_cart set
+			cart_quantity = #{cart_quantity},
+			cart_date = sysdate
+		where cart_no = #{cart_no}
+	</update>
+	
+	<!-- 장바구니 목록에 같은 상품 중복 있으면, 수량 더해주고 생성일 변경하고, ... 트랜지션 해야 함?? -->
+	
+	<!-- 관리자 admin : ?일 이전에 생긴 tbl_cart 삭제 ?? -->
+	<delete id="deleteCart">
+		<![CDATA[
+			delete from tbl_from
+			where sysdate -30 >= cart_date
+		]]>
+	</delete>
+	
+	
+	<!-- 주문 order -->
+	
+
+</mapper>
