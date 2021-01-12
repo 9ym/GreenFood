@@ -26,11 +26,6 @@
 			select count(*) from tbl_question
 		</select>
 		
-	<!-- 글 선택 -->
-	<!-- <select id="selectQuestion" resultType="QuestionVo">
-		select * from tbl_question
-		where question_no = #{question_no}
-	</select> -->
 	
 	<!-- 글 선택 카테고리 값 까지 받아오기-->
 	<select id="selectQuestion" resultType="QuestionVo">
@@ -43,12 +38,15 @@
             and question_no = #{question_no}
 	</select>
 	
-	<!-- category 조인하기 해서 카테고리 받아오기 -->
+	<!-- 글목록 받아오기 에서 category 조인하기 해서 카테고리 이름까지 같이 받아오기 -->
 	<select id="getQuestionList" resultType="QuestionVo">
-		select q.* , c.question_category_dsc
-		from tbl_question q, tbl_question_category c
-		where q.question_category = c.question_category
-		order by question_no desc
+		select * from           
+				(select rownum rnum, q.* from (select * from (
+					select q.* , c.question_category_dsc 
+                    from tbl_question q, tbl_question_category c
+					where q.question_category = c.question_category) 
+                    order by question_no desc) q)
+				where rnum between #{startRow} and #{endRow}
 	</select>
 	
 	

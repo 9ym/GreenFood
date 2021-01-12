@@ -69,5 +69,23 @@ public class ReviewController {
 		System.out.println("reviewContent reviewVo :" + reviewVo);
 		return "review/reviewContent";
 	}
+	
+	// --------------------------  후기 수정하기	 -------------------------
+	@RequestMapping(value="/updateReview", method=RequestMethod.POST)
+	public String updateReview(ReviewVo reviewVo) throws Exception {
+		System.out.println("ReviewController updateReview, reviewVo: " + reviewVo);
+		reviewService.updateReview(reviewVo);
+//		rttr.addFlashAttribute("msg", "updateSuccess");
+						
+		return "redirect:/review/reviewMain";
+	}
 
+	// ----------------------- 후기 삭제하기 ----------------------------------------
+	
+	@RequestMapping(value="/deleteReview", method=RequestMethod.GET)
+	public String deleteReview(int review_no) throws Exception {
+		reviewService.deleteReview(review_no);
+		return "redirect:/review/reviewMain";
+	}
+			
 }

@@ -27,7 +27,7 @@ public class QuestionOneDaoImpl implements QuestionOneDao {
 	public List<QuestionOneVo> getQuestionOneList() throws Exception {
 		
 		List<QuestionOneVo> questionOneList = sqlSession.selectList(NAMESPACE + "getQuestionOneList");
-		System.out.println("QuestionOneDaoImpl, getQuestionOneList, questionOneList :" + questionOneList);
+//		System.out.println("QuestionOneDaoImpl, getQuestionOneList, questionOneList :" + questionOneList);
 		return questionOneList;
 	}
 
@@ -36,5 +36,28 @@ public class QuestionOneDaoImpl implements QuestionOneDao {
 		QuestionOneVo questionOneVo = sqlSession.selectOne(NAMESPACE + "selectQuestionOne", q_o_no);
 		return questionOneVo;
 	}
+
+	@Override
+	public void updateQuestionOne(QuestionOneVo questionOneVo) throws Exception {
+		sqlSession.update(NAMESPACE + "updateQuestionOne", questionOneVo);
+		
+	}
+	
+//	-------------- 답변 넣기 ----------------
+	@Override
+	public void updateQuestionOneAnswer(QuestionOneVo questionOneVo) throws Exception {
+		sqlSession.update(NAMESPACE + "updateQuestionOneAnswer", questionOneVo);
+		
+	}
+	
+	@Override
+	public void deleteQuestionOne(int q_o_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "deleteQuestionOne", q_o_no);
+		
+	}
+
+	
+
+	
 
 }

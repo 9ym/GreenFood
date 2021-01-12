@@ -18,20 +18,20 @@ $(function(){
 	});
 	
 	// ---------------- 수정 버튼 누르면 수정할수 있게 -------------------------	
-// 	 $("#btnUpdateQuestion").click(function() {
-// 		$(".update").prop("readonly", false); // 제목, 내용 입력 읽기 전용 제거
-// 		$(this).hide("slow"); // "fast", "normal", "slow"
-// 		$("#btnUpdateFinish").show(1000); // millisecond
-// 	});
+	 $("#btnUpdateReview").click(function() {
+		$(".update").prop("readonly", false); // 제목, 내용 입력 읽기 전용 제거
+		$(this).hide("slow"); // "fast", "normal", "slow"
+		$("#btnUpdateFinish").show(1000); // millisecond
+	});
 	 
 // --------------------- 수정 후 수정완료 누르면 입력한 값 넘겨주기 -----------------------
-// 	$("#btnUpdateFinish").click(function() {
-// 		var questino_title = $("#question_title").val(); // title 입력한 값 지정
-// 		var question_content = $("#question_content").val(); // content 입력한 값 지정
-// 		$("#frmUpdate > input[type=hidden]").eq(1).val(questino_title); // 붙여넣기
-// 		$("#frmUpdate > input[type=hidden]").eq(2).val(question_content); // 붙여넣기
-// 		$("#frmUpdate").submit(); // 서밋 해 줘야함..
-// 	});
+	$("#btnUpdateFinish").click(function() {
+		var review_title = $("#review_title").val(); // title 입력한 값 지정
+		var review_content = $("#review_content").val(); // content 입력한 값 지정
+		$("#frmReviewUpdate > input[type=hidden]").eq(1).val(review_title); // 붙여넣기
+		$("#frmReviewUpdate > input[type=hidden]").eq(2).val(review_content); // 붙여넣기
+		$("#frmReviewUpdate").submit(); // 서밋 해 줘야함..
+	});
 	
 });
 </script>
@@ -96,16 +96,15 @@ table {
 .tableView th {
     width: 130px;
     padding: 13px 0 13px 0;
-    background-color: #39D070;
+    background-color: #81c80f;
     border-top: 1px solid #f4f4f4;
     text-align: center;
 }
 
 .reviewContent {
-	padding: 10px;
+	
 	height: auto;
 	valign: top;
-	border-bottom-style: groove;
 	border-width: 1px;
 	border-color: #6ca435;
 	
@@ -147,11 +146,10 @@ table {
 								<tr>
 									<th>제목</th>
 									<td colspan="5">
-									<%-- <input type="text" style="background-color: white" style="border: none"
-										class="form-control update" id="q_o_title" 
-										placeholder="제목을 입력해주세요" value="${questionOneVo.q_o_title}" readonly
-										required /> --%>
-									${reviewVo.review_title}
+									<input type="text" style="background-color: white" style="border: none"
+										class="form-control update" id="review_title"  name="review_title"
+										placeholder="제목을 입력해주세요" value="${reviewVo.review_title}" readonly
+										required />
 									</td>
 									</tr>
 								<tr>
@@ -167,10 +165,10 @@ table {
 						</table>
 						<!-- <div class="noticeContent"> -->
 						<div class="reviewContent">
-						<div class="contentArea" style="margin-top: 15px; border-style:solid; border-width: 1px; border-color: #39d070 ">
-							<%-- <textarea style="background-color: white" style="border: none" class="form-control update" id="q_o_content"
-							placeholder="내용을 입력해주세요." readonly>${questionOneVo.q_o_content}</textarea> --%>
-							<p style="padding-top: 10px;">${reviewVo.review_content}</p>
+						<div class="contentArea" style="margin-top: 15px;">
+							<textarea style="padding-top: 10px; background-color: white" style="border: none" class="form-control update" 
+							id="review_content" name="review_content" placeholder="내용을 입력해주세요." readonly>${reviewVo.review_content}</textarea>
+							
 						</div>
 						</div>
 					</div>
@@ -182,20 +180,20 @@ table {
 	
 	<div>
 	<div class="btnList" >
-		<button type="submit" id="btnList" class="btn btn-success">후기 목록</button>
-		<!-- <button type="button" id="btnUpdateQuestion" class="btn btn-warning" style="margin-left: 10px">수정</button> -->
+		<button type="submit" id="btnList" style="" class="btn btn-success">목록</button>
+		<button type="button" id="btnUpdateReview" class="btn btn-warning" style="margin-left: 10px">수정</button>
 		
-		<%-- <form id="frmUpdate" action="/customerCenter/question/updateQuestion" method="POST">
-			<input type="hidden" name="question_no" class="btn btn-warning" value="${questionVo.question_no }"/>
-			<input type="hidden" name="question_title" class="btn btn-warning"/>
-			<input type="hidden" name="question_content" class="btn btn-warning"/>
+		<form id="frmReviewUpdate" action="/review/updateReview" method="POST">
+			<input type="hidden" name="review_no" class="btn btn-warning" value="${reviewVo.review_no }"/>
+			<input type="hidden" name="review_title" class="btn btn-warning"/>
+			<input type="hidden" name="review_content" class="btn btn-warning"/>
 			<button type="button" id="btnUpdateFinish" class="btn btn-warning" style="margin-left: 10px; display: none;">수정완료</button>
-		</form> --%>
+		</form>
 		
-		<%-- <form action="/customerCenter/question/deleteQuestion" method="get">
-			<input type="hidden" name="question_no" class="btn btn-danger" value="${questionVo.question_no }"/>
-			<button type="submit" id="btnDeleteQuestion" class="btn btn-danger" style="margin-left: 10px">삭제</button>
-		</form> --%>
+		<form action="/review/deleteReview" method="get">
+			<input type="hidden" name="review_no" class="btn btn-danger" value="${reviewVo.review_no }"/>
+			<button type="submit" id="btnDeleteReview" class="btn btn-danger" style="margin-left: 10px">삭제</button>
+		</form>
 		
 	</div>
 	</div>

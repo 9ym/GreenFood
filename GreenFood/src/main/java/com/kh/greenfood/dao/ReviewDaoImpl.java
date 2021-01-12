@@ -55,5 +55,21 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	
+	@Override
+	public void updateReview(ReviewVo reviewVo) throws Exception {
+		sqlSession.update(NAMESPACE + "updateReview", reviewVo);
+		
+	}
+
+	@Override
+	public void deleteReview(int review_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "deleteReview", review_no);
+		
+	}
+
+
+	
+
+	
 
 }

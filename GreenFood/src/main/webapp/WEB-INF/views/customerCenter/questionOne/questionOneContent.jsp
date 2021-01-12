@@ -341,9 +341,18 @@ $(function(){
 																	</td>
 																	<td>${questionOneVo.q_o_writer }</td>
 																	<td>${questionOneVo.q_o_date }</td>
-																	<td><!-- <span class="badge badge-success">처리중</span> -->
+																	<td>
 																	
-																	<a style="color: white" class="badge badge-success" href="#">답변완료</a>
+																		<c:choose>
+																			<c:when test="${questionOneVo.q_o_answer == null}">
+																				<span style="color: white" class="badge badge-success">답변중</span>
+																			</c:when>
+																			<c:otherwise>
+																				<span style="color: white" class="badge badge-primary">답변완료</span>
+																			</c:otherwise> 
+																		</c:choose>
+																	
+																	
 																	</td>
 																	
 																	
@@ -361,7 +370,7 @@ $(function(){
 								
 								<table width=100%>
 									<tr>
-										<td align=center style="padding-top: 10px; padding-bottom:50px; border: none;"id="avoidDbl">
+										<td align=center style="padding-top: 10px; padding-bottom:50px; border: none;" id="avoidDbl">
 										<input type="submit" id="btnQuestionOneWrite" class="bhs_button yb" value="문의사항 작성하기" style="float: none; width: 170px;">
 										</td>
 									</tr>

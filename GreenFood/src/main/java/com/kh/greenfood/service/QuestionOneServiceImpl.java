@@ -32,6 +32,30 @@ public class QuestionOneServiceImpl implements QuestionOneService {
 		System.out.println("QuestionOneServiceImpl selectQuestionOne questinoOneVo : " + questinoOneVo ) ;
 		return questinoOneVo;
 	}
+	
+	@Override
+	public void updateQuestionOne(QuestionOneVo questionOneVo) throws Exception {
+		questionOneDao.updateQuestionOne(questionOneVo);
+		
+	}
+
+//	---------------------- 답변 넣기 --------------------------
+	@Override
+	public void updateQuestionOneAnswer(QuestionOneVo questionOneVo) throws Exception {
+		System.out.println("QuestionOneServiceImpl updateQuestionOneAnswer questionOneVo : " + questionOneVo);
+		questionOneDao.updateQuestionOneAnswer(questionOneVo);
+		
+	}
+	
+	@Override
+	public void deleteQuestionOne(int q_o_no) throws Exception {
+		questionOneDao.deleteQuestionOne(q_o_no);
+		
+	}
+
+
+
+	
 
 
 }

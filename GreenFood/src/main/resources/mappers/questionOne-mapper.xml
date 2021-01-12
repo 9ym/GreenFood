@@ -42,4 +42,27 @@
 		and q_o_no = #{q_o_no} 
 	</select>
 	
+	<!-- 수정 -->
+	<update id="updateQuestionOne">
+		update tbl_question_one set
+			q_o_title = #{q_o_title},
+			q_o_content = #{q_o_content}
+			where q_o_no = #{q_o_no} 
+	</update>
+	
+	<!-- 글에 답변 넣기(수정) -->
+	<update id="updateQuestionOneAnswer">
+		update tbl_question_one set
+			q_o_answer = #{q_o_answer}
+			where q_o_no = #{q_o_no} 
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteQuestionOne">
+		delete from tbl_question_one
+			where q_o_no = #{q_o_no} 
+	</delete>
+	
+	
+	
 </mapper>

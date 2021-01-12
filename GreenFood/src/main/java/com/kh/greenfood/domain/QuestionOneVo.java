@@ -16,7 +16,14 @@ public class QuestionOneVo {
 	private String q_o_image;
 	private String q_o_ok;
 	private String question_category_dsc;
+	private String q_o_answer;
 
+	public String getQ_o_answer() {
+		return q_o_answer;
+	}
+	public void setQ_o_answer(String q_o_answer) {
+		this.q_o_answer = q_o_answer;
+	}
 	public int getQ_o_no() {
 		return q_o_no;
 	}
@@ -95,9 +102,8 @@ public class QuestionOneVo {
 				+ q_o_order_code + ", q_o_title=" + q_o_title + ", q_o_content=" + q_o_content + ", q_o_writer="
 				+ q_o_writer + ", q_o_email=" + q_o_email + ", q_o_phone=" + q_o_phone + ", q_o_date=" + q_o_date
 				+ ", q_o_image=" + q_o_image + ", q_o_ok=" + q_o_ok + ", question_category_dsc=" + question_category_dsc
-				+ "]";
+				+ ", q_o_answer=" + q_o_answer + "]";
 	}
-	
 	
 	
 }

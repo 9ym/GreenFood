@@ -227,14 +227,57 @@ public class CustomerCenterController {
 		}
 		
 		// -------------------  1:1 문의 리스트에 해당하는 답변글 받아오기 --------------------
-				@RequestMapping(value="/questionOne/questionOneAnswer/{q_o_no}", method=RequestMethod.GET)
-				public String questionOneAnswer(@PathVariable("q_o_no") int q_o_no, Model model) throws Exception{
-					System.out.println("questionOneAnswer q_o_no  :" + q_o_no);
-					QuestionOneVo questionOneVo = questionOneService.selectQuestionOne(q_o_no);
-					model.addAttribute("questionOneVo", questionOneVo);
-					System.out.println("questionAnswer questionOneVo :" + questionOneVo);
-					return "customerCenter/questionOne/questionOneAnswer";
-				}
+		@RequestMapping(value="/questionOne/questionOneAnswer/{q_o_no}", method=RequestMethod.GET)
+		public String questionOneAnswer(@PathVariable("q_o_no") int q_o_no, Model model) throws Exception{
+			System.out.println("questionOneAnswer q_o_no  :" + q_o_no);
+			QuestionOneVo questionOneVo = questionOneService.selectQuestionOne(q_o_no);
+			model.addAttribute("questionOneVo", questionOneVo);
+			System.out.println("questionAnswer questionOneVo :" + questionOneVo);
+			return "customerCenter/questionOne/questionOneAnswer";
+		}
 		
+		// ---------------------- 1:1 문의에 대한 답변 창 나타내기 ----------------------------
+		@RequestMapping(value="/questionOne/questionOneAnswerWrite/{q_o_no}", method=RequestMethod.GET)
+		public String questionOneAnswerWrite(@PathVariable("q_o_no") int q_o_no, Model model) throws Exception{
+			System.out.println("questionOneAnswerWrite q_o_no  :" + q_o_no);
+			QuestionOneVo questionOneVo = questionOneService.selectQuestionOne(q_o_no);
+			model.addAttribute("questionOneVo", questionOneVo);
+			System.out.println("questionOneAnswerWrite questionOneVo :" + questionOneVo);
+			return "customerCenter/questionOne/questionOneAnswerWrite";
+		}
+		
+//		@RequestMapping(value="/questionOne/questionOneAnswerWrite")
+//		public String questionOneAnswerWrite() throws Exception{
+//			return "/customerCenter/questionOne/questionOneAnswerWrite";
+//		}
+		
+		// --------------------------  1:1 문의 수정하기	 -------------------------
+		@RequestMapping(value="/questionOne/updateQuestionOne", method=RequestMethod.POST)
+		public String updateQuestionOne(QuestionOneVo questionOneVo) throws Exception {
+			System.out.println("updateQuestionOne, questionOneVo: " + questionOneVo);
+			questionOneService.updateQuestionOne(questionOneVo);
+//			rttr.addFlashAttribute("msg", "updateSuccess");
+					
+			return "redirect:/customerCenter/questionOne/questionOneContent";
+		}
+		
+		// --------------------------  1:1 문의 답변 넘겨주기	 -------------------------
+		@RequestMapping(value="/questionOne/updateQuestionOneAnswer", method=RequestMethod.POST)
+		public String updateQuestionOneAnswer(QuestionOneVo questionOneVo) throws Exception {
+			System.out.println("CustomerCenterController updateQuestionOneAnswer, questionOneVo: " + questionOneVo);
+			questionOneService.updateQuestionOneAnswer(questionOneVo);
+//			rttr.addFlashAttribute("msg", "updateSuccess");
+							
+			return "redirect:/customerCenter/questionOne/questionOneContent";
+		}
+		
+		
+		// ----------------------- 1:1 문의 삭제하기 ----------------------------------------
+		
+		@RequestMapping(value="/questionOne/deleteQuestionOne", method=RequestMethod.GET)
+		public String deleteQuestionOne(int q_o_no) throws Exception {
+			questionOneService.deleteQuestionOne(q_o_no);
+			return "redirect:/customerCenter/questionOne/questionOneContent";
+		}
 		
 }

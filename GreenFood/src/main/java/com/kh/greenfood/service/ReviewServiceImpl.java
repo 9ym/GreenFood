@@ -42,6 +42,20 @@ public class ReviewServiceImpl implements ReviewService {
 		int count = reviewDao.reviewListCount(pagingDto);
 		return count;
 	}
+	
+	@Override
+	public void updateReview(ReviewVo reviewVo) throws Exception {
+		reviewDao.updateReview(reviewVo);
+		
+	}
+
+	@Override
+	public void deleteReview(int review_no) throws Exception {
+		reviewDao.deleteReview(review_no);
+		
+	}
+
+	
 
 	
 	
