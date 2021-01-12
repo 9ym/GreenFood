@@ -31,6 +31,7 @@ $(function(){
 	$("#boardNames").text("로그인");/* 게시판 이름 */
 	
 	var msg = "${msg}";
+	console.log(msg);
 	if(msg == "loginFail"){
 		alert("로그인 실패");
 	} else if(msg == "memberJoinSuccess"){

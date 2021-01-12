@@ -104,6 +104,46 @@ $(function() {
 	});
 });
 
+/* 장바구니에 상품 넣기 */
+function btnCart(obj) {
+	
+	var testVo = "${sessionScope.testVo}";
+	
+	/* 로그인 됐으면 장바구니 추가 가능 */
+	if (testVo != "") { 
+// 		console.log("not null");
+		var user_id = "${sessionScope.testVo.user_id}";
+		var product_code = "${productVo.product_code}";
+		var cart_quantity = parseInt($("#productCount").val());
+		var sendData = {
+				"user_id" : user_id,
+				"product_code" : product_code, 
+				"cart_quantity" : cart_quantity
+		};
+		var url = "/order/addCart";
+		$.post(url, sendData, function(data) {
+			if (data == "newCart") {
+				alert("장바구니에 상품을 담았습니다.");
+			} else if (data == "dupDart") {
+				alert("이미 담으신 상품이 있어 추가되었습니다.");
+			}
+		});
+	/* 로그인 페이지 강제? 이동 */
+	} else {
+// 		console.log("null");
+		location.href="/main/loginPage";
+	}
+	
+}
+
+/* 바로구매(결제) 이동 */
+/* function btnPay(obj) {
+	var url = "/order/pay";
+	$.get(url, function() {
+		
+	});
+} */
+
 </script>
 
 <style>
@@ -544,8 +584,10 @@ $(function() {
 						<li class="info-btn">
 							<button type="button" class="btn btn-danger btn-sm"
 								style="margin-left:15px; margin-right:5px;">♥</button>
-							<button id="btnBuyNow" type="button" class="btn btn-outline-success">바로구매</button>
-							<button id="btnCart" type="button" class="btn btn-success">장바구니 담기</button>
+							<a id="btnBuyNow" type="button" class="btn btn-outline-success" 
+								href="/order/pay" >바로구매</a>
+							<button id="btnCart" type="button" class="btn btn-success" 
+								onclick="btnCart(this);">장바구니 담기</button>
 						</li>
 					</ul>
 				</div>

@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Cart</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<h1>장바구니</h1>
+	<h1>결제</h1>
 </body>
 </html>

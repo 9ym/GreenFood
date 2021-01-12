@@ -23,3 +23,7 @@
 	<%-- <input type="hidden" name="searchType" value="${pagingDto.searchType}""/>
 	<input type="hidden" name="keyword" value="${pagingDto.keyword}"/> --%>
 </form>
+
+<form id="frmDeleteCustomer" action="/admin/deleteCustomer" method="post">
+	<input type="hidden" name="user_id" value=""/>
+</form>

@@ -33,8 +33,8 @@ public class CustomerController {
 	private MemberService memberService;
 	
 	// 마이페이지 포워드
-	@RequestMapping(value="/customerMyPage")
-	public String customerMyPage(HttpSession session, Model model) throws Exception {
+	@RequestMapping(value="/customerMyPage", method=RequestMethod.GET)
+	public String customerMyPage(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 		TestVo testVo = (TestVo)session.getAttribute("testVo");
 		String user_id = testVo.getUser_id();
 		// 상품 전체보기 카테고리
@@ -82,7 +82,7 @@ public class CustomerController {
 	// 마이페이지 상의 order_code 클릭시 주문상세 내역 보여주기
 	@RequestMapping(value="/customerDetailOrder/{order_code}")
 	public String customerDetailOrder(@PathVariable("order_code") String order_code, Model model)throws Exception{
-		
+		model.addAttribute("order_code", order_code);
 		return "customer/customerDetailOrder";
 	}
 	

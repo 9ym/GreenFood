@@ -44,7 +44,7 @@ $(function(){
 	<!-- 전체 주문 내역 -->
 		<div class="container">
 			<h2>${sessionScope.testVo.user_name}님 주문상세 내역입니다.</h2>
-			
+			<h1>${order_code}</h1>
 		</div>
 	<!-- // 전체 주문 내역끝 -->
 	</div>

@@ -16,20 +16,24 @@
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">										 -->
 
 <title>ܤܤ그린푸드ܤܤ</title>										
-<link rel="preconnect" href="https://fonts.gstatic.com">										
-<link										
-	href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"									
-	rel="stylesheet">									
-<link										
-	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"									
-	rel="stylesheet">									
-	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Roboto&display=swap" rel="stylesheet">									
+<!-- <link rel="preconnect" href="https://fonts.gstatic.com">										 -->
+<!-- <link										 -->
+<!-- 	href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"									 -->
+<!-- 	rel="stylesheet">									 -->
+<!-- <link										 -->
+<!-- 	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"									 -->
+<!-- 	rel="stylesheet">									 -->
+<!-- 	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Roboto&display=swap" rel="stylesheet">	 -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+								
 <style>										
 *:focus { outline:none; }										
 * {										
 	margin: 0;									
 	padding: 0;									
-	font-family: 'Roboto', sans-serif;									
+/* 	font-family: 'Roboto', sans-serif;		 */
+	font-family: 'Noto Sans', sans-serif;							
 }										
 										
 header {										
@@ -171,7 +175,8 @@ ul li a {
 }										
 										
 #header_menu ul a {										
-	font-family: 'Nanum Gothic', sans-serif;									
+/* 	font-family: 'Nanum Gothic', sans-serif;	 */
+	font-family: 'Noto Sans', sans-serif;								
 	color: black;									
 	font-weight: bold;									
 }										
@@ -299,7 +304,8 @@ animation:fade 8s infinite;
 	color:white;									
 	line-height: 50px;									
 	letter-spacing:20px;									
-	font-family: 'Nanum Gothic', sans-serif;									
+/* 	font-family: 'Nanum Gothic', sans-serif;	 */
+	font-family: 'Noto Sans', sans-serif;								
 	font-size:15px;									
 	font-weight:bold;									
 }	
@@ -427,7 +433,14 @@ function topClose() {
 			<c:choose>
 			<c:when test="${not empty sessionScope.testVo }">
 				<a href="/logout">로그아웃</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-				<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+				<c:choose>
+		 		<c:when test="${sessionScope.testVo.user_code == '1001'}">
+		 			<a href="/admin/customerList">회원관리</a>
+		 		</c:when>
+		 		<c:otherwise>		 		
+					<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+		 		</c:otherwise>
+			</c:choose>
 			</c:when>
 			<c:otherwise>
 				<a href="/main/loginPage">로그인 |</a><!-- <img						
@@ -436,9 +449,10 @@ function topClose() {
 					src="https://www.oasis.co.kr/images/common/bg_footer.png"> --> 
 			</c:otherwise>
 			</c:choose>					
-					<a href="#">주문배송 |</a><!-- <img					
-					src="https://www.oasis.co.kr/images/common/bg_footer.png">  -->
-					<a href="/main/customer/customerCenter" id="customerCenter" data="고객센터">고객센터</a>					
+				<a href="#">주문배송 |</a><!-- <img					
+				src="https://www.oasis.co.kr/images/common/bg_footer.png">  -->
+				<a href="/order/cart" id="anchorCart">장바구니</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+				<a href="/main/customer/customerCenter" id="customerCenter" data="고객센터">고객센터</a>					
 			</div>	
 			<div id="header_menu_out">						
 				<div id="header_menu">							

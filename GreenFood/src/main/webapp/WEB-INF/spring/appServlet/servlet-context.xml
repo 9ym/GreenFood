@@ -23,15 +23,17 @@
 	
 	<context:component-scan base-package="com.kh.greenfood" />
 	
-<!-- 	<beans:bean class="com.kh.greenfood.interceptor.AuthInterceptor" id="authInterceptor"></beans:bean> -->
+	<beans:bean class="com.kh.greenfood.interceptor.AuthInterceptor" id="authInterceptor"></beans:bean>
 	
-<!-- 	<interceptors> -->
-<!-- 		<interceptor> -->
-<!-- 			<mapping path="/product/**/*"/> -->
-<!-- 			<exclude-mapping path="/home"/> -->
-<!-- 			<beans:ref bean="authInterceptor"/> -->
-<!-- 		</interceptor> -->
-<!-- 	</interceptors> -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/main/event/*"/>
+			<mapping path="/customer/*"/>
+			<exclude-mapping path="/"/>
+			<exclude-mapping path="/customer/customerMemberJoinForm"/>
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 	<!-- upload -->
     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
