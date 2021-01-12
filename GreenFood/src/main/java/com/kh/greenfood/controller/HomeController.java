@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -78,6 +79,7 @@ public class HomeController {
 	
 	@RequestMapping(value="/loginRun", method=RequestMethod.POST)
 	public String login(String user_id, String user_pw, String checked_id, HttpSession session, RedirectAttributes rttr,Model model, HttpServletResponse response) {
+
 		TestVo testVo = memberService.login(user_id, user_pw);
 
 		String page = "";
@@ -91,23 +93,23 @@ public class HomeController {
 			}
 			response.addCookie(cookie);
 			
+			// 회원 가입일자 간소화 0000-00-00 00:00:00 -> 0000-00-00
 			String user_date = testVo.getUser_date();
 			int lastIndex = user_date.lastIndexOf("-") + 3;
 			String user_join_date = user_date.substring(0, lastIndex);
 			testVo.setUser_date(user_join_date);
-			System.out.println(user_date);
+			// 끝 회원가입일자 간소화
 			session.setAttribute("testVo", testVo);
-//			String targetLocation = (String)session.getAttribute("targetLocation");
-//			session.removeAttribute("targetLocation");
-//			System.out.println(targetLocation);
-//			if(targetLocation != null) {
-//				page = "redirect:" + targetLocation;
-//			} else {
-//			}
-			page = "redirect:/";
+			String dest = (String)session.getAttribute("dest");
+			session.removeAttribute("dest");
+			if(dest != null) {
+				page = "redirect:" + dest;
+			} else {
+				page = "redirect:/";
+			}
 		} else {
 			rttr.addFlashAttribute("msg", "loginFail");
-			page="redirect:main/loginPage";
+			page="redirect:/main/loginPage";
 		}
 		return page;
 	}

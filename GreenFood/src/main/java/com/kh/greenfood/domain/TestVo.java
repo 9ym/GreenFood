@@ -15,6 +15,7 @@ public class TestVo {
 	private int user_level;
 	private String user_code;
 	private String user_date;
+	private String user_deleted;
 	public String getUser_id() {
 		return user_id;
 	}
@@ -36,8 +37,8 @@ public class TestVo {
 	public String getUser_addr1() {
 		return user_addr1;
 	}
-	public void setUser_addr1(String user_add1) {
-		this.user_addr1 = user_add1;
+	public void setUser_addr1(String user_addr1) {
+		this.user_addr1 = user_addr1;
 	}
 	public String getUser_addr2() {
 		return user_addr2;
@@ -87,13 +88,20 @@ public class TestVo {
 	public void setUser_date(String user_date) {
 		this.user_date = user_date;
 	}
-	@Override
-	public String toString() {
-		return "TestVo [user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", user_add1="
-				+ user_addr1 + ", user_addr2=" + user_addr2 + ", user_addr3=" + user_addr3 + ", user_phone=" + user_phone
-				+ ", user_email=" + user_email + ", user_point=" + user_point + ", user_level=" + user_level
-				+ ", user_code=" + user_code + ", user_date=" + user_date + "]";
+	public String getUser_deleted() {
+		return user_deleted;
+	}
+	public void setUser_deleted(String user_deleted) {
+		this.user_deleted = user_deleted;
 	}
 	
+	@Override
+	public String toString() {
+		return "TestVo [user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", user_addr1="
+				+ user_addr1 + ", user_addr2=" + user_addr2 + ", user_addr3=" + user_addr3 + ", user_phone="
+				+ user_phone + ", user_email=" + user_email + ", user_point=" + user_point + ", user_level="
+				+ user_level + ", user_code=" + user_code + ", user_date=" + user_date + ", user_deleted="
+				+ user_deleted + "]";
+	}
 	
 }

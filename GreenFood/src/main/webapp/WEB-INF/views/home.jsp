@@ -500,7 +500,16 @@ ${testVo.user_id}
 		<c:choose>
 			<c:when test="${not empty sessionScope.testVo }">
 		 	<a href="/logout">로그아웃</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-			<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+		 	<!-- 관리자 -->
+		 	<c:choose>
+		 		<c:when test="${sessionScope.testVo.user_code == '1001'}">
+		 			<a href="/admin/customerList">회원관리</a>
+		 		</c:when>
+		 		<c:otherwise>		 		
+					<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+		 		</c:otherwise>
+			</c:choose>
+			<!-- // 관리자 -->
 		 	</c:when>
 			<c:otherwise>
 			<a href="/main/loginPage">로그인</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
