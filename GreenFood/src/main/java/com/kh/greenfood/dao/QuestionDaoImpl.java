@@ -51,18 +51,19 @@ public class QuestionDaoImpl implements QuestionDao {
 		
 	}
 
-	// Ä«Å×°í¸® º° ¸®½ºÆ® ¹Þ¾Æ¿À±â
-	@Override
-	public List<QuestionVo> getQuestionListOfCategory(int question_category) throws Exception {
-		List<QuestionVo> questionListOfCategory = sqlSession.selectList(NAMESPACE + "getQuestionListOfCategory", question_category);
-		return questionListOfCategory;
-	}
-
 	@Override
 	public int questionListCount(PagingDto pagingDto) throws Exception {
 		int count = sqlSession.selectOne(NAMESPACE + "questionListCount", pagingDto);
 //		System.out.println("QuestionDaoImpl ,questionListCount, count :" + count);
 		return count;
+	}
+
+	// // Ä«ï¿½×°ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
+	@Override
+	public List<QuestionVo> getQuestionListCategory(int question_category) {
+		List<QuestionVo> questionListCategory = sqlSession.selectList(NAMESPACE + "getQuestionListCategory", question_category);
+		System.out.println("QuestionDaoImpl ,questionListCategory, questionListCategory :" + questionListCategory);
+		return questionListCategory;
 	}
 
 	

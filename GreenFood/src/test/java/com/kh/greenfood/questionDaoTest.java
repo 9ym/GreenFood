@@ -25,8 +25,8 @@ public class questionDaoTest {
 		QuestionVo questionVo = new QuestionVo();
 		for( int i = 1; i < 100 ; i++) {
 
-			questionVo.setQuestion_title(i + " ¹øÂ° °øÁö»çÇ×ÀÔ´Ï´Ù.");
-			questionVo.setQuestion_content(i + " ¹øÂ° ´äº¯ÀÔ´Ï´Ù.");
+			questionVo.setQuestion_title(i + " ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
+			questionVo.setQuestion_content(i + " ï¿½ï¿½Â° ï¿½äº¯ï¿½Ô´Ï´ï¿½.");
 			questionVo.setQuestion_category(201);
 		
 			questionDao.insertQuestion(questionVo);
@@ -39,8 +39,8 @@ public class questionDaoTest {
 	public void testInsertQuestion() throws Exception {
 		QuestionVo questionVo = new QuestionVo();
 		questionVo.setQuestion_no(100);
-		questionVo.setQuestion_title("ÀÚÁÖÇÏ´Â Áú¹® Á¦¸ñ1");
-		questionVo.setQuestion_content("ÀÚÁÖÇÏ´Â Áú¹® ³»¿ë1");
+		questionVo.setQuestion_title("ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½1");
+		questionVo.setQuestion_content("ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½1");
 		questionDao.insertQuestion(questionVo);
 		System.out.println("testInsertQuestion questionVo : " + questionVo);
 	}
@@ -60,9 +60,9 @@ public class questionDaoTest {
 	}
 	
 	@Test
-	public void testGetQuestionListOfCategory() throws Exception {
-		List<QuestionVo> getQuestionListOfCategory = questionDao.getQuestionListOfCategory(201);
-		System.out.println("getQuestionListOfCategory :" + getQuestionListOfCategory);
+	public void testGetQuestionListCategory() throws Exception {
+		List<QuestionVo> getQuestionListCategory = questionDao.getQuestionListCategory(201);
+		System.out.println("getQuestionListCategory :" + getQuestionListCategory);
 	}
 	
 	

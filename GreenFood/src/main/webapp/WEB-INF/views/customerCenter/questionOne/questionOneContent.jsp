@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="../../include/header.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
@@ -340,9 +341,9 @@ $(function(){
 																		data-bno="${questionOneVo.q_o_no}">${questionOneVo.q_o_title}</a>
 																	</td>
 																	<td>${questionOneVo.q_o_writer }</td>
-																	<td>${questionOneVo.q_o_date }</td>
-																	<td>
+																	<td><fmt:formatDate pattern="yyyy-MM-DD" value="${questionOneVo.q_o_date}"/></td>
 																	
+																	<td>
 																		<c:choose>
 																			<c:when test="${questionOneVo.q_o_answer == null}">
 																				<span style="color: white" class="badge badge-success">답변중</span>

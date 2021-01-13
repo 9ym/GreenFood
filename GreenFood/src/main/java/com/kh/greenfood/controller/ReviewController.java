@@ -1,5 +1,9 @@
 package com.kh.greenfood.controller;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kh.greenfood.domain.PagingDto;
-import com.kh.greenfood.domain.QuestionOneVo;
 import com.kh.greenfood.domain.ReviewVo;
-import com.kh.greenfood.service.QuestionService;
 import com.kh.greenfood.service.ReviewService;
 
 @Controller
@@ -37,6 +39,17 @@ public class ReviewController {
 			
 //		commentVo.setUser_id(memberVo.getUser_id());
 //		System.out.println("noticeVo:" + noticeVo);
+		System.out.println("insert: " +  reviewVo);
+		
+		
+		/*Date review_date = reviewVo.getReview_date();
+		SimpleDateFormat change_date;
+		
+		change_date = new SimpleDateFormat("yyyy-mm-dd");
+		System.out.println("change_date : " + change_date);*/
+		
+		
+		
 		System.out.println("insertReview reviewVo:" + reviewVo);
 		reviewService.insertReview(reviewVo);
 			
@@ -47,11 +60,18 @@ public class ReviewController {
 	@RequestMapping(value="/reviewMain", method=RequestMethod.GET)
 	public String reviewList(Model model, PagingDto pagingDto) throws Exception {
 		
+		// 회원 가입일자 간소화 0000-00-00 00:00:00 -> 0000-00-00
+//			String user_date = reviewVo.getReview_date();
+//			System.out.println("review: " +  user_date);
+//			int lastIndex = user_date.lastIndexOf("-") + 3;
+//			String user_join_date = user_date.substring(0, lastIndex);
+//			reviewVo.setReview_date(user_join_date);
+//				
+				
 		int count = reviewService.reviewListCount(pagingDto);
 		pagingDto.setTotalCount(count);
 		pagingDto.setPagingInfo();
 		
-//		List<NoticeVo> noticeList = noticeService.noticeList(pagingDto);
 		List<ReviewVo> reviewList = reviewService.getReviewList(pagingDto);
 		
 		System.out.println("CustomerCenterController, reviewList, reviewList:" + reviewList);

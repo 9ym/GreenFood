@@ -113,15 +113,17 @@
 								</div>
 								<div class="radio-button">
 								<input type="radio" class="question" name="question_category" id="member" value="201" checked/>
-								<label for="member">회원문의  </label>	
+								<label for="member" style="padding-left: 5px;padding-right: 40px;">회원문의  </label>	
 								<input type="radio" class="question" name="question_category" id="order" value="202"/>
-								<label for="order">주문/결제  </label>
+								<label for="order" style="padding-left: 5px;padding-right: 40px;">주문/결제  </label>
 								<input type="radio" class="question" name="question_category" id="cancel" value="203"/>
-								<label for="cancel">취소/교환/반품  </label>
+								<label for="cancel" style="padding-left: 5px;padding-right: 40px;">취소/교환/반품  </label>
+								<input type="radio" class="question" name="question_category" id="delivery" value="204"/>
+								<label for="cancel" style="padding-left: 5px;padding-right: 60px;">배송관련  </label>
 								<input type="radio" class="question" name="question_category" id="point" value="205"/>
-								<label for="point">쿠폰/적립금  </label>
+								<label for="point" style="padding-left: 5px;padding-right: 20px;">쿠폰/적립금  </label>
 								<input type="radio" class="question" name="question_category" id="use" value="206"/>
-								<label for="use">이용 및 기타  </label>
+								<label for="use" style="padding-left: 5px;padding-right: 40px;">이용 및 기타  </label>
 								</div>
 							</div>
 						

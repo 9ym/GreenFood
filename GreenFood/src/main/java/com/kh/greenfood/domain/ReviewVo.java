@@ -12,13 +12,6 @@ public class ReviewVo {
 	private String review_title;
 	private int review_readcount;
 	private String review_image;
-	
-	public String getReview_image() {
-		return review_image;
-	}
-	public void setReview_image(String review_image) {
-		this.review_image = review_image;
-	}
 	public String getUser_id() {
 		return user_id;
 	}
@@ -61,11 +54,19 @@ public class ReviewVo {
 	public void setReview_readcount(int review_readcount) {
 		this.review_readcount = review_readcount;
 	}
+	public String getReview_image() {
+		return review_image;
+	}
+	public void setReview_image(String review_image) {
+		this.review_image = review_image;
+	}
 	@Override
 	public String toString() {
 		return "ReviewVo [user_id=" + user_id + ", order_code=" + order_code + ", review_no=" + review_no
 				+ ", review_content=" + review_content + ", review_date=" + review_date + ", review_title="
 				+ review_title + ", review_readcount=" + review_readcount + ", review_image=" + review_image + "]";
 	}
+	
+	
 	
 }

@@ -206,20 +206,35 @@ table {
 	<div>
 	<div class="btnList" >
 		<button type="submit" id="btnList" class="btn btn-success">목록</button>
-		<button type="button" id="btnAnswer" class="btn btn-primary" href="#" data-bno="${questionOneVo.q_o_no}">답변하기</button>
-		<button type="button" id="btnUpdateQuestionOne" class="btn btn-warning" style="margin-left: 10px">수정</button>
 		
-		<form id="frmUpdate" action="/customerCenter/questionOne/updateQuestionOne" method="POST">
-			<input type="hidden" name="q_o_no" class="btn btn-warning" value="${questionOneVo.q_o_no }"/>
-			<input type="hidden" name="q_o_title" class="btn btn-warning"/>
-			<input type="hidden" name="q_o_content" class="btn btn-warning"/>
-			<button type="button" id="btnUpdateFinish" class="btn btn-warning" style="margin-left: 10px; display: none;">수정완료</button>
-		</form>
+		<c:choose>
+			<c:when test="${questionOneVo.q_o_answer == null}">
+				<button type="button" id="btnAnswer" class="btn btn-primary" href="#" data-bno="${questionOneVo.q_o_no}">답변하기</button>
+				<button type="button" id="btnUpdateQuestionOne" class="btn btn-warning" style="margin-left: 10px">수정</button>
 		
-		<form action="/customerCenter/questionOne/deleteQuestionOne" method="get">
-			<input type="hidden" name="q_o_no" class="btn btn-danger" value="${questionOneVo.q_o_no }"/>
-			<button type="submit" id="btnDeleteQuestionOne" class="btn btn-danger" style="margin-left: 10px">삭제</button>
-		</form>
+				<form id="frmUpdate" action="/customerCenter/questionOne/updateQuestionOne" method="POST">
+					<input type="hidden" name="q_o_no" class="btn btn-warning" value="${questionOneVo.q_o_no }"/>
+					<input type="hidden" name="q_o_title" class="btn btn-warning"/>
+					<input type="hidden" name="q_o_content" class="btn btn-warning"/>
+					<button type="button" id="btnUpdateFinish" class="btn btn-warning" style="margin-left: 10px; display: none;">수정완료</button>
+				</form>
+				
+				<form action="/customerCenter/questionOne/deleteQuestionOne" method="get">
+					<input type="hidden" name="q_o_no" class="btn btn-danger" value="${questionOneVo.q_o_no }"/>
+					<button type="submit" id="btnDeleteQuestionOne" class="btn btn-danger" style="margin-left: 10px">삭제</button>
+				</form>
+			</c:when>
+			<c:otherwise>
+				<!-- <span style="color: white" class="badge badge-primary">답변완료</span> -->
+			</c:otherwise> 
+		</c:choose>
+		
+		
+		
+		
+		
+		
+		
 		
 	</div>
 	</div>

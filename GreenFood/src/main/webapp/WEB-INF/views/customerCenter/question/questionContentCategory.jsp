@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Customer Question</title>
+<title>Question Content Category</title>
 
 
 <!-- <script>
@@ -57,7 +57,7 @@ div {
     vertical-align: 3px;
 }
 
-#btnQuestionWrite {
+#btnListAll {
 	width:100px;
 	height: 35px;
 	font-size: 15px;
@@ -72,6 +72,25 @@ div {
     padding-bottom: 4px;
     padding-left: 4px;
     border-color: #5AB63F;
+	border-width: 2px;
+	border-radius: 5px;
+}
+
+#btnListAll:hover {
+	width:100px;
+	height: 35px;
+	font-size: 15px;
+	font-style: bold;
+	color:#fff;
+	background-color: #5AB63F;
+	float: right;
+	margin-left: 10px;
+    padding: 4px;
+    padding-top: 4px;
+    padding-right: 0;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    border-color: #38b612;
 	border-width: 2px;
 	border-radius: 5px;
 }
@@ -301,18 +320,10 @@ tbody tr {
 $(function(){
 	
 	// 자주하는 질문 작성 버튼 누르면 작성창으로 이동
-	$("#btnQuestionWrite").click(function(){
-		location.href="/customerCenter/question/questionWriteForm";
+	$("#btnListAll").click(function(){
+		location.href="/customerCenter/question/questionContent";
 
 	});
-	
-	/* $(".dropdown-item").click(function(e){
-		e.preventDefault();
-		var q_no = $(this).attr("data-bno");
-		
-		location.href="/customerCenter/question/questionContentCategory/" + q_no;
-	});
-	 */
 	
 	$(".question_title").click(function(e){
 		e.preventDefault();
@@ -400,7 +411,7 @@ $(function(){
 								<div class="inner_snb">
 									<ul class="list_menu">
 										<li class="on"><a href="/customerCenter/customerCenterMain">공지사항</a></li>
-										<li><a href="#">자주하는 질문</a></li>
+										<li><a href="/customerCenter/question/questionContent">자주하는 질문</a></li>
 										<li class="on"><a href="/customerCenter/questionOne/questionOneContent" >1:1 문의</a></li>
 										<!--
 										<li><a href="#">상품 제안</a></li>
@@ -424,7 +435,7 @@ $(function(){
 										<!-- 자주하는 질문 드롭다운 -->
 										
 											<div class="col-md-12">
-												<button type="button" id="btnQuestionWrite">Q&A 작성</button>
+												<button type="button" id="btnListAll">전체보기</button>
 												<div class="dropdown">
 													<button class="btn btn-primary dropdown-toggle"
 														type="button" id="dropdownMenuButton"
@@ -432,9 +443,8 @@ $(function(){
 													<!-- <form action="/customerCenter/question/questionContentOfCategory" method="get"> -->
 													<div class="dropdown-menu"	aria-labelledby="dropdownMenuButton">
 														
-														<%-- <c:forEach var="questionVo" items="${questionListCategory}">
-														<a class="dropdown-item" href="/customerCenter/question/questionContent/${questionVo.question_category}">${questinoVo.question_category_dsc }</a> --%>
-														
+														<%-- <c:forEach var="questionVo" items="${getQuestionListOfCategory}"> --%>
+														<%-- <a class="dropdown-item" href="/customerCenter/question/questionContent/${questionVo.question_category}">회원문의</a>  --%>
 														<a class="dropdown-item" href="/customerCenter/question/questionContentCategory/201">회원문의</a>
 														<%-- </c:forEach> --%>
 														<a class="dropdown-item" href="/customerCenter/question/questionContentCategory/202">주문/결제</a> 
@@ -488,7 +498,7 @@ $(function(){
 																</tr>
 															</thead>
 															<tbody>
-															<c:forEach var="questionVo" items="${questionList}">
+															<c:forEach var="questionVo" items="${questionListCategory}">
 																<tr>
 																	<td>${questionVo.question_no}</td>
 																	<td>${questionVo.question_category_dsc}</td>

@@ -3,33 +3,35 @@ package com.kh.greenfood.dao;
 import java.util.List;
 
 import com.kh.greenfood.domain.PagingDto;
+import com.kh.greenfood.domain.ProductVo;
 import com.kh.greenfood.domain.QuestionVo;
 
 public interface QuestionDao {
 
-	// ÀÔ·Â
+	// ï¿½Ô·ï¿½
 	public void insertQuestion(QuestionVo questionVo) throws Exception;
 	
-	// ¸ñ·Ï
+	// ï¿½ï¿½ï¿½
 	public List<QuestionVo> getQuestionList(PagingDto pagingDto) throws Exception;
 	
-	// ÀüÃ¼ °³½Ã±Û ¼ö °¡Á®¿À±â
+	// Ä«ï¿½×°ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
+	public List<QuestionVo> getQuestionListCategory(int question_category);
+	
+	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½Ã±ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public int questionListCount(PagingDto pagingDto) throws Exception;
 	
-	// ±Û Á¶È¸
+	// ï¿½ï¿½ ï¿½ï¿½È¸
 	public QuestionVo selectQuestion(int question_no) throws Exception;
 	
-	/*// Ä«Å×°í¸® °ª ÇÏ³ª ¹Þ¾Æ¿À±â
+	/*// Ä«ï¿½×°ï¿½ ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
 	public QuestionVo getQuestionCategory(int question_category) throws Exception;*/
 	
-	// selectOne ÇØ¼­ ¹Ýº¹.... 
+	// selectOne ï¿½Ø¼ï¿½ ï¿½Ýºï¿½.... 
 	
-	// ±Û ¼öÁ¤
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void updateQuestion(QuestionVo questionVo) throws Exception;
 	
-	// ±Û »èÁ¦
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void deleteQuestion(int question_no) throws Exception;
 	
-	// -- Ä«Å×°í¸®¿¡ µû¸¥ ÀÚÁÖÇÏ´Â Áú¹® ¸®½ºÆ® ¹Þ¾Æ¿À±â 
-	public List<QuestionVo> getQuestionListOfCategory(int question_category) throws Exception;
 }

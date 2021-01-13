@@ -150,13 +150,13 @@ public class CustomerCenterController {
 	}
 	
 	// ------------------------ 자주하는 질문 카테고리별 데이타 리스트에 보여주기 ---------------------
-		@RequestMapping(value="/question/questionListOfCategory/{question_category}", method=RequestMethod.POST)
-		public String getQuestionListOfCategory(@PathVariable int question_category, Model model) throws Exception {
-//			System.out.println("getQuestionListOfCategory question_category :" + question_category);
-			List<QuestionVo> questionListOfCategory = questionService.getQuestionListOfCategory(question_category);
-//			System.out.println("CustomerCenterController,questionListOfCategory:" + questionListOfCategory);
-			model.addAttribute("questionListOfCategory", questionListOfCategory);
-			return "customerCenter/question/questionContent";
+		@RequestMapping(value="/question/questionContentCategory/{question_category}", method=RequestMethod.GET)
+		public String getQuestionListCategory(@PathVariable int question_category, Model model) throws Exception {
+//			System.out.println("CustomerCenterController getQuestionListCategory :" + getQuestionListCategory);
+			List<QuestionVo> questionListCategory = questionService.getQuestionListCategory(question_category);
+			System.out.println("CustomerCenterController,questionListCategory:" + questionListCategory);
+			model.addAttribute("questionListCategory", questionListCategory);
+			return "customerCenter/question/questionContentCategory";
 		}
 	
 	

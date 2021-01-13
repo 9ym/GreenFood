@@ -35,12 +35,6 @@ public class QuestionServiceImpl implements QuestionService {
 		QuestionVo questionVo = questionDao.selectQuestion(question_no);
 		return questionVo;
 	}
-
-	/*@Override
-	public QuestionVo getQuestionCategory(int question_category) throws Exception {
-		QuestionVo questionVo = questionDao.getQuestionCategory(question_category);
-		return questionVo;
-	}*/
 	
 	@Override
 	public void updateQuestion(QuestionVo questionVo) throws Exception {
@@ -54,17 +48,18 @@ public class QuestionServiceImpl implements QuestionService {
 		
 	}
 
-	@Override
-	public List<QuestionVo> getQuestionListOfCategory(int question_category) throws Exception {
-		List<QuestionVo> questionListOfCategory = questionDao.getQuestionListOfCategory(question_category);
-		return questionListOfCategory;
-	}
-
-	// ÀüÃ¼ °³½Ã±Û ¼ö °¡Á®¿À±â
+	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½Ã±ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@Override
 	public int questionListCount(PagingDto pagingDto) throws Exception {
 		int count = questionDao.questionListCount(pagingDto);
 		return count;
+	}
+
+	@Override
+	public List<QuestionVo> getQuestionListCategory(int question_category) {
+		List<QuestionVo> questionListCategory = questionDao.getQuestionListCategory(question_category);
+		System.out.println("QuestionServiceImpl, questionListCategory :" + questionListCategory);
+		return questionListCategory;
 	}
 
 	
