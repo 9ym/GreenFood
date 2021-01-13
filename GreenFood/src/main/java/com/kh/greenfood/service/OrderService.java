@@ -12,4 +12,7 @@ public interface OrderService {
 	/* 장바구니 7일치 목록 */
 	public List<CartDto> seeCartList(String user_id);
 	
+	/* 장바구니에서 상품 수량 수정 */
+	public int updateQuantity(String cart_no, int cart_quantity);
+	
 }
