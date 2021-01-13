@@ -114,17 +114,24 @@ function btnCart(obj) {
 // 		console.log("not null");
 		var user_id = "${sessionScope.testVo.user_id}";
 		var product_code = "${productVo.product_code}";
+		var product_title = "${productVo.product_title}"
+		var product_price = "${productVo.product_price}"
+		var product_sale_rate = "${productVo.product_sale_rate}"
 		var cart_quantity = parseInt($("#productCount").val());
 		var sendData = {
 				"user_id" : user_id,
 				"product_code" : product_code, 
+				"product_title" : product_title,
+				"product_price" : product_price,
+				"product_sale_rate" : product_sale_rate,
 				"cart_quantity" : cart_quantity
 		};
 		var url = "/order/addCart";
 		$.post(url, sendData, function(data) {
+// 			console.log(data);
 			if (data == "newCart") {
 				alert("장바구니에 상품을 담았습니다.");
-			} else if (data == "dupDart") {
+			} else if (data == "dupCart") {
 				alert("이미 담으신 상품이 있어 추가되었습니다.");
 			}
 		});

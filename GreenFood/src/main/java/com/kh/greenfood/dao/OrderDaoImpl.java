@@ -52,6 +52,16 @@ public class OrderDaoImpl implements OrderDao {
 		return count;
 	}
 	
+	/* 장바구니에서 상품 수량 수정 */
+	@Override
+	public int updateQuantity(String cart_no, int cart_quantity) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("cart_no", cart_no);
+		map.put("cart_quantity", cart_quantity);
+		int count = sqlSession.update(NAMESPACE + "updateQuantity", map);
+		return count;
+	}
+	
 	/* 관리자 admin : ?일 이전에 생긴 tbl_cart 삭제 ?? */
 
 }
