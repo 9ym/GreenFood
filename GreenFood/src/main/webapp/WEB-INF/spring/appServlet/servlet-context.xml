@@ -31,6 +31,7 @@
 			<mapping path="/customer/*"/>
 			<exclude-mapping path="/"/>
 			<exclude-mapping path="/customer/customerMemberJoinForm"/>
+			<exclude-mapping path="/customer/customerMemberJoinRun"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>

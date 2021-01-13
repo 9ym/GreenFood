@@ -38,6 +38,8 @@ $(function(){
 		alert("회원가입 성공");
 	} else if(msg == "tempPasswordCreate"){
 		alert("임시 비밀번호가 발급되었습니다. 이메일을 확인해주세요.");
+	} else if(msg == "deletedCustomer"){
+		alert("삭제된 아이디입니다.");
 	}
 	
 	// 로그인 버튼 클릭시 -> 회원 정보 폼 전송
@@ -60,7 +62,7 @@ $(function(){
 		아이디
 		<input type="text" id="user_id" name="user_id" class="input_login" placeholder="아이디를 입력해주세요" required value="${cookie.save_id.value}"></input>
 		비밀번호
-		<input type="password" id="user_pw" name="user_pw" class="input_login" placeholder="비밀번호를 입력해주세요" required value="@rnlghks1"></input>
+		<input type="password" id="user_pw" name="user_pw" class="input_login" placeholder="비밀번호를 입력해주세요" required value="admin"></input>
 		
 		<!-- 토글 -->
   		<div>

@@ -2,20 +2,20 @@ package com.kh.greenfood.domain;
 
 public class PagingDto {
 
-	private int page = 1;				// ÇØ´ç ÆäÀÌÁö
-	private int perPage = 10;			// ÆäÀÌÁö´ç º¸¿©Áú °Ô½Ã±ÛÀÇ °¹¼ö
-	private int startRow = 1;			// ÇØ´ç ÆäÀÌÁöÀÇ ½ÃÀÛÇà
-	private int endRow = 10;			// ÇØ´ç ÆäÀÌÁöÀÇ ³¡Çà
-	private int startPage = 1;			// °Ô½ÃÆÇ ÇÏ´ÜÀÇ ÆäÀÌÁö³×ÀÌ¼ÇÀÇ ½ÃÀÛ°ª
-	private int endPage;				// °Ô½ÃÆÇ ÇÏ´ÜÀÇ ÆäÀÌÁö³×ÀÌ¼ÇÀÇ ³¡°ª
-	private int totalCount;				// °³½Ã±Û °¹¼ö
-	private int totalPage;				// ÆäÀÌÁö ¼ö
-	private final int PAGE_BLOCK = 10;  // ÆäÀÌÁö³×ÀÌ¼ÇÀÇ °¹¼ö
-	/*private String searchType;			// °Ë»öÁ¶°Ç			
-	private String keyword;				// °Ë»ö¾î
-*/	
+	private int page = 1;      // í˜„ì¬í˜ì´ì§€
+	private int perPage = 10;  // ê²Œì‹œê¸€ ëª‡ê°œ ë³´ì—¬ì¤„ì§€
+	private int startRow = 1;  // í˜„ì¬ í˜ì´ì§€ì˜ ì‹œì‘ í–‰
+	private int endRow = 10;   // í˜„ì¬ í˜ì´ì§€ì˜ ë í–‰
+	private int startPage = 1; // ê²Œì‹œíŒ í•˜ë‹¨ì˜ Paginationì˜ ì‹œì‘ê°’
+	private int endPage;	   // ê²Œì‹œíŒ í•˜ë‹¨ì˜ Paginationì˜ ëê°’
+	private int totalCount;    // ê²Œì‹œê¸€ ê°¯ìˆ˜
+	private int totalPage; 	   // í˜ì´ì§€ ìˆ˜
+	private final int PAGE_BLOCK = 10; // Paginationì˜ ê°¯ìˆ˜
+	private String selectType; // ê²€ìƒ‰ ì¡°ê±´ (ì œëª©, ë‚´ìš©, ...)
+	private String keyword;    // ê²€ìƒ‰ì–´
+	
 	public void setPagingInfo() {
-//		this.searchType = searchType;
+//		this.selectType = selectType;
 //		this.keyword = keyword;
 //		this.perPage = perPage;
 		this.totalPage = (int)Math.ceil((double)totalCount / perPage);
@@ -29,75 +29,97 @@ public class PagingDto {
 			this.endPage = this.totalPage;
 		}
 	}
-	
-	
-	
+
 	public int getPage() {
 		return page;
 	}
+
 	public void setPage(int page) {
 		this.page = page;
 	}
+
 	public int getPerPage() {
 		return perPage;
 	}
+
 	public void setPerPage(int perPage) {
 		this.perPage = perPage;
 	}
+
 	public int getStartRow() {
 		return startRow;
 	}
+
 	public void setStartRow(int startRow) {
 		this.startRow = startRow;
 	}
+
 	public int getEndRow() {
 		return endRow;
 	}
+
 	public void setEndRow(int endRow) {
 		this.endRow = endRow;
 	}
+
 	public int getStartPage() {
 		return startPage;
 	}
+
 	public void setStartPage(int startPage) {
 		this.startPage = startPage;
 	}
+
 	public int getEndPage() {
 		return endPage;
 	}
+
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
+
 	public int getTotalCount() {
 		return totalCount;
 	}
+
 	public void setTotalCount(int totalCount) {
 		this.totalCount = totalCount;
 	}
+
 	public int getTotalPage() {
 		return totalPage;
 	}
+
 	public void setTotalPage(int totalPage) {
 		this.totalPage = totalPage;
 	}
-	/*public String getSearchType() {
-		return searchType;
+
+	public String getSelectType() {
+		return selectType;
 	}
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;
+
+	public void setSelectType(String selectType) {
+		this.selectType = selectType;
 	}
+
 	public String getKeyword() {
 		return keyword;
 	}
+
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
-	}*/
+	}
+
+	public int getPAGE_BLOCK() {
+		return PAGE_BLOCK;
+	}
+
 	@Override
 	public String toString() {
 		return "PagingDto [page=" + page + ", perPage=" + perPage + ", startRow=" + startRow + ", endRow=" + endRow
 				+ ", startPage=" + startPage + ", endPage=" + endPage + ", totalCount=" + totalCount + ", totalPage="
-				+ totalPage + ", PAGE_BLOCK=" + PAGE_BLOCK + "]";
+				+ totalPage + ", PAGE_BLOCK=" + PAGE_BLOCK + ", selectType=" + selectType + ", keyword=" + keyword
+				+ "]";
 	}
-	
 	
 }
