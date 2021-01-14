@@ -15,6 +15,9 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
+		TestVo testVo = (TestVo)session.getAttribute("testVo");
+		String user_id = testVo.getUser_id();
+		String user_name = testVo.getUser_name();
 		
 		// 로그인 확인 , 로그인 x일 경우
 		if(session.getAttribute("testVo") == null) {
@@ -27,6 +30,9 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 			}
 			session.setAttribute("dest", uri + query);
 			response.sendRedirect("/main/loginPage");
+			return false;
+		} else if(!user_id.equals("admin") || !user_name.equals("관리자")) {
+			
 			return false;
 		}
 		return true;

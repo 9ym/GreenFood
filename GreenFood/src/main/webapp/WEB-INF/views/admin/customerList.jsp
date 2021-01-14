@@ -549,6 +549,7 @@ $(function(){
 									</select>
 									<input type="text" id="keyword">
 									<button type="button" class="btn btn-success" id="btnSearch">검색</button>
+									
 								</div>
 								<!-- //검색 -->
 
