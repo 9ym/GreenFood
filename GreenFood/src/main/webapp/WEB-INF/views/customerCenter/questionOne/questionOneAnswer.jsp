@@ -84,6 +84,8 @@ $(function(){
 
 tbody {
     display: table-row-group;
+    display: table-row;
+    display: table-cell;
     vertical-align: middle;
     border-color: inherit;
 }
@@ -166,11 +168,11 @@ table {
 									</tr>
 								<tr>
 									<th>카테고리</th>
-									<td>${questionOneVo.question_category_dsc}</td>
-									<th>작성자</th>
-									<td>${questionOneVo.q_o_writer }</td>
-									<th>작성일</th>
-									<td>${questionOneVo.q_o_date }</td>
+									<td style="width:180px;">${questionOneVo.question_category_dsc}</td>
+									<th style="width:130px;">작성자</th>
+									<td style="width:180px;">${questionOneVo.q_o_writer }</td>
+									<th style="width:130px;">작성일</th>
+									<td style="width:200px;">${questionOneVo.q_o_date }</td>
 									
 								</tr>
 								</tbody>
@@ -209,20 +211,23 @@ table {
 		
 		<c:choose>
 			<c:when test="${questionOneVo.q_o_answer == null}">
+				
+				<c:if test="${sessionScope.testVo.user_id == 'admin'}">
 				<button type="button" id="btnAnswer" class="btn btn-primary" href="#" data-bno="${questionOneVo.q_o_no}">답변하기</button>
+				</c:if>
 				<button type="button" id="btnUpdateQuestionOne" class="btn btn-warning" style="margin-left: 10px">수정</button>
-		
+			
 				<form id="frmUpdate" action="/customerCenter/questionOne/updateQuestionOne" method="POST">
 					<input type="hidden" name="q_o_no" class="btn btn-warning" value="${questionOneVo.q_o_no }"/>
 					<input type="hidden" name="q_o_title" class="btn btn-warning"/>
 					<input type="hidden" name="q_o_content" class="btn btn-warning"/>
 					<button type="button" id="btnUpdateFinish" class="btn btn-warning" style="margin-left: 10px; display: none;">수정완료</button>
-				</form>
-				
+				</form>	
 				<form action="/customerCenter/questionOne/deleteQuestionOne" method="get">
 					<input type="hidden" name="q_o_no" class="btn btn-danger" value="${questionOneVo.q_o_no }"/>
 					<button type="submit" id="btnDeleteQuestionOne" class="btn btn-danger" style="margin-left: 10px">삭제</button>
 				</form>
+			
 			</c:when>
 			<c:otherwise>
 				<!-- <span style="color: white" class="badge badge-primary">답변완료</span> -->

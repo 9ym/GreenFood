@@ -91,6 +91,8 @@ $(function(){
 
 tbody {
     display: table-row-group;
+    display: table-row;
+    display: table-cell; 
     vertical-align: middle;
     border-color: inherit;
 }
@@ -101,14 +103,15 @@ table {
 }
 
 .tableView td {
-    width: auto;
+   	width: auto;
     padding: 13px 0 13px 23px;
     border-top: 1px solid #f4f4f4;
     
 }
 
+
 .tableView th {
-    width: 130px;
+ 	width: 130px;
     padding: 13px 0 13px 0;
     background-color: #81c80f;
     border-top: 1px solid #f4f4f4;
@@ -148,6 +151,8 @@ table {
 
 <%@ include file="../../include/frmPaging.jsp" %>
 
+<!-- // -->
+
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
@@ -162,20 +167,26 @@ table {
 							<tbody>
 								<tr>
 									<th>제목</th>
+									<!-- <td style="width: 153px;">작업중</td>
+									<th>작업중</th>
+									<td style="width: 273px;">작업중</td>
+									<th>조회수</th>
+									<td>작업중</td> -->
+									
 									<td colspan="5">
 									<input type="text" style="background-color: white" style="border: none"
 										class="form-control update" id="notice_title" 
 										placeholder="제목을 입력해주세요" value="${noticeVo.notice_title}" readonly
 										required />
-										</td>
+									</td>
 									</tr>
 								<tr>
 									<th>작성자</th>
-									<td>관리자</td>
-									<th>작성일</th>
-									<td>${noticeVo.notice_date}</td>
-									<th>조회수</th>
-									<td>${noticeVo.notice_readcount}</td>
+									<td style="width:160px;">관리자</td>
+									<th style="width:130px;">작성일</th>
+									<td style="width:260px;">${noticeVo.notice_date}</td>
+									<th style="width:130px;">조회수</th>
+									<td style="width:120px;">${noticeVo.notice_readcount}</td>
 								</tr>
 								</tbody>
 						</table>
@@ -195,8 +206,10 @@ table {
 	<div>
 	<div class="btnList" >
 			<button type="button" id="btnList" class="btn btn-success">목록</button>
+			
+		<c:if test="${sessionScope.testVo.user_id == 'admin'}">
 			<button type="button" id="btnUpdateNotice" class="btn btn-warning" style="margin-left: 10px">수정</button>
-		
+		</c:if>
 		<form id="frmUpdate" action="/customerCenter/notice/updateNotice" method="get">
 			<input type="hidden" name="notice_no" class="btn btn-warning" value="${noticeVo.notice_no }"/>
 			<input type="hidden" name="notice_title" class="btn btn-warning"/>
@@ -204,11 +217,12 @@ table {
 			<button type="button" id="btnUpdateFinish" class="btn btn-warning" style="margin-left: 10px; display: none;">수정완료</button>
 		</form>
 		
+		<c:if test="${sessionScope.testVo.user_id == 'admin'}">
 		<form action="/customerCenter/notice/deleteNotice" method="get">
 			<input type="hidden" name="notice_no" class="btn btn-danger" value="${noticeVo.notice_no }"/>
 			<button type="submit" id="btnDeleteNotice" class="btn btn-danger" style="margin-left: 10px">삭제</button>
 		</form>
-		
+		</c:if>
 		
 	</div>
 	</div>

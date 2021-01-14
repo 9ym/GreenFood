@@ -77,6 +77,8 @@ $(function(){
 
 tbody {
     display: table-row-group;
+    display: table-row;
+    display: table-cell; 
     vertical-align: middle;
     border-color: inherit;
 }
@@ -154,11 +156,11 @@ table {
 									</tr>
 								<tr>
 									<th>상품명</th>
-									<td>작업중</td>
-									<th>작성일</th>
-									<td>${reviewVo.review_date }</td>
-									<th>조회수</th>
-									<td>${reviewVo.review_readcount }</td>
+									<td style="width:250px;">작업중</td>
+									<th style="width:130px;">작성일</th>
+									<td style="width:260px;">${reviewVo.review_date }</td>
+									<th style="width:130px;">조회수</th>
+									<td style="width:70px;">${reviewVo.review_readcount }</td>
 									
 								</tr>
 								</tbody>

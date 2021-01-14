@@ -77,6 +77,8 @@ $(function(){
 
 tbody {
     display: table-row-group;
+    display: table-row;
+    display: table-cell;
     vertical-align: middle;
     border-color: inherit;
 }
@@ -155,11 +157,11 @@ table {
 									</tr>
 								<tr>
 									<th>카테고리</th>
-									<td>${questionVo.question_category_dsc}</td>
-									<th>작성자</th>
-									<td>관리자</td>
-									<th>작성일</th>
-									<td>${questionVo.question_date}</td>
+									<td style="width:160px;">${questionVo.question_category_dsc}</td>
+									<th style="width:130px;">작성자</th>
+									<td style="width:160px;">관리자</td>
+									<th style="width:130px;">작성일</th>
+									<td style="width:260px;">${questionVo.question_date}</td>
 									
 								</tr>
 								</tbody>
@@ -182,8 +184,9 @@ table {
 	<div>
 	<div class="btnList" >
 		<button type="submit" id="btnList" class="btn btn-success">목록</button>
+		<c:if test="${sessionScope.testVo.user_id == 'admin'}">
 		<button type="button" id="btnUpdateQuestion" class="btn btn-warning" style="margin-left: 10px">수정</button>
-		
+		</c:if>
 		<form id="frmUpdate" action="/customerCenter/question/updateQuestion" method="POST">
 			<input type="hidden" name="question_no" class="btn btn-warning" value="${questionVo.question_no }"/>
 			<input type="hidden" name="question_title" class="btn btn-warning"/>
@@ -191,11 +194,12 @@ table {
 			<button type="button" id="btnUpdateFinish" class="btn btn-warning" style="margin-left: 10px; display: none;">수정완료</button>
 		</form>
 		
+		<c:if test="${sessionScope.testVo.user_id == 'admin'}">
 		<form action="/customerCenter/question/deleteQuestion" method="get">
 			<input type="hidden" name="question_no" class="btn btn-danger" value="${questionVo.question_no }"/>
 			<button type="submit" id="btnDeleteQuestion" class="btn btn-danger" style="margin-left: 10px">삭제</button>
 		</form>
-		
+		</c:if>
 	</div>
 	</div>
 

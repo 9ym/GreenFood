@@ -23,13 +23,13 @@ public class testOrder {
 	@Inject
 	private OrderService orderService;
 	
-	@Test
-	public void testCreateCart() throws Exception {
-		CartDto dto = new CartDto("user", "1120", 5); // 견과류8
+//	@Test
+//	public void testCreateCart() throws Exception {
+//		CartDto dto = new CartDto("user", "1120", 5); // 견과류8
 //		CartDto dto = new CartDto("user", "1003", 10); // 당근
-		int count = orderDao.createCart(dto);
-		System.out.println("count :" + count);
-	}
+//		int count = orderDao.createCart(dto);
+//		System.out.println("count :" + count);
+//	}
 	
 	@Test
 	public void testGetCartList() throws Exception {
@@ -43,13 +43,13 @@ public class testOrder {
 		System.out.println("dup :" + dto);
 	}
 	
-	@Test
-	public void testAddCart() throws Exception {
-//		CartDto dto = new CartDto("user", "1120", 11); // 견과류8 상품 11개 추가
-		CartDto dto = new CartDto("user", "1005", 5); // 당근 11개
-		String result = orderService.addCart(dto);
-		System.out.println("result :" + result);
-	}
+//	@Test
+//	public void testAddCart() throws Exception {
+////		CartDto dto = new CartDto("user", "1120", 11); // 견과류8 상품 11개 추가
+//		CartDto dto = new CartDto("user", "1005", 5); // 당근 11개
+//		String result = orderService.addCart(dto);
+//		System.out.println("result :" + result);
+//	}
 	
 	
 }

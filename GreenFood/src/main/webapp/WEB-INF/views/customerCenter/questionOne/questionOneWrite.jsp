@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="../../include/header.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
@@ -102,10 +103,19 @@ div {
 	border-color: #6ca435;
 }
 
+.checkOrder{
+	font-size: 13px;
+    vertical-align: middle;
+    color: #5AB63F;
+    border-bottom: 1px solid #5AB63F;
+	
+}
+
+
 tbody tr {
     border-top-style: groove;
 	border-width: 1px;
-	border-color: #6ca435;
+	/* border-color: #6ca435; */
 	margin-top: 20px;
 }
 
@@ -167,6 +177,14 @@ input {
 }
 
 .bhs_button.yb {
+    background-color: #80db65;
+    color: #fff;
+}
+
+.bhs_button.yb.checkOrder {
+	float: none;
+	line-height: 18px;
+	width: 100px;
     background-color: #80db65;
     color: #fff;
 }
@@ -274,8 +292,14 @@ $(function(){
 													<th>주문번호</th>
 													<td>
 													<input type=text name="q_o_order_code" style="width: 25%" value=""  placeholder=" 주문번호를 입력해주세요.">
-													<input type="button" class="bhs_button yb" value="주문조회"
-													style="float: none; line-height: 21px; width: 100px;"><br>
+													
+													<a id="modal-75830" href="#modal-container-75830"
+														role="button" class="" data-toggle="modal">
+														<input type="button" class="bhs_button yb checkOrder" value="주문조회"></a>
+													<br>
+													
+													
+													
 													<span id="span1" style="font-size:10pt; color: #5AB63F">* 주문내역이 없으면 비워두세요.</span>
 													</td>
 												</tr>
@@ -345,7 +369,141 @@ $(function(){
 									</div>
 								</div>
 
+								<!------------------------ 주문번호 조회 모달창 ------------------------ -->
 
+								<div class="row">
+									<div class="col-md-12">
+										<a id="modal-75830" href="#modal-container-75830"
+											role="button" class="btn" data-toggle="modal" 
+											style="">주문번호 조회</a>
+
+										<div class="modal fade" id="modal-container-75830"
+											role="dialog" aria-labelledby="myModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content" style="width: 802px; height: 502px;">
+													<div class="modal-header" style="padding-top: 5px; padding-left: 10px;
+   															 padding-right: 5px; padding-bottom: 5px;">
+														<p style="font-size: 18px; font-family: 'Noto Sans', sans-serif; font-weight: 700; color:green" 
+														class="modal-title" id="myModalLabel">주문번호 조회</p>
+														<button type="button" class="close" data-dismiss="modal">
+															<span aria-hidden="true">×</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<div style="padding-bottom: 7px; border-bottom: 2px solid #5AB63F;">문의하실 주문번호를 선택해주세요</div>
+
+
+														<table width="100%" align="center" cellpadding="0"
+															cellspacing="0">
+															<tbody style="border-top-style: hidden; padding-bottom: 10px;">
+																<tr style="padding-bottom: 10px;">
+																	<td>
+																		<div
+																			class="xans-element- xans-myshop xans-myshop-couponserial"
+																			style="padding-top: 10px; padding-bottom: 10px;">
+																			<table width="100%" class="xans-board-listheader jh"
+																				cellpadding="0" cellspacing="0"
+																				style="border-top-style: hidden; padding-bottom: 10px;">
+
+																				<thead class="checkOrder">
+																					<tr style="text-align: center;">
+																						<th style="width: 110px; padding-bottom: 10px;">주문번호</th>
+																						<th style="width: 120px; padding-bottom: 10px;">주문일자</th>
+																						<th style="width: auto; padding-bottom: 10px;">상품명</th>
+																						<th style="width: 80px; padding-bottom: 10px;">수량</th>
+																						<th style="width: 150px; padding-bottom: 10px;">주문금액</th>
+																						<th style="width: 50px; padding-bottom: 10px;">선택</th>
+																					</tr>
+																				</thead>
+																				<tbody class="checkOrder">
+																					<%-- <c:forEach var="reviewVo" items="${reviewList}"> --%>
+																					<tr style="text-align: center; color: #98a18f; font-weight: 500;">
+																						<td style="padding: 10px 0 10px 0;">111111111</td>
+																						<td style="padding: 10px 0 10px 0;">2021-01-13</td>
+																						<td style="padding: 10px 0 10px 0;">
+																							<%-- <a class="review_title" href="#"
+																			data-bno="${reviewVo.review_no}"> --%>곱창전골 방어회 <!-- </a> -->
+																						</td>
+																						<td style="padding: 10px 0 10px 0;">7 개</td>
+																						<td style="padding: 10px 0 10px 0;">
+																							<%-- <fmt:formatDate pattern="yyyy-MM-DD" value="${reviewVo.review_date}"/> --%>
+																							17억 8900만원
+																						</td>
+																						<td style="padding: 10px 0 10px 0;">
+																						<input style="width : 50px;" type="radio" name="checkOrderSelect"/>
+																						</td>
+																					</tr>
+																					<%-- </c:forEach> --%>
+																				</tbody>
+
+																			</table></div>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+
+
+
+
+
+													<div class="modal-footer">
+
+														<button type="button" class="btn btn-primary">
+															Save changes</button>
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Close</button>
+													</div>
+												</div>
+
+											</div>
+
+										</div>
+
+									</div>
+								</div>
+
+
+
+
+
+
+
+								<!-- <div class="row">
+									<div class="col-md-12">
+										<a id="modal" href="#modal-container-578355"
+											role="button" class="btn" data-toggle="modal"
+											>주문번호 조회하기</a>
+
+										<div class="modal fade" id="modal-container-578355"
+											role="dialog" aria-labelledby="myModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="myModalLabel">주문번호 조회하기</h5>
+														<button type="button" class="close" data-dismiss="modal">
+															<span aria-hidden="true">×</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<input type="hidden" id="msg_receiver" /> <input
+															type="text" id="msg_content" class="form-control" />
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal" id="btnMessageClose">close x</button>
+													</div>
+												</div>
+
+											</div>
+
+										</div>
+
+									</div>
+								</div> -->
+								<!-- // 주문번호 모달창 끝 -->
 
 								<%-- <div class="xans-board-write">
 									<form name=fm id="fm" method=post

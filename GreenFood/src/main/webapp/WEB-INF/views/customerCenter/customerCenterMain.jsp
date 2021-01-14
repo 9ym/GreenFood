@@ -248,7 +248,7 @@ $(function(){
 
 </head>
 <body>
-
+${testVo}
 
 
 	<div class="container-fluid">
@@ -287,7 +287,9 @@ $(function(){
 								<div class="head_aticle">
 									<h2 class="tit">
 										공지사항 <span class="tit_sub"> 새로운 공지사항과 소식을 확인해주세요.</span>
-										<button type="button" id="btnNoticeWrite">공지사항 작성</button>
+										<c:if test="${sessionScope.testVo.user_id == 'admin'}">
+											<button type="button" id="btnNoticeWrite">공지사항 작성</button>
+										</c:if>
 									</h2>
 
 								</div><!-- // 메인창의 윗부분 -->

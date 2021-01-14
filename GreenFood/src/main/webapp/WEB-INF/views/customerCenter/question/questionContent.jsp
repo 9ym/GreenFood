@@ -419,12 +419,14 @@ $(function(){
 								<div class="head_aticle">
 									<h2 class="tit">
 										자주하는 질문 <span class="tit_sub"> 자주하시는 질문을 모두 모았습니다.</span>
-										<!-- <button type="button" id="btnNoticeWrite">공지사항 작성</button> -->
 										
 										<!-- 자주하는 질문 드롭다운 -->
 										
 											<div class="col-md-12">
+												
+												<c:if test="${sessionScope.testVo.user_id == 'admin'}">
 												<button type="button" id="btnQuestionWrite">Q&A 작성</button>
+												</c:if>
 												<div class="dropdown">
 													<button class="btn btn-primary dropdown-toggle"
 														type="button" id="dropdownMenuButton"
