@@ -138,6 +138,7 @@ function btnCart(obj) {
 	/* 로그인 페이지 강제? 이동 */
 	} else {
 // 		console.log("null");
+		sessionStorage.setItem("dest", "/product/detail/${productVo.product_code}"); 
 		location.href="/main/loginPage";
 	}
 	
@@ -562,7 +563,7 @@ function btnCart(obj) {
 						<li>
 							<strong>유통기한</strong>
 							<c:choose>
-								<c:when test="${not empty productVo.product_shelf_life}">
+								<c:when test="${productVo.product_shelf_life != 0}">
 									<span>${productVo.product_shelf_life}</span>
 									<span style="padding-left:0px;">일</span>
 								</c:when>

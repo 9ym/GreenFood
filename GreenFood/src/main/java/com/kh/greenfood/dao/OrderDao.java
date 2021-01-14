@@ -24,6 +24,9 @@ public interface OrderDao {
 	/* 장바구니에서 상품 수량 수정 */
 	public int updateQuantity(String cart_no, int cart_quantity);
 	
+	/* 장바구니에서 상품 지우기 */
+	public int deleteCartProduct(String cart_no);
+	
 	/* 관리자 admin : ?일 이전에 생긴 tbl_cart 삭제 ?? */
 	
 }

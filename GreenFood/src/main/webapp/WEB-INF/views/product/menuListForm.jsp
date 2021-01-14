@@ -191,7 +191,7 @@ $(function() {
 	/* 가격에 , 적용하기 */
 	$(".span-price").each(function() {
 		var price = $(this).text();
-		console.log(price);
+// 		console.log(price);
 		$(this).text(addComma(price));
 	});
 	

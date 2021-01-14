@@ -25,10 +25,10 @@ public class testOrder {
 	
 	@Test
 	public void testCreateCart() throws Exception {
-		CartDto dto = new CartDto("user", "1120", 5); // 견과류8
-//		CartDto dto = new CartDto("user", "1003", 10); // 당근
-		int count = orderDao.createCart(dto);
-		System.out.println("count :" + count);
+//		CartDto dto = new CartDto("user", "1120", 5); // 견과류8
+////		CartDto dto = new CartDto("user", "1003", 10); // 당근
+//		int count = orderDao.createCart(dto);
+//		System.out.println("count :" + count);
 	}
 	
 	@Test
@@ -46,9 +46,9 @@ public class testOrder {
 	@Test
 	public void testAddCart() throws Exception {
 //		CartDto dto = new CartDto("user", "1120", 11); // 견과류8 상품 11개 추가
-		CartDto dto = new CartDto("user", "1005", 5); // 당근 11개
-		String result = orderService.addCart(dto);
-		System.out.println("result :" + result);
+//		CartDto dto = new CartDto("user", "1005", 5); // 당근 11개
+//		String result = orderService.addCart(dto);
+//		System.out.println("result :" + result);
 	}
 	
 	

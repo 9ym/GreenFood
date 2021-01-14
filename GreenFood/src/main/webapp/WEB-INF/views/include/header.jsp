@@ -385,7 +385,8 @@ $(function(){
 	// hasScrolled()를 실행하고 didScroll 상태를 재설정 
 	setInterval(function() {
 		if (didScroll) { 
-			hasScrolled(); didScroll = false; 
+			hasScrolled(); 
+			didScroll = false; 
 		} 
 	}, 250); 
 	function hasScrolled() {
