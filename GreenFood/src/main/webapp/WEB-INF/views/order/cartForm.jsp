@@ -31,6 +31,9 @@
 	width : 70%;
 	height : auto;
 }
+.cart-inner-select {
+	padding-left : 19px;
+}
 .cart-inner-select label {
 	margin-left : 5px;
 	margin-right : 10px;
@@ -38,13 +41,14 @@
 }
 .cart-inner-select #line {
 	color : gainsboro;
-	
 }
 .cart-inner-select a {
 /* 	display : inline-block;  */
 	padding-left : 10px;
 	border-left : 1px solid gainsboro;
 	height : 22px;
+	color : black;
+	text-decoration: none;
 }
 .cart-inner {
 	border-top : 1px solid black;
@@ -172,7 +176,7 @@
 	padding : 120px 0px;
 }
 .div-empty {
-	margin-bottom : 150px;
+	margin-bottom : 130px;
 }
 .div-price {
 	float : right;
@@ -217,7 +221,7 @@
 }
 .btn-submit button {
 	position : relative;
-	top : 250px;
+	top : 220px;
 	margin-left : 20px;
 	height : 50px;
 	width : 250px;
@@ -232,7 +236,7 @@
 	margin-top : 30px;
 	display : block;
 	position : relative;
- 	top : 250px;
+ 	top : 220px;
 	float : right;
 	width : 250px;
 	padding-right : 5px;
@@ -257,7 +261,7 @@
 					<input type="checkbox" onchange="javascript:checkSelectAll(this);">
 					<label>전체선택 ( <span>0</span> / <span>0</span> )</label>
 <!-- 					<span id="line">|</span> -->
-					<a>선택삭제</a>
+					<a href="#" onclick="javascript:deleteSelected(this);">선택삭제</a>
 				</div>
 				<div class="cart-inner">
 					<p class="txt">장바구니에 담긴 상품이 없습니다</p>
@@ -287,7 +291,8 @@
 									<span class="span-price-won">원</span>
 								</div>
 								<div class="div-btn-delete">
-									<button type="button" class="btnDelete" data-cartNo="${cartDto.cart_no}">X</button>
+									<button type="button" class="btnDelete" data-cartNo="${cartDto.cart_no}"
+										onclick="javascript:deleteOne(this);">X</button>
 								</div>
 								<div class="div-hidden" data-cartNo="${cartDto.cart_no}" data-productCode="${cartDto.product_code}"></div>
 							</div>
@@ -332,7 +337,13 @@
 				</div>
 			</div>
 			<div class="btn-submit">
-				<button type="submit">구매하기</button>
+				<form action="/order/pay" method="post">
+					<input type="hidden" value="gg" name="testInput">
+					<input type="hidden" value="aa" name="testInput2">
+					<input type="hidden" value="bb" name="testInput2">
+					<input type="hidden" value="cc" name="testInput2">
+					<button type="submit" id="btnPay" onclick="">구매하기</button>
+				</form>
 			</div>
 <!-- 			<div class="notice"> -->
 <!-- 				<span class="notice-txt">· ‘입금확인’ 상태일 때는 주문 내역 상세에서 직접 주문취소가 가능합니다.</span> -->
@@ -353,7 +364,7 @@ $(function() {
 		$(".cart-inner > p").hide();
 	}
 	
-	/* , 추가 + 할인 있으면 할인 적용  = 최종 가격 표현  */
+	/* 할인 있으면 할인 적용 + , 추가 = 최종 가격 표현  */
 	$(".span-price").each(function() {
 		var price = $(this).attr("data-price");
 		var sale = $(this).attr("data-sale");
@@ -363,7 +374,6 @@ $(function() {
 			price = salePrice;
 		}
 		var productCount = $(this).parent().prev().children().eq(1);
-// 		console.log(productCount);
 		var count = parseInt(productCount.val());
 		var totalPrice = price * count;
 		$(this).text(addComma(totalPrice));
@@ -377,7 +387,6 @@ $(function() {
 
 /* 갯수 올리는 버튼 */
 function btnCountUp(obj) {
-// 	console.log($(obj).prev());
 	var productCount = $(obj).prev();
 	var count = parseInt(productCount.val());
 	productCount.val(count + 1);
@@ -393,7 +402,6 @@ function btnCountUp(obj) {
 
 /* 갯수 내리는 버튼 */
 function btnCountDown(obj) {
-// 	console.log($(obj).next());
 	var productCount = $(obj).next();
 	var count = parseInt(productCount.val());
 	productCount.val(count - 1);
@@ -413,22 +421,19 @@ function btnCountDown(obj) {
 	setChangeQuantity(obj, count);
 }
 
-/* 상품 갯수 수정 -> tbl_cart 업데이트 */
+/* 상품 갯수 수정 -> DB 업데이트 */
 function setChangeQuantity(obj, count) {
 	var divHidden = $(obj).parent().siblings().last();
-// 	console.log(gg);
 	var cart_no = divHidden.attr("data-cartNo");
-// 	var cart_quantity = divHidden.attr("data-productCode");
+	
 	var sendData = {
 			"cart_no" : cart_no,
 			"cart_quantity" : count
 	};
 	var url = "/order/changeCartQuantity"
 	$.post(url, sendData, function(data) {
-		console.log(data);
 		totalPrice();
 	});
-	
 }
 
 /* 전체 선택 체크박스 */ 
@@ -451,8 +456,9 @@ function checkSelect(obj) {
 	var allCount = $(".ul-cart-list > li").length;
 	var checkedCount = $(".selected:checked").length;
 	$(".cart-inner-select > label > span").first().text(checkedCount);
+	/* 전체 선택 해제 */
 	if (checkedCount != allCount) {
-		$(".cart-inner-select > input").prop("checked", false);
+		$(".cart-inner-select > input").prop("checked", false); 
 	}
 	totalPrice();
 }
@@ -461,31 +467,73 @@ function checkSelect(obj) {
 function totalPrice() {
 	var totalPrice = 0;
 	var totalSale = 0;
+	
+	/* 체크된 상품에 한해 */
 	$(".selected:checked").each(function() {
-		/* 현재 가격 총합 */
-		var spanPrice = $(this).parent().parent().find(".span-price");
-		var price = parseInt(subComma(spanPrice.text())); 
-		totalPrice += price;
-		/* 세일된 가격 총합 */
+		/* 상품 기본 가격 총합 */
+		var originPrice = $(this).parent().parent().find(".span-price").attr("data-price-ori");
 		var count = $(this).parent().parent().find(".productCount").val();
+		var price = parseInt(originPrice * count); 
+		totalPrice += price;
+		/* 할인된 가격 총합 */
 		var saleRate = $(this).parent().parent().find(".span-price").attr("data-sale");
 		if (saleRate != 0) {
-			var originPrice = $(this).parent().parent().find(".span-price").attr("data-price-ori");
 			var nowPrice = $(this).parent().parent().find(".span-price").attr("data-price");
 			var salePrice = parseInt(originPrice - nowPrice);
 			var sale = salePrice * count;
 			totalSale += sale;
 		}
-		
 	});
+	
 	$(".total-price").text(addComma(totalPrice));
-	$(".total-sale").text(addComma(totalSale));
+	if (totalSale != 0) {
+		$(".total-sale").text("- " + addComma(totalSale));
+	} else {
+		$(".total-sale").text(0);
+	}
+	/* 가격 총합 - 할인 총합  + 배송비 = 최종 가격 */
 	if (totalPrice != 0) {
-		$(".final-price").text(addComma(totalPrice + 3000));
+		$(".final-price").text(addComma(totalPrice - totalSale + 3000));
+	} else {
+		$(".total-sale").text(0);
+		$(".final-price").text(0);
 	}
 }
 
+/* 개별 삭제 -> DB 업데이트 */
+function deleteOne(obj) {
+	var cart_no = $(obj).attr("data-cartNo");
+	var deleteOrder = confirm("삭제하시겠습니까?"); // 삭제 여부 확인
+	if (deleteOrder) {
+		var sendData = {
+				"cart_no" : cart_no
+		};
+		var url = "/order/deleteCartProduct";
+		$.post(url, sendData, function(data) {
+			if (data = "deleteCartProduct_success") {
+				$(obj).parent().parent().parent().remove(); // li 삭제
+			}
+		});
+	} 
+}
 
+/* 선택 삭제 -> DB 업데이트 */
+function deleteSelected(obj) {
+	$(".selected:checked").each(function() {
+		var checkedDivHidden = $(this).parent().siblings().last();
+		var checkedCartNo = checkedDivHidden.attr("data-cartNo");
+		
+		var sendData = {
+				"cart_no" : checkedCartNo
+		};
+		var url = "/order/deleteCartProduct";
+		$.post(url, sendData, function(data) {
+			if (data = "deleteCartProduct_success") {
+				$(checkedDivHidden).parent().parent().remove(); // li 삭제
+			}
+		});
+	});
+}
 
 </script>
 </body>

@@ -45,7 +45,8 @@ public class testOrder {
 	
 	@Test
 	public void testAddCart() throws Exception {
-////		CartDto dto = new CartDto("user", "1120", 11); // 견과류8 상품 11개 추가
+
+//		CartDto dto = new CartDto("user", "1120", 11); // 견과류8 상품 11개 추가
 //		CartDto dto = new CartDto("user", "1005", 5); // 당근 11개
 //		String result = orderService.addCart(dto);
 //		System.out.println("result :" + result);

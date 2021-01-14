@@ -51,4 +51,11 @@ public class OrderServiceImpl implements OrderService {
 		return count;
 	}
 	
+	/* 장바구니에서 상품 지우기 */
+	@Override
+	public int deleteCartProduct(String cart_no) {
+		int count = orderDao.deleteCartProduct(cart_no);
+		return count;
+	}
+	
 }
