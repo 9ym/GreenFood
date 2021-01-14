@@ -9,8 +9,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.greenfood.domain.CartDto;
@@ -80,9 +82,23 @@ public class OrderController {
 		return result;
 	}
 	
+	/* 장바구니에서 상품 지우기 */
+	@RequestMapping(value="/deleteCartProduct", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteCartProduct(String cart_no) throws Exception {
+		String result = "deleteCartProduct_fail";
+		int count = orderService.deleteCartProduct(cart_no);
+		if (count > 0) {
+			result = "deleteCartProduct_success";
+		}
+		return result;
+	}
+	
 	/* 결제 */
-	@RequestMapping(value="/pay", method=RequestMethod.GET)
-	public String pay() throws Exception {
+	@RequestMapping(value="/pay", method=RequestMethod.POST)
+	public String pay(String testInput, @RequestParam(value="testInput2") List<String> testInput2list) throws Exception {
+		System.out.println("-" + testInput);
+		System.out.println("-" + testInput2list);
 		return "order/payForm";
 	}
 	

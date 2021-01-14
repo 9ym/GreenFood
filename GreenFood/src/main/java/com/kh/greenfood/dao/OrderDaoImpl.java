@@ -62,6 +62,13 @@ public class OrderDaoImpl implements OrderDao {
 		return count;
 	}
 	
+	/* 장바구니에서 상품 지우기 */
+	@Override
+	public int deleteCartProduct(String cart_no) {
+		int count = sqlSession.delete(NAMESPACE + "deleteCartProduct", cart_no);
+		return count;
+	}
+	
 	/* 관리자 admin : ?일 이전에 생긴 tbl_cart 삭제 ?? */
 
 }

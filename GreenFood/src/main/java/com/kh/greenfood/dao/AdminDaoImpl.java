@@ -42,4 +42,10 @@ public class AdminDaoImpl implements AdminDao {
 		return getDeletedCustomerList;
 	}
 
+	@Override
+	public int deletedCustomerListCount(PagingDto pagingDto) {
+		int count = sqlSession.selectOne(NAMESPACE + "deletedCustomerListCount", pagingDto);
+		return count;
+	}
+
 }

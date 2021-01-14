@@ -20,5 +20,8 @@ public interface AdminDao {
 	
 	// 회원 탈퇴상태 Y 리스트
 	public List<TestVo> getDeletedCustomerList(PagingDto pagingDto);
+	
+	// 탈퇴한 회원 토탈 카운트
+	public int deletedCustomerListCount(PagingDto pagingDto);
 
 }

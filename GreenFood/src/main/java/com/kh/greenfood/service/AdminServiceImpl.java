@@ -43,5 +43,11 @@ public class AdminServiceImpl implements AdminService {
 		List<TestVo> getDeletedCustomerList = adminDao.getDeletedCustomerList(pagingDto);
 		return getDeletedCustomerList;
 	}
+
+	@Override
+	public int deletedCustomerListCount(PagingDto pagingDto) {
+		int count = adminDao.deletedCustomerListCount(pagingDto);
+		return count;
+	}
 }
 

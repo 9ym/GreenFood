@@ -30,6 +30,14 @@
 			<include refid="search"></include>
 	</select>
 	
+	<!-- 탈퇴한 회원 전체 카운트(몇명있는지) -->
+	<select id="deletedCustomerListCount" resultType="int">
+		select count(*) from tbl_member
+			where 1 = 1
+			and user_deleted = 'Y'
+			<include refid="search"></include>
+	</select>
+	
 	<!-- 탈퇴한 회원 리스트 -->
 	<select id="getDeletedCustomerList" resultType="testVo">
 		select * 

@@ -99,6 +99,8 @@ public class HomeController {
 			testVo.setUser_date(user_join_date);
 			// 끝 회원가입일자 간소화
 			
+			// 로그인 되어 있지 않은 상태로 로그인이 필요한 페이지 접근시 session에 저장된 "dest" 값을 받아와서 로그인한 뒤에 redirect
+			// "dest"값은 Interceptor에서 저장시킴
 			session.setAttribute("testVo", testVo);
 			String dest = (String)session.getAttribute("dest");
 			session.removeAttribute("dest");
