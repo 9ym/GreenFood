@@ -181,7 +181,7 @@
 		// 가입완료 폼전송 후 로그인 페이지로
 		$("#frmMemberJoin").submit(function(){
 			
-			
+
 			// email 아이디 + 도메인
 			var emailId = $("#emailId").val();
 			var emailIdTrim = emailId.trim();

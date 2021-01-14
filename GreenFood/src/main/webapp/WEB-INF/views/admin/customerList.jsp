@@ -350,9 +350,7 @@ tbody tr {
 $(function(){
 	
 	var msg = "${msg}";
-	if(msg == "deleteComp"){
-		alert("삭제완료");
-	} else if(msg == "deleteFail"){
+	if(msg == "deleteFail"){
 		alert("삭제실패");
 	}
 	
@@ -365,33 +363,48 @@ $(function(){
 	});
 	
 	// 탈퇴한 회원 클릭
+// 	$("#selectY").click(function(e){
+// 		e.preventDefault();
+// 		// N인 것들만 제거
+// 		$(".xans-board-listheader > tbody > tr").each(function() {
+// 			var td = $(this).find("td").eq(4);
+// 			var yn = td.text();
+// 			console.log(yn);
+// 			if (yn == "N") {
+// 				$(this).remove();
+// 			}
+// 		});
+// 	});
+	
+	// 카테고리 중에서 탈퇴한 회원 클릭
 	$("#selectY").click(function(e){
 		e.preventDefault();
-		// N인 것들만 제거
-		$(".xans-board-listheader > tbody > tr").each(function() {
-			var td = $(this).find("td").eq(4);
-			var yn = td.text();
-			console.log(yn);
-			if (yn == "N") {
-				$(this).remove();
-			}
-		});
+		$("#frmPaging").attr("action", "/admin/deletedCustomerList");
+		$("#frmPaging").attr("method", "post");
+		$("#frmPaging > input[name=page]").val(1);
+		$("#frmPaging").submit();
 	});
-	
-	$(".question_title").click(function(e){
-		e.preventDefault();
-		var q_no = $(this).attr("data-bno");
-		
-		location.href="/customerCenter/question/questionAnswer/" + q_no;
+
+	// 회원 이름, 아이디로 검색
+	$("#btnSearch").click(function(){
+		var selectType = $("#selectType").val();
+		var keyword = $("#keyword").val();
+		if(keyword == "" || selectType == "선택"){
+			alert("타입선택 및 키워드를 입력해주세요.");
+			return;
+		}
+		$("#frmPaging > input[name=selectType]").val(selectType);
+		$("#frmPaging > input[name=keyword]").val(keyword);
+		$("#frmPaging > input[name=page]").val(1);
+		$("#frmPaging").submit();
 	});
 	
 	// 페이지네이션 - 페이지 번호 클릭했을때
 	$("a.page-link").click(function(e){
 		e.preventDefault();
 		var page = $(this).attr("data-page");
-		console.log(page);
-		$("#frmQuestionPaging").find("input[name=page]").val(page);
-		$("#frmQuestionPaging").submit();
+		$("#frmPaging").find("input[name=page]").val(page);
+		$("#frmPaging").submit();
 	});
 	
 }); 
@@ -400,7 +413,6 @@ $(function(){
 <!-- ----------------  페이징 폼 넣어주기 -----------------------------------  -->
 
 <%@ include file="../include/frmPaging.jsp" %>
-
 </head>
 <body>
 	<div class="container-fluid">
@@ -439,16 +451,11 @@ $(function(){
 														type="button" id="dropdownMenuButton"
 														data-toggle="dropdown">카테고리 선택</button>
 													<div class="dropdown-menu"	aria-labelledby="dropdownMenuButton" id="divCate">
+														<a class="dropdown-item" href="/admin/customerList">전체 보기</a>
 														<a class="dropdown-item" id="selectY" href="#">탈퇴한 회원</a>
-														<a class="dropdown-item" href="#">주문/결제</a> 
-														<a class="dropdown-item" href="#">취소/교환/반품</a>
-														<a class="dropdown-item" href="#">쿠폰/적립금</a>
-														<a class="dropdown-item" href="#">이용 및 기타</a>
 													</div>
 												</div>
-												<button type="button" id="btnQuestionWrite">Q&A작성</button>
 											</div>
-										
 										<!-- // 자주하는 질문 드롭다운  -->
 
 									</h2>
@@ -497,8 +504,7 @@ $(function(){
 										</tbody>
 									</table>
 									
-									
-									<!-- ----------------------------------- pagination -------------------------------- -->
+								<!-- ----------------------------------- pagination -------------------------------- -->
 
 								<div class="row">
 									<div class="col-md-12 text-center">
@@ -531,8 +537,21 @@ $(function(){
 											</ul>
 										</nav>
 									</div>
-								</div><!-- pagination -->
-									
+								</div>
+								<!-- // pagination -->
+								
+								<!-- 검색 -->
+								<div class="row text-center">
+									<select id="selectType">
+										<option selected>선택</option>
+										<option>이름</option>
+										<option>아이디</option>
+									</select>
+									<input type="text" id="keyword">
+									<button type="button" class="btn btn-success" id="btnSearch">검색</button>
+								</div>
+								<!-- //검색 -->
+
 							</div>
 							<!-- // 자주하는 질문 메인창  -->
 

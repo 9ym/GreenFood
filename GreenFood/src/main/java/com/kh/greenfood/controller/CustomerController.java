@@ -168,6 +168,9 @@ public class CustomerController {
 	public String customerMemberJoinRun(TestVo testVo, RedirectAttributes rttr) throws Exception {
 		// 회원가입시 포인트 1000점 부여
 		testVo.setUser_point(1000);
+		// 회원 코드 1002(구매자) 부여
+		testVo.setUser_code("1002");
+		System.out.println("joinRun: " + testVo);
 		int count = memberService.insertMember(testVo);
 		String page = "";
 		// insert 성공시 loginPage로 이동, 실패시 joinForm으로 이동

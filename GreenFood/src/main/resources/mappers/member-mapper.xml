@@ -9,8 +9,8 @@
 	<!-- 프로필 -> 현재 비밀번호 확인 -->
 	<select id="login" resultType="TestVo">
 		select * from tbl_member
-		where user_id = #{user_id}
-		and user_pw = #{user_pw}
+			where user_id = #{user_id}
+			and user_pw = #{user_pw}
 	</select>
 	
 	<!-- 비밀번호 찾기 -->
@@ -30,8 +30,8 @@
 	
 	<!-- 회원가입 -->
 	<insert id="insertMember">
-		insert into tbl_member (user_id, user_pw, user_name, user_email, user_point, user_phone, user_addr1, user_addr2, user_addr3)
-			values(#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_point} ,#{user_phone}, #{user_addr1}, #{user_addr2}, #{user_addr3})
+		insert into tbl_member (user_id, user_pw, user_name, user_email, user_point, user_phone, user_addr1, user_addr2, user_addr3, user_code)
+			values(#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{user_point} ,#{user_phone}, #{user_addr1}, #{user_addr2}, #{user_addr3}, #{user_code})
 	</insert>
 	
 	<!-- 회원탈퇴 -->

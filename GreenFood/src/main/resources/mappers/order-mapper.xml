@@ -9,8 +9,10 @@
 	
 	<!-- 장바구니에 상품 1개 넣기 -->
 	<insert id="createCart">
-		insert into tbl_cart (cart_no, user_id, product_code, cart_quantity)
-		values (seq_cart_no.nextval, #{user_id}, #{product_code}, #{cart_quantity})
+		insert into tbl_cart (cart_no, user_id, product_code, product_title, 
+			product_price, product_sale_rate, cart_quantity)
+		values (seq_cart_no.nextval, #{user_id}, #{product_code}, #{product_title}, 
+			#{product_price}, #{product_sale_rate}, #{cart_quantity})
 	</insert>
 	
 	<!-- 장바구니 7일치, 불러오기 -->
@@ -41,7 +43,18 @@
 		where cart_no = #{cart_no}
 	</update>
 	
-	<!-- 장바구니 목록에 같은 상품 중복 있으면, 수량 더해주고 생성일 변경하고, ... 트랜지션 해야 함?? -->
+	<!-- 장바구니에서 상품 수량 수정 -->
+	<update id="updateQuantity">
+		update tbl_cart set
+			cart_quantity = #{cart_quantity}
+		where cart_no = #{cart_no}
+	</update>
+	
+	<!-- 장바구니에서 상품 삭제 -->
+	<delete id="deleteCartProduct">
+		delete from tbl_cart
+		where cart_no = #{cart_no}
+	</delete>
 	
 	<!-- 관리자 admin : ?일 이전에 생긴 tbl_cart 삭제 ?? -->
 	<delete id="deleteCart">

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +25,6 @@ import com.kh.greenfood.domain.ProductVo;
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.MemberService;
 import com.kh.greenfood.service.ProductService;
-import com.kh.greenfood.util.S3Util;
 
 @Controller
 public class HomeController {
@@ -79,11 +77,12 @@ public class HomeController {
 	
 	@RequestMapping(value="/loginRun", method=RequestMethod.POST)
 	public String login(String user_id, String user_pw, String checked_id, HttpSession session, RedirectAttributes rttr,Model model, HttpServletResponse response) {
-
+		
 		TestVo testVo = memberService.login(user_id, user_pw);
-
+		System.out.println("loginRun : " + testVo);
 		String page = "";
-		if(testVo != null) {
+		// testVo가 있고, 회원 탈퇴가 안된 회원만 로그인
+		if(testVo != null && !testVo.getUser_deleted().equals("Y")) {
 			
 			Cookie cookie = new Cookie("save_id", user_id);
 			if(checked_id != null && !checked_id.equals("")) {
@@ -99,6 +98,7 @@ public class HomeController {
 			String user_join_date = user_date.substring(0, lastIndex);
 			testVo.setUser_date(user_join_date);
 			// 끝 회원가입일자 간소화
+			
 			session.setAttribute("testVo", testVo);
 			String dest = (String)session.getAttribute("dest");
 			session.removeAttribute("dest");
@@ -107,8 +107,13 @@ public class HomeController {
 			} else {
 				page = "redirect:/";
 			}
-		} else {
+			// testVo가 없을 때 -> 로그인 실패 alert
+		} else if(testVo == null){
 			rttr.addFlashAttribute("msg", "loginFail");
+			page="redirect:/main/loginPage";
+			// 로그인 시도 -> 삭제 처리된 아이디로 접근 -> alert
+		} else if(testVo.getUser_deleted().equals("Y")) {
+			rttr.addFlashAttribute("msg", "deletedCustomer");
 			page="redirect:/main/loginPage";
 		}
 		return page;
