@@ -2,9 +2,7 @@ package com.kh.greenfood.dao;
 
 import java.util.List;
 
-import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.QuestionOneVo;
-import com.kh.greenfood.domain.QuestionVo;
 
 public interface QuestionOneDao {
 
@@ -25,4 +23,7 @@ public interface QuestionOneDao {
 	
 	// 글 삭제
 	public void deleteQuestionOne(int q_o_no) throws Exception;
+	
+	// user 에 따른  문의글 갯수 읽어오기
+	public int questionOneListCountUser(String q_o_writer) throws Exception;
 }

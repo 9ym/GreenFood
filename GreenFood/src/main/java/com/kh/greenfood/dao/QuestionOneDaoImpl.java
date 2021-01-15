@@ -56,6 +56,14 @@ public class QuestionOneDaoImpl implements QuestionOneDao {
 		
 	}
 
+	@Override
+	public int questionOneListCountUser(String q_o_writer) throws Exception {
+		System.out.println("QuestionOneDaoImpl, questionOneListCountUser, q_o_writer:" + q_o_writer);
+		int count = sqlSession.selectOne(NAMESPACE + "questionOneListCountUser", q_o_writer);
+		System.out.println("QuestionOneDaoImpl, questionOneListCountUser, count : " + count);
+		return count;
+	}
+
 	
 
 	
