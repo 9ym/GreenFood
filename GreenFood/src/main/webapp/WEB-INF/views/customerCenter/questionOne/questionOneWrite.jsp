@@ -111,6 +111,15 @@ div {
 	
 }
 
+.btn_checkOrderModalClose {
+	float: none;
+	border-color : white;
+	line-height: 18px;
+	width: 70px;
+    background-color: #80db65;
+    color: #fff;
+}
+
 
 tbody tr {
     border-top-style: groove;
@@ -219,14 +228,22 @@ input[type=checkbox] {
 
 <script>
 $(function(){
-	
+	//radio 버튼 클릭 이벤트 
+	$(".checkOrderRadioButton").click(function(){
+	      
+		$(".btn_checkOrderModalClose").trigger("click");
+		var number = $(this).attr("data-number");
+		$("#q_o_order_code").val(number);
+	    
+	});
+
 }); 
 </script>
 
 
 </head>
 <body>
-
+${OrderVo }
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12 main-col">
@@ -273,6 +290,15 @@ $(function(){
 										
 											<tbody>
 												<tr>
+													<th>작성자</th>
+													<td>
+													<input type=text name="q_o_writer" value="${sessionScope.testVo.user_id}" size=26 
+													class="read_only" style="background-color:#f7f5f8; width: 150px;" readonly="readonly"> 
+													</td>
+												</tr>
+											
+											
+												<tr>
 													<th>제목</th>
 													<td>
 													<select name="q_o_category" required label="질문유형" class=select>
@@ -280,6 +306,7 @@ $(function(){
 														<option class="option-item questionOne" name="q_o_category" id="member" value="201">회원문의</option>
 														<option class="option-item questionOne" name="q_o_category" id="order" value="202">주문/결제</option>
 														<option class="option-item questionOne" name="q_o_category" id="cancel" value="203">취소/교환/반품</option>
+														<option class="option-item questionOne" name="q_o_category" id="delivery" value="204">배송관련</option>
 														<option class="option-item questionOne" name="q_o_category" id="point" value="205">쿠폰/적립금</option>
 														<option class="option-item questionOne" name="q_o_category" id="use" value="206">이용 및 기타</option>
 													</select><br>
@@ -291,14 +318,12 @@ $(function(){
 												<tr>
 													<th>주문번호</th>
 													<td>
-													<input type=text name="q_o_order_code" style="width: 25%" value=""  placeholder=" 주문번호를 입력해주세요.">
+													<input type=text id="q_o_order_code" name="q_o_order_code" style="width: 25%" value=""  placeholder=" 주문번호를  조회해주세요.">
 													
 													<a id="modal-75830" href="#modal-container-75830"
 														role="button" class="" data-toggle="modal">
 														<input type="button" class="bhs_button yb checkOrder" value="주문조회"></a>
 													<br>
-													
-													
 													
 													<span id="span1" style="font-size:10pt; color: #5AB63F">* 주문내역이 없으면 비워두세요.</span>
 													</td>
@@ -306,7 +331,7 @@ $(function(){
 												<tr>
 													<th>이메일</th>
 													<td>
-													<input type=text name="q_o_email" value="astro96@hanmail.net" size=26 
+													<input type=text name="q_o_email" value="${sessionScope.testVo.user_email}" size=26 
 													class="read_only" style="width: 200px;"> 
 													<span class="noline smalle" style="padding-left: 10px">
 													<input type=checkbox name=mailling style="width: 20px;">
@@ -316,7 +341,7 @@ $(function(){
 												<tr>
 													<th>전화번호</th>
 													<td>
-													<input type=text name="q_o_phone" value="010-9398-6307" 
+													<input type=text name="q_o_phone" value="${sessionScope.testVo.user_phone}" 
 													 class="read_only" style="width: 130px;">
 													<span class="noline smalle" style="padding-left: 10px">
 													<input type=checkbox name=sms style="width: 20px;">
@@ -375,13 +400,13 @@ $(function(){
 									<div class="col-md-12">
 										<a id="modal-75830" href="#modal-container-75830"
 											role="button" class="btn" data-toggle="modal" 
-											style="">주문번호 조회</a>
+											style="display:none;">주문번호 조회</a>
 
 										<div class="modal fade" id="modal-container-75830"
 											role="dialog" aria-labelledby="myModalLabel"
 											aria-hidden="true">
 											<div class="modal-dialog" role="document">
-												<div class="modal-content" style="width: 802px; height: 502px;">
+												<div class="modal-content" style="width: 602px; height: 502px;">
 													<div class="modal-header" style="padding-top: 5px; padding-left: 10px;
    															 padding-right: 5px; padding-bottom: 5px;">
 														<p style="font-size: 18px; font-family: 'Noto Sans', sans-serif; font-weight: 700; color:green" 
@@ -409,15 +434,14 @@ $(function(){
 																				<thead class="checkOrder">
 																					<tr style="text-align: center;">
 																						<th style="width: 110px; padding-bottom: 10px;">주문번호</th>
-																						<th style="width: 120px; padding-bottom: 10px;">주문일자</th>
+																						<th style="width: 90px; padding-bottom: 10px;">주문일자</th>
 																						<th style="width: auto; padding-bottom: 10px;">상품명</th>
-																						<th style="width: 80px; padding-bottom: 10px;">수량</th>
-																						<th style="width: 150px; padding-bottom: 10px;">주문금액</th>
-																						<th style="width: 50px; padding-bottom: 10px;">선택</th>
+																						<th style="width: 90px; padding-bottom: 10px;">주문금액</th>
+																						<th style="width: 30px; padding-bottom: 10px;">선택</th>
 																					</tr>
 																				</thead>
 																				<tbody class="checkOrder">
-																					<%-- <c:forEach var="reviewVo" items="${reviewList}"> --%>
+																					<%-- <c:forEach var="orderedList" items="${orderedList}"> --%>
 																					<tr style="text-align: center; color: #98a18f; font-weight: 500;">
 																						<td style="padding: 10px 0 10px 0;">111111111</td>
 																						<td style="padding: 10px 0 10px 0;">2021-01-13</td>
@@ -425,13 +449,12 @@ $(function(){
 																							<%-- <a class="review_title" href="#"
 																			data-bno="${reviewVo.review_no}"> --%>곱창전골 방어회 <!-- </a> -->
 																						</td>
-																						<td style="padding: 10px 0 10px 0;">7 개</td>
 																						<td style="padding: 10px 0 10px 0;">
 																							<%-- <fmt:formatDate pattern="yyyy-MM-DD" value="${reviewVo.review_date}"/> --%>
 																							17억 8900만원
 																						</td>
 																						<td style="padding: 10px 0 10px 0;">
-																						<input style="width : 50px;" type="radio" name="checkOrderSelect"/>
+																						<input style="width : 50px;" type="radio" class="checkOrderRadioButton" data-number="111111111" name="checkOrderRadioButton"/>
 																						</td>
 																					</tr>
 																					<%-- </c:forEach> --%>
@@ -450,10 +473,9 @@ $(function(){
 
 													<div class="modal-footer">
 
-														<button type="button" class="btn btn-primary">
-															Save changes</button>
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Close</button>
+														
+														<button type="button" class="btn_checkOrderModalClose"
+															data-dismiss="modal">close x</button>
 													</div>
 												</div>
 
@@ -463,153 +485,6 @@ $(function(){
 
 									</div>
 								</div>
-
-
-
-
-
-
-
-								<!-- <div class="row">
-									<div class="col-md-12">
-										<a id="modal" href="#modal-container-578355"
-											role="button" class="btn" data-toggle="modal"
-											>주문번호 조회하기</a>
-
-										<div class="modal fade" id="modal-container-578355"
-											role="dialog" aria-labelledby="myModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog" role="document">
-												<div class="modal-content">
-													<div class="modal-header">
-														<h5 class="modal-title" id="myModalLabel">주문번호 조회하기</h5>
-														<button type="button" class="close" data-dismiss="modal">
-															<span aria-hidden="true">×</span>
-														</button>
-													</div>
-													<div class="modal-body">
-														<input type="hidden" id="msg_receiver" /> <input
-															type="text" id="msg_content" class="form-control" />
-													</div>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal" id="btnMessageClose">close x</button>
-													</div>
-												</div>
-
-											</div>
-
-										</div>
-
-									</div>
-								</div> -->
-								<!-- // 주문번호 모달창 끝 -->
-
-								<%-- <div class="xans-board-write">
-									<form name=fm id="fm" method=post
-										action="" enctype="multipart/form-data"
-										onSubmit="return chkForm(this)" style="height: 100%;">
-										<input type=hidden name=mode value="add_qna"> <input
-											type=hidden name=itemcd value=""> <input type=hidden
-											name=sno value="0">
-										<table id="table_after" class="boardWrite2" width="100%">
-											<col width=14% align=right>
-											
-											
-											<tr>
-												<th class="input_txt">내용</th>
-												<td class="edit_area" style="position: relative;">
-
-													<style>
-													#qnaNotice .qna_goods {
-														display: none
-													}
-													</style>
-													<div id="qnaNotice">
-														<div class="inner_qnaNotice" v-if="layerOn">
-															<div class="notice_qna" v-html="getData"></div>
-														</div>
-													</div> 
-													<!-- <script>
-														var qnaNotice = new Vue(
-																{
-																	el : '#qnaNotice',
-																	data : {
-																		getData : null,
-																		layerOn : true
-																	},
-																	methods : {
-																		update : function() {
-																			var $self = this;
-																			$
-																					.ajax(
-																							{
-																								type : 'GET',
-																								url : campaginUrl
-																										+ 'pc/notice/qna_info.html',
-																								datatype : 'html',
-																								async : true,
-																							})
-																					.done(
-																							function(
-																									result) {
-																								$self.getData = result;
-																							});
-																		}
-																	}
-																});
-														$(document)
-																.ready(
-																		function() {
-																			qnaNotice
-																					.update();
-																		});
-													</script> --> 
-													<textarea name=contents
-														style="width: 100%; height: 474px;" class="editing_area"
-														required fld_esssential label="내용"></textarea>
-												</td>
-											</tr>
-											<tr>
-												<th class="input_txt">이미지</th>
-												<td>
-													<table width=95% id=table cellpadding=0 cellspacing=0
-														border="0"
-														style="border: solid 1px #f4f4f4; border-collapse: collapse;">
-														<tr id="tr_0">
-															<td width=20 nowrap align="center">1</td>
-															<td width=100%><input type=file name="file[]"
-																style="width: 50%" class=linebg> <a
-																href="javascript:add()"><img
-																	src="/shop/data/skin/designgj/img/common/btn_upload_plus.gif"
-																	align=absmiddle></a></td>
-														</tr>
-													</table>
-													<table>
-														<tr>
-															<td height=2></td>
-														</tr>
-													</table>
-													<div width=100% style="padding: 5px;" class=stxt>
-														- 파일은 최대 5개까지 업로드가 지원됩니다.<br>
-													</div>
-												</td>
-											</tr>
-										</table>
-
-										<table width=100%>
-											<tr>
-												<td align=right style="padding-top: 5px; border: none;"
-													id="avoidDbl"><input type="submit"
-													class="bhs_button yb" value="저장" style="float: none;">
-												</td>
-											</tr>
-										</table>
-									</form>
-								</div> --%>
-
-
-
 
 
 							</div>

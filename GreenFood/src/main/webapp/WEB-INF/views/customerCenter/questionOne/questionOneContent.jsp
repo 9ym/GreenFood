@@ -261,7 +261,7 @@ $(function(){
 
 </head>
 <body>
-
+count:${count}
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
@@ -277,7 +277,7 @@ $(function(){
 								<div class="inner_snb">
 									<ul class="list_menu">
 										<li class="on"><a href="/customerCenter/customerCenterMain">공지사항</a></li>
-										<li class="on"><a href="/customerCenter/question/questionContent"">자주하는 질문</a></li>
+										<li class="on"><a href="/customerCenter/question/questionContent">자주하는 질문</a></li>
 										<li><a href="#">1:1 문의</a></li>
 										<!--
 										<li><a href="#">상품 제안</a></li>
@@ -329,11 +329,46 @@ $(function(){
 														</thead>
 														<tbody>
 															
-																<tr>
-																	<td colspan=6> 문의하신 내역이 없습니다.</td>
+															
+													<!-- ------------------ user 일때 해당하는 리스트 보여주기 --------------------- -->
+													
+													
+												<c:choose>
+													<c:when test="${sessionScope.testVo.user_id != 'admin' && count == 0}"> 
+														<tr>
+																<td colspan=6> 문의하신 내역이 없습니다.</td>
+														</tr>
+													</c:when>
+													<c:otherwise>
+														<c:forEach var="questionOneVo" items="${questionOneList}">
+															<c:choose>
+															
+															<c:when test="${sessionScope.testVo.user_id == 'admin' && count == 0}">
+																	<tr>
+																	<td>${questionOneVo.q_o_no }</td>
+																	<td>${questionOneVo.question_category_dsc }</td>
+																	<td><a class="questionOne_title" href="#"
+																		data-bno="${questionOneVo.q_o_no}">${questionOneVo.q_o_title}</a>
+																	</td>
+																	<td>${questionOneVo.q_o_writer }</td>
+																	<td><fmt:formatDate pattern="yyyy-MM-DD" value="${questionOneVo.q_o_date}"/></td>
+																	
+																	<td>
+																		<c:choose>
+																			<c:when test="${questionOneVo.q_o_answer == null}">
+																				<span style="color: white" class="badge badge-success">답변중</span>
+																			</c:when>
+																			<c:otherwise>
+																				<span style="color: white" class="badge badge-primary">답변완료</span>
+																			</c:otherwise> 
+																		</c:choose>
+																	</td>
 																</tr>
 																
-															<c:forEach var="questionOneVo" items="${questionOneList}">
+																</c:when>
+															
+															<c:when test="${sessionScope.testVo.user_id == questionOneVo.q_o_writer}">
+																
 																<tr>
 																	<td>${questionOneVo.q_o_no }</td>
 																	<td>${questionOneVo.question_category_dsc }</td>
@@ -352,14 +387,26 @@ $(function(){
 																				<span style="color: white" class="badge badge-primary">답변완료</span>
 																			</c:otherwise> 
 																		</c:choose>
-																	
-																	
 																	</td>
-																	
-																	
-																	
 																</tr>
-															</c:forEach>
+															
+																</c:when>
+ 																<%-- <c:when test="${count == 0}">
+																	<tr>
+																		<td colspan=6> 문의하신 내역이 없습니다.</td>
+																	</tr>
+																
+																</c:when> --%>
+																
+																<c:otherwise></c:otherwise>
+															</c:choose>
+															
+															</c:forEach><!-- // user 일때 모든 리스트 보여주기 끝-->
+														</c:otherwise>
+													</c:choose>
+															
+															
+															
 														</tbody>
 
 													</table>
@@ -376,10 +423,6 @@ $(function(){
 										</td>
 									</tr>
 								</table>
-
-
-
-
 
 
 							</div>
