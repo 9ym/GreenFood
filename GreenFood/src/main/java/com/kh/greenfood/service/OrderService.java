@@ -3,6 +3,7 @@ package com.kh.greenfood.service;
 import java.util.List;
 
 import com.kh.greenfood.domain.CartDto;
+import com.kh.greenfood.domain.OrderVo;
 
 public interface OrderService {
 
@@ -17,5 +18,11 @@ public interface OrderService {
 	
 	/* 장바구니에서 상품 지우기 */
 	public int deleteCartProduct(String cart_no);
+
+	/* 결제할 상품 목록 */
+	public List<CartDto> getListCartPay (List<String> listCartNo);
+	
+	/* 결제 완료 - 주문 전부 생성 */
+	public boolean setOrder(OrderVo orderVo, List<String> listCartPay);
 	
 }

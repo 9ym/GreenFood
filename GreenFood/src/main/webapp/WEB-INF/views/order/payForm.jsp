@@ -13,8 +13,6 @@
 	padding-top : 180px;
 }
 .div-cart {
-/* 	display : block; */
-/* 	border : 1px dotted red; */
 	margin-bottom : 80px;
 }
 .div-cart strong {
@@ -23,62 +21,49 @@
 	font-size : 22px;
 	margin : 10px 0px 30px;
 }
-.div-cart-list {
+.div-pay {
 	float : left;
-/* 	border : 2px dashed blue; */
-	border-bottom : 1px solid gainsboro;
+/* 	border-bottom : 1px solid gainsboro; */
  	display : block; 
 	width : 70%;
 	height : auto;
 }
-.cart-inner-select {
-	padding-left : 19px;
-}
-.cart-inner-select label {
-	margin-left : 5px;
-	margin-right : 10px;
-/* 	margin-bottom : 5px; */
-}
-.cart-inner-select #line {
-	color : gainsboro;
-}
-.cart-inner-select a {
-/* 	display : inline-block;  */
-	padding-left : 10px;
-	border-left : 1px solid gainsboro;
-	height : 22px;
-	color : black;
-	text-decoration: none;
-}
-.cart-inner {
-	border-top : 1px solid black;
-/* 	border-bottom : 1px solid gainsboro; */
+.pay-inner {
+/* 	border-top : 1px solid black; */
+/*  	border-bottom : 1px solid gainsboro; */
 	padding : 10px;
+	margin-bottom : 30px;
 	height : auto;
 }
-.cart-inner .ul-cart-list {
+.pay-inner strong {
+	margin-bottom : 0px;
+	font-size : 17px;
+	text-align : left;
+}
+.pay-inner .ul-pay-list {
+	border-top : 1px solid black;
+ 	border-bottom : 1px solid gainsboro;
 	display : block;
 	margin-bottom : 0px;
+	padding : 20px;
+	padding-left : 0px;
 }
-.cart-inner .ul-cart-list li {
+.pay-inner .product-list li {
 	display : block;
-	width : 300px;
+ 	clear : both;
+	margin : 10px;
+	text-align : center;
+}
+.pay-inner .ul-pay-list li {
+	display : block;
  	clear : both;
 	margin : 10px;
 /* 	border : 1px solid black; */
 }
-.ul-cart-list li .item{
+.ul-pay-list li .item{
  	display : block; 
  	position: relative;
  	float : left; 
-}
-.check {
-	display : block;
-	position : absolute;
-	top : 50px;
-}
-.ul-cart-list li .item input {
-	display : block;
 }
 .img {
 	display : block;
@@ -86,26 +71,13 @@
 	left : 80px;
 	margin : 10px 50px;
 }
-.ul-cart-list li .item a {
-	display : block;
-}
-.ul-cart-list li .item img{
-	display : inline-block;
-	height : 100px;
-	width : 100px;
-}
+
 .txt-span {
 	display : block;
  	position : absolute; 
 	top : 43px;
 	left : 140px;
 	width : 200px;
-}
-.txt-span a{
-	text-decoration: none;
-	color : DimGrey;
-	font-weight: 600;
-	font-size : 15px;
 }
 .txt-span span{
 	display : inline-block;
@@ -126,6 +98,11 @@
  	float : left; 
 /*  	margin-left : 10px; */
 }
+
+#btnFinalPay {
+	margin-top : 50px;
+}
+/*
 .div-btn {
 	position : absolute;
 	left : 400px;
@@ -151,8 +128,8 @@
     color: #6ca435;
     font-weight: bold;
     font-size: 17px;
-/* 	position : relative; */
-/* 	bottom : 25px; */
+/* 	position : relative; 
+/* 	bottom : 25px; 
 }
 .div-btn-delete {
 	position: absolute;
@@ -170,7 +147,7 @@
 }
 .div-hidden {
 	display : none;
-}
+}*/
 
 .txt {
 	padding : 120px 0px;
@@ -184,6 +161,7 @@
 /* 	display : block; */
 	width : 30%;
 	height : auto;
+	margin-top : 10px;
 /* 	margin-left : 20px; */
 	position : relative;
 }
@@ -255,68 +233,91 @@
 	<div class="row">
 		<div class="col-md-3"></div>
 		<div class="col-md-6 div-cart">
-			<strong>장바구니</strong>
-			<div class="div-cart-list">
-				<div class="cart-inner-select">
-					<input type="checkbox" onchange="javascript:checkSelectAll(this);">
-					<label>전체선택 ( <span>0</span> / <span>0</span> )</label>
-					<a href="#" onclick="javascript:deleteSelected(this);">선택삭제</a>
-				</div>
-				<div class="cart-inner">
-					<p class="txt">장바구니에 담긴 상품이 없습니다</p>
-					<ul class="ul-cart-list">
-						<c:forEach var="cartDto" items="${cartList}" varStatus="i">
-						<c:forEach var="img" items="${imgList}" varStatus="j">
-						<c:if test="${i.index == j.index}">
+			<strong>결제</strong>
+			<div class="div-pay">
+				<div class="pay-inner ">
+					<strong>주문정보</strong>
+					<ul class="ul-pay-list product-list">
+						<c:forEach var="cartDtoPay" items="${listCartPay}" varStatus="i">
 						<li>
-							<div class="item">
-								<div class="check">
-									<input type="checkbox" class="selected" onchange="javascript:checkSelect(this);">
-								</div>
-								<div class="img">
-									<a href="/product/detail/${cartDto.product_code}"><img src="${img}"></a>
-								</div>
-								<div class="div-btn">
-									<button type="button" class="btnDown" onclick="javascript:btnCountDown(this);">-</button>
-									<input type="text" size="2" class="productCount" value="${cartDto.cart_quantity}" readonly="readonly"/>
-									<button type="button" class="btnUp" onclick="javascript:btnCountUp(this);">+</button>
-								</div>
-								<div class="txt-span">
-									<a href="/product/detail/${cartDto.product_code}">
-										<span class="span-title">${cartDto.product_title}</span>
-									</a>
-									<span class="span-price" data-price="${cartDto.product_price}" data-price-ori="${cartDto.product_price}"
-										data-sale="${cartDto.product_sale_rate}">${cartDto.product_price}</span>
-									<span class="span-price-won">원</span>
-								</div>
-								<div class="div-btn-delete">
-									<button type="button" class="btnDelete" data-cartNo="${cartDto.cart_no}"
-										onclick="javascript:deleteOne(this);">X</button>
-								</div>
-								<div class="div-hidden" data-cartNo="${cartDto.cart_no}" data-productCode="${cartDto.product_code}"></div>
-							</div>
+							<span>${cartDtoPay.product_title} 상품</span>
+							<span>---</span>
+							<span>${cartDtoPay.cart_quantity} 개</span>
+							<input type="hidden" class="input-cartNo" value="${cartDtoPay.cart_no}">
 						</li>
-						</c:if>
-						</c:forEach>
 						</c:forEach>
 					</ul>
 				</div>
+				
+				<div class="pay-inner">
+					<strong>배송 정보</strong>
+					<ul class="ul-pay-list">
+						<li class="order-addr">${testVo.user_addr1}</li>
+						<li class="order-addr">${testVo.user_addr2}</li>
+						<li class="order-addr">${testVo.user_addr3}</li>
+						<li><span>받는 사람 : </span>${testVo.user_name}</li>
+					</ul>
+				</div>
+				
+				<div class="pay-inner">
+					<strong>포인트 사용</strong>
+					<ul class="ul-pay-list">
+						<li>
+							<input type="number" min="0" max="${testVo.user_point}" value="0" id="inputPoint">
+							<button id="btnPoint" onclick="javascript:usePoint(this);">포인트사용</button>
+						</li>
+						<li>
+							<span>보유 포인트 : </span>
+							<span class="needComma span-point">${testVo.user_point}</span>
+							<span>원</span>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="pay-inner">
+					<strong>결제수단</strong>
+					<ul class="ul-pay-list">
+						<li>
+							<input type="radio" name="pay_meth" value="pay_completed"><label>카드</label>
+						</li>
+						<li>
+							<input type="radio" name="pay_meth" value="pay_completed"><label>즉시이체</label>
+						</li>
+						<li>
+							<input type="radio" name="pay_meth" value="pay_notYet"><label>무통장입금</label>
+						</li>
+					</ul>
+				</div>
+				
 				<div class="div-empty"></div>
 			</div>
+			
 			<div class="div-price">
 				<div class="inner-price">
 					<div class="price-amount">
 						<div>
 							<span class="span-tit">상품금액</span>
 							<span class="span-won">
-								<span class="total-price">0</span>
+								<span class="total-price needComma">${listPrices[0]}</span>
 								<span>원</span>
 							</span>
 						</div>
 						<div>
 							<span class="span-tit">상품할인금액</span>
 							<span class="span-won">
-								<span class="total-sale">0</span>
+								<span class="total-sale needComma">
+								<c:choose>
+									<c:when test="${listPrices[1] != '0'}">- ${listPrices[1]}</c:when>
+									<c:otherwise>0</c:otherwise>
+								</c:choose>
+								</span>
+								<span>원</span>
+							</span>
+						</div>
+						<div>
+							<span class="span-tit">포인트사용</span>
+							<span class="span-won">
+								<span class="total-point needComma">0</span>
 								<span>원</span>
 							</span>
 						</div>
@@ -324,11 +325,10 @@
 							<span class="span-tit">배송비</span>
 							<span class="span-won">+ 3,000 원</span>
 						</div>
-						<p>ddd</p> 배송비 안내?
 						<div class="amount-last">
 							<span class="span-tit">결제예정금액</span>
 							<span class="span-won">
-								<span class="final-price">0</span>
+								<span class="final-price needComma">0</span>
 								<span>원</span>
 							</span>
 						</div>
@@ -336,15 +336,14 @@
 				</div>
 			</div>
 			<div class="btn-submit">
-				<form action="#">
-					<input value="gg">
+				<form action="/order/payCompleted">
+					<button type="button" id="btnFinalPay" onclick="javascript:payFinal();">결제완료</button>
 				</form>
-				<button type="submit" id="btnPay" onclick="">구매하기</button>
 			</div>
-			<div class="notice">
-				<span class="notice-txt">· ‘입금확인’ 상태일 때는 주문 내역 상세에서 직접 주문취소가 가능합니다.</span>
-				<span class="notice-txt">· ‘입금확인’ 이후 상태에는 고객센터로 문의해주세요.</span>
-			</div>
+<!-- 			<div class="notice"> -->
+<!-- 				<span class="notice-txt">· ‘입금확인’ 상태일 때는 주문 내역 상세에서 직접 주문취소가 가능합니다.</span> -->
+<!-- 				<span class="notice-txt">· ‘입금확인’ 이후 상태에는 고객센터로 문의해주세요.</span> -->
+<!-- 			</div> -->
 		</div>
 		<div class="col-md-3"></div>
 	</div>
@@ -353,6 +352,82 @@
 
 <script src="/resources/js/myScript.js"></script>
 <script>
+$(function() {
+	
+	/* , 추가 */
+	$(".needComma").each(function() {
+		var num = $(this).text();
+		$(this).text(addComma(num));
+	});
+	
+	finalPayPrice();
+	
+});
+
+/* 포인트 사용 */
+function usePoint(obj) {
+	var pointUse = $("#inputPoint").val();
+	var pointHave = "${testVo.user_point}";
+	if (pointUse > pointHave) {
+		$(obj).val(0);
+		alert("보유한 포인트 안에서만 사용할 수 있습니다.")
+	} else if (pointUse <= 0) {
+		alert("1원부터 사용할 수 있습니다.")
+	} else if (pointUse > 0 && pointUse < pointHave) {
+		var pointLeft = pointHave - pointUse;
+		$(".span-point").text(addComma(pointLeft));
+		$(".total-point").text("- " + addComma(pointUse));
+	}
+	finalPayPrice();
+	
+	/* 임시로... 포인트 사용 1번 제한, 나중에 아예 수정 ??? */
+	$("#inputPoint").attr("readonly", true);	
+}
+
+/* 최종가격 */
+function finalPayPrice() {
+	var totalPrice = subComma($(".total-price").text());
+	var salePrice = subComma($(".sale-price").text());
+	var finalPrice = totalPrice - salePrice;
+	var pointUse = subComma($(".total-point").text());
+	if (pointUse != 0) {
+		finalPrice -= pointUse;
+	}
+	$(".final-price").text(addComma(finalPrice));
+}
+
+/* 결제 완료 */
+function payFinal() {
+	var url = "/order/payCompleted";
+	var finalTotalPrice = parseInt(subComma($(".final-price").text()));
+	var listCartPay = [];
+	$(".input-cartNo").each(function() {
+		listCartPay.push($(this).val());
+	});
+	var listAddr = [];
+	$(".order-addr").each(function() {
+		listAddr.push($(this).text());
+	});
+	var payResult = $("input[name='pay_meth']:checked").val();
+	
+	console.log(finalTotalPrice);
+	console.log(listCartPay);
+	console.log(listAddr);
+	
+	var sendData = {
+			"finalTotalPrice" : finalTotalPrice,
+			"listCartPay" : listCartPay,
+			"listAddr" : listAddr,
+			"payResult" : payResult
+	};
+	if (payResult != null) {
+		$.post(url, sendData, function(data) {
+			console.log(data)
+		});
+	} else {
+		/* 결제 방법 체크 하라고 알림!!! */
+	}
+}
 
 </script>
 </body>

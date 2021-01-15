@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.greenfood.dao.OrderDao;
 import com.kh.greenfood.domain.CartDto;
+import com.kh.greenfood.domain.OrderVo;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -56,6 +57,38 @@ public class OrderServiceImpl implements OrderService {
 	public int deleteCartProduct(String cart_no) {
 		int count = orderDao.deleteCartProduct(cart_no);
 		return count;
+	}
+	
+	/* 결제할 상품 목록 */
+	@Override
+	public List<CartDto> getListCartPay(List<String> listCartNo) {
+		List<CartDto> listCartPay = orderDao.getListCartPay(listCartNo);
+		return listCartPay;
+	}
+	
+	/* 결제 완료 - 주문 전부 생성 */
+	@Override
+	@Transactional
+	public boolean setOrder(OrderVo orderVo, List<String> listCartPay) {
+		int count = orderDao.createOrder(orderVo);
+		if (count > 0) {
+			OrderVo orderVoLatest = orderDao.getOrderLatest();
+			System.out.println("gg-"+orderVoLatest);
+			String order_code = orderVo.getOrder_code();
+			
+			List<CartDto> list = orderDao.getListCartPay(listCartPay);
+//			System.out.println(list);
+//			for (CartDto cartDto : list) {
+//				String product_code = cartDto.getProduct_code();
+//				int order_quantity = cartDto.getCart_quantity();
+//				System.out.println(cartDto);
+//				int countGG = orderDao.createOrderDetail(order_code, product_code, order_quantity);
+//				System.out.println("ttt-"+countGG);
+//				return true;
+//			}
+			
+		}
+		return false;
 	}
 	
 }

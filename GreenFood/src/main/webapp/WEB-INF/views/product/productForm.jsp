@@ -138,10 +138,9 @@ function btnCart(obj) {
 	/* 로그인 페이지 강제? 이동 */
 	} else {
 // 		console.log("null");
-		sessionStorage.setItem("dest", "/product/detail/${productVo.product_code}"); 
+// 		$.session.set("dest", "/product/detail/${productVo.product_code}");
 		location.href="/main/loginPage";
 	}
-	
 }
 
 /* 바로구매(결제) 이동 */

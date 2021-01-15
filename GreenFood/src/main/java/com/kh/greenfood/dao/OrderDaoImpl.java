@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.greenfood.domain.CartDto;
+import com.kh.greenfood.domain.OrderVo;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
@@ -70,5 +71,37 @@ public class OrderDaoImpl implements OrderDao {
 	}
 	
 	/* 관리자 admin : ?일 이전에 생긴 tbl_cart 삭제 ?? */
+	
+	/* 결제할 상품 목록 */
+	@Override
+	public List<CartDto> getListCartPay(List<String> listCartNo) {
+		List<CartDto> listCartpay = sqlSession.selectList(NAMESPACE + "getListCartPay", listCartNo);
+		return listCartpay;
+	}
+	
+	/* 결제 완료 - 주문 생성 */
+	@Override
+	public int createOrder(OrderVo orderVo) {
+		int count = sqlSession.insert(NAMESPACE + "createOrder", orderVo);
+		return count;
+	}
+	
+	/* 제일 최근에 결제된 주문 */
+	@Override
+	public OrderVo getOrderLatest() {
+		OrderVo orderVo = sqlSession.selectOne(NAMESPACE + "getOrderLatest");
+		return orderVo;
+	}
+	
+	/* 주문 상세 생성 */
+	@Override
+	public int createOrderDetail(String order_code, String product_code, int order_quantity) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("order_code", order_code);
+		map.put("product_code", product_code);
+		map.put("order_quantity", order_quantity);
+		int count = sqlSession.insert(NAMESPACE + "createOrderDetail", map);
+		return count;
+	}
 
 }

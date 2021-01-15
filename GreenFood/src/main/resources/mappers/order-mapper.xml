@@ -14,7 +14,7 @@
 		values (seq_cart_no.nextval, #{user_id}, #{product_code}, #{product_title}, 
 			#{product_price}, #{product_sale_rate}, #{cart_quantity})
 	</insert>
-	
+		
 	<!-- 장바구니 7일치, 불러오기 -->
 	<select id="getCartList" resultType="CartDto">
 		<![CDATA[
@@ -64,8 +64,46 @@
 		]]>
 	</delete>
 	
+	<!-- //장바구니  cart -->
+	
 	
 	<!-- 주문 order -->
 	
+	<!-- 결제할 상품 목록 -->
+	<select id="getListCartPay" parameterType="java.util.List" resultType="CartDto">
+		select * from tbl_cart
+		where cart_no in ( <foreach collection="list" item="no" separator=",">#{no}</foreach> )
+		order by cart_no desc
+	</select>
+	
+	<!-- 오더 테이블 , 코드로 오더 디테일 위 리스트 포문 돌려서 집어넣기 // 결제완료 버튼 누를때...... -->
+	
+	<!-- 주문 완료 - tbl_order 생성 -->
+	<insert id="createOrder">
+		insert into tbl_order (user_id, order_code, order_total_price, order_state, 
+			order_addr1, order_addr2, order_addr3)
+		values (#{user_id}, seq_order_code.nextval, #{order_total_price}, #{order_state}, 
+			#{order_addr1}, #{order_addr2}, #{order_addr3})
+	</insert>
+	
+	<!-- 제일 최근에 결제된 주문 -->
+	<select id="getOrderLatest" resultType="OrderVo">
+		select * from
+		    (select rownum, a.*from 
+		        (select * from tbl_order
+		        order by order_date desc)a
+		    )b
+		where rownum between 1 and 1
+	</select>
+	
+	<!-- 주문 상세 tbl_order_detail -->
+	<insert id="createOrderDetail">
+		insert into tbl_order_detail (order_datail_code, order_code, product_code, order_quantity)
+		values (seq_order_datatil_code.nextval, #{order_code}, #{product_code}, #{order_quantity})
+	</insert>
+	
+	<!-- 오더 디테일, 오더 읽기 / ..... -->
+	
+	<!--// 주문 order -->
 
 </mapper>

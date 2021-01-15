@@ -310,14 +310,14 @@
 						<div>
 							<span class="span-tit">상품금액</span>
 							<span class="span-won">
-								<span class="total-price">0</span>
+								<span class="total-price" data-totalPrice="0">0</span>
 								<span>원</span>
 							</span>
 						</div>
 						<div>
 							<span class="span-tit">상품할인금액</span>
 							<span class="span-won">
-								<span class="total-sale">0</span>
+								<span class="total-sale" data-totalSale="">0</span>
 								<span>원</span>
 							</span>
 						</div>
@@ -337,12 +337,8 @@
 				</div>
 			</div>
 			<div class="btn-submit">
-				<form action="/order/pay" method="post">
-					<input type="hidden" value="gg" name="testInput">
-					<input type="hidden" value="aa" name="testInput2">
-					<input type="hidden" value="bb" name="testInput2">
-					<input type="hidden" value="cc" name="testInput2">
-					<button type="submit" id="btnPay" onclick="">구매하기</button>
+				<form id="frmSelectedCart" action="/order/pay" method="post">
+					<button type="button" id="btnPay" onclick="javascript:sendCartNo();">구매하기</button>
 				</form>
 			</div>
 <!-- 			<div class="notice"> -->
@@ -493,7 +489,10 @@ function totalPrice() {
 	}
 	/* 가격 총합 - 할인 총합  + 배송비 = 최종 가격 */
 	if (totalPrice != 0) {
-		$(".final-price").text(addComma(totalPrice - totalSale + 3000));
+		var finalPrice = totalPrice - totalSale + 3000;
+		$(".final-price").text(addComma(finalPrice));
+		$(".total-price").attr("data-totalPrice", totalPrice);
+		$(".total-sale").attr("data-totalSale", totalSale);
 	} else {
 		$(".total-sale").text(0);
 		$(".final-price").text(0);
@@ -533,6 +532,20 @@ function deleteSelected(obj) {
 			}
 		});
 	});
+}
+
+/* 선택된 상품 -> 결제 page에 cart_no 보내기 */
+function sendCartNo() {
+	$(".selected:checked").each(function() {
+		var cart_no = $(this).parent().parent().find(".div-hidden").attr("data-cartNo");
+		/* append() 해서 장바수니 순서랑 똑같이 */
+		$("#frmSelectedCart").append($('<input/>', {type: 'hidden', name: 'cart_no', value: cart_no }));
+	});
+	var totalPrice = $(".total-price").attr("data-totalPrice");
+	var totalSale = $(".total-sale").attr("data-totalSale");
+	$("#frmSelectedCart").append($('<input/>', {type: 'hidden', name: 'totalPrice', value: totalPrice }));
+	$("#frmSelectedCart").append($('<input/>', {type: 'hidden', name: 'totalSale', value: totalSale }));
+	$("#frmSelectedCart").submit();
 }
 
 </script>

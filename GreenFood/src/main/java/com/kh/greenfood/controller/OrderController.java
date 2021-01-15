@@ -9,16 +9,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.greenfood.domain.CartDto;
+import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.ProductCategoryDto;
-import com.kh.greenfood.domain.ProductImageDto;
-import com.kh.greenfood.domain.ProductVo;
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.OrderService;
 import com.kh.greenfood.service.ProductService;
@@ -39,17 +37,10 @@ public class OrderController {
 	public String cart(HttpSession session, Model model) throws Exception {
 		TestVo testVo = (TestVo) session.getAttribute("testVo");
 		List<CartDto> list = orderService.seeCartList(testVo.getUser_id());
-		List<String> listImgUrl = new ArrayList<>();
-		/* img 링크 리스트 */
-		for (CartDto dto : list) {
-			String product_code = dto.getProduct_code();
-			String category = productService.getProduct(product_code).getProduct_category();
-			String fileName = productService.getProductImage(product_code).getImage_info_file_name();
-			String imgUrl = S3Util.getImageUrl(fileName, category);
-			listImgUrl.add(imgUrl);
-		}
 		model.addAttribute("cartList", list);
-		model.addAttribute("imgList", listImgUrl);
+		
+		/* img 링크 리스트 */
+		getImgUrl(list, model);
 		
 		/* 상품 카테고리 */
 		List<ProductCategoryDto> categoryList = productService.getCategory();
@@ -65,7 +56,6 @@ public class OrderController {
 			int product_price, int product_sale_rate, int cart_quantity) throws Exception {
 		CartDto cartDto = new CartDto(user_id, product_code, product_title, 
 				product_price, product_sale_rate, cart_quantity);
-//		System.out.println("cartDto :" + cartDto);
 		String result = orderService.addCart(cartDto);
 		return result;
 	}
@@ -94,12 +84,69 @@ public class OrderController {
 		return result;
 	}
 	
-	/* 결제 */
+	/* 결제 페이지 */
 	@RequestMapping(value="/pay", method=RequestMethod.POST)
-	public String pay(String testInput, @RequestParam(value="testInput2") List<String> testInput2list) throws Exception {
-		System.out.println("-" + testInput);
-		System.out.println("-" + testInput2list);
+	public String pay(String totalPrice, String totalSale, @RequestParam(value="cart_no") List<String> listCartNo, 
+			Model model, HttpSession session) throws Exception {
+		/* 가격 정보 */
+		List<String> listPrices = new ArrayList<>();
+		listPrices.add(totalPrice);
+		listPrices.add(totalSale);
+		model.addAttribute("listPrices", listPrices);
+		
+		/* 회원 정보 */
+		TestVo testVo = (TestVo) session.getAttribute("testVo");
+		model.addAttribute("testVo", testVo);
+		
+		/* 결제할 상품 정보 */
+		List<CartDto> listCartPay = orderService.getListCartPay(listCartNo);
+		model.addAttribute("listCartPay", listCartPay);
+		
 		return "order/payForm";
+	}
+	
+	/* 결제 완료 */
+	@RequestMapping(value="/payCompleted", method=RequestMethod.POST)
+	@ResponseBody
+	public String payCompleted(int finalTotalPrice, @RequestParam(value="listAddr[]") List<String> listAddr, 
+			@RequestParam(value="listCartPay[]") List<String> listCartPay, String payResult,
+			Model model, HttpSession session) throws Exception {
+		System.out.println("finalTotalPrice :" + finalTotalPrice);
+		System.out.println("listAddr :" + listAddr);
+		System.out.println("listCartPay :" + listCartPay);
+		System.out.println("payResult :" + payResult);
+		
+		/* OrderVo 필요한거.... */
+		String order_state = "";
+		if (payResult.equals("pay_completed")) {
+			order_state = "10001"; // 상품준비중
+		} else {
+			order_state = "10000"; // 입금대기중
+		}
+		TestVo testVo = (TestVo) session.getAttribute("testVo");
+		
+		OrderVo orderVo = new OrderVo(testVo.getUser_id(), finalTotalPrice, order_state, 
+				listAddr.get(0), listAddr.get(1), listAddr.get(2));
+		
+		System.out.println("orderVo :" + orderVo);
+		
+		boolean result = orderService.setOrder(orderVo, listCartPay);
+		System.out.println(result);
+		
+		return "ggg";
+	}
+	
+	/* img 링크 리스트 */
+	private void getImgUrl(List<CartDto> listCartDto, Model model) throws Exception {
+		List<String> listImgUrl = new ArrayList<>();
+		for (CartDto dto : listCartDto) {
+			String product_code = dto.getProduct_code();
+			String category = productService.getProduct(product_code).getProduct_category();
+			String fileName = productService.getProductImage(product_code).getImage_info_file_name();
+			String imgUrl = S3Util.getImageUrl(fileName, category);
+			listImgUrl.add(imgUrl);
+		}
+		model.addAttribute("imgList", listImgUrl);
 	}
 	
 }
