@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.amazonaws.services.simpleworkflow.flow.worker.SynchronousActivityTaskPoller;
+import com.kh.greenfood.domain.OrderListCountDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PointVo;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.MemberService;
+import com.kh.greenfood.service.OrderService;
 import com.kh.greenfood.service.ProductService;
 
 @Controller
@@ -39,12 +41,18 @@ public class CustomerController {
 		String user_id = testVo.getUser_id();
 		// 상품 전체보기 카테고리
 		getProductCate(model);
+		// 상품 전체 품목 OrderVo -> session
+		List<OrderVo> orderedList = memberService.getOrderedList(user_id);
+		model.addAttribute("orderedList", orderedList);
 		// 최근 주문내역 List
 		List<OrderVo> latestOrderedList = memberService.getLatestOrderedList(user_id);
 		model.addAttribute("latestOrderedList", latestOrderedList);
 		// 주문완료 횟수(배송완료 10003)
 		int orderCount = memberService.orderCount(user_id);
 		model.addAttribute("orderCount", orderCount);
+		// 주문 상세 갯수(입금대기, 상품준비, 배송중, 배송완료)
+		List<OrderListCountDto> customerOrderCountList = memberService.getCustomerOrderCountList(user_id);
+		model.addAttribute("customerOrderCountList", customerOrderCountList);
 		// 포인트 합계
 		if(testVo.getUser_point() != 0) {
 			int pointSum = memberService.getPointSum(user_id);

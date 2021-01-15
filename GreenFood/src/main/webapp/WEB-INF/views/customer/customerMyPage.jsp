@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@include file="../include/header.jsp"%>
 <%@include file="../include/frmOrdered.jsp" %>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/css_customerMyPage.css"/>
@@ -51,9 +52,9 @@ padding:0;">
 		
 		
 		<div id="left_bottom">
-			<div><a href="/customer/customerProfile" class="btn">프로필</a>></div>
+			<div><a href="/customer/customerProfile" class="btn">프로필</a></div>
 			<div>나의 쇼핑 활동</div>
-			<div>Q&amp;A</div>
+			<div><a href="/customerCenter/question/questionContent" class="btn">Q&amp;A</a></div>
 		</div>
 	</div>
 	<!--오른쪽 메뉴-->
@@ -112,44 +113,48 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 				</div>
 			</div>
 			<div id="chkorder">
-			<p class="bigText">주문 배송 조회</p><p id="chkorder_secondP">전체 <span class="showsign">></span></p>
-				<div id="chkorder_1">
-					<span>0</span>
-					<p>입금대기중</p>
-				</div>
-				<div id="chkorder_2">
-					<span>0</span>
-					<p>상품준비중</p>
-				</div >
-				<div id="chkorder_3">
-					<span>0</span>
-					<p>배송중</p>
-				</div>
-				<div id="chkorder_4">
-					<span>0</span>
-					<p>배송완료</p>
-				</div>
+			<p class="bigText">주문 배송 조회</p>
+				<c:forEach var="customerOrderCountList" items="${customerOrderCountList}">
+					<div>
+						<span>
+							<a href="/order/ordDelivery/${customerOrderCountList.order_state}">${customerOrderCountList.order_count}</a>
+						</span>
+						<p>${customerOrderCountList.order_state_dsc}</p>
+					</div>
+				</c:forEach>
+<!-- 				<div id="chkorder_2"> -->
+<!-- 					<span><a href="/order/ordDelivery/10001">0</a></span> -->
+<!-- 					<p>상품준비중</p> -->
+<!-- 				</div > -->
+<!-- 				<div id="chkorder_3"> -->
+<!-- 					<span><a href="/order/ordDelivery/10002">0</a></span> -->
+<!-- 					<p>배송중</p> -->
+<!-- 				</div> -->
+<!-- 				<div id="chkorder_4"> -->
+<%-- 					<span><a href="/order/ordDelivery/10003">${orderCount}</a></span> --%>
+<!-- 					<p>배송완료</p> -->
+<!-- 				</div> -->
 			</div>
 			
-			<div id="chkList">
-			<p class="bigText">취소/교환/반품 내역</p><p id="chkList_secondP">전체 <span class="showsign">></span></p>
-				<div id="chkList_1">
-					<span>0</span>
-					<p>교환신청</p>
-				</div>
-				<div>
-					<span>0</span>
-					<p>교환완료</p>
-				</div>
-				<div>
-					<span>0</span>
-					<p>반품신청</p>
-				</div>
-				<div>
-					<span>0</span>
-					<p>반품완료</p>
-				</div>
-			</div>
+<!-- 			<div id="chkList"> -->
+<!-- 			<p class="bigText">취소/교환/반품 내역</p><p id="chkList_secondP">전체 <span class="showsign">></span></p> -->
+<!-- 				<div id="chkList_1"> -->
+<!-- 					<span>0</span> -->
+<!-- 					<p>교환신청</p> -->
+<!-- 				</div> -->
+<!-- 				<div> -->
+<!-- 					<span>0</span> -->
+<!-- 					<p>교환완료</p> -->
+<!-- 				</div> -->
+<!-- 				<div> -->
+<!-- 					<span>0</span> -->
+<!-- 					<p>반품신청</p> -->
+<!-- 				</div> -->
+<!-- 				<div> -->
+<!-- 					<span>0</span> -->
+<!-- 					<p>반품완료</p> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 			<div id="orderedList">
 				<p class="bigText">최근 주문 내역</p><p id="orderedList_secondP">
 				<button type="button" id="btn_allOrderShow" class="btn">더보기</button>

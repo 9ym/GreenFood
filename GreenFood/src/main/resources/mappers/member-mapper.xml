@@ -74,7 +74,7 @@
 	<!-- 최근 주문내역 3개까지만 -->
 	<select id="getLatestOrderedList" resultType="OrderVo">
 		select t.*
-			from (select rownum rnum, a.user_id, a.order_code, a.order_date, a.order_total_price, a.order_state, 
+			from (select ROW_NUMBER() OVER (ORDER BY order_date desc) rnum, a.user_id, a.order_code, a.order_date, a.order_total_price, a.order_state, 
       			p.order_state_dsc from (select o.* from tbl_order o order by order_date desc) a, tbl_order_state_category p
 				where user_id = #{user_id} and a.order_state = p.order_state) t
 				where rnum between 1 and 3
@@ -104,5 +104,24 @@
 	<select id="orderCount" resultType="int">
 		select count(*) from tbl_order
 			where user_id = #{user_id} and order_state = '10003'
+	</select>
+	
+	<!-- Order 주문 상태 갯수 -->
+	<select id="getCustomerOrderCountList" resultType="OrderListCountDto">
+		select sum(a.cnt) order_count, a.order_state, a.order_state_dsc, a.user_id
+			from (select c.order_state, c.order_state_dsc, nvl2(o.user_id, 1, 0) cnt, user_id
+				from (select * from tbl_order_state_category where substr(order_state, 1, 1) = 1) c,
+					(select * from tbl_order where user_id = 'user') o
+						where c.order_state = o.order_state(+)	)a
+			group by a.order_state, a.order_state_dsc, a.user_id
+			order by order_state asc
+	</select>
+	
+	<!-- Order_dsc 마이페이지 -->
+	<select id="orderDscCount" resultType="int">
+		select count(*) from (select a.*, b.* from tbl_order a, tbl_order_state_category b
+			where user_id = #{user_id}
+			and a.order_state = b.order_state
+			and order_state_dsc like '배송완료')
 	</select>
 </mapper>

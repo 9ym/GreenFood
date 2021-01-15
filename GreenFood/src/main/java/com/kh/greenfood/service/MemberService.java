@@ -2,6 +2,7 @@ package com.kh.greenfood.service;
 
 import java.util.List;
 
+import com.kh.greenfood.domain.OrderListCountDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PointVo;
 import com.kh.greenfood.domain.TestVo;
@@ -47,5 +48,8 @@ public interface MemberService {
 	
 	// 주문갯수(배송완료)
 	public int orderCount(String user_id);
+
+	// 주문 총 갯수(입금전, 상품준비, 배송중, 배송완료)
+	public List<OrderListCountDto> getCustomerOrderCountList(String user_id);
 
 }

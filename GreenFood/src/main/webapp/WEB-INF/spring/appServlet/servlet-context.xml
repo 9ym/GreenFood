@@ -29,11 +29,12 @@
 	<interceptors>
 	
 		<interceptor>
-			<mapping path="/cutomer/*"/>
+			<mapping path="/customer/*"/>
 			<mapping path="/order/*"/>
 			<mapping path="/customerCenter/notice/noticeWriteForm"/>
 			<mapping path="/customerCenter/questionOne/questionOneAnswerWrite/*"/>
 			<mapping path="/customerCenter/question/questionWriteForm"/>
+			<mapping path="/customerCenter/questionOne/*"/>
 			<exclude-mapping path="/"/>
 			<exclude-mapping path="/customer/customerMemberJoinForm"/>
 			<exclude-mapping path="/customer/customerMemberJoinRun"/>
@@ -42,15 +43,10 @@
 		
 		<interceptor>
 			<mapping path="/admin/*"/>
-			<mapping path="/customer/customerMyPage"/>
-			<exclude-mapping path="/admin/customerList"/>
 			<beans:ref bean="adminInterceptor"/>
 		</interceptor>
 		
 	</interceptors>
-	
-
-
 	
 	<!-- upload -->
     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

@@ -1,5 +1,6 @@
 package com.kh.greenfood.interceptor;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,11 +17,8 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 			throws Exception {
 		HttpSession session = request.getSession();
 		TestVo testVo = (TestVo)session.getAttribute("testVo");
-		String user_id = testVo.getUser_id();
-		String user_name = testVo.getUser_name();
-		
 		// 로그인 확인 , 로그인 x일 경우
-		if(session.getAttribute("testVo") == null) {
+		if(testVo == null) {
 			String uri = request.getRequestURI();
 			String query = request.getQueryString();
 			if(query == null || query.equals("")) {
@@ -31,10 +29,11 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 			session.setAttribute("dest", uri + query);
 			response.sendRedirect("/main/loginPage");
 			return false;
-		} else if(!user_id.equals("admin") || !user_name.equals("관리자")) {
-			
-			return false;
-		}
+		// admin 외의 customer가 접근 했을 때 home.jsp로 돌려보내기
+		} else if(!testVo.getUser_id().equals("admin")){
+//			session.setAttribute("msg", "missing");
+			response.sendRedirect("/");
+		} 
 		return true;
 	}
 	
@@ -42,6 +41,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		super.postHandle(request, response, handler, modelAndView);
+		
 	}
 
 }

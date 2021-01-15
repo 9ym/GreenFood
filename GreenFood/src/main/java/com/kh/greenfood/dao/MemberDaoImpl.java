@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.greenfood.domain.OrderListCountDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PointVo;
 import com.kh.greenfood.domain.TestVo;
@@ -115,6 +116,12 @@ public class MemberDaoImpl implements MemberDao {
 	public int orderCount(String user_id) {
 		int count = sqlSession.selectOne(NAMESPACE + "orderCount", user_id);
 		return count;
+	}
+
+	@Override
+	public List<OrderListCountDto> getCustomerOrderCountList(String user_id) {
+		List<OrderListCountDto> customerOrderCountList = sqlSession.selectList(NAMESPACE + "getCustomerOrderCountList", user_id);
+		return customerOrderCountList;
 	}
 
 }
