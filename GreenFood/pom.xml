@@ -17,6 +17,31 @@
         </properties>
         
 <dependencies>
+
+		<!-- https://mvnrepository.com/artifact/net.nurigo/javaSDK -->
+		<!-- 문자메시지 발송 관련 -->
+			<dependency>
+			    <groupId>net.nurigo</groupId>
+			    <artifactId>javaSDK</artifactId>
+			    <version>2.2</version>
+			</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+			<dependency>
+    			<groupId>commons-logging</groupId>
+    			<artifactId>commons-logging</artifactId>
+    			<version>1.2</version>
+			</dependency>			
+		
+		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+			<dependency>
+			    <groupId>com.googlecode.json-simple</groupId>
+			    <artifactId>json-simple</artifactId>
+			    <version>1.1.1</version>
+			</dependency>
+			
+			<!-- // 메지지 발송 관련 끝 -->
+		
 		
 		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
 		<!-- 이메일보내는 라이브러리 -->

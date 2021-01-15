@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -147,6 +148,12 @@ public class OrderController {
 			listImgUrl.add(imgUrl);
 		}
 		model.addAttribute("imgList", listImgUrl);
+	} 
+	
+	@RequestMapping(value="/ordDelivery/{order_state}", method=RequestMethod.GET)
+	public String ordDelivery(@PathVariable("order_state") int order_state) throws Exception{
+		System.out.println(order_state);
+		return "";
 	}
 	
 }

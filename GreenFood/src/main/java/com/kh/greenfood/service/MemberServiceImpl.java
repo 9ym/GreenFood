@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.greenfood.dao.MemberDao;
+import com.kh.greenfood.domain.OrderListCountDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PointVo;
 import com.kh.greenfood.domain.TestVo;
@@ -103,6 +104,12 @@ public class MemberServiceImpl implements MemberService {
 	public int orderCount(String user_id) {
 		int count = memberDao.orderCount(user_id);
 		return count;
+	}
+
+	@Override
+	public List<OrderListCountDto> getCustomerOrderCountList(String user_id) {
+		List<OrderListCountDto> customerOrderCountList = memberDao.getCustomerOrderCountList(user_id);
+		return customerOrderCountList;
 	}
 
 //	@Override

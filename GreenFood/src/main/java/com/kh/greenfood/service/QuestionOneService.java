@@ -25,4 +25,7 @@ public interface QuestionOneService {
 	// 글 삭제
 	public void deleteQuestionOne(int q_o_no) throws Exception;
 	
+	// user 에 따른  문의글 갯수 읽어오기
+	public int questionOneListCountUser(String q_o_writer) throws Exception;
+	
 }

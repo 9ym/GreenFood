@@ -2,6 +2,7 @@ package com.kh.greenfood.dao;
 
 import java.util.List;
 
+import com.kh.greenfood.domain.OrderListCountDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PointVo;
 import com.kh.greenfood.domain.TestVo;
@@ -35,4 +36,6 @@ public interface MemberDao {
 	public int getPointSum(String user_id);
 
 	public int orderCount(String user_id);
+
+	public List<OrderListCountDto> getCustomerOrderCountList(String user_id);
 }

@@ -15,9 +15,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		
+		TestVo testVo = (TestVo)session.getAttribute("testVo");
 		// 로그인 확인 , 로그인 x일 경우
-		if(session.getAttribute("testVo") == null) {
+		if(testVo == null) {
 			String uri = request.getRequestURI();
 			String query = request.getQueryString();
 			if(query == null || query.equals("")) {

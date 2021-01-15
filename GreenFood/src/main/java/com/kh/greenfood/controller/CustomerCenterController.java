@@ -1,10 +1,12 @@
 package com.kh.greenfood.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.domain.NoticeVo;
+import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.QuestionOneVo;
 import com.kh.greenfood.domain.QuestionVo;
+import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.NoticeService;
 import com.kh.greenfood.service.QuestionOneService;
 import com.kh.greenfood.service.QuestionService;
+
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Controller
 @RequestMapping(value="/customerCenter")
@@ -196,7 +203,11 @@ public class CustomerCenterController {
 		
 		
 		@RequestMapping(value="/questionOne/questionOneWrite")
-		public String questionOneWrite() throws Exception{
+		public String questionOneWrite(Model model, HttpSession session) throws Exception{
+//			OrderVo orderVo = (OrderVo)session.getAttribute("orderVo");
+//			String order_code = orderVo.getOrder_code();
+//			System.out.println("questionOneContent, order_code:" + order_code);
+			
 			return "/customerCenter/questionOne/questionOneWrite";
 		}
 		
@@ -216,13 +227,20 @@ public class CustomerCenterController {
 		
 //		-------------------- 1:1 문의 데이타 리스트에 보여주기 -------------------------
 		@RequestMapping(value="/questionOne/questionOneContent", method=RequestMethod.GET)
-		public String questionOneListAll(Model model) throws Exception {
+		public String questionOneListAll(Model model, HttpSession session) throws Exception {
+			TestVo testVo = (TestVo)session.getAttribute("testVo");
+			String q_o_writer = testVo.getUser_id();
+//			System.out.println("questionOneContent, q_o_writer:" + q_o_writer);
 			
-//			List<NoticeVo> noticeList = noticeService.noticeList(pagingDto);
+			/* 갯수 파악*/
+			int count = questionOneService.questionOneListCountUser(q_o_writer);
+			/*↑받는거*/  /*어디에 어디로 가겟다						*/	/*얘를 보내겟다*/				
+			/* 리스트 받아오기*/
 			List<QuestionOneVo> questionOneList = questionOneService.getQuestionOneList();
 			
-//			System.out.println("CustomerCenterController, listAll, noticeList:" + noticeList);
+			
 			model.addAttribute("questionOneList", questionOneList);
+			model.addAttribute("count", count);
 			return "/customerCenter/questionOne/questionOneContent";
 		}
 		
@@ -267,8 +285,30 @@ public class CustomerCenterController {
 			System.out.println("CustomerCenterController updateQuestionOneAnswer, questionOneVo: " + questionOneVo);
 			questionOneService.updateQuestionOneAnswer(questionOneVo);
 //			rttr.addFlashAttribute("msg", "updateSuccess");
-							
-			return "redirect:/customerCenter/questionOne/questionOneContent";
+
+			/*//	----------- 문자 메세지 보내기 ---------------------------		
+			String api_key = "NCSUYJ0RBVZP2OXB";
+		    String api_secret = "DVQ7LGFSMK6FDRWFCNJFPTQMFRGQ19YS";
+		    Message coolsms = new Message(api_key, api_secret);
+
+		    // 4 params(to, from, type, text) are mandatory. must be filled
+		    HashMap<String, String> params = new HashMap<String, String>();
+		    params.put("to", "010-6428-4092");
+		    params.put("from", "01093986307"); //무조건 자기번호 (인증)
+		    params.put("type", "SMS");
+		    params.put("text", "김봉규 보냄 테스트");
+		    params.put("app_version", "test app 1.2"); // application name and version
+
+		    try {
+		    	//send() 는 메시지를 보내는 함수  
+		      JSONObject obj = (JSONObject) coolsms.send(params);
+		      System.out.println(obj.toString());
+		    } catch (CoolsmsException e) {
+		      System.out.println(e.getMessage());
+		      System.out.println(e.getCode());
+		    } // 문자메시지 보내기 끝
+*/			
+		    return "redirect:/customerCenter/questionOne/questionOneContent";
 		}
 		
 		

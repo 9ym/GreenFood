@@ -53,6 +53,14 @@ public class QuestionOneServiceImpl implements QuestionOneService {
 		
 	}
 
+	@Override
+	public int questionOneListCountUser(String q_o_writer) throws Exception {
+		System.out.println("QuestionOneServiceImpl, questionOneListCountUser, q_o_writer:" + q_o_writer);
+		int count = questionOneDao.questionOneListCountUser(q_o_writer);
+		System.out.println("QuestionOneServiceImpl, questionOneListCountUser, count : " + count);
+		return count;
+	}
+
 
 
 	
