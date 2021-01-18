@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.greenfood.domain.CartDto;
 import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.TestVo;
 
 public interface OrderService {
 
@@ -22,7 +23,10 @@ public interface OrderService {
 	/* 결제할 상품 목록 */
 	public List<CartDto> getListCartPay (List<String> listCartNo);
 	
-	/* 결제 완료 - 주문 전부 생성 */
-	public boolean setOrder(OrderVo orderVo, List<String> listCartPay);
+	/* 결제 완료 - 주문 전부 생성, 멤버 포인트 변경 */
+	public boolean setOrder(OrderVo orderVo, List<String> listCartPay, TestVo testVo, int finalPointUse);
+	
+	/* 제일 최근에 결제 완료된 주문 */
+	public OrderVo getOrderLatest();
 	
 }

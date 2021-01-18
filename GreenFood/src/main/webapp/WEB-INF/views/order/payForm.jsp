@@ -269,7 +269,7 @@
 						<li>
 							<span>보유 포인트 : </span>
 							<span class="needComma span-point">${testVo.user_point}</span>
-							<span>원</span>
+							<span>원 내에서 사용할 수 있습니다.</span>
 						</li>
 					</ul>
 				</div>
@@ -278,10 +278,10 @@
 					<strong>결제수단</strong>
 					<ul class="ul-pay-list">
 						<li>
-							<input type="radio" name="pay_meth" value="pay_completed"><label>카드</label>
+							<input type="radio" name="pay_meth" value="pay_card"><label>카드</label>
 						</li>
 						<li>
-							<input type="radio" name="pay_meth" value="pay_completed"><label>즉시이체</label>
+							<input type="radio" name="pay_meth" value="pay_transfer"><label>즉시이체</label>
 						</li>
 						<li>
 							<input type="radio" name="pay_meth" value="pay_notYet"><label>무통장입금</label>
@@ -369,63 +369,80 @@ function usePoint(obj) {
 	var pointUse = $("#inputPoint").val();
 	var pointHave = "${testVo.user_point}";
 	if (pointUse > pointHave) {
-		$(obj).val(0);
+		$("#inputPoint").val(0);
 		alert("보유한 포인트 안에서만 사용할 수 있습니다.")
 	} else if (pointUse <= 0) {
 		alert("1원부터 사용할 수 있습니다.")
 	} else if (pointUse > 0 && pointUse < pointHave) {
 		var pointLeft = pointHave - pointUse;
-		$(".span-point").text(addComma(pointLeft));
 		$(".total-point").text("- " + addComma(pointUse));
 	}
 	finalPayPrice();
-	
-	/* 임시로... 포인트 사용 1번 제한, 나중에 아예 수정 ??? */
-	$("#inputPoint").attr("readonly", true);	
 }
 
 /* 최종가격 */
 function finalPayPrice() {
 	var totalPrice = subComma($(".total-price").text());
-	var salePrice = subComma($(".sale-price").text());
+	var salePrice = subComma($(".total-sale").text().trim().substring(2));
 	var finalPrice = totalPrice - salePrice;
-	var pointUse = subComma($(".total-point").text());
+	var pointUse = subComma($(".total-point").text().trim().substring(2));
 	if (pointUse != 0) {
 		finalPrice -= pointUse;
 	}
+	finalPrice += 3000; // 배송비
 	$(".final-price").text(addComma(finalPrice));
 }
 
 /* 결제 완료 */
 function payFinal() {
-	var url = "/order/payCompleted";
 	var finalTotalPrice = parseInt(subComma($(".final-price").text()));
-	var listCartPay = [];
+	var finalSalePrice = 0;
+	if ($(".total-sale").text() != 0) {
+		finalSalePrice = parseInt(subComma($(".total-sale").text().trim().substring(2)));
+	}
+	var finalPointUse = 0;
+	if ($(".total-point").text() != 0) {
+		finalPointUse = parseInt(subComma($(".total-point").text().trim().substring(2)));
+	}
+	var listCartPay = []; // 배열
 	$(".input-cartNo").each(function() {
 		listCartPay.push($(this).val());
 	});
-	var listAddr = [];
+	var listAddr = []; // 배열
 	$(".order-addr").each(function() {
 		listAddr.push($(this).text());
 	});
 	var payResult = $("input[name='pay_meth']:checked").val();
 	
 	console.log(finalTotalPrice);
+	console.log(finalSalePrice);
+	console.log(finalPointUse);
 	console.log(listCartPay);
 	console.log(listAddr);
+	console.log(payResult);
 	
+	var url = "/order/payCompleted";
 	var sendData = {
 			"finalTotalPrice" : finalTotalPrice,
+			"finalSalePrice" : finalSalePrice,
+			"finalPointUse" : finalPointUse,
 			"listCartPay" : listCartPay,
 			"listAddr" : listAddr,
 			"payResult" : payResult
 	};
 	if (payResult != null) {
 		$.post(url, sendData, function(data) {
-			console.log(data)
+			console.log(data);
+			if (data == "pay_fail") {
+				alert("결제가 실패했습니다. 다시 시도해 주세요.");
+			} else {
+				/* 마이페이지 - 주문상세 -> order_code 보내기 */
+				location.href="/customer/customerDetailOrder/" + data;
+			}
 		});
 	} else {
-		/* 결제 방법 체크 하라고 알림!!! */
+		/* 결제 수단 체크 하라고 알림 */
+		alert("결제수단을 선택해 주세요.");
 	}
 }
 

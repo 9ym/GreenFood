@@ -51,5 +51,11 @@ public interface MemberService {
 
 	// 주문 총 갯수(입금전, 상품준비, 배송중, 배송완료)
 	public List<OrderListCountDto> getCustomerOrderCountList(String user_id);
+	
+	/* 포인트 사용 (tbl_member, tbl_point) ->> 오더 서비스에서 함 */ 
+//	public int subUserPoint(String user_id, int point_score, int point_category, int point_now);
+	
+	/* 포인트 추가 (tbl_member, tbl_point) */
+	public int addUserPoint(String user_id, int point_score, int point_category, int point_now);
 
 }
