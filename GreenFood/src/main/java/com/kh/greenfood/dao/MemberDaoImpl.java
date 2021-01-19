@@ -17,7 +17,7 @@ import com.kh.greenfood.domain.TestVo;
 @Repository
 public class MemberDaoImpl implements MemberDao {
 
-	private final String NAMESPACE = "com.kh.greenfood.member.";
+	private final static String NAMESPACE = "com.kh.greenfood.member.";
 	
 	@Inject
 	private SqlSession sqlSession;
@@ -97,12 +97,13 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public void insertPoint(String user_id, int point_score, int point_category) {
+	public int insertPoint(String user_id, int point_score, int point_category) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("user_id", user_id);
 		map.put("point_score", point_score);
 		map.put("point_category", point_category);
-		sqlSession.insert(NAMESPACE + "insertPoint", map);
+		int count = sqlSession.insert(NAMESPACE + "insertPoint", map);
+		return count;
 	}
 
 	@Override
@@ -122,6 +123,16 @@ public class MemberDaoImpl implements MemberDao {
 	public List<OrderListCountDto> getCustomerOrderCountList(String user_id) {
 		List<OrderListCountDto> customerOrderCountList = sqlSession.selectList(NAMESPACE + "getCustomerOrderCountList", user_id);
 		return customerOrderCountList;
+	}
+	
+	/* 유저 포인트 변경 (포인트 추가, 감소, ..) */
+	@Override
+	public int updateUserPoint(int user_point, String user_id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("user_point", user_point);
+		map.put("user_id", user_id);
+		int count = sqlSession.update(NAMESPACE + "updateUserPoint", map);
+		return count;
 	}
 
 }

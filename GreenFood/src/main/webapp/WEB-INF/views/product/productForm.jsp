@@ -106,7 +106,6 @@ $(function() {
 
 /* 장바구니에 상품 넣기 */
 function btnCart(obj) {
-	
 	var testVo = "${sessionScope.testVo}";
 	
 	/* 로그인 됐으면 장바구니 추가 가능 */
@@ -144,12 +143,37 @@ function btnCart(obj) {
 }
 
 /* 바로구매(결제) 이동 */
-/* function btnPay(obj) {
-	var url = "/order/pay";
-	$.get(url, function() {
-		
-	});
-} */
+function btnPay(obj) {
+	
+	/* 할인된 값 표현 */
+	var price = "${productVo.product_price}";
+	var saleRate = "${productVo.product_sale_rate}";
+	var productCount = parseInt($("#productCount").val());
+	var totalSale = 0;
+	var salePrice = 0;
+	if (saleRate != 0) {
+		salePrice = Math.ceil(price * saleRate / 100);
+		totalSale = String(salePrice * productCount);
+	}
+	var totalPrice = subComma($("#totalPrice").text());
+	console.log(obj);
+	console.log(totalPrice);
+	console.log(totalSale);
+	
+	// user_id, product_code, product_title, 
+	// product_price, product_sale_rate, cart_quantity
+	
+	$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'product_code', value: '${productVo.product_code}' }));
+	$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'product_title', value: '${productVo.product_title}' }));
+	$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'product_price', value: '${productVo.product_price}' }));
+	$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'product_sale_rate', value: '${productVo.product_sale_rate}' }));
+	$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'cart_quantity', value: productCount }));
+	
+// 	var totalSale = $(".total-sale").attr("data-totalSale");
+// 	$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'totalPrice', value: totalPrice }));
+// 	$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'totalSale', value: totalSale }));
+	$("#frmProductPay").submit();
+}
 
 </script>
 
@@ -582,7 +606,7 @@ function btnCart(obj) {
 						</li>
 						<li class="li-delivery">
 							<strong>배송비</strong>
-							<span>3,000원 (30,000원 이상 무료)</span>
+							<span>3,000원</span>
 						</li>
 						<li class="li-totalPrice" style="padding-right:10px;">
 							<strong>총 상품금액 : </strong>
@@ -591,10 +615,13 @@ function btnCart(obj) {
 						<li class="info-btn">
 							<button type="button" class="btn btn-danger btn-sm"
 								style="margin-left:15px; margin-right:5px;">♥</button>
-							<a id="btnBuyNow" type="button" class="btn btn-outline-success" 
-								href="/order/pay" >바로구매</a>
+							<button id="btnBuyNow" type="button" class="btn btn-outline-success"
+								onclick="btnPay(this);">바로구매</button>
 							<button id="btnCart" type="button" class="btn btn-success" 
 								onclick="btnCart(this);">장바구니 담기</button>
+							<form id="frmProductPay" action="/order/payImmediate" method="post" style="display:none;">
+								<input type="hidden">
+							</form>
 						</li>
 					</ul>
 				</div>

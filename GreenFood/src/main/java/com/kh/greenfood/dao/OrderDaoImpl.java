@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.greenfood.domain.CartDto;
+import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderVo;
 
 @Repository
@@ -103,5 +104,21 @@ public class OrderDaoImpl implements OrderDao {
 		int count = sqlSession.insert(NAMESPACE + "createOrderDetail", map);
 		return count;
 	}
+	
+	/* 마이페이지 상세내역 오더정보 불러오기 */
+	@Override
+	public List<OrderDetailDto> getProductDetailList(String order_code) {
+		List<OrderDetailDto> productDetailInfo = sqlSession.selectList(NAMESPACE + "getProductDetailList",order_code);
+		return productDetailInfo;
+	}
 
+	/* 주문자 정보 */
+	@Override
+	public OrderVo getOrderUserInfo(String order_code, String user_id) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("order_code", order_code);
+		map.put("user_id", user_id);
+		OrderVo orderVo = sqlSession.selectOne(NAMESPACE + "getOrderUserInfo", map);
+		return orderVo;
+	}
 }

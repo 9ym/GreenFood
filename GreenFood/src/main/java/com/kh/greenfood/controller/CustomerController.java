@@ -1,5 +1,6 @@
 package com.kh.greenfood.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.amazonaws.services.simpleworkflow.flow.worker.SynchronousActivityTaskPoller;
+import com.kh.greenfood.domain.CartDto;
+import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderListCountDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PointVo;
@@ -23,6 +26,7 @@ import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.MemberService;
 import com.kh.greenfood.service.OrderService;
 import com.kh.greenfood.service.ProductService;
+import com.kh.greenfood.util.S3Util;
 
 @Controller
 @RequestMapping(value="/customer")
@@ -33,6 +37,9 @@ public class CustomerController {
 	
 	@Inject
 	private MemberService memberService;
+	
+	@Inject
+	private OrderService orderService;
 	
 	// 마이페이지 포워드
 	@RequestMapping(value="/customerMyPage", method=RequestMethod.GET)
@@ -89,11 +96,25 @@ public class CustomerController {
 	
 	// 마이페이지 상의 order_code 클릭시 주문상세 내역 보여주기
 	@RequestMapping(value="/customerDetailOrder/{order_code}")
-	public String customerDetailOrder(@PathVariable("order_code") String order_code, Model model)throws Exception{
-		model.addAttribute("order_code", order_code);
+	public String customerDetailOrder(@PathVariable("order_code") String order_code, Model model, HttpSession session)throws Exception{
+		TestVo testVo = (TestVo)session.getAttribute("testVo");
+		String user_id = testVo.getUser_id();
+		// 주문 상세 정보 -> 주문 리스트
+		List<OrderDetailDto> productDetailInfo = orderService.getProductDetailList(order_code);
+		model.addAttribute("productDetailInfo", productDetailInfo);
+		
+		getImgUrl(productDetailInfo, model);
+		// 주문 상세 정보 -> 결제 정보
+		OrderVo orderVo = orderService.getOrderUserInfo(order_code, user_id);
+		int total = orderVo.getOrder_total_price();
+		int sale = orderVo.getOrder_sale_price();
+		int usePoint = orderVo.getOrder_point_use();
+		int origin = total + sale + usePoint - 3000;
+		orderVo.setOrder_origin_price(origin);
+		model.addAttribute("orderVo", orderVo);
 		return "customer/customerDetailOrder";
 	}
-	
+
 	// 회원가입 포워드
 	@RequestMapping(value="/customerMemberJoinForm")
 	public String customerMemberJoinForm() throws Exception{
@@ -198,4 +219,16 @@ public class CustomerController {
 		model.addAttribute("categoryList", categoryList);
 	}
 	
+	/* img 링크 리스트 */
+	private void getImgUrl(List<OrderDetailDto> listCartDto, Model model) throws Exception {
+		List<String> listImgUrl = new ArrayList<>();
+		for (OrderDetailDto dto : listCartDto) {
+			String product_code = dto.getProduct_code();
+			String category = productService.getProduct(product_code).getProduct_category();
+			String fileName = productService.getProductImage(product_code).getImage_info_file_name();
+			String imgUrl = S3Util.getImageUrl(fileName, category);
+			listImgUrl.add(imgUrl);
+		}
+		model.addAttribute("imgList", listImgUrl);
+	} 
 }

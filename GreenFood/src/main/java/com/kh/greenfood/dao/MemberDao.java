@@ -31,11 +31,15 @@ public interface MemberDao {
 
 	public List<PointVo> getUserPoint(String user_id);
 
-	public void insertPoint(String user_id, int point_score, int point_category);
+	public int insertPoint(String user_id, int point_score, int point_category);
 
 	public int getPointSum(String user_id);
 
 	public int orderCount(String user_id);
 
 	public List<OrderListCountDto> getCustomerOrderCountList(String user_id);
+	
+	/* 유저 포인트 변경 (포인트 추가, 감소, ..) */
+	public int updateUserPoint(int user_point, String user_id);
+	
 }

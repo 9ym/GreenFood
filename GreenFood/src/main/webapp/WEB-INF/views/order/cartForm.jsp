@@ -376,8 +376,7 @@ $(function() {
 	});
 	
 	/* 전체 상품 수량  */
-	var allCount = $(".ul-cart-list > li").length;
-	$(".cart-inner-select > label > span").last().text(allCount);
+	allCount();
 	
 });
 
@@ -432,6 +431,18 @@ function setChangeQuantity(obj, count) {
 	});
 }
 
+/* 전체 상품 수량  */
+function allCount() {
+	var allCount = $(".ul-cart-list > li").length;
+	$(".cart-inner-select > label > span").last().text(allCount);
+}
+
+/* 선택된 상품 수량 */ 
+function checkedCount() {
+	var checkedCount = $(".selected:checked").length;
+	$(".cart-inner-select > label > span").first().text(checkedCount);
+}
+
 /* 전체 선택 체크박스 */ 
 function checkSelectAll(obj) {
 	if ($(obj).prop("checked")) {
@@ -443,15 +454,13 @@ function checkSelectAll(obj) {
 		$(".total-sale").text(0);
 		$(".final-price").text(0);
 	}
-	var checkedCount = $(".selected:checked").length;
-	$(".cart-inner-select > label > span").first().text(checkedCount);
+	checkedCount();
 }
 
 /* 상품 각각 체크박스 */
 function checkSelect(obj) {
 	var allCount = $(".ul-cart-list > li").length;
-	var checkedCount = $(".selected:checked").length;
-	$(".cart-inner-select > label > span").first().text(checkedCount);
+	checkedCount();
 	/* 전체 선택 해제 */
 	if (checkedCount != allCount) {
 		$(".cart-inner-select > input").prop("checked", false); 
@@ -511,6 +520,10 @@ function deleteOne(obj) {
 		$.post(url, sendData, function(data) {
 			if (data = "deleteCartProduct_success") {
 				$(obj).parent().parent().parent().remove(); // li 삭제
+				// 가격, 수량 변화
+				totalPrice();
+				allCount();
+				checkedCount();
 			}
 		});
 	} 
@@ -529,6 +542,10 @@ function deleteSelected(obj) {
 		$.post(url, sendData, function(data) {
 			if (data = "deleteCartProduct_success") {
 				$(checkedDivHidden).parent().parent().remove(); // li 삭제
+				// 가격, 수량 변화
+				totalPrice();
+				allCount();
+				checkedCount();
 			}
 		});
 	});
@@ -538,7 +555,7 @@ function deleteSelected(obj) {
 function sendCartNo() {
 	$(".selected:checked").each(function() {
 		var cart_no = $(this).parent().parent().find(".div-hidden").attr("data-cartNo");
-		/* append() 해서 장바수니 순서랑 똑같이 */
+		/* append() 해서 장바구니 순서랑 똑같이 */
 		$("#frmSelectedCart").append($('<input/>', {type: 'hidden', name: 'cart_no', value: cart_no }));
 	});
 	var totalPrice = $(".total-price").attr("data-totalPrice");

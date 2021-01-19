@@ -15,6 +15,16 @@ public class CartDto {
 	
 	public CartDto() { super(); }
 
+	public CartDto(String product_code, String product_title, int product_price, int product_sale_rate,
+			int cart_quantity) {
+		super();
+		this.product_code = product_code;
+		this.product_title = product_title;
+		this.product_price = product_price;
+		this.product_sale_rate = product_sale_rate;
+		this.cart_quantity = cart_quantity;
+	}
+	
 	public CartDto(String user_id, String product_code, String product_title, int product_price, int product_sale_rate,
 			int cart_quantity) {
 		super();

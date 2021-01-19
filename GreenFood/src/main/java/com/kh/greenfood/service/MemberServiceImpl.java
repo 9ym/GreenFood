@@ -117,5 +117,29 @@ public class MemberServiceImpl implements MemberService {
 //		TestVo testVo = memberDao.profilePwCheck(user_id, user_pw);
 //		return testVo;
 //	}
+	
+	/* 포인트 사용 (tbl_member) */
+//	@Override
+//	public int subUserPoint(String user_id, int point_score, int point_category, int point_now) {
+//		int count = memberDao.insertPoint(user_id, point_score, point_category);
+//		int countUpdate = 0;
+//		if (count > 0) { // 원래 포인트 - 추가 포인트
+//			countUpdate = memberDao.updateUserPoint(point_now - point_score, user_id); 
+//		}
+//		return countUpdate;
+//	}
+	
+	/* 포인트 추가 (tbl_member, tbl_point) */
+	@Override
+	@Transactional
+	public int addUserPoint(String user_id, int point_score, int point_category, int point_now) {
+		int count = memberDao.insertPoint(user_id, point_score, point_category);
+		int countUpdate = 0;
+		if (count > 0) { // 원래 포인트 + 추가 포인트
+			countUpdate = memberDao.updateUserPoint(point_now + point_score, user_id); 
+		}
+		return countUpdate;
+	}
+	
 }
 

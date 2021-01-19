@@ -7,15 +7,21 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.greenfood.dao.MemberDao;
 import com.kh.greenfood.dao.OrderDao;
 import com.kh.greenfood.domain.CartDto;
+import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.TestVo;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 	
 	@Inject
 	private OrderDao orderDao;
+	
+	@Inject
+	private MemberDao memberDao;
 
 	/* 장바구니에 상품 추가 (중복 없으면 insert, 중복 있으면 update) */
 	@Override
@@ -66,29 +72,64 @@ public class OrderServiceImpl implements OrderService {
 		return listCartPay;
 	}
 	
-	/* 결제 완료 - 주문 전부 생성 */
+	/* 결제 완료 - 주문 전부 생성, 멤버 포인트 변경 */
 	@Override
 	@Transactional
-	public boolean setOrder(OrderVo orderVo, List<String> listCartPay) {
+	public boolean setOrder(OrderVo orderVo, List<String> listCartPay, TestVo testVo, int finalPointUse) {
+		/* 포인트 차감 */
+		int countUpdate = 0;
+		if (finalPointUse != 0) {
+			int count = memberDao.insertPoint(testVo.getUser_id(), finalPointUse, 104); // 104 : 포인트 사용
+			if (count > 0) { // 원래 포인트 - 추가 포인트
+				countUpdate = memberDao.updateUserPoint(testVo.getUser_point() - finalPointUse, testVo.getUser_id()); 
+			}
+		}
+		
+		/* 주문, 주문 상세 insert */
 		int count = orderDao.createOrder(orderVo);
 		if (count > 0) {
 			OrderVo orderVoLatest = orderDao.getOrderLatest();
-			System.out.println("gg-"+orderVoLatest);
-			String order_code = orderVo.getOrder_code();
+			String order_code = orderVoLatest.getOrder_code();
 			
+			int countAllResult = 0;
 			List<CartDto> list = orderDao.getListCartPay(listCartPay);
-//			System.out.println(list);
-//			for (CartDto cartDto : list) {
-//				String product_code = cartDto.getProduct_code();
-//				int order_quantity = cartDto.getCart_quantity();
-//				System.out.println(cartDto);
-//				int countGG = orderDao.createOrderDetail(order_code, product_code, order_quantity);
-//				System.out.println("ttt-"+countGG);
-//				return true;
-//			}
+			for (CartDto cartDto : list) {
+				String product_code = cartDto.getProduct_code();
+				int order_quantity = cartDto.getCart_quantity();
+				int countDetail = orderDao.createOrderDetail(order_code, product_code, order_quantity);
+				countAllResult += countDetail;
+			}
 			
-		}
+			/* 결제한 상품 수만큼 tbl_order_detail 생성 + 포인트 변경 */
+			if (finalPointUse != 0 && countAllResult + countUpdate == list.size() + 1) {
+				return true;
+			} else if (finalPointUse == 0 && countAllResult == list.size()) {
+				return true;
+			} 
+		} 
 		return false;
+	}
+	
+	/* 오더 정보불러오기 */
+	@Override
+	public List<OrderDetailDto> getProductDetailList(String order_code) {
+		List<OrderDetailDto> productDetailInfo = orderDao.getProductDetailList(order_code);
+		return productDetailInfo;
+	}
+	
+	/* 주문자 정보 */
+	@Override
+	public OrderVo getOrderUserInfo(String order_code, String user_id) {
+		OrderVo orderVo = orderDao.getOrderUserInfo(order_code, user_id);
+		return orderVo;
+
+	}
+	
+	/* 제일 최근에 결제 완료된 주문 */
+	@Override
+	public OrderVo getOrderLatest() {
+		OrderVo orderVoLatest = orderDao.getOrderLatest();
+		return orderVoLatest;
 	}
 	
 }
