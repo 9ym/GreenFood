@@ -66,14 +66,11 @@ public class QuestionOneDaoImpl implements QuestionOneDao {
 		return count;
 	}
 
-	@Override
-	public List<OrderVo> getOrderList(String user_id) throws Exception {
-		
-		List<OrderVo> orderList = sqlSession.selectList(NAMESPACE + "getOrderList", user_id);
-		System.out.println("QuestionOneDaoImpl , orderList : " + orderList);
-		return orderList;
-	}
-
 	
 
+	@Override
+	public List<OrderVo> getOrderedList(String user_id) {
+		List<OrderVo> orderedList = sqlSession.selectList(NAMESPACE + "getOrderedList", user_id);
+		return orderedList;
+	}
 }

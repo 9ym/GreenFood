@@ -17,6 +17,12 @@ function changeDateString(timestamp) {
 	
 }
 
+function make2digits(num) {
+	if (num < 10) {
+		num = "0" + num;
+	}
+	return num;
+}
 
 
 /* 1000 단위 사이에 , 넣는 정규식 */

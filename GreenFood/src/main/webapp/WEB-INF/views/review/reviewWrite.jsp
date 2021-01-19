@@ -214,9 +214,27 @@ $(function(){
 												<tr>
 													<th>주문번호</th>
 													<td>
-													<input type=text name="order_code" style="width: 35%" value=""  placeholder=" 주문번호를 입력해주세요.">
-													<input type="button" class="bhs_button yb" value="주문조회"
-													style="float: none; line-height: 21px; width: 100px;"><br>
+													<input type=text name="order_code" style="width: 20%" value="1111111" 
+													readonly="readonly"  >
+													
+													</td>
+												</tr>
+												
+												<tr>
+													<th>제품번호</th>
+													<td>
+													<input type=text name="order_code" style="width: 20%" value="1003" 
+													readonly="readonly"  >
+													
+													</td>
+												</tr>
+												
+												<tr>
+													<th>제품명</th>
+													<td>
+													<input type=text name="order_code" style="width: 20%" value="복숭아" 
+													readonly="readonly"  >
+													
 													</td>
 												</tr>
 												

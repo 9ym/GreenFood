@@ -23,7 +23,9 @@
 	<!-- 목록 -->
 		<select  id="noticeList" resultType="NoticeVo">
 			select * from           
-				(select rownum rnum, a.* from (select * from tbl_notice a order by notice_no desc) a)
+				(select rownum rnum, a.* from (select * from tbl_notice a 
+						<include refid="search"></include> 
+						order by notice_no desc) a)
 				where rnum between #{startRow} and #{endRow}
 		</select>
 		
@@ -63,5 +65,16 @@
 			notice_readcount = notice_readcount + 1
 			where notice_no = #{notice_no} 
 	</update>
+	
+	
+	<sql id="search">
+		<if test="selectType != null">
+			<choose>
+				<when test='selectType == "제목"'>
+					where notice_title      like '%' || #{keyword} || '%'
+				</when>
+			</choose>
+		</if>
+	</sql>
 
 </mapper>

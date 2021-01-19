@@ -245,8 +245,8 @@ $(function(){
 					
 					 var tr = $("#trTable").find("tr").clone();
 					 tr.find("td").eq(0).text(this.order_code);
-					 tr.find("td").eq(1).text(this.order_date);
-					 tr.find("td").eq(2).text(this.user_id);
+					 tr.find("td").eq(1).text(changeDateString(this.order_date));
+					 tr.find("td").eq(2).text(this.product_title);
 					 tr.find("td").eq(3).text(this.order_total_price);
 					 
 					 $("#checkOrderTable > tbody").append(tr);
@@ -263,7 +263,31 @@ $(function(){
 	});
 	
 	
+	
+	
 }); 
+
+function changeDateString(timestamp) {
+	
+	
+	var d = new Date(timestamp);
+	var year = d.getFullYear();
+	var month = make2digits(d.getMonth() + 1);
+	var date = make2digits(d.getDate());
+	var hour = make2digits(d.getHours());
+	var minute = make2digits(d.getMinutes());
+	var second = make2digits(d.getSeconds());
+	
+	return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+	
+}
+
+function make2digits(num) {
+	if (num < 10) {
+		num = "0" + num;
+	}
+	return num;
+}
 </script>
 
 
@@ -450,7 +474,7 @@ $(function(){
 											aria-hidden="true">
 											<div class="modal-dialog" role="document">
 												<div class="modal-content"
-													style="width: 602px; height: auto;">
+													style="width: 700px; height: auto;">
 													<div class="modal-header"
 														style="padding-top: 5px; padding-left: 10px; padding-right: 5px; padding-bottom: 5px;">
 														<p
@@ -499,8 +523,8 @@ $(function(){
 																				<thead class="checkOrder">
 																					<tr style="text-align: center;">
 																						<th style="width: 110px; padding-bottom: 10px;">주문번호</th>
-																						<th style="width: auto; padding-bottom: 10px;">주문일자</th>
-																						<th style="width: 90px; padding-bottom: 10px;">상품명</th>
+																						<th style="width: 150px; padding-bottom: 10px;">주문일자</th>
+																						<th style="width: auto; padding-bottom: 10px;">상품명</th>
 																						<th style="width: 90px; padding-bottom: 10px;">주문금액</th>
 																						<th style="width: 30px; padding-bottom: 10px;">선택</th>
 																					</tr>

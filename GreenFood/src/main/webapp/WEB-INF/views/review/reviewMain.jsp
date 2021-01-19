@@ -108,6 +108,7 @@ tbody tr {
 }
 
 .xans-board-listheader tbody tr td a {
+
 	color: #333;
    
 }
@@ -198,6 +199,44 @@ tbody tr {
     text-decoration: none;
     background-color: #92e978;
     border-color: #92e978;
+}
+
+#select {
+	width: auto;
+	padding: 6px 5px;
+    margin-bottom: 30px;
+    color: #202020;
+    font-size: 14px;
+    font-weight: 400px;
+    font-family: noto sans;
+    justify-content: center!important;
+    
+}
+
+#selectType {
+	border-right-width: 1px;
+    padding-right: 20px;
+    margin-right: 5px;
+    
+}
+
+#keyword {
+	border-width: 1px;
+    padding-right: 20px;
+    margin-right: 5px;
+    
+}
+
+#btnSearch {
+	padding-top: 3px;
+    padding-bottom: 3px;
+    border-width: 1px;
+    float: none;
+    line-height: 18px;
+    width: 70px;
+    background-color: #5AB63F;
+    color: #fff;
+    
 }
 
 </style>
@@ -348,12 +387,24 @@ $(function(){
 											</ul>
 										</nav>
 									</div>
-								</div>
+								</div><!-- // pagination -->
 
+								<!-- 검색 -->
+								<div class="row text-center" id="select">
+									<select id="selectType">
+										<option selected>선택</option>
+										<option>이름</option>
+										<option>아이디</option>
+									</select>
+									<input type="text" id="keyword">
+									<button type="button" class="" id="btnSearch">검색</button>
+									
+								</div>
+								<!-- //검색 -->
 
 								
 							</div>
-							<!-- // 공지사항메인창  -->
+							<!-- // 리뷰 메인창  -->
 							<div class="col-md-1">
 							</div>
 
