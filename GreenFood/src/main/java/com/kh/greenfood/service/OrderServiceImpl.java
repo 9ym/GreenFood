@@ -44,6 +44,17 @@ public class OrderServiceImpl implements OrderService {
 		return addCartResult;
 	}
 
+	/* 장바구니에 상품 1개 넣고 확인 (바로결제 사용) */
+	@Override
+	public CartDto addCartOne(CartDto cartDto) {
+		int count = orderDao.createCart(cartDto);
+		CartDto newCartDto = null;
+		if (count > 0) {
+			newCartDto = orderDao.getCartLatest();
+		}
+		return newCartDto;
+	}
+	
 	/* 장바구니 7일치 목록 */
 	@Override
 	public List<CartDto> seeCartList(String user_id) {
@@ -100,10 +111,15 @@ public class OrderServiceImpl implements OrderService {
 				countAllResult += countDetail;
 			}
 			
-			/* 결제한 상품 수만큼 tbl_order_detail 생성 + 포인트 변경 */
-			if (finalPointUse != 0 && countAllResult + countUpdate == list.size() + 1) {
+			/* 장바구니 내용 삭제 : 장바구니 번호로 주문 상세 생성한 뒤에 */
+			int countDelete = orderDao.deletePayedCart(listCartPay);
+			
+			/* 결제한 상품 수만큼 tbl_order_detail 생성 && 포인트 변경 && 장바구니 내용 삭제 */
+			if (finalPointUse != 0 && countAllResult + countUpdate == list.size() + 1 
+					&& countDelete == listCartPay.size()) {
 				return true;
-			} else if (finalPointUse == 0 && countAllResult == list.size()) {
+			} else if (finalPointUse == 0 && countAllResult == list.size() 
+					&& countDelete == listCartPay.size()) {
 				return true;
 			} 
 		} 

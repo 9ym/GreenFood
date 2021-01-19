@@ -224,7 +224,8 @@ ul li a {
 	z-index: 1;									
 	top: 35px;									
 	left: 1315px;									
-	min-width:270px;	
+/* 	min-width:270px;	 */
+	width:500px;	
 		
 	margin: 0;
 	left: 79%;
@@ -437,6 +438,8 @@ function topClose() {
 				<c:choose>
 		 		<c:when test="${sessionScope.testVo.user_code == '1001'}">
 		 			<a href="/admin/customerList">회원관리</a>
+		 			<a href="/admin/productList">상품관리</a>
+		 			<a href="/admin/orderManager">주문관리</a>
 		 		</c:when>
 		 		<c:otherwise>		 		
 					<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
@@ -450,14 +453,6 @@ function topClose() {
 					src="https://www.oasis.co.kr/images/common/bg_footer.png"> --> 
 			</c:otherwise>
 			</c:choose>
-				<c:choose>
-					<c:when  test="${sessionScope.testVo.user_code == '1001'}">
-						<a href="/admin/orderManager">주문관리</a>
-					</c:when>
-					<c:otherwise>
-						<a href="#">주문배송 |</a><!-- <img src="https://www.oasis.co.kr/images/common/bg_footer.png">  -->
-					</c:otherwise>
-				</c:choose>			
 				<a href="/order/cart" id="anchorCart">장바구니</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 				<a href="/main/customer/customerCenter" id="customerCenter" data="고객센터">고객센터</a>					
 			</div>	

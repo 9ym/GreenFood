@@ -13,6 +13,9 @@ public interface OrderDao {
 	/* 장바구니에 상품 1개 넣기 */
 	public int createCart(CartDto cartDto);
 	
+	/* 제일 최근에 생긴 장바구니 (바로결제 사용) */
+	public CartDto getCartLatest();
+	
 	/* 장바구니 7일치, 불러오기 */
 	public List<CartDto> getCartList(String user_id);
 
@@ -31,7 +34,11 @@ public interface OrderDao {
 	/* 장바구니에서 상품 지우기 */
 	public int deleteCartProduct(String cart_no);
 	
-	/* 관리자 admin : ?일 이전에 생긴 tbl_cart 삭제 ?? */
+	/* 결제한 상품 : 장바구니에서 삭제 */
+	public int deletePayedCart(List<String> listCartNo);
+	
+	/* 관리자 admin : ?일 이전에 생긴 tbl_cart 삭제 ?? - 매퍼는 있음 */
+	
 	
 	
 	/* 주문 order */

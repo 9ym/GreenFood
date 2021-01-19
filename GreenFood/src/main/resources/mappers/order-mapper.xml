@@ -14,6 +14,16 @@
 		values (seq_cart_no.nextval, #{user_id}, #{product_code}, #{product_title}, 
 			#{product_price}, #{product_sale_rate}, #{cart_quantity})
 	</insert>
+	
+	<!-- 제일 최근에 생긴 장바구니 (바로결제 사용) -->
+	<select id="getCartLatest" resultType="CartDto">
+		select * from
+		    (select rownum, a.*from 
+		        (select * from tbl_cart
+		        order by cart_date desc)a
+		    )b
+		where rownum between 1 and 1
+	</select>
 		
 	<!-- 장바구니 7일치, 불러오기 -->
 	<select id="getCartList" resultType="CartDto">
@@ -54,6 +64,12 @@
 	<delete id="deleteCartProduct">
 		delete from tbl_cart
 		where cart_no = #{cart_no}
+	</delete>
+	
+	<!-- 결제한 상품 : 장바구니에서 삭제 -->
+	<delete id="deletePayedCart" parameterType="java.util.List">
+		delete from tbl_cart
+		where cart_no in ( <foreach collection="list" item="no" separator=",">#{no}</foreach> )
 	</delete>
 	
 	<!-- 관리자 admin : ?일 이전에 생긴 tbl_cart 삭제 ?? -->
@@ -99,8 +115,6 @@
 		insert into tbl_order_detail (order_detail_code, order_code, product_code, order_quantity)
 		values (seq_order_detail_code.nextval, #{order_code}, #{product_code}, #{order_quantity})
 	</insert>
-	
-	<!-- 오더 디테일, 오더 읽기 / ..... -->
 	
 	<!--// 주문 order -->
 	

@@ -27,6 +27,13 @@ public class OrderDaoImpl implements OrderDao {
 		return count;
 	}
 
+	/* 제일 최근에 생긴 장바구니 (바로결제 사용) */
+	@Override
+	public CartDto getCartLatest() {
+		CartDto cartDto = sqlSession.selectOne(NAMESPACE + "getCartLatest");
+		return cartDto;
+	}
+	
 	/* 장바구니 7일치, 불러오기 */
 	@Override
 	public List<CartDto> getCartList(String user_id) {
@@ -68,6 +75,13 @@ public class OrderDaoImpl implements OrderDao {
 	@Override
 	public int deleteCartProduct(String cart_no) {
 		int count = sqlSession.delete(NAMESPACE + "deleteCartProduct", cart_no);
+		return count;
+	}
+	
+	/* 결제한 상품 : 장바구니에서 삭제 */
+	@Override
+	public int deletePayedCart(List<String> listCartNo) {
+		int count = sqlSession.delete(NAMESPACE + "deletePayedCart", listCartNo);
 		return count;
 	}
 	

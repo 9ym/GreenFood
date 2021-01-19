@@ -144,35 +144,28 @@ function btnCart(obj) {
 
 /* 바로구매(결제) 이동 */
 function btnPay(obj) {
-	
-	/* 할인된 값 표현 */
-	var price = "${productVo.product_price}";
-	var saleRate = "${productVo.product_sale_rate}";
-	var productCount = parseInt($("#productCount").val());
-	var totalSale = 0;
-	var salePrice = 0;
-	if (saleRate != 0) {
-		salePrice = Math.ceil(price * saleRate / 100);
-		totalSale = String(salePrice * productCount);
+	var testVo = "${sessionScope.testVo}";
+		
+	/* 로그인 됐으면 바로결제 가능 */
+	if (testVo != "") { 
+		console.log("not null");
+		
+		var productCount = $("#productCount").val();
+		
+		$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'product_code', value: '${productVo.product_code}' }));
+		$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'product_title', value: '${productVo.product_title}' }));
+		$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'product_price', value: '${productVo.product_price}' }));
+		$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'product_sale_rate', value: '${productVo.product_sale_rate}' }));
+		$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'cart_quantity', value: productCount }));
+			
+		$("#frmProductPay").submit();
+		
+	/* 로그인 페이지 강제? 이동 */
+	} else {
+		console.log("null");
+//		$.session.set("dest", "/product/detail/${productVo.product_code}");
+		location.href="/main/loginPage";
 	}
-	var totalPrice = subComma($("#totalPrice").text());
-	console.log(obj);
-	console.log(totalPrice);
-	console.log(totalSale);
-	
-	// user_id, product_code, product_title, 
-	// product_price, product_sale_rate, cart_quantity
-	
-	$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'product_code', value: '${productVo.product_code}' }));
-	$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'product_title', value: '${productVo.product_title}' }));
-	$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'product_price', value: '${productVo.product_price}' }));
-	$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'product_sale_rate', value: '${productVo.product_sale_rate}' }));
-	$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'cart_quantity', value: productCount }));
-	
-// 	var totalSale = $(".total-sale").attr("data-totalSale");
-// 	$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'totalPrice', value: totalPrice }));
-// 	$("#frmProductPay").append($('<input/>', {type: 'hidden', name: 'totalSale', value: totalSale }));
-	$("#frmProductPay").submit();
 }
 
 </script>
@@ -201,7 +194,7 @@ function btnPay(obj) {
 }
 .img-product {
 	width : 400px;
-	height : 400px;
+	height : 420px;
 	padding-left : 0px;
 }
 .infoNamePrice {
@@ -220,7 +213,7 @@ function btnPay(obj) {
 	padding : 0px 20px;
 }
 .productInfo li {
-	padding : 10px 30px;
+	padding : 9px 30px;
 }
 #priceWon {
 	font-weight : bold;
@@ -253,7 +246,7 @@ function btnPay(obj) {
 }
 .li-totalPrice {
 	float : right;
-	padding-right : 10px;
+	padding-right: 10px;
 }
 .li-totalPrice #totalPrice {
 	font-weight : bold;
@@ -305,8 +298,13 @@ function btnPay(obj) {
 	padding : 10px 20px;
 	font-weight : bold;
 }
+.info-btn #btnCart {
+	width : 200px;
+	margin-left : 30px;
+}
 .info-btn #btnBuyNow {
 	border : 1px solid MediumSeaGreen;
+	margin-left : 13px;
 }
 .productInfo span {
 	padding-left : 20px;
@@ -613,15 +611,13 @@ function btnPay(obj) {
 							<span id="totalPrice">0</span>
 						</li>
 						<li class="info-btn">
-							<button type="button" class="btn btn-danger btn-sm"
-								style="margin-left:15px; margin-right:5px;">♥</button>
+<!-- 							<button type="button" class="btn btn-danger btn-sm" -->
+<!-- 								style="margin-left:15px; margin-right:5px;">♥</button> -->
 							<button id="btnBuyNow" type="button" class="btn btn-outline-success"
 								onclick="btnPay(this);">바로구매</button>
 							<button id="btnCart" type="button" class="btn btn-success" 
 								onclick="btnCart(this);">장바구니 담기</button>
-							<form id="frmProductPay" action="/order/payImmediate" method="post" style="display:none;">
-								<input type="hidden">
-							</form>
+							<form id="frmProductPay" action="/order/payImmediate" method="post" style="display:none;"></form>
 						</li>
 					</ul>
 				</div>
@@ -631,6 +627,10 @@ function btnPay(obj) {
 		<!--// 상품 개요 -->
 		<div class="col-md-3"></div>
 	</div>
+	
+<!-- 	<div id="view-wrap"> -->
+<!-- 		<div id="infoMove-tab" style="height : 00px;"></div> -->
+<!-- 	</div> -->
 	
 	<div class="row div-content">
 		<div class="col-md-2"></div>
@@ -645,6 +645,7 @@ function btnPay(obj) {
 					<c:if test="${productVoList.product_code == productImageDtoList.product_code}">
 					<li class="li-related" style="float:left;">
 						<div class="image-related">
+							<div id="infoMove-tab" style="height : 00px;"></div>
 							<a href="/product/detail/${productVoList.product_code}">
 								<img class="img-related img-s3" alt="관련 상품 사진" src="${path}/resources/images/item.png"
 									data-img="${productImageDtoList.image_info_file_name}" data-category="${productVoList.product_category}">
@@ -665,6 +666,10 @@ function btnPay(obj) {
 		<!--// 관련 상품 -->
 		<div class="col-md-2"></div>
 	</div>
+	
+<!-- 	<div id="view-wrap"> -->
+<!-- 		<div id="infoMove-tab" style="height : 00px;"></div> -->
+<!-- 	</div> -->
 	
 	<div class="row div-content">
 		<div class="col-md-3"></div>
@@ -726,7 +731,7 @@ function btnPay(obj) {
 		<div class="col-md-6 tbl-review view-wrap" id="tbl-review-tab">
 			<div class="view-tab">
 				<ul>
-					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver;">상품설명</a></li>
+					<li><a href="#infoMove-tab" style="border-left: 1px solid Silver;">상품설명</a></li>
 					<li><a href="#imsi-tab">임시</a></li>
 					<li><a href="#tbl-review-tab" style="background-color: white; border-bottom: 0px; z-index: 2;">후기</a></li>
 				</ul>

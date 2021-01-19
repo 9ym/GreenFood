@@ -12,6 +12,9 @@ public interface OrderService {
 	/* 장바구니에 상품 추가 (중복 없으면 insert, 중복 있으면 update) */
 	public String addCart(CartDto cartDto); 
 	
+	/* 장바구니에 상품 1개 넣고 확인 (바로결제 사용) */
+	public CartDto addCartOne(CartDto cartDto);
+	
 	/* 장바구니 7일치 목록 */
 	public List<CartDto> seeCartList(String user_id);
 	

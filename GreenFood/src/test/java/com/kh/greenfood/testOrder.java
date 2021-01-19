@@ -27,7 +27,7 @@ public class testOrder {
 	@Test
 	public void testCreateCart() throws Exception {
 //		CartDto dto = new CartDto("user", "1120", 5); // 견과류8
-////		CartDto dto = new CartDto("user", "1003", 10); // 당근
+//		CartDto dto = new CartDto("user", "1003", 10); // 당근
 //		int count = orderDao.createCart(dto);
 //		System.out.println("count :" + count);
 	}
@@ -62,5 +62,19 @@ public class testOrder {
 		System.out.println(ggg);
 	}
 	
+	@Test
+	public void testGetCartLatest() throws Exception {
+		CartDto dto = orderDao.getCartLatest();
+		System.out.println(dto);
+	}
+	
+	@Test
+	public void testDeletePayedCart() throws Exception {
+		List<String> listCartNo = new ArrayList<>();
+		listCartNo.add("45");
+		listCartNo.add("55");
+		int count = orderDao.deletePayedCart(listCartNo);
+		System.out.println(count);
+	}
 	
 }

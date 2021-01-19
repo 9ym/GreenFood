@@ -111,36 +111,38 @@ public class OrderController {
 	
 	/* 바로 결제 -> 결제 페이지 */
 	@RequestMapping(value="/payImmediate", method=RequestMethod.POST)
-	public void pay(CartDto cartDto, Model model, HttpSession session) throws Exception {
+	public String pay(CartDto cartDto, Model model, HttpSession session) throws Exception {
 		
+		/* 회원 정보 */
 		TestVo testVo = (TestVo) session.getAttribute("testVo");
+		model.addAttribute("testVo", testVo);
+		
+		/* 결제할 상품 정보 -> 상품 바로결제, 상품 1개 */
 		cartDto.setUser_id(testVo.getUser_id());
-//		model.addAttribute("listCartPay", listCartPay);
+		CartDto newCartDto = orderService.addCartOne(cartDto);
+		List<CartDto> listCartPay = new ArrayList<>();
+		listCartPay.add(newCartDto);
+		model.addAttribute("listCartPay", listCartPay); 
 		
-		System.out.println(cartDto);
-		
+		/* 가격 정보 계산 */
 		int price = cartDto.getProduct_price();
-		int priceSale = 0;
-		int sale = cartDto.getProduct_sale_rate();
-		if (sale != 0) {
-//			price = (int)(Math.ceil(price * ((100 - sale) / 100)));
-			priceSale = (int)((price * (sale / 100)));
-			price -= priceSale;
-			System.out.println("priceSale : " + priceSale);
-			System.out.println("price : " + price);
+		int saleRate = cartDto.getProduct_sale_rate();
+		int salePrice = 0; // 할인중이라면, 할인된 가격
+		int sale = 0;
+		if (saleRate != 0) { // (double)(100 - saleRate) / 100 = 0.9 되어야지 계산 가능
+			salePrice = (int)Math.ceil((price * ((double)(100 - saleRate) / 100)));
+			sale = price - salePrice;
 		}
 		String totalPrice = String.valueOf(price * cartDto.getCart_quantity());
-		String totalSale = String.valueOf(priceSale * cartDto.getCart_quantity());
+		String totalSale = String.valueOf(sale * cartDto.getCart_quantity());
 		
-		System.out.println("totalPrice : " + totalPrice);
-		System.out.println("totalSale : " + totalSale);
+		/* 가격 정보 */
+		List<String> listPrices = new ArrayList<>();
+		listPrices.add(totalPrice);
+		listPrices.add(totalSale);
+		model.addAttribute("listPrices", listPrices);
 		
-		List<String> listCartNo = new ArrayList<>();
-		listCartNo.add(cartDto.getCart_no());
-		
-		System.out.println("listCartNo : " + listCartNo);
-		
-//		return "order/payForm";
+		return "order/payForm";
 	}
 	
 	/* 결제 완료 */

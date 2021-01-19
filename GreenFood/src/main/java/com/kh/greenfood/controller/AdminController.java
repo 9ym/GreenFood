@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.domain.PagingDto;
+import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.AdminService;
+import com.kh.greenfood.service.ProductService;
 
 @Controller
 @RequestMapping(value="/admin")
@@ -20,6 +22,9 @@ public class AdminController {
 	
 	@Inject
 	private AdminService adminService;
+	
+	@Inject
+	private ProductService productService;
 	
 	// 회원 전체 정보 리스트
 	@RequestMapping(value="/customerList", method=RequestMethod.GET)
@@ -64,4 +69,16 @@ public class AdminController {
 		
 		return "/admin/orderManager";
 	}
+	
+	/* 상품 관리 */
+	@RequestMapping(value="/productList", method=RequestMethod.GET)
+	public String productList(Model model) throws Exception {
+		
+		/* 상품 카테고리 */
+		List<ProductCategoryDto> categoryList = productService.getCategory();
+		model.addAttribute("categoryList", categoryList);
+		
+		return "/admin/productList";
+	}
+	
 }

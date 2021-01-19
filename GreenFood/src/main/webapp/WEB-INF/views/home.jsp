@@ -55,7 +55,7 @@ $(function(){
 		
 		if (st > 55) {
 			$("#header_menu_out").css("transition-property", "margin-top");
-// 			$("#header_menu_out").css("transition-duration", "0.2s");
+// 			$("#header_menu_out").css("transition-duration", "5s");
 			$("#header_menu_out").css("margin-top", "0px");
 			if (st > 390) {
 				$("#header_menu_out").css("transition-property", "box-shadow");
@@ -67,7 +67,7 @@ $(function(){
 			$("#header_menu_out").css("box-shadow", "0px 0px 0px WhiteSmoke");
 			if (st <= 55) {
 				$("#header_menu_out").css("transition-property", "margin-top");
-// 				$("#header_menu_out").css("transition-duration", "0.1s");
+// 				$("#header_menu_out").css("timing-function", "step-start");
 				$("#header_menu_out").css("margin-top", "80px");
 			}
 		} 
@@ -277,7 +277,8 @@ ul li a{ text-decoration:none; }
 	}
 	
 	#header_small_menu{
-		min-width:270px;
+/* 		min-width:270px; */
+		width:500px;
  		position:absolute; 
  		top:35px;
 		
@@ -510,23 +511,25 @@ ${testVo.user_id}
 	<div id="header_small_menu">
 		<c:choose>
 			<c:when test="${not empty sessionScope.testVo }">
-		 	<a href="/logout">로그아웃</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-		 	<!-- 관리자 -->
-		 	<c:choose>
+				<a href="/logout">로그아웃</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+				<c:choose>
 		 		<c:when test="${sessionScope.testVo.user_code == '1001'}">
 		 			<a href="/admin/customerList">회원관리</a>
+		 			<a href="/admin/productList">상품관리</a>
+		 			<a href="/admin/orderManager">주문관리</a>
 		 		</c:when>
 		 		<c:otherwise>		 		
 					<a href="/customer/customerMyPage">마이페이지</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 		 		</c:otherwise>
 			</c:choose>
-			<!-- // 관리자 -->
-		 	</c:when>
+			</c:when>
 			<c:otherwise>
-			<a href="/main/loginPage">로그인</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-			<a id="a-join" href="/main/memberJoinForm">회원가입</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-		 	</c:otherwise>
-		</c:choose>	
+				<a href="/main/loginPage">로그인 |</a><!-- <img						
+					src="https://www.oasis.co.kr/images/common/bg_footer.png">  -->
+					<a href="/main/memberJoinForm">회원가입 |</a><!-- <img					
+					src="https://www.oasis.co.kr/images/common/bg_footer.png"> --> 
+			</c:otherwise>
+			</c:choose>
 		<a href="/order/cart" id="anchorCart">장바구니</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 		<a href="#">주문배송</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 		<a href="/customerCenter/customerCenterMain">고객센터</a>
