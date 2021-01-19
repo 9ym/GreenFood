@@ -214,7 +214,7 @@ $(function(){
 												<tr>
 													<th>주문번호</th>
 													<td>
-													<input type=text name="order_code" style="width: 20%" value="1111111" 
+													<input type=text name="order_code" style="width: 20%" value="${orderVo.order_code }" 
 													readonly="readonly"  >
 													
 													</td>
@@ -223,7 +223,7 @@ $(function(){
 												<tr>
 													<th>제품번호</th>
 													<td>
-													<input type=text name="order_code" style="width: 20%" value="1003" 
+													<input type=text name="product_code" style="width: 20%" value="" 
 													readonly="readonly"  >
 													
 													</td>
@@ -232,7 +232,7 @@ $(function(){
 												<tr>
 													<th>제품명</th>
 													<td>
-													<input type=text name="order_code" style="width: 20%" value="복숭아" 
+													<input type=text name="product_title" style="width: 20%" value="" 
 													readonly="readonly"  >
 													
 													</td>

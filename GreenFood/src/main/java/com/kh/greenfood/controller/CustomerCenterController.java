@@ -66,7 +66,7 @@ public class CustomerCenterController {
 		int count = noticeService.noticeListCount(pagingDto);
 		pagingDto.setTotalCount(count);
 		pagingDto.setPagingInfo();
-		System.out.println("CustomerCenterController, listAll, pagingDto : " + pagingDto);
+//		System.out.println("CustomerCenterController, listAll, pagingDto : " + pagingDto);
 		List<NoticeVo> noticeList = noticeService.noticeList(pagingDto);
 		
 //		System.out.println("CustomerCenterController, listAll, noticeList:" + noticeList);
@@ -147,6 +147,7 @@ public class CustomerCenterController {
 	// ------------------------ 자주하는 질문 입력한 데이타 리스트에 보여주기 ---------------------
 	@RequestMapping(value="/question/questionContent", method=RequestMethod.GET)
 	public String questionListAll(Model model, PagingDto pagingDto) throws Exception {
+		System.out.println("centerController , questionListAll: " + pagingDto);
 		int count = questionService.questionListCount(pagingDto);
 		pagingDto.setTotalCount(count);
 		pagingDto.setPagingInfo();
@@ -239,15 +240,13 @@ public class CustomerCenterController {
 			return orderedList;
 		}
 		
-		
-		
-		
 //		-------------------- 1:1 문의 데이타 리스트에 보여주기 -------------------------
 		@RequestMapping(value="/questionOne/questionOneContent", method=RequestMethod.GET)
-		public String questionOneListAll(Model model, HttpSession session) throws Exception {
+		public String questionOneListAll(Model model, PagingDto pagingDto, HttpSession session) throws Exception {
+			System.out.println("centerController, questionOneListAll : " + pagingDto);
 			TestVo testVo = (TestVo)session.getAttribute("testVo");
 			String q_o_writer = testVo.getUser_id();
-//			System.out.println("questionOneContent, q_o_writer:" + q_o_writer);
+			
 			/* 갯수 파악*/
 			int count = questionOneService.questionOneListCountUser(q_o_writer);
 			/*↑받는거*/  /*어디에 어디로 가겟다						*/	/*얘를 보내겟다*/				

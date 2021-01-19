@@ -239,17 +239,28 @@ $(function(){
 			$.post(url, function(data){
 // 				console.log(data);
 				$("#checkOrderTable > tbody").empty();
+				var nowCode = 0;
+				var count = 0;
 				$.each(data, function(){
 					
-					console.log(this.order_date);
+					if (nowCode != this.order_code) {
+						console.log(this.order_date);
+						
+						 var tr = $("#trTable").find("tr").clone();
+						 tr.find("td").eq(0).html(this.order_code);
+						 tr.find("td").eq(1).html(changeDateString(this.order_date));
+						 tr.find("td").eq(2).html(this.product_title);
+						 tr.find("td").eq(3).html(this.order_total_price);
+						 
+						 $("#checkOrderTable > tbody").append(tr);
+						 nowCode = this.order_code;
+						 count = 0;
+					} else {
+// 						console.log($("#tableTbody tr:last"));
+						$("#tableTbody tr:last").find("td").eq(2).html(this.product_title + " 외 " + (++count) + " 건");
+						
+					}
 					
-					 var tr = $("#trTable").find("tr").clone();
-					 tr.find("td").eq(0).text(this.order_code);
-					 tr.find("td").eq(1).text(changeDateString(this.order_date));
-					 tr.find("td").eq(2).text(this.product_title);
-					 tr.find("td").eq(3).text(this.order_total_price);
-					 
-					 $("#checkOrderTable > tbody").append(tr);
 				});
 			});
 	});
@@ -327,7 +338,7 @@ function make2digits(num) {
 							</div>
 
 
-							<!-- ------------------------- 자주하는 질문 메인 창 --------------------------- -->
+							<!-- ------------------------- 1 : 1 문의 메인 창 --------------------------- -->
 							<div class="col-md-9">
 								<div class="head_aticle">
 									<h2 class="tit">

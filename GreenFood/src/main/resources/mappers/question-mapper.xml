@@ -14,16 +14,31 @@
 				values(seq_question_no.nextval, #{question_title}, #{question_content}, #{question_category}) 
 		</insert>
 
-	<!-- 목록 -->
-		<!-- <select  id="questionList" resultType="QuestionVo">
-			select * from           
-				(select rownum rnum, a.* from (select * from tbl_question a order by question_no desc) a)
-				where rnum between #{startRow} and #{endRow}
-		</select> -->
-		
+	<!-- 글목록 받아오기 에서 category 조인하기 해서 카테고리 이름까지 같이 받아오기 -->
+	<select id="getQuestionList" resultType="QuestionVo">
+		select * from           
+				(select rownum rnum, q.* from (select * from (
+					select q.* , c.question_category_dsc 
+                    from tbl_question q, tbl_question_category c
+					where q.question_category = c.question_category) 
+                    <include refid="search"></include>
+                    order by question_no desc) q)
+                where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<!-- 카테고리에 해당하는 리스트 받아오기 -->
+	<select id="getQuestionListCategory" resultType="QuestionVo">
+		select q.* , c.question_category_dsc
+		from tbl_question q, tbl_question_category c
+		where q.question_category = c.question_category
+		and q.question_category = #{question_category}
+		order by question_no desc 
+	</select>
+	
 	<!-- 전체 글갯수 읽어오기 -->	
 		<select id="questionListCount" resultType="int">
 			select count(*) from tbl_question
+			<include refid="search"></include>
 		</select>
 		
 	
@@ -37,34 +52,6 @@
 			<!-- question_no 값이 #... 인거 -->
             and question_no = #{question_no}
 	</select>
-	
-	<!-- 글목록 받아오기 에서 category 조인하기 해서 카테고리 이름까지 같이 받아오기 -->
-	<select id="getQuestionList" resultType="QuestionVo">
-		select * from           
-				(select rownum rnum, q.* from (select * from (
-					select q.* , c.question_category_dsc 
-                    from tbl_question q, tbl_question_category c
-					where q.question_category = c.question_category) 
-                    order by question_no desc) q)
-				where rnum between #{startRow} and #{endRow}
-	</select>
-	
-	<!-- 카테고리에 해당하는 리스트 받아오기 -->
-	<select id="getQuestionListCategory" resultType="QuestionVo">
-		select q.* , c.question_category_dsc
-		from tbl_question q, tbl_question_category c
-		where q.question_category = c.question_category
-		and q.question_category = #{question_category}
-		order by question_no desc 
-	</select>
-	
-	
-	<!-- 카테고리 받아오기 -->
-	<!-- <select id="getQuestionCategory" resultType="QuestionVo">
-		select * from tbl_question
-		where question_category = #{question_category}
-	</select> -->
-	
 	
 	<!-- 수정 -->
 	<update id="updateQuestion">
@@ -91,5 +78,15 @@
 		order by question_no desc
 	</select> -->
 	
+	<!-- 검색 기능 -->
+	<sql id="search">
+		<if test="selectType != null">
+			<choose>
+				<when test='selectType == "제목"'>
+					where question_title      like '%' || #{keyword} || '%'
+				</when>
+			</choose>
+		</if>
+	</sql>
 	
 </mapper>

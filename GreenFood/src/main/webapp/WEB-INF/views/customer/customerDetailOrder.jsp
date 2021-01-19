@@ -277,6 +277,13 @@ $(function(){
 	$("#page_background").css({"background-repeat":"no-repeat"});
 	$("#boardNames").text("마이페이지");/* 게시판 이름 */
 	
+	
+	$(".review_write").click(function(e){
+		e.preventDefault();
+		var p_code = $(this).attr("data-bno");
+		
+		location.href="/review/reviewWrite/" + p_code;
+	});
 });
 </script>
 <content>
@@ -342,7 +349,8 @@ $(function(){
 									<span>${productInfo.order_quantity}개</span>
 									<span>${productInfo.product_price}원</span>
 									<c:if test="${orderVo.order_state == '10003'}">
-										<span><a href="/review/reviewWrite" class="btn btn-success">상품평 작성</a></span>
+										<span><a class="review_write" href="" class="btn btn-success"
+												data-bno="${orderVo.order_code}">상품평 작성</a></span>
 									</c:if>
 								</div>
 							</li>

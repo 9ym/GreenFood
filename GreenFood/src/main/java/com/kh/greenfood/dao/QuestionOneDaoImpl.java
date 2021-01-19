@@ -69,7 +69,7 @@ public class QuestionOneDaoImpl implements QuestionOneDao {
 	
 
 	@Override
-	public List<OrderVo> getOrderedList(String user_id) {
+	public List<OrderVo> getOrderedList(String user_id) throws Exception {
 		List<OrderVo> orderedList = sqlSession.selectList(NAMESPACE + "getOrderedList", user_id);
 		return orderedList;
 	}
