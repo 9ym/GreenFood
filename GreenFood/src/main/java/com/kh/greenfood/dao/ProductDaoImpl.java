@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
+import com.kh.greenfood.domain.SearchDto;
 import com.kh.greenfood.domain.StarDto;
 
 @Repository
@@ -154,6 +155,13 @@ public class ProductDaoImpl implements ProductDao {
 		map.put("product_code", product_code);
 		int count = sqlSession.update(NAMESPACE + "updateStar", map);
 		return count;
+	}
+	
+	/* 관리자 : 상품 검색 */
+	@Override
+	public List<ProductVo> getSearchProduct(SearchDto searchDto) {
+		List<ProductVo> listSearch = sqlSession.selectList(NAMESPACE + "getSearchProduct", searchDto);
+		return listSearch;
 	}
 
 }

@@ -75,7 +75,7 @@
 	<!-- 관리자 admin : ?일 이전에 생긴 tbl_cart 삭제 ?? -->
 	<delete id="deleteCartAdmin">
 		<![CDATA[
-			delete from tbl_from
+			delete from tbl_cart
 			where sysdate -30 >= cart_date
 		]]>
 	</delete>
