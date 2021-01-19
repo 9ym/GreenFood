@@ -255,13 +255,27 @@ $(function(){
 		
 		location.href="/customerCenter/questionOne/questionOneAnswer/" + q_o_no;
 	});
+	
+	// 페이지네이션 - 페이지 번호 클릭했을때
+	/* $("a.page-link").click(function(e){
+		e.preventDefault();
+		var page = $(this).attr("data-page");
+		console.log(page);
+		$("#frmQuestionOnePaging").find("input[name=page]").val(page);
+		$("#frmQuestionOnePaging").submit();
+	}); */
 }); 
 </script>
 
+<!-- ----------------  페이징 폼 넣어주기 -----------------------------------  -->
+
+<%@ include file="../../include/frmPaging.jsp" %>
 
 </head>
 <body>
-count:${count}
+
+
+
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
@@ -391,15 +405,7 @@ count:${count}
 																</tr>
 															
 																</c:when>
- 																<%-- <c:when test="${count == 0}">
-																	<tr>
-																		<td colspan=6> 문의하신 내역이 없습니다.</td>
-																	</tr>
-																
-																</c:when> --%>
-																
-																<c:otherwise></c:otherwise>
-															</c:choose>
+ 																</c:choose>
 															
 															</c:forEach><!-- // user 일때 모든 리스트 보여주기 끝-->
 														</c:otherwise>
@@ -423,6 +429,43 @@ count:${count}
 										</td>
 									</tr>
 								</table>
+								
+								
+								<!-- ----------------------------------- pagination -------------------------------- -->
+
+								<%-- <div class="row">
+									<div class="col-md-12 text-center">
+										<nav>
+											<ul class="pagination justify-content-center">
+												<!-- 이전 -->
+												<c:if test="${pagingDto.startPage != 1}">
+													<li class="page-item"><a class="page-link" href="#"
+														data-page="${pagingDto.startPage - 1}">이전</a></li>
+												</c:if>
+												<!-- 1 ~ 10 -->
+												<c:forEach var="i" begin="${pagingDto.startPage}"
+													end="${pagingDto.endPage}">
+													<li
+														<c:choose>
+															<c:when test="${i == pagingDto.page}">
+																class="page-item active"
+															</c:when>
+															<c:otherwise>
+																class="page-item"
+															</c:otherwise>
+														</c:choose>>
+														<a class="page-link" href="#" data-page="${i}">${i}</a></li>
+												</c:forEach>
+												<!-- 다음 -->
+												<c:if test="${pagingDto.endPage < pagingDto.totalPage}">
+													<li class="page-item"><a class="page-link" href="#"
+														data-page="${pagingDto.endPage + 1}">다음</a></li>
+												</c:if>
+											</ul>
+										</nav>
+									</div>
+								</div> --%>
+								
 
 
 							</div>

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.domain.NoticeVo;
@@ -200,8 +201,6 @@ public class CustomerCenterController {
 		
 //  -------------------------  1 : 1 문의 관련 ---------------------------------------------------
 		
-		
-		
 		@RequestMapping(value="/questionOne/questionOneWrite")
 		public String questionOneWrite(Model model, HttpSession session) throws Exception{
 //			OrderVo orderVo = (OrderVo)session.getAttribute("orderVo");
@@ -215,6 +214,7 @@ public class CustomerCenterController {
 		// -------------------------- 1:1 문의 입력하기 --------------------------------
 		@RequestMapping(value="/questionOne/insertOuestionOne", method=RequestMethod.POST)
 		public String insertQuestionOne(QuestionOneVo questionOneVo, HttpSession session) throws Exception {
+			
 //			MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 		
 //			commentVo.setUser_id(memberVo.getUser_id());
@@ -225,22 +225,41 @@ public class CustomerCenterController {
 			return "redirect:/customerCenter/questionOne/questionOneContent";
 		}
 		
+		
+		// -------------------------- 1:1 문의 입력할때 주문내역 조회 리스트 가져오기 --------------------------------
+		@RequestMapping(value="/questionOne/getOrderList", method=RequestMethod.POST)
+		@ResponseBody
+		public List<OrderVo> getOrderList(HttpSession session) throws Exception {
+			TestVo testVo = (TestVo)session.getAttribute("testVo");
+			System.out.println("getorderList, testVo :"  + testVo);
+			String user_id = testVo.getUser_id();
+			List<OrderVo> orderList = questionOneService.getOrderList(user_id);
+			System.out.println("getOrderList, orderList :" + orderList);
+					
+			return orderList;
+		}
+		
+		
+		
+		
+		
+		
 //		-------------------- 1:1 문의 데이타 리스트에 보여주기 -------------------------
 		@RequestMapping(value="/questionOne/questionOneContent", method=RequestMethod.GET)
 		public String questionOneListAll(Model model, HttpSession session) throws Exception {
 			TestVo testVo = (TestVo)session.getAttribute("testVo");
 			String q_o_writer = testVo.getUser_id();
 //			System.out.println("questionOneContent, q_o_writer:" + q_o_writer);
-			
 			/* 갯수 파악*/
 			int count = questionOneService.questionOneListCountUser(q_o_writer);
 			/*↑받는거*/  /*어디에 어디로 가겟다						*/	/*얘를 보내겟다*/				
 			/* 리스트 받아오기*/
-			List<QuestionOneVo> questionOneList = questionOneService.getQuestionOneList();
 			
+			List<QuestionOneVo> questionOneList = questionOneService.getQuestionOneList();
 			
 			model.addAttribute("questionOneList", questionOneList);
 			model.addAttribute("count", count);
+			
 			return "/customerCenter/questionOne/questionOneContent";
 		}
 		

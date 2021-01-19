@@ -25,8 +25,8 @@ public class questionOneDaoTest {
 		QuestionVo questionVo = new QuestionVo();
 		for( int i = 1; i < 100 ; i++) {
 
-			questionVo.setQuestion_title(i + " ¹øÂ° °øÁö»çÇ×ÀÔ´Ï´Ù.");
-			questionVo.setQuestion_content(i + " ¹øÂ° ´äº¯ÀÔ´Ï´Ù.");
+			questionVo.setQuestion_title(i + " ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
+			questionVo.setQuestion_content(i + " ï¿½ï¿½Â° ï¿½äº¯ï¿½Ô´Ï´ï¿½.");
 			questionVo.setQuestion_category(201);
 		
 			questionDao.insertQuestion(questionVo);
@@ -39,19 +39,23 @@ public class questionOneDaoTest {
 	public void testInsertQuestionOne() throws Exception {
 		QuestionOneVo questionOneVo = new QuestionOneVo();
 		/*questionOneVo.setQ_o_no(100);*/
-		questionOneVo.setQ_o_title("³Ê¹« Ãß¿ö¿ä");
-		questionOneVo.setQ_o_content("µû¶æÇÏ°Ô ÇØÁÖ¼¼¿ä");
+		questionOneVo.setQ_o_title("ï¿½Ê¹ï¿½ ï¿½ß¿ï¿½ï¿½ï¿½");
+		questionOneVo.setQ_o_content("ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½");
 		questionOneVo.setQ_o_category(201);
 		questionOneVo.setQ_o_writer("user02");
 		questionOneDao.insertQuestionOne(questionOneVo);
 		System.out.println("testInsertQuestionOne, questionOneVo :" + questionOneVo);
 		/*questionOneVo.setQuestion_no(100);
-		questionOneVo.setQuestion_title("ÀÚÁÖÇÏ´Â Áú¹® Á¦¸ñ1");
-		questionOneVo.setQuestion_content("ÀÚÁÖÇÏ´Â Áú¹® ³»¿ë1");
+		questionOneVo.setQuestion_title("ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½1");
+		questionOneVo.setQuestion_content("ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½1");
 		questionDao.insertQuestion(questionVo);
 		System.out.println("testInsertQuestion questionVo : " + questionVo);*/
 	}
 	
+	@Test
+	public void testGetOrderList() throws Exception {
+		questionOneDao.getOrderList("user");
+	}
 	
 	
 }

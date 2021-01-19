@@ -74,4 +74,15 @@
    		 where q_o_writer = #{q_o_writer}
 	</select>
 	
+	<!-- user에 따른 주문 내역 받아오기 -->
+	<select id="getOrderList" resultType="OrderVo">
+		select * from 
+   			 (select o.*, q.q_o_writer
+       		 from tbl_order o, tbl_question_one q
+       		 where o.user_id = q.q_o_writer)
+   		 where user_id = #{user_id}
+         order by order_date desc
+	</select>
+	
+	
 </mapper>

@@ -2,6 +2,8 @@ package com.kh.greenfood.dao;
 
 import java.util.List;
 
+import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.QuestionOneVo;
 
 public interface QuestionOneDao {
@@ -26,4 +28,7 @@ public interface QuestionOneDao {
 	
 	// user 에 따른  문의글 갯수 읽어오기
 	public int questionOneListCountUser(String q_o_writer) throws Exception;
+	
+	// user 에 따른 주문내역 가져오기
+	public List<OrderVo> getOrderList(String user_id) throws Exception;
 }

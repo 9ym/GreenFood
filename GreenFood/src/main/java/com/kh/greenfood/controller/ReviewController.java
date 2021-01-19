@@ -59,14 +59,6 @@ public class ReviewController {
 //	-------------------- 후기 데이타 리스트에 보여주기 -------------------------
 	@RequestMapping(value="/reviewMain", method=RequestMethod.GET)
 	public String reviewList(Model model, PagingDto pagingDto) throws Exception {
-		
-		// 회원 가입일자 간소화 0000-00-00 00:00:00 -> 0000-00-00
-//			String user_date = reviewVo.getReview_date();
-//			System.out.println("review: " +  user_date);
-//			int lastIndex = user_date.lastIndexOf("-") + 3;
-//			String user_join_date = user_date.substring(0, lastIndex);
-//			reviewVo.setReview_date(user_join_date);
-//				
 				
 		int count = reviewService.reviewListCount(pagingDto);
 		pagingDto.setTotalCount(count);

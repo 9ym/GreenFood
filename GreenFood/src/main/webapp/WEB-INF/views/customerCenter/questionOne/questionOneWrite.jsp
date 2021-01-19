@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+
 <%@ include file="../../include/header.jsp"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -226,24 +227,49 @@ input[type=checkbox] {
 
 </style>
 
+<script src="/resources/js/myScript.js"></script>
+
 <script>
 $(function(){
-	//radio 버튼 클릭 이벤트 
-	$(".checkOrderRadioButton").click(function(){
-	      
-		$(".btn_checkOrderModalClose").trigger("click");
-		var number = $(this).attr("data-number");
-		$("#q_o_order_code").val(number);
-	    
+	
+	// 주문조회 누르면 모달창에 리스트 나타내기
+	$("#orderList").click(function(){
+			var url = "/customerCenter/questionOne/getOrderList"
+		
+			$.post(url, function(data){
+// 				console.log(data);
+				$("#checkOrderTable > tbody").empty();
+				$.each(data, function(){
+					
+					console.log(this.order_date);
+					
+					 var tr = $("#trTable").find("tr").clone();
+					 tr.find("td").eq(0).text(this.order_code);
+					 tr.find("td").eq(1).text(this.order_date);
+					 tr.find("td").eq(2).text(this.user_id);
+					 tr.find("td").eq(3).text(this.order_total_price);
+					 
+					 $("#checkOrderTable > tbody").append(tr);
+				});
+			});
 	});
-
+	
+	// radio 버튼 클릭 이벤트
+	$("#tableTbody").on("click", ".checkOrderRadioButton", function() {
+		var number = $(this).parent().prev().prev().prev().prev().text();
+		console.log(number);
+		$("#q_o_order_code").val(number);
+		$(".btn_checkOrderModalClose").trigger("click");
+	});
+	
+	
 }); 
 </script>
 
 
 </head>
 <body>
-${OrderVo }
+	orderVo : ${OrderVo }
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12 main-col">
@@ -251,145 +277,162 @@ ${OrderVo }
 					<div class="col-md-2"></div>
 					<div class="col-md-8">
 						<div class="row">
-						
-				<!-- --------------------------- 고객센터 왼쪽 작은창 ---------------------- -->
+
+							<!-- --------------------------- 고객센터 왼쪽 작은창 ---------------------- -->
 							<div class="col-md-3">
-							<div id="snb" class="snb_cc">
-								<h2 class="tit_snb">고객센터</h2>
-								<div class="inner_snb">
-									<ul class="list_menu">
-										<li class="on"><a href="/customerCenter/customerCenterMain">공지사항</a></li>
-										<li class="on"><a href="/customerCenter/question/questionContent">자주하는 질문</a></li>
-										<li><a href="/customerCenter/questionOne/questionOneContent">1:1 문의</a></li>
-										<!--
+								<div id="snb" class="snb_cc">
+									<h2 class="tit_snb">고객센터</h2>
+									<div class="inner_snb">
+										<ul class="list_menu">
+											<li class="on"><a
+												href="/customerCenter/customerCenterMain">공지사항</a></li>
+											<li class="on"><a
+												href="/customerCenter/question/questionContent">자주하는 질문</a></li>
+											<li><a
+												href="/customerCenter/questionOne/questionOneContent">1:1
+													문의</a></li>
+											<!--
 										<li><a href="#">상품 제안</a></li>
 										<li><a href="#">에코포장 피드백</a></li> -->
-									</ul>
-								</div>
-								<!-- <a href="#"
+										</ul>
+									</div>
+									<!-- <a href="#"
 									class="link_inquire"><span class="emph">도움이 필요하신가요 ?</span>
 									1:1 문의하기</a> -->
 								</div>
 							</div>
 
 
-				<!-- ------------------------- 자주하는 질문 메인 창 --------------------------- -->
+							<!-- ------------------------- 자주하는 질문 메인 창 --------------------------- -->
 							<div class="col-md-9">
 								<div class="head_aticle">
 									<h2 class="tit">
-										1 : 1  문의 <span class="tit_sub"> 궁금하신 내용을 문의해 주세요.</span>
+										1 : 1 문의 <span class="tit_sub"> 궁금하신 내용을 문의해 주세요.</span>
 										<!-- <button type="button" id="btnNoticeWrite">공지사항 작성</button> -->
 									</h2>
-									
+
 								</div>
 
 								<div class="row">
 									<div class="col-md-12">
-										<form role="form" action="/customerCenter/questionOne/insertOuestionOne" method="post">
-										<table class="table">
-										
-											<tbody>
-												<tr>
-													<th>작성자</th>
-													<td>
-													<input type=text name="q_o_writer" value="${sessionScope.testVo.user_id}" size=26 
-													class="read_only" style="background-color:#f7f5f8; width: 150px;" readonly="readonly"> 
-													</td>
-												</tr>
-											
-											
-												<tr>
-													<th>제목</th>
-													<td>
-													<select name="q_o_category" required label="질문유형" class=select>
-														<option value="">선택해주세요.</option>
-														<option class="option-item questionOne" name="q_o_category" id="member" value="201">회원문의</option>
-														<option class="option-item questionOne" name="q_o_category" id="order" value="202">주문/결제</option>
-														<option class="option-item questionOne" name="q_o_category" id="cancel" value="203">취소/교환/반품</option>
-														<option class="option-item questionOne" name="q_o_category" id="delivery" value="204">배송관련</option>
-														<option class="option-item questionOne" name="q_o_category" id="point" value="205">쿠폰/적립금</option>
-														<option class="option-item questionOne" name="q_o_category" id="use" value="206">이용 및 기타</option>
-													</select><br>
-													<input type=text name="q_o_title" style="width: 100%"
-													required label="제목" value="" placeholder=" 제목을 입력해주세요.">
-													
-													</td>
-												</tr>
-												<tr>
-													<th>주문번호</th>
-													<td>
-													<input type=text id="q_o_order_code" name="q_o_order_code" style="width: 25%" value=""  placeholder=" 주문번호를  조회해주세요.">
-													
-													<a id="modal-75830" href="#modal-container-75830"
-														role="button" class="" data-toggle="modal">
-														<input type="button" class="bhs_button yb checkOrder" value="주문조회"></a>
-													<br>
-													
-													<span id="span1" style="font-size:10pt; color: #5AB63F">* 주문내역이 없으면 비워두세요.</span>
-													</td>
-												</tr>
-												<tr>
-													<th>이메일</th>
-													<td>
-													<input type=text name="q_o_email" value="${sessionScope.testVo.user_email}" size=26 
-													class="read_only" style="width: 200px;"> 
-													<span class="noline smalle" style="padding-left: 10px">
-													<input type=checkbox name=mailling style="width: 20px;">
-													<span style="font-size: 8pt; color: #5AB63F" >답변 내용을 이메일로 받겠습니다.</span></span>
-													</td>
-												</tr>
-												<tr>
-													<th>전화번호</th>
-													<td>
-													<input type=text name="q_o_phone" value="${sessionScope.testVo.user_phone}" 
-													 class="read_only" style="width: 130px;">
-													<span class="noline smalle" style="padding-left: 10px">
-													<input type=checkbox name=sms style="width: 20px;">
-													<span style="font-size: 8pt; color: #5AB63F">답변 등록 안내를 문자메시지로 받겠습니다.</span></span></td>
-												</tr>
-												<tr>
-													<th>내용</th>
-													<td class="edit_area" style="position: relative;">
-													<textarea name="q_o_content"
-														style="width: 100%; height: 474px;" class="editing_area"
-														required  label="내용" placeholder=" 문의 내용을 입력해주세요."></textarea>
-													</td>
-												</tr>
-												<tr>
-													<th>이미지 첨부</th>
-													<td>
-													<table width=100% id=table 
-														style="border: solid 1px #f4f4f4; border-collapse: collapse;">
-														<tr id="tr_0">
-															<td width=10px; nowrap align="center" style="width: 30px;">1</td>
-															<td width=100%><input type=file name="q_o_image"
-																style="width: 50%" class=linebg> <!-- <a
+										<form role="form"
+											action="/customerCenter/questionOne/insertOuestionOne"
+											method="post">
+											<table class="table">
+
+												<tbody>
+													<tr>
+														<th>작성자</th>
+														<td><input type=text name="q_o_writer"
+															value="${sessionScope.testVo.user_id}" size=26
+															class="read_only"
+															style="background-color: #f7f5f8; width: 150px;"
+															readonly="readonly"></td>
+													</tr>
+
+
+													<tr>
+														<th>제목</th>
+														<td><select name="q_o_category" required label="질문유형"
+															class=select>
+																<option value="">선택해주세요.</option>
+																<option class="option-item questionOne"
+																	name="q_o_category" id="member" value="201">회원문의</option>
+																<option class="option-item questionOne"
+																	name="q_o_category" id="order" value="202">주문/결제</option>
+																<option class="option-item questionOne"
+																	name="q_o_category" id="cancel" value="203">취소/교환/반품</option>
+																<option class="option-item questionOne"
+																	name="q_o_category" id="delivery" value="204">배송관련</option>
+																<option class="option-item questionOne"
+																	name="q_o_category" id="point" value="205">쿠폰/적립금</option>
+																<option class="option-item questionOne"
+																	name="q_o_category" id="use" value="206">이용 및
+																	기타</option>
+														</select><br> <input type=text name="q_o_title"
+															style="width: 100%" required label="제목" value=""
+															placeholder=" 제목을 입력해주세요."></td>
+													</tr>
+													<tr>
+														<th>주문번호</th>
+														<td><input type=text id="q_o_order_code"
+															name="q_o_order_code" style="width: 25%" value=""
+															placeholder=" 주문번호를  조회해주세요."> <a
+															id="modal-75830" href="#modal-container-75830"
+															role="button" class="" data-toggle="modal"> <input
+																type="button" class="bhs_button yb checkOrder"
+																value="주문조회" id="orderList"></a> <br> <span
+															id="span1" style="font-size: 10pt; color: #5AB63F">*
+																주문내역이 없으면 비워두세요.</span></td>
+													</tr>
+													<tr>
+														<th>이메일</th>
+														<td><input type=text name="q_o_email"
+															value="${sessionScope.testVo.user_email}" size=26
+															class="read_only" style="width: 200px;"> <span
+															class="noline smalle" style="padding-left: 10px">
+																<input type=checkbox name=mailling style="width: 20px;">
+																<span style="font-size: 8pt; color: #5AB63F">답변
+																	내용을 이메일로 받겠습니다.</span>
+														</span></td>
+													</tr>
+													<tr>
+														<th>전화번호</th>
+														<td><input type=text name="q_o_phone"
+															value="${sessionScope.testVo.user_phone}"
+															class="read_only" style="width: 130px;"> <span
+															class="noline smalle" style="padding-left: 10px">
+																<input type=checkbox name=sms style="width: 20px;">
+																<span style="font-size: 8pt; color: #5AB63F">답변
+																	등록 안내를 문자메시지로 받겠습니다.</span>
+														</span></td>
+													</tr>
+													<tr>
+														<th>내용</th>
+														<td class="edit_area" style="position: relative;"><textarea
+																name="q_o_content" style="width: 100%; height: 474px;"
+																class="editing_area" required label="내용"
+																placeholder=" 문의 내용을 입력해주세요."></textarea></td>
+													</tr>
+													<tr>
+														<th>이미지 첨부</th>
+														<td>
+															<table width=100% id=table
+																style="border: solid 1px #f4f4f4; border-collapse: collapse;">
+																<tr id="tr_0">
+																	<td width=10px; nowrap align="center"
+																		style="width: 30px;">1</td>
+																	<td width=100%><input type=file name="q_o_image"
+																		style="width: 50%" class=linebg> <!-- <a
 																href="javascript:add()"><img
 																	src="/shop/data/skin/designgj/img/common/btn_upload_plus.gif"
 																	align=absmiddle></a> --></td>
-														</tr>
-													</table>
-													<!-- <table>
+																</tr>
+															</table> <!-- <table>
 														<tr>
 															<td height=1></td>
 														</tr>
 													</table> -->
-													<div width=100% style="padding: 5px; font-size: 10pt; color: #5AB63F"" class=stxt>
-														* 파일은 최대 5개까지 업로드가 가능합니다.<br>
-													</div>
-												</td>
+															<div width=100%
+																style="padding: 5px; font-size: 10pt; color: #5AB63F"
+																" class=stxt>
+																* 파일은 최대 5개까지 업로드가 가능합니다.<br>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+
+
+											<table width=100%>
+												<tr>
+													<td align=center
+														style="padding-top: 10px; padding-bottom: 50px; border: none;"
+														id="avoidDbl"><input type="submit"
+														class="bhs_button yb" value="작성완료"
+														style="float: none; width: 120px;"></td>
 												</tr>
-											</tbody>
-										</table>
-										
-										
-										<table width=100%>
-											<tr>
-												<td align=center style="padding-top: 10px; padding-bottom:50px; border: none;"id="avoidDbl">
-												<input type="submit" class="bhs_button yb" value="작성완료" style="float: none; width: 120px;">
-												</td>
-											</tr>
-										</table>
+											</table>
 										</form>
 									</div>
 								</div>
@@ -399,68 +442,78 @@ ${OrderVo }
 								<div class="row">
 									<div class="col-md-12">
 										<a id="modal-75830" href="#modal-container-75830"
-											role="button" class="btn" data-toggle="modal" 
-											style="display:none;">주문번호 조회</a>
+											role="button" class="btn" data-toggle="modal"
+											style="display: none;">주문번호 조회</a>
 
 										<div class="modal fade" id="modal-container-75830"
 											role="dialog" aria-labelledby="myModalLabel"
 											aria-hidden="true">
 											<div class="modal-dialog" role="document">
-												<div class="modal-content" style="width: 602px; height: 502px;">
-													<div class="modal-header" style="padding-top: 5px; padding-left: 10px;
-   															 padding-right: 5px; padding-bottom: 5px;">
-														<p style="font-size: 18px; font-family: 'Noto Sans', sans-serif; font-weight: 700; color:green" 
-														class="modal-title" id="myModalLabel">주문번호 조회</p>
+												<div class="modal-content"
+													style="width: 602px; height: auto;">
+													<div class="modal-header"
+														style="padding-top: 5px; padding-left: 10px; padding-right: 5px; padding-bottom: 5px;">
+														<p
+															style="font-size: 18px; font-family: 'Noto Sans', sans-serif; font-weight: 700; color: green"
+															class="modal-title" id="myModalLabel">주문번호 조회</p>
 														<button type="button" class="close" data-dismiss="modal">
 															<span aria-hidden="true">×</span>
 														</button>
 													</div>
 													<div class="modal-body">
-														<div style="padding-bottom: 7px; border-bottom: 2px solid #5AB63F;">문의하실 주문번호를 선택해주세요</div>
+														<div
+															style="padding-bottom: 7px; border-bottom: 2px solid #5AB63F;">문의하실
+															주문번호를 선택해주세요</div>
 
 
 														<table width="100%" align="center" cellpadding="0"
 															cellspacing="0">
-															<tbody style="border-top-style: hidden; padding-bottom: 10px;">
+															<tbody
+																style="border-top-style: hidden; padding-bottom: 10px;">
 																<tr style="padding-bottom: 10px;">
 																	<td>
-																		<div
-																			class="xans-element- xans-myshop xans-myshop-couponserial"
-																			style="padding-top: 10px; padding-bottom: 10px;">
+																		<div class="" style="padding-top: 10px; padding-bottom: 10px;">
+
 																			<table width="100%" class="xans-board-listheader jh"
-																				cellpadding="0" cellspacing="0"
+																				cellpadding="0" cellspacing="0" id="trTable"
+																				style="border-top-style: hidden; padding-bottom: 10px; display: none;">
+
+																				<tr style="text-align: center; color: #98a18f; font-weight: 500;">
+																					<td style="padding: 10px 0 10px 0;"></td>
+																					<td style="padding: 10px 0 10px 0;"></td>
+																					<td style="padding: 10px 0 10px 0;"></td>
+																					<td style="padding: 10px 0 10px 0;"></td>
+																					<td style="padding: 10px 0 10px 0;">
+																						<input style="width: 50px;" type="radio" class="checkOrderRadioButton"
+																							data-number="" name="checkOrderRadioButton" />
+																					</td>
+																				</tr>
+																			</table>
+
+
+
+																			<table width="100%" class="xans-board-listheader jh"
+																				cellpadding="0" cellspacing="0" id="checkOrderTable"
 																				style="border-top-style: hidden; padding-bottom: 10px;">
 
 																				<thead class="checkOrder">
 																					<tr style="text-align: center;">
 																						<th style="width: 110px; padding-bottom: 10px;">주문번호</th>
-																						<th style="width: 90px; padding-bottom: 10px;">주문일자</th>
-																						<th style="width: auto; padding-bottom: 10px;">상품명</th>
+																						<th style="width: auto; padding-bottom: 10px;">주문일자</th>
+																						<th style="width: 90px; padding-bottom: 10px;">상품명</th>
 																						<th style="width: 90px; padding-bottom: 10px;">주문금액</th>
 																						<th style="width: 30px; padding-bottom: 10px;">선택</th>
 																					</tr>
 																				</thead>
-																				<tbody class="checkOrder">
-																					<%-- <c:forEach var="orderedList" items="${orderedList}"> --%>
-																					<tr style="text-align: center; color: #98a18f; font-weight: 500;">
-																						<td style="padding: 10px 0 10px 0;">111111111</td>
-																						<td style="padding: 10px 0 10px 0;">2021-01-13</td>
-																						<td style="padding: 10px 0 10px 0;">
-																							<%-- <a class="review_title" href="#"
-																			data-bno="${reviewVo.review_no}"> --%>곱창전골 방어회 <!-- </a> -->
-																						</td>
-																						<td style="padding: 10px 0 10px 0;">
-																							<%-- <fmt:formatDate pattern="yyyy-MM-DD" value="${reviewVo.review_date}"/> --%>
-																							17억 8900만원
-																						</td>
-																						<td style="padding: 10px 0 10px 0;">
-																						<input style="width : 50px;" type="radio" class="checkOrderRadioButton" data-number="111111111" name="checkOrderRadioButton"/>
-																						</td>
-																					</tr>
-																					<%-- </c:forEach> --%>
+																				<tbody class="checkOrder" id="tableTbody">
+
 																				</tbody>
 
-																			</table></div>
+																			</table>
+
+																		</div>
+
+
 																	</td>
 																</tr>
 															</tbody>
@@ -473,7 +526,7 @@ ${OrderVo }
 
 													<div class="modal-footer">
 
-														
+
 														<button type="button" class="btn_checkOrderModalClose"
 															data-dismiss="modal">close x</button>
 													</div>

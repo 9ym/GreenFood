@@ -7,6 +7,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import com.kh.greenfood.dao.QuestionOneDao;
+import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.QuestionOneVo;
 
 @Service
@@ -55,15 +57,19 @@ public class QuestionOneServiceImpl implements QuestionOneService {
 
 	@Override
 	public int questionOneListCountUser(String q_o_writer) throws Exception {
-		System.out.println("QuestionOneServiceImpl, questionOneListCountUser, q_o_writer:" + q_o_writer);
+//		System.out.println("QuestionOneServiceImpl, questionOneListCountUser, q_o_writer:" + q_o_writer);
 		int count = questionOneDao.questionOneListCountUser(q_o_writer);
-		System.out.println("QuestionOneServiceImpl, questionOneListCountUser, count : " + count);
+//		System.out.println("QuestionOneServiceImpl, questionOneListCountUser, count : " + count);
 		return count;
 	}
 
-
+	@Override
+	public List<OrderVo> getOrderList(String user_id) throws Exception {
+		System.out.println("QuestionOneServiceImpl, questionOneListCountUser, user_id:" + user_id);
+		List<OrderVo> orderList = questionOneDao.getOrderList(user_id);
+		return orderList;
+	}
 
 	
-
 
 }
