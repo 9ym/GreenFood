@@ -171,5 +171,62 @@
 			product_star = #{star_avg}
 		where product_code = #{product_code}
 	</update>
+	
+	<!-- 관리자 : 상품 검색 -->
+	<select id="getSearchProduct" parameterType="SearchDto" resultType="ProductVo">
+			select * from tbl_product
+			<include refid="searchSql"/>
+	</select>
+	
+	<sql id="searchSql">
+		<choose>
+			<when test="searchWhere.equals('all')">
+				where product_category is not null
+			</when>
+			<otherwise>
+				where product_category = #{searchWhere}
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="searchWhat != null">
+				and product_title like '%' || #{searchWhat} || '%'
+			</when>
+		</choose>
+		<choose>
+			<when test="searchAnd.equals('date')">
+				order by product_registration_date
+			</when>
+			<when test="searchAnd.equals('new')">
+				<![CDATA[
+				and sysdate - 14 < product_registration_date
+				order by product_registration_date
+				]]>
+			</when>
+			<when test="searchAnd.equals('sale')">
+				and product_sale_rate is not null
+				order by product_sale_rate
+			</when>
+			<when test="searchAnd.equals('star')">
+				order by product_star
+			</when>
+			<when test="searchAnd.equals('orderCount')">
+				order by product_order_count
+			</when>
+			<when test="searchAnd.equals('end')">
+				<![CDATA[
+				and sysdate > product_registration_date
+				order by product_registration_date
+				]]>
+			</when>
+		</choose>
+		<choose>
+			<when test="searchBy.equals('desc')">
+				desc
+			</when>
+			<otherwise>
+				asc
+			</otherwise>
+		</choose>
+	</sql>
 
 </mapper>

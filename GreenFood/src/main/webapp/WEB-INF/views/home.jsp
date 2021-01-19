@@ -318,6 +318,10 @@ ul li a{ text-decoration:none; }
 		margin-top:50px;
 		text-align:center;
 	}
+	#best_text img {
+		padding-left: 0px;
+     	padding-right: 10px;
+	}
 	#make_line{
 		width:150px;
 		height:10px;
@@ -562,8 +566,8 @@ ${testVo.user_id}
 <div class="products-list">
 
 	<div id="best_text">
-		<img src="${path}/resources/images/best_text.png">
-		<a type="button" href="/upload/fileInputTest">파일 인풋 테스트</a>
+		<img src="${path}/resources/images/best_text.png" 
+			style="padding-left: 0px; padding-right: 10px;">
 	</div>
 	<div id="make_line">
 	</div>
