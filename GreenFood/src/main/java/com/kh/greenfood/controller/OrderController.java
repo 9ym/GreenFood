@@ -19,6 +19,7 @@ import com.kh.greenfood.domain.CartDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.TestVo;
+import com.kh.greenfood.service.MemberService;
 import com.kh.greenfood.service.OrderService;
 import com.kh.greenfood.service.ProductService;
 import com.kh.greenfood.util.S3Util;
@@ -32,7 +33,7 @@ public class OrderController {
 	
 	@Inject
 	private ProductService productService;
-
+	
 	/* 장바구니 이동 */
 	@RequestMapping(value="/cart", method=RequestMethod.GET)
 	public String cart(HttpSession session, Model model) throws Exception {
@@ -90,6 +91,7 @@ public class OrderController {
 	@RequestMapping(value="/pay", method=RequestMethod.POST)
 	public String pay(String totalPrice, String totalSale, @RequestParam(value="cart_no") List<String> listCartNo, 
 			Model model, HttpSession session) throws Exception {
+		
 		/* 가격 정보 */
 		List<String> listPrices = new ArrayList<>();
 		listPrices.add(totalPrice);
@@ -107,35 +109,88 @@ public class OrderController {
 		return "order/payForm";
 	}
 	
+	/* 바로 결제 -> 결제 페이지 */
+	@RequestMapping(value="/payImmediate", method=RequestMethod.POST)
+	public void pay(CartDto cartDto, Model model, HttpSession session) throws Exception {
+		
+		TestVo testVo = (TestVo) session.getAttribute("testVo");
+		cartDto.setUser_id(testVo.getUser_id());
+//		model.addAttribute("listCartPay", listCartPay);
+		
+		System.out.println(cartDto);
+		
+		int price = cartDto.getProduct_price();
+		int priceSale = 0;
+		int sale = cartDto.getProduct_sale_rate();
+		if (sale != 0) {
+//			price = (int)(Math.ceil(price * ((100 - sale) / 100)));
+			priceSale = (int)((price * (sale / 100)));
+			price -= priceSale;
+			System.out.println("priceSale : " + priceSale);
+			System.out.println("price : " + price);
+		}
+		String totalPrice = String.valueOf(price * cartDto.getCart_quantity());
+		String totalSale = String.valueOf(priceSale * cartDto.getCart_quantity());
+		
+		System.out.println("totalPrice : " + totalPrice);
+		System.out.println("totalSale : " + totalSale);
+		
+		List<String> listCartNo = new ArrayList<>();
+		listCartNo.add(cartDto.getCart_no());
+		
+		System.out.println("listCartNo : " + listCartNo);
+		
+//		return "order/payForm";
+	}
+	
 	/* 결제 완료 */
 	@RequestMapping(value="/payCompleted", method=RequestMethod.POST)
 	@ResponseBody
-	public String payCompleted(int finalTotalPrice, @RequestParam(value="listAddr[]") List<String> listAddr, 
-			@RequestParam(value="listCartPay[]") List<String> listCartPay, String payResult,
-			Model model, HttpSession session) throws Exception {
-		System.out.println("finalTotalPrice :" + finalTotalPrice);
-		System.out.println("listAddr :" + listAddr);
-		System.out.println("listCartPay :" + listCartPay);
-		System.out.println("payResult :" + payResult);
+	public String payCompleted(int finalTotalPrice, int finalSalePrice, int finalPointUse, String payResult,
+			@RequestParam(value="listAddr[]") List<String> listAddr, 
+			@RequestParam(value="listCartPay[]") List<String> listCartPay, HttpSession session) throws Exception {
 		
-		/* OrderVo 필요한거.... */
+		/* OrderVo에 필요한 값 */
 		String order_state = "";
-		if (payResult.equals("pay_completed")) {
-			order_state = "10001"; // 상품준비중
-		} else {
-			order_state = "10000"; // 입금대기중
+		String order_pay_method = "";
+		switch (payResult) {
+		case "pay_card":
+			order_state = "10000"; // 상품준비중
+			order_pay_method = "card"; // 카드
+			break;
+		case "pay_transfer":
+			order_state = "10000"; // 상품준비중
+			order_pay_method = "transfer"; // 계좌이체
+			break;
+		case "pay_notYet":
+			order_state = "10001"; // 입금대기중
+			order_pay_method = "deposit"; // 무통장입금
+			break;
 		}
 		TestVo testVo = (TestVo) session.getAttribute("testVo");
+		OrderVo orderVo = new OrderVo(testVo.getUser_id(), finalTotalPrice, finalSalePrice, finalPointUse, 
+				order_state, listAddr.get(0), listAddr.get(1), listAddr.get(2), order_pay_method);
 		
-//		OrderVo orderVo = new OrderVo(testVo.getUser_id(), finalTotalPrice, order_state, 
-//				listAddr.get(0), listAddr.get(1), listAddr.get(2));
-//		
-//		System.out.println("orderVo :" + orderVo);
-//		
-//		boolean result = orderService.setOrder(orderVo, listCartPay);
-//		System.out.println(result);
+		/* DB에 결제 데이터 저장 : 주문, 포인트 변경 */
+		boolean result = orderService.setOrder(orderVo, listCartPay, testVo, finalPointUse);
 		
-		return "ggg";
+		String finalPayResult = "";
+		if (result) {
+			/* 포인트 사용 : 수정된 testVo로 session에 넣기 */
+			session.removeAttribute("testVo");
+			int user_point = testVo.getUser_point() - finalPointUse;
+			testVo.setUser_point(user_point);
+			session.setAttribute("testVo", testVo);
+			System.out.println("use-"+testVo);
+			
+			/* 주문 상세 페이지 이동하는데 필요한 order_code */
+			OrderVo orderVoLatest = orderService.getOrderLatest();
+			String orderCodeLatest = orderVoLatest.getOrder_code();
+			finalPayResult = orderCodeLatest;
+		} else {
+			finalPayResult = "pay_fail";
+		}
+		return finalPayResult;
 	}
 	
 	/* img 링크 리스트 */
