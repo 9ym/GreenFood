@@ -155,15 +155,15 @@ public class OrderController {
 		String order_pay_method = "";
 		switch (payResult) {
 		case "pay_card":
-			order_state = "10000"; // 상품준비중
+			order_state = "10001"; // 상품준비중
 			order_pay_method = "card"; // 카드
 			break;
 		case "pay_transfer":
-			order_state = "10000"; // 상품준비중
+			order_state = "10001"; // 상품준비중
 			order_pay_method = "transfer"; // 계좌이체
 			break;
 		case "pay_notYet":
-			order_state = "10001"; // 입금대기중
+			order_state = "10000"; // 입금대기중
 			order_pay_method = "deposit"; // 무통장입금
 			break;
 		}
