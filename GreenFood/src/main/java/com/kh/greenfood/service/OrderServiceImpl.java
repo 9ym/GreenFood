@@ -148,4 +148,11 @@ public class OrderServiceImpl implements OrderService {
 		return orderVoLatest;
 	}
 	
+	/* 주문자 Order State List */
+	@Override
+	public List<OrderVo> getOrderStateInfoList(String user_id, int order_state) {
+		List<OrderVo> orderVoList = orderDao.getOrderStateInfoList(user_id, order_state);
+		return orderVoList;
+	}
+	
 }

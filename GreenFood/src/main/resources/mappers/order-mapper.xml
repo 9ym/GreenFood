@@ -132,5 +132,14 @@
 			and order_code = #{order_code}
 	</select>
 	
+	<select id="getOrderStateInfoList" resultType="OrderVo">
+		select o.order_date, o.order_code, o.order_total_price, c.order_state_dsc
+			from tbl_order o, tbl_order_state_category c
+				where o.user_id = #{user_id}
+					and o.order_state = #{order_state}
+					and o.order_state = c.order_state
+				order by order_date desc
+	</select>
+	
 	<!-- //마이페이지 - > 주문번호 클릭시 --> 
 </mapper>

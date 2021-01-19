@@ -30,5 +30,5 @@ public interface QuestionOneDao {
 	public int questionOneListCountUser(String q_o_writer) throws Exception;
 	
 	// user 에 따른 주문내역 가져오기
-	public List<OrderVo> getOrderList(String user_id) throws Exception;
+	public List<OrderVo> getOrderedList(String user_id);
 }

@@ -536,9 +536,14 @@ $(function(){
 																	<td>${customerList.user_date}</td>
 																	<td>${customerList.user_code}</td>
 																	<td>${customerList.user_deleted}</td>
-																	<c:if test="${customerList.user_deleted == 'N'}">
+																	<c:choose>
+																	<c:when test="${customerList.user_deleted == 'N'}">
 																	<td><button type="button" id="deleteCustomer" class="deleteCustomer">탈퇴</button></td>
-																	</c:if>
+																	</c:when>
+																	<c:otherwise>
+																	<td></td>
+																	</c:otherwise>
+																	</c:choose>
 																</tr>
 															</c:forEach>
 															</tbody>

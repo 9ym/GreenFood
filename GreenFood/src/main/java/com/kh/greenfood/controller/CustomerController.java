@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,11 +61,11 @@ public class CustomerController {
 		// 주문 상세 갯수(입금대기, 상품준비, 배송중, 배송완료)
 		List<OrderListCountDto> customerOrderCountList = memberService.getCustomerOrderCountList(user_id);
 		model.addAttribute("customerOrderCountList", customerOrderCountList);
-		// 포인트 합계
-		if(testVo.getUser_point() != 0) {
-			int pointSum = memberService.getPointSum(user_id);
-			testVo.setUser_point(pointSum);
-		}
+//		// 포인트 합계
+//		if(testVo.getUser_point() != 0) {
+//			int pointSum = memberService.getPointSum(user_id);
+//			testVo.setUser_point(pointSum);
+//		}
 		return "customer/customerMyPage";
 	}
 	
@@ -99,10 +100,11 @@ public class CustomerController {
 	public String customerDetailOrder(@PathVariable("order_code") String order_code, Model model, HttpSession session)throws Exception{
 		TestVo testVo = (TestVo)session.getAttribute("testVo");
 		String user_id = testVo.getUser_id();
+		// 전체보기 카테고리
+		getProductCate(model);
 		// 주문 상세 정보 -> 주문 리스트
 		List<OrderDetailDto> productDetailInfo = orderService.getProductDetailList(order_code);
 		model.addAttribute("productDetailInfo", productDetailInfo);
-		
 		getImgUrl(productDetailInfo, model);
 		// 주문 상세 정보 -> 결제 정보
 		OrderVo orderVo = orderService.getOrderUserInfo(order_code, user_id);
@@ -192,6 +194,16 @@ public class CustomerController {
 		return page;
 	}
 	
+	// 마이페이지 -> 주문상태 클릭했을시 리스트 보여주기
+	@RequestMapping(value="/customerOrdStateList/{order_state}", method=RequestMethod.GET)
+	public String ordDelivery(@PathVariable("order_state") int order_state, HttpSession session, Model model) throws Exception{
+		TestVo testVo = (TestVo)session.getAttribute("testVo");
+		String user_id = testVo.getUser_id();
+		List<OrderVo> orderVoList = orderService.getOrderStateInfoList(user_id, order_state);
+		model.addAttribute("orderVoList", orderVoList);
+		return "/customer/customerOrdStateList";
+	}
+	
 	// 회원가입
 	@RequestMapping(value="/customerMemberJoinRun", method=RequestMethod.POST)
 	public String customerMemberJoinRun(TestVo testVo, RedirectAttributes rttr) throws Exception {
@@ -231,4 +243,10 @@ public class CustomerController {
 		}
 		model.addAttribute("imgList", listImgUrl);
 	} 
+	
+	/* User point 합산 */
+	private int userPointSum() throws Exception {
+		
+		return 0;
+	}
 }

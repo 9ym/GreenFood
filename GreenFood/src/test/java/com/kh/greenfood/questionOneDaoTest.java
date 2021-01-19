@@ -54,7 +54,7 @@ public class questionOneDaoTest {
 	
 	@Test
 	public void testGetOrderList() throws Exception {
-		questionOneDao.getOrderList("user");
+		questionOneDao.getOrderedList("user");
 	}
 	
 	

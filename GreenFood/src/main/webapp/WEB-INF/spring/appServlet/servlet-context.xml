@@ -29,8 +29,8 @@
 	<interceptors>
 	
 		<interceptor>
-			<mapping path="/customer/*"/>
-			<mapping path="/order/*"/>
+			<mapping path="/customer/*/**"/>
+			<mapping path="/order/*/**"/>
 			<mapping path="/customerCenter/notice/noticeWriteForm"/>
 			<mapping path="/customerCenter/questionOne/questionOneAnswerWrite/*"/>
 			<mapping path="/customerCenter/question/questionWriteForm"/>

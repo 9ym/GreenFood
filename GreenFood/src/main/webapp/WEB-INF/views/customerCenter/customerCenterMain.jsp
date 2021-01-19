@@ -268,6 +268,22 @@ $(function(){
 		location.href="/customerCenter/notice/noticeContent/" + n_no;
 	});
 	
+	// 제목으로 검색
+	$("#btnSearch").click(function(){
+		console.log("클릭");
+		var selectType = $("#selectType").val();
+		var keyword = $("#keyword").val();
+		if(keyword == "" || selectType == "선택"){
+			alert("타입선택 및 키워드를 입력해주세요.");
+			return;
+		}
+		$("#frmNoticePaging > input[name=selectType]").val(selectType);
+		$("#frmNoticePaging > input[name=keyword]").val(keyword);
+		$("#frmNoticePaging > input[name=page]").val(1);
+		$("#frmNoticePaging").submit();
+	});
+	
+	
 	// 페이지네이션 - 페이지 번호 클릭했을때
 	$("a.page-link").click(function(e){
 		e.preventDefault();
@@ -417,8 +433,7 @@ ${testVo}
 								<div class="row text-center" id="select">
 									<select id="selectType">
 										<option selected>선택</option>
-										<option>이름</option>
-										<option>아이디</option>
+										<option>제목</option>
 									</select>
 									<input type="text" id="keyword">
 									<button type="button" class="" id="btnSearch">검색</button>

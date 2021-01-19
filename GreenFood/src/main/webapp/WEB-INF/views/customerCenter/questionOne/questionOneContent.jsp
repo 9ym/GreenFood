@@ -190,14 +190,18 @@ tbody tr {
     font-size: 13px;
 }
 
-input {
+/* input {
 	width: 150px;
 	padding: 6px 5px;
     border: 1px solid #d9d9d9;
     color: #202020;
-}
+} */
 
 .bhs_button.yb {
+	width: 150px;
+	padding: 6px 5px;
+    border: 1px solid #d9d9d9;
+    color: #202020;
     background-color: #62b748;
     color: #fff;
 }
@@ -236,6 +240,43 @@ input {
 }
 
 
+#select {
+	width: auto;
+	padding: 6px 5px;
+    margin-bottom: 30px;
+    color: #202020;
+    font-size: 14px;
+    font-weight: 400px;
+    font-family: noto sans;
+    justify-content: center!important;
+    
+}
+
+#selectType {
+	border-right-width: 1px;
+    padding-right: 20px;
+    margin-right: 5px;
+    
+}
+
+#keyword {
+	border-width: 1px;
+    padding-right: 20px;
+    margin-right: 5px;
+    
+}
+
+#btnSearch {
+	padding-top: 3px;
+    padding-bottom: 3px;
+    border-width: 1px;
+    float: none;
+    line-height: 18px;
+    width: 70px;
+    background-color: #5AB63F;
+    color: #fff;
+    
+}
 
 
 
@@ -424,7 +465,7 @@ $(function(){
 								
 								<table width=100%>
 									<tr>
-										<td align=center style="padding-top: 10px; padding-bottom:50px; border: none;" id="avoidDbl">
+										<td align=center style="padding-top: 20px; padding-bottom:20px; border: none;" id="avoidDbl">
 										<input type="submit" id="btnQuestionOneWrite" class="bhs_button yb" value="문의사항 작성하기" style="float: none; width: 170px;">
 										</td>
 									</tr>
@@ -466,7 +507,18 @@ $(function(){
 									</div>
 								</div> --%>
 								
-
+								<!-- 검색 -->
+								<div class="row text-center" id="select">
+									<select id="selectType">
+										<option selected>선택</option>
+										<option>이름</option>
+										<option>아이디</option>
+									</select>
+									<input type="text" id="keyword">
+									<button type="button" class="" id="btnSearch">검색</button>
+									
+								</div>
+								<!-- //검색 -->
 
 							</div>
 							<!-- // 자주하는 질문 메인창  -->

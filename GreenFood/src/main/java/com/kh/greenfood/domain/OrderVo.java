@@ -18,6 +18,7 @@ public class OrderVo {
 	private String order_addr3;
 	private String order_pay_method;
 	private int order_origin_price;
+	private String product_title;
 	
 	public OrderVo() { super(); }
 
@@ -135,8 +136,16 @@ public class OrderVo {
 		return order_origin_price;
 	}
 
-	public void setOrder_origin_price(int origin) {
-		this.order_origin_price = origin;
+	public void setOrder_origin_price(int order_origin_price) {
+		this.order_origin_price = order_origin_price;
+	}
+
+	public String getProduct_title() {
+		return product_title;
+	}
+
+	public void setProduct_title(String product_title) {
+		this.product_title = product_title;
 	}
 
 	@Override
@@ -146,7 +155,7 @@ public class OrderVo {
 				+ ", order_point_use=" + order_point_use + ", order_state=" + order_state + ", order_state_dsc="
 				+ order_state_dsc + ", order_addr1=" + order_addr1 + ", order_addr2=" + order_addr2 + ", order_addr3="
 				+ order_addr3 + ", order_pay_method=" + order_pay_method + ", order_origin_price=" + order_origin_price
-				+ "]";
+				+ ", product_title=" + product_title + "]";
 	}
 	
 }

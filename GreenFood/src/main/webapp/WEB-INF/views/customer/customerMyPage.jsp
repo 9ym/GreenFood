@@ -9,8 +9,17 @@
 	padding-top : 100px;
 }
 </style>
+<script src="/resources/js/myScript.js"></script>
 <script>
 $(function(){
+	
+	/* 마이페이지 최근 주문 내역 addComma */
+	$(".addComma").each(function(){
+		var text = $(this).text();
+		var total_price = addComma(text);
+		$(this).text(total_price);
+	});
+	
 	/* 헤더 배경화면, 게시판 이름 바꾸는 부분 */
 	/* url 뒤에 사진 넣으면됩니다. */
 	$("#page_background").css({"background-image":"url('${path}/resources/images/login_dog.jpg')"});
@@ -32,7 +41,6 @@ $(function(){
 </script>
 
 <content>
-${sessionScope.testVo}
 <div class="container-fluid">
 <div id="content_left" style="width:300px;
 height: 700px;
@@ -117,7 +125,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 				<c:forEach var="customerOrderCountList" items="${customerOrderCountList}">
 					<div>
 						<span>
-							<a href="/order/ordDelivery/${customerOrderCountList.order_state}">${customerOrderCountList.order_count}</a>
+							<a href="/customer/customerOrdStateList/${customerOrderCountList.order_state}">${customerOrderCountList.order_count}</a>
 						</span>
 						<p>${customerOrderCountList.order_state_dsc}</p>
 					</div>
@@ -177,7 +185,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 									<tr>
 										<td>${latestOrderedList.order_date}</td>
 										<td><a href="/customer/customerDetailOrder/${latestOrderedList.order_code}">${latestOrderedList.order_code}</a></td>
-										<td>${latestOrderedList.order_total_price}</td>
+										<td class="addComma">${latestOrderedList.order_total_price}</td>
 <%-- 									<td>${latestOrderedList.order_state}</td> --%>
 										<td>${latestOrderedList.order_state_dsc}</td>
 									</tr>

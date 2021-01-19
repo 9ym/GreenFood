@@ -63,11 +63,12 @@ public class QuestionOneServiceImpl implements QuestionOneService {
 		return count;
 	}
 
+	
+
 	@Override
-	public List<OrderVo> getOrderList(String user_id) throws Exception {
-		System.out.println("QuestionOneServiceImpl, questionOneListCountUser, user_id:" + user_id);
-		List<OrderVo> orderList = questionOneDao.getOrderList(user_id);
-		return orderList;
+	public List<OrderVo> getOrderedList(String user_id) {
+		List<OrderVo> orderedList = questionOneDao.getOrderedList(user_id);
+		return orderedList;
 	}
 
 	
