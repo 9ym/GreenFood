@@ -27,8 +27,11 @@ public class ReviewController {
 	private ReviewService reviewService;
 	
 	
-	@RequestMapping(value="/reviewWrite")
-	public String reviewWrite() throws Exception{
+	@RequestMapping(value="/reviewWrite/{order_code}")
+	public String reviewWrite(@PathVariable("order_code") String order_code, Model model) throws Exception{
+		System.out.println("ReviewController, reviewWrite : " + order_code);
+		
+		
 		return "/review/reviewWrite";
 	}
 	

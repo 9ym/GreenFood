@@ -34,6 +34,7 @@
 	<!-- 전체 글갯수 읽어오기 -->	
 	<select id="noticeListCount" resultType="int">
 		select count(*) from tbl_notice
+		<include refid="search"></include>
 	</select>
 	
 		
@@ -66,7 +67,7 @@
 			where notice_no = #{notice_no} 
 	</update>
 	
-	
+	<!-- 검색 기능 -->
 	<sql id="search">
 		<if test="selectType != null">
 			<choose>

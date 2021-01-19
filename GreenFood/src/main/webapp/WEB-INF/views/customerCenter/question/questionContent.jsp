@@ -344,13 +344,6 @@ $(function(){
 
 	});
 	
-	/* $(".dropdown-item").click(function(e){
-		e.preventDefault();
-		var q_no = $(this).attr("data-bno");
-		
-		location.href="/customerCenter/question/questionContentCategory/" + q_no;
-	});
-	 */
 	
 	$(".question_title").click(function(e){
 		e.preventDefault();
@@ -358,6 +351,22 @@ $(function(){
 		
 		location.href="/customerCenter/question/questionAnswer/" + q_no;
 	});
+	
+	// 제목으로 검색
+	$("#btnSearch").click(function(){
+		console.log("클릭");
+		var selectType = $("#selectType").val();
+		var keyword = $("#keyword").val();
+		if(keyword == "" || selectType == "선택"){
+			alert("타입선택 및 키워드를 입력해주세요.");
+			return;
+		}
+		$("#frmQuestionPaging > input[name=selectType]").val(selectType);
+		$("#frmQuestionPaging > input[name=keyword]").val(keyword);
+		$("#frmQuestionPaging > input[name=page]").val(1);
+		$("#frmQuestionPaging").submit();
+	});
+	
 	
 	// 페이지네이션 - 페이지 번호 클릭했을때
 	$("a.page-link").click(function(e){
@@ -586,8 +595,7 @@ $(function(){
 								<div class="row text-center" id="select">
 									<select id="selectType">
 										<option selected>선택</option>
-										<option>이름</option>
-										<option>아이디</option>
+										<option>제목</option>
 									</select>
 									<input type="text" id="keyword">
 									<button type="button" class="" id="btnSearch">검색</button>

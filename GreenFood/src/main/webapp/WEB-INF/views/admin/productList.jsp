@@ -19,11 +19,25 @@ div {
     display: block;
 }
 
-.btnSelect {
+.div-title {
+/* 	display: block; */
+	margin-bottom : 80px;
+}
+.div-title h2 {
+	margin-bottom : 20px;
+}
+
+.div-select {
 	float : right;
 }
+.div-btn {
+	float : left;
+}
 #btnProduct {
-	margin-bottom : 20px;
+/* 	margin-bottom : 20px; */
+}
+#btnSearch {
+ 	margin-bottom : 2px;
 }
 
 .page-link {
@@ -65,43 +79,90 @@ $(function(){
 	});
 	
 });
+
+function insertProduct(obj) {
+	location.href="/upload/fileInputTest";
+}
+
+/* 상품 전체 선택 */
+function checkSelectAll(obj) {
+	if ($(obj).prop("checked")) {
+		$(".input-checked").prop("checked", true);
+	} else {
+		$(".input-checked").prop("checked", false);
+	}
+}
+
+/* 상품 각각 선택 */
+function checkSelect(obj) {
+	var allCount = $(".input-checked").length;
+	var checkedCount = $(".input-checked:checked").length;
+	if (checkedCount != allCount) {
+		$("#inputCheckAll").prop("checked", false); // 전체 선택 해제
+	} else {
+		$("#inputCheckAll").prop("checked", true); // 전체 선택
+	}
+}
+
+/* 검색 */
+function search(obj) {
+	$(".search-select").each(function(index) {
+		console.log(index + "-" + $(this).val());
+		var name = $(this).attr("id");
+		var val = $(this).val();
+// 		var inputHidden = $("#frmSearch > input").clone();
+// 		inputHidden.attr("name", name);
+// 		inputHidden.attr("value", val);
+// 		$("#frmSearch").append(inputHidden);
+		if (index == 0) {
+			$("#frmSearch").empty();
+		}
+		$("#frmSearch").append($('<input/>', {type: 'hidden', name: name, value: val}));
+	});
+	$("#frmSearch").submit();
+}
+
 </script>
-
-<!-- 페이징 폼  -->
-<%@ include file="../include/frmPaging.jsp" %>
-
 </head>
 <body>
+
+<form id="frmSearch" method="get" action="/admin/productList">
+</form>
 
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-3"></div>
 		
 		<div class="col-md-6">
-			<div>
+			<div class="div-title">
 				<h2 class="tit">상품 관리</h2>
 				<div class="div-btn">
-					<button type="button" id="btnProduct"  class="btn btn-outline-success">상품 등록</button>
+					<button type="button" id="btnProduct" class="btn btn-outline-success btn-sm" 
+						onclick="javascript:insertProduct(this);">상품 등록</button>
+					<button type="button" id="btnDelete" class="btn btn-outline-danger btn-sm">삭제</button>
 				</div>
 				<div class="div-select">
-					<select>
-						<option value="">등록된 날짜</option>
-						<option value="">신상품 (등록 2주)</option>
-						<option value="">세일 상품 (기한 2주)</option>
-						<option value="">별점 랭킹</option>
-						<option value="">판매량</option>
-						<option value="">판매 종료(판매 기한 끝)</option>
+					<select id="searchAnd" class="search-select">
+						<option value="date">등록된 날짜</option>
+						<option value="new">신상품 (등록 2주)</option>
+						<option value="sale">세일 상품 (기한 2주)</option>
+						<option value="star">별점 랭킹</option>
+						<option value="orderCount">판매량</option>
+						<option value="end">판매 종료(판매 기한 끝)</option>
 					</select>
-					<select>
-						<option value="">모든 상품</option>
+					<select id="searchWhere" class="search-select">
+						<option value="all">모든 상품</option>
 						<c:forEach var="cate" items="${categoryList}">
-							<option value="${cate.product_category}">-${cate.product_category_dsc}</option>
+							<option value="${cate.product_category}">- ${cate.product_category_dsc}</option>
 						</c:forEach>
 					</select>
-					<select>
-						<option value="">오름차순</option>
-						<option value="">내림차순</option>
+					<select id="searchBy" class="search-select">
+						<option value="desc">오름차순</option>
+						<option value="asc">내림차순</option>
 					</select>
+					<input type="text" id="searchWhat" class="search-select">
+					<button type="button" id="btnSearch" class="btn btn-outline-secondary btn-sm"
+						onclick="javascript:search(this);">검색</button>
 				</div>
 			</div>
 
@@ -109,7 +170,10 @@ $(function(){
 			<table class="table">
 				<thead>
 					<tr>
-						<th><input type="checkbox" id="inputCheckAll">선택</th>
+						<th>
+							<input type="checkbox" id="inputCheckAll" 
+								onchange="javascript:checkSelectAll(this);">
+						</th>
 						<th>상품번호</th>
 						<th>상품 카테고리</th>
 						<th>상품 이름</th>
@@ -120,18 +184,23 @@ $(function(){
 				</thead>
 				
 				<tbody>
-					<c:forEach begin="1" end="3">
+					<c:forEach var="productVo" items="${productListAll}">
+					<c:forEach var="cate" items="${categoryList}">
+					<c:if test="${productVo.product_category == cate.product_category}">
 					<tr>
 						<td>
-							<input type="checkbox" class="input-checked">
+							<input type="checkbox" class="input-checked"
+								onchange="javascript:checkSelect(this);">
 						</td>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
+						<td>${productVo.product_code}</td>
+						<td>${cate.product_category_dsc}</td>
+						<td>${productVo.product_title}</td>
+						<td>${productVo.product_registrantion_date}</td>
+						<td>${productVo.product_sales_deadlines}</td>
+						<td>${productVo.product_sale_rate}</td>
 					</tr>
+					</c:if>
+					</c:forEach>
 					</c:forEach>
 				</tbody>
 			</table>

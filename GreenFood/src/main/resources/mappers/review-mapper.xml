@@ -16,7 +16,9 @@
 	<!-- 목록 -->
 	<select  id="getReviewList" resultType="ReviewVo">
 			select * from           
-				(select rownum rnum, a.* from (select * from tbl_review a order by review_no desc) a)
+				(select rownum rnum, a.* from (select * from tbl_review a 
+				<include refid="search"></include>
+				order by review_no desc) a)
 				where rnum between #{startRow} and #{endRow}
 		</select>
 	
@@ -36,6 +38,7 @@
 	<!-- 전체 글갯수 읽어오기 -->	
 	<select id="reviewListCount" resultType="int">
 		select count(*) from tbl_review
+		<include refid="search"></include>
 	</select>
 	
 	<!-- 수정 -->
@@ -52,5 +55,16 @@
 		delete from tbl_review
 			where review_no = #{review_no} 
 	</delete>
+	
+	<!-- 검색 기능 -->
+	<sql id="search">
+		<if test="selectType != null">
+			<choose>
+				<when test='selectType == "제목"'>
+					where review_title      like '%' || #{keyword} || '%'
+				</when>
+			</choose>
+		</if>
+	</sql>
 
 </mapper>

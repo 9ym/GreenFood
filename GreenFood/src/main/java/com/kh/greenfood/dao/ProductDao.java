@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
+import com.kh.greenfood.domain.SearchDto;
 import com.kh.greenfood.domain.StarDto;
 
 public interface ProductDao {
@@ -62,5 +63,8 @@ public interface ProductDao {
 	
 	/* 후기 별점 평균값 -> 상품에 업데이트 */
 	public int updateStar(int star_avg, String product_code);
+	
+	/* 관리자 : 상품 검색 */
+	public List<ProductVo> getSearchProduct(SearchDto searchDto);
 		
 }

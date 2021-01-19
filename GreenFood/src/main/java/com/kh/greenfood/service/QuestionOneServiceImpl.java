@@ -66,7 +66,7 @@ public class QuestionOneServiceImpl implements QuestionOneService {
 	
 
 	@Override
-	public List<OrderVo> getOrderedList(String user_id) {
+	public List<OrderVo> getOrderedList(String user_id) throws Exception{
 		List<OrderVo> orderedList = questionOneDao.getOrderedList(user_id);
 		return orderedList;
 	}
