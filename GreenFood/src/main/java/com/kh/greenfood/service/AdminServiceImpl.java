@@ -49,5 +49,6 @@ public class AdminServiceImpl implements AdminService {
 		int count = adminDao.deletedCustomerListCount(pagingDto);
 		return count;
 	}
+
 }
 

@@ -75,8 +75,8 @@
 	<!-- 관리자 admin : ?일 이전에 생긴 tbl_cart 삭제 ?? -->
 	<delete id="deleteCartAdmin">
 		<![CDATA[
-			delete from tbl_from
-			where sysdate -30 >= cart_date
+			delete from tbl_cart
+			where sysdate -1 >= cart_date
 		]]>
 	</delete>
 	
@@ -140,6 +140,36 @@
 					and o.order_state = c.order_state
 				order by order_date desc
 	</select>
+	
+	<!-- admin 주문관리 - 주문 리스트 -->
+	<select id="getTotalOrderList" resultType="OrderVo">
+		select t.* from (select rownum rnum, a.* from (select o.*, c.order_state_dsc from tbl_order o, tbl_order_state_category c
+			where o.order_state = c.order_state
+			<include refid="search"></include>
+			order by order_date desc) a) t
+			where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getTotalOrderListCount" resultType="int">
+		select count(*) from tbl_order
+			where 1 = 1
+			<include refid="search"></include>
+	</select>
+	
+	<sql id="search">
+		<if test="selectType != null">
+			<choose>
+				<when test='selectType == "아이디"'>
+					and user_id        like '%' || #{keyword} || '%'
+				</when>
+				<when test="selectType == '주문번호'">
+					and order_code     like '%' || #{keyword} || '%'
+				</when>
+			</choose>
+		</if>
+	</sql>
+	
+	<!-- //admin 주문관리 -->
 	
 	<!-- //마이페이지 - > 주문번호 클릭시 --> 
 </mapper>

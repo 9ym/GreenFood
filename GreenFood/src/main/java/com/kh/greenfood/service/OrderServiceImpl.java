@@ -12,6 +12,7 @@ import com.kh.greenfood.dao.OrderDao;
 import com.kh.greenfood.domain.CartDto;
 import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.TestVo;
 
 @Service
@@ -153,6 +154,25 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderVo> getOrderStateInfoList(String user_id, int order_state) {
 		List<OrderVo> orderVoList = orderDao.getOrderStateInfoList(user_id, order_state);
 		return orderVoList;
+	}
+
+	@Override
+	public List<OrderVo> getTotalOrderList(PagingDto pagingDto) {
+		List<OrderVo> orderTotalList = orderDao.getTotalOrderList(pagingDto);
+		return orderTotalList;
+	}
+	
+	@Override
+	public int getTotalOrderListCount(PagingDto pagingDto) {
+		int count = orderDao.getTotalOrderListCount(pagingDto);
+		return count;
+	}
+	
+	/* admin 장바구니 30일 이상 삭제*/
+	@Override
+	public int deleteCartAdmin() {
+		int count = orderDao.deleteCartAdmin();
+		return count;
 	}
 	
 }

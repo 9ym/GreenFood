@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.greenfood.domain.CartDto;
 import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.PagingDto;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
@@ -144,5 +145,23 @@ public class OrderDaoImpl implements OrderDao {
 		map.put("user_id", user_id);
 		List<OrderVo> orderVoList = sqlSession.selectList(NAMESPACE + "getOrderStateInfoList", map);
 		return orderVoList;
+	}
+
+	@Override
+	public List<OrderVo> getTotalOrderList(PagingDto pagingDto) {
+		List<OrderVo> orderTotalList = sqlSession.selectList(NAMESPACE + "getTotalOrderList", pagingDto);
+		return orderTotalList;
+	}
+	
+	@Override
+	public int getTotalOrderListCount(PagingDto pagingDto) {
+		int count = sqlSession.selectOne(NAMESPACE + "getTotalOrderListCount", pagingDto);
+		return count;
+	}
+
+	@Override
+	public int deleteCartAdmin() {
+		int count = sqlSession.delete(NAMESPACE + "deleteCartAdmin");
+		return count;
 	}
 }
