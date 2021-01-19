@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.greenfood.dao.OrderDao;
 import com.kh.greenfood.domain.CartDto;
+import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderVo;
 
 @Service
@@ -89,6 +90,21 @@ public class OrderServiceImpl implements OrderService {
 			
 		}
 		return false;
+	}
+	
+	/* 오더 정보불러오기 */
+	@Override
+	public List<OrderDetailDto> getProductDetailList(String order_code) {
+		List<OrderDetailDto> productDetailInfo = orderDao.getProductDetailList(order_code);
+		return productDetailInfo;
+	}
+	
+
+	/* 주문자 정보 */
+	@Override
+	public OrderVo getOrderUserInfo(String order_code, String user_id) {
+		OrderVo orderVo = orderDao.getOrderUserInfo(order_code, user_id);
+		return orderVo;
 	}
 	
 }

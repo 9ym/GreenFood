@@ -38,6 +38,7 @@ public class OrderController {
 	public String cart(HttpSession session, Model model) throws Exception {
 		TestVo testVo = (TestVo) session.getAttribute("testVo");
 		List<CartDto> list = orderService.seeCartList(testVo.getUser_id());
+		System.out.println("cart: " +  list);
 		model.addAttribute("cartList", list);
 		
 		/* img 링크 리스트 */
@@ -126,13 +127,13 @@ public class OrderController {
 		}
 		TestVo testVo = (TestVo) session.getAttribute("testVo");
 		
-		OrderVo orderVo = new OrderVo(testVo.getUser_id(), finalTotalPrice, order_state, 
-				listAddr.get(0), listAddr.get(1), listAddr.get(2));
-		
-		System.out.println("orderVo :" + orderVo);
-		
-		boolean result = orderService.setOrder(orderVo, listCartPay);
-		System.out.println(result);
+//		OrderVo orderVo = new OrderVo(testVo.getUser_id(), finalTotalPrice, order_state, 
+//				listAddr.get(0), listAddr.get(1), listAddr.get(2));
+//		
+//		System.out.println("orderVo :" + orderVo);
+//		
+//		boolean result = orderService.setOrder(orderVo, listCartPay);
+//		System.out.println(result);
 		
 		return "ggg";
 	}

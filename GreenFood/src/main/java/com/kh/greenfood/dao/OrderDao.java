@@ -3,6 +3,7 @@ package com.kh.greenfood.dao;
 import java.util.List;
 
 import com.kh.greenfood.domain.CartDto;
+import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderVo;
 
 public interface OrderDao {
@@ -46,5 +47,11 @@ public interface OrderDao {
 	
 	/* 주문 상세 생성 */
 	public int createOrderDetail(String order_code, String product_code, int order_quantity);
+	
+	/* 오더 정보 불러오기 */
+	public List<OrderDetailDto> getProductDetailList (String order_code);
+
+	/* 주문자 정보 */
+	public OrderVo getOrderUserInfo(String order_code, String user_id);
 	
 }

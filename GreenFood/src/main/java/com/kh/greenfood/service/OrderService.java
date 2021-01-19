@@ -3,6 +3,7 @@ package com.kh.greenfood.service;
 import java.util.List;
 
 import com.kh.greenfood.domain.CartDto;
+import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderVo;
 
 public interface OrderService {
@@ -24,5 +25,11 @@ public interface OrderService {
 	
 	/* 결제 완료 - 주문 전부 생성 */
 	public boolean setOrder(OrderVo orderVo, List<String> listCartPay);
+	
+	/* 오더 정보 불러오기 */
+	public List<OrderDetailDto> getProductDetailList (String order_code);
+
+	/* 주문자 정보 */
+	public OrderVo getOrderUserInfo(String order_code, String user_id);
 	
 }

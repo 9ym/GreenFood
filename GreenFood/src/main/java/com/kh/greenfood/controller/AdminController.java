@@ -57,4 +57,11 @@ public class AdminController {
 		}
 		return "redirect:/admin/customerList";
 	}
+	
+	// 관리자 주문관리
+	@RequestMapping(value="/orderManager", method=RequestMethod.GET)
+	public String orderManager() throws Exception {
+		
+		return "/admin/orderManager";
+	}
 }

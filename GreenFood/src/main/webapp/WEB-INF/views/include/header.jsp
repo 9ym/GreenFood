@@ -449,9 +449,15 @@ function topClose() {
 					<a href="/main/memberJoinForm">회원가입 |</a><!-- <img					
 					src="https://www.oasis.co.kr/images/common/bg_footer.png"> --> 
 			</c:otherwise>
-			</c:choose>					
-				<a href="#">주문배송 |</a><!-- <img					
-				src="https://www.oasis.co.kr/images/common/bg_footer.png">  -->
+			</c:choose>
+				<c:choose>
+					<c:when  test="${sessionScope.testVo.user_code == '1001'}">
+						<a href="/admin/orderManager">주문관리</a>
+					</c:when>
+					<c:otherwise>
+						<a href="#">주문배송 |</a><!-- <img src="https://www.oasis.co.kr/images/common/bg_footer.png">  -->
+					</c:otherwise>
+				</c:choose>			
 				<a href="/order/cart" id="anchorCart">장바구니</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 				<a href="/main/customer/customerCenter" id="customerCenter" data="고객센터">고객센터</a>					
 			</div>	

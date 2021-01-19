@@ -105,5 +105,20 @@
 	<!-- 오더 디테일, 오더 읽기 / ..... -->
 	
 	<!--// 주문 order -->
-
+	
+	<!-- 마이페이지 - > 주문번호 클릭시 --> 
+	<!-- Order 정보 불러오기 -->
+	<select id="getProductDetailList" resultType="OrderDetailDto">
+		select o.product_code, o.order_quantity ,d.product_title,d.product_price from tbl_order_detail o, tbl_product d
+			where order_code = #{order_code}
+			and o.product_code = d.product_code
+	</select>
+	
+	<select id="getOrderUserInfo" resultType="OrderVo">
+		select * from tbl_order
+			where user_id = #{user_id}
+			and order_code = #{order_code}
+	</select>
+	
+	<!-- //마이페이지 - > 주문번호 클릭시 --> 
 </mapper>
