@@ -35,5 +35,8 @@ public interface OrderService {
 
 	/* 주문자 정보 */
 	public OrderVo getOrderUserInfo(String order_code, String user_id);
+
+	/* 주문자 Order State List */
+	public List<OrderVo> getOrderStateInfoList(String user_id, int order_state);
 	
 }

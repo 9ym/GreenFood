@@ -121,4 +121,14 @@ public class OrderDaoImpl implements OrderDao {
 		OrderVo orderVo = sqlSession.selectOne(NAMESPACE + "getOrderUserInfo", map);
 		return orderVo;
 	}
+	
+	/* 주문자 Order State List */
+	@Override
+	public List<OrderVo> getOrderStateInfoList(String user_id, int order_state) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("order_state", order_state);
+		map.put("user_id", user_id);
+		List<OrderVo> orderVoList = sqlSession.selectList(NAMESPACE + "getOrderStateInfoList", map);
+		return orderVoList;
+	}
 }

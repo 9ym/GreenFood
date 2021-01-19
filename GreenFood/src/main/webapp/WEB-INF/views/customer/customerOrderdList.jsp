@@ -8,8 +8,16 @@
 }
 
 </style>
+<script src="/resources/js/myScript.js"></script>
 <script>
 $(function(){
+	/* 마이페이지 전체 주문 내역 addComma */
+	$(".addComma").each(function(){
+		var text = $(this).text();
+		var total_price = addComma(text);
+		$(this).text(total_price);
+	});
+	
 	/* 헤더 배경화면, 게시판 이름 바꾸는 부분 */
 	/* url 뒤에 사진 넣으면됩니다. */
 	$("#page_background").css({"background-image":"url('${path}/resources/images/login_dog.jpg')"});
@@ -32,9 +40,9 @@ $(function(){
 		<p><span id="spanUserName">${sessionScope.testVo.user_name}</span>님</p>
 	</div>
 	<div id="left_bottom">
-		<div><a href="/customer/customerProfile" class="btn">프로필</a>></div>
+		<div><a href="/customer/customerProfile" class="btn">프로필</a></div>
 		<div>나의 쇼핑 활동</div>
-		<div>Q&amp;A</div>
+		<div><a href="/customerCenter/question/questionContent" class="btn">Q&amp;A</a></div>
 	</div>
 	</div>
 	<!--오른쪽 메뉴-->
@@ -59,7 +67,7 @@ $(function(){
 						<tr>
 							<td>${orderedList.order_date}</td>
 							<td><a href="/customer/customerDetailOrder/${orderedList.order_code}">${orderedList.order_code}</a></td>
-							<td>${orderedList.order_total_price}</td>
+							<td class="addComma">${orderedList.order_total_price}</td>
 <%-- 						<td>${orderedList.order_state}</td> --%>
 							<td>${orderedList.order_state_dsc}</td>
 						</tr>

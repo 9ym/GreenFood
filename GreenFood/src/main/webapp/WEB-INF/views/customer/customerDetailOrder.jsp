@@ -17,9 +17,10 @@
 	margin-bottom : 80px;
 }
 .div-cart strong {
-	text-align : center;
+	text-align : left;
 	display : block;
 	font-size : 22px;
+	color : #6ca435;
 	margin : 10px 0px 30px;
 }
 .div-pay {
@@ -252,7 +253,6 @@
     width: 100px;
 }
 
-
 </style>
 <script src="/resources/js/myScript.js"></script>
 <script>
@@ -294,7 +294,7 @@ $(function(){
 	<div id="left_bottom">
 		<div><a href="/customer/customerProfile" class="btn">프로필</a>></div>
 		<div>나의 쇼핑 활동</div>
-		<div>Q&amp;A</div>
+		<div><a href="/customerCenter/question/questionContent" class="btn">Q&amp;A</a></div>
 	</div>
 	</div>
 	<!--오른쪽 메뉴-->
@@ -306,7 +306,23 @@ $(function(){
 	<div class="container-fluidInner">
 	<div class="row">
 		<div class="col-md-12 div-cart">
-			<strong>결제</strong>
+			<strong>
+			<c:choose>
+				<c:when test="${orderVo.order_state == '10000'}">
+					입금대기중입니다. 입금하여 주세요.
+				</c:when>
+				<c:when test="${orderVo.order_state == '10001'}">
+					상품준비중입니다. 곧 배송이 시작될 예정입니다.
+				</c:when>
+				<c:when test="${orderVo.order_state == '10002'}">
+					배송중입니다. 고객님께 안전하게 전달해 드리겠습니다.
+				</c:when>
+				<c:otherwise>
+					배송완료된 상품입니다.
+					저희 상품을 이용해 주셔서 감사합니다.
+				</c:otherwise>
+			</c:choose>
+			</strong>
 			<div class="div-pay">
 				<div class="pay-inner ">
 					<strong>주문상세</strong>
@@ -320,11 +336,14 @@ $(function(){
 						<c:forEach var="img" items="${imgList}" varStatus="j">
 						<c:if test="${i.index == j.index}">
 							<li>
-								<div class="imggg">
+								<div align="left" class="imggg">
 									<span><a href="/product/detail/${productInfo.product_code}"><img src="${img}"></a></span>
 									<span>${productInfo.product_title}</span>
 									<span>${productInfo.order_quantity}개</span>
 									<span>${productInfo.product_price}원</span>
+									<c:if test="${orderVo.order_state == '10003'}">
+										<span><a href="/review/reviewWrite" class="btn btn-success">상품평 작성</a></span>
+									</c:if>
 								</div>
 							</li>
 						</c:if>

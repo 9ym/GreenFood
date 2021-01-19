@@ -204,12 +204,6 @@ public class OrderController {
 			listImgUrl.add(imgUrl);
 		}
 		model.addAttribute("imgList", listImgUrl);
-	} 
-	
-	@RequestMapping(value="/ordDelivery/{order_state}", method=RequestMethod.GET)
-	public String ordDelivery(@PathVariable("order_state") int order_state) throws Exception{
-		System.out.println(order_state);
-		return "";
 	}
 	
 }
