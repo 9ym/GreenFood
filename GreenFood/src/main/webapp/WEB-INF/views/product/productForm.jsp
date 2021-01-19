@@ -520,6 +520,84 @@ function btnPay(obj) {
 	transform: translate(-50%);
 } */
 
+.xans-board-listheader {
+    border-top-style: solid;
+	/* border-right-style: dotted; */
+	border-bottom-style: solid;
+	/* border-left-style: groove; */
+	border-width: 1px;
+	border-color: #6ca435;
+    
+}
+
+.xans-board-listheader tbody tr{
+	color: #333;
+   	border-top-style: groove;
+	border-width: 1px;
+	border-color: #6ca435;
+}
+
+.xans-board-listheader tbody tr td a {
+	color: #333;
+   
+}
+
+.xans-board-listheader tbody tr td a:hover {
+	color: #5AB63F;
+  
+}
+
+
+.xans-board-listheader th{
+    padding: 20px 0;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 13px;
+}
+
+.xans-board-listheader td:nth-child(1) {
+    padding: 15px 0;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 13px;
+}
+
+.xans-board-listheader td:nth-child(2) {
+    padding: 15px 0 15px 30px;
+    vertical-align: middle;
+    font-size: 13px;
+}
+
+.xans-board-listheader td:nth-child(3) {
+    padding: 15px 0;
+    vertical-align: middle;
+    font-size: 13px;
+}
+
+.xans-board-listheader td:nth-child(4) {
+    padding: 15px 0;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 13px;
+}
+
+.xans-board-listheader td:nth-child(5) {
+    padding: 15px 0;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 13px;
+}
+
+.xans-board-listheader td:nth-child(6) {
+    padding: 15px 0;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 13px;
+}
+
+
+
+
 </style>
 
 <div class="container-fluid">
@@ -731,9 +809,57 @@ function btnPay(obj) {
 					<li><a href="#tbl-review-tab" style="background-color: white; border-bottom: 0px; z-index: 2;">후기</a></li>
 				</ul>
 			</div>
-			<div class="view-content">
-				<p>후기 게시판?</p>
-				<table class="table table-bordered">
+			<div class="view-content" style="padding-top: 0px;">				
+				
+				<table width="100%" align="center" cellpadding="0"
+								
+									cellspacing="0">
+									<tbody>
+										<tr>
+											<td>
+												<div
+													class="xans-element- xans-myshop xans-myshop-couponserial ">
+													<table width="100%" class="xans-board-listheader jh"
+														cellpadding="0" cellspacing="0">
+
+														<thead>
+															<tr>
+																<th style="width : 60px;">번호</th>
+																<th style="width : 250px;">상품명</th>
+																<th>제목</th>
+																<th style="width : 120px;">작성자</th>
+																<th style="width : 120px;">작성일</th>
+																<th style="width : 80px;">조회수</th>
+															</tr>
+														</thead>
+														<tbody>
+															<%-- <c:forEach var="reviewVo" items="${reviewList}"> --%>
+																<tr>
+																	<td>11111</td>
+																	<td>작업중</td>
+																	<td><%-- <a class="review_title" href="#"
+																			data-bno="${reviewVo.review_no}">${reviewVo.review_title}</a> --%>
+																	작업중
+																	</td>
+																	<td>작업중</td>
+																	<td>작업중
+																	<%-- <fmt:formatDate pattern="yyyy-MM-DD" value="${reviewVo.review_date}"/> --%></td>
+																	<td><span class="badge badge-success"><%-- ${reviewVo.review_readcount} --%>1</span>
+																	</td>
+																</tr>
+															<%-- </c:forEach> --%>
+														</tbody>
+
+													</table>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+				
+				
+				
+				<!-- <table class="table table-bordered">
 					<thead>
 						<tr>
 							<th>1</th>
@@ -746,7 +872,11 @@ function btnPay(obj) {
 							<td>22</td>
 						</tr>
 					</tbody>
-				</table>
+				</table> -->
+				
+				
+				
+				
 			</div>
 		</div>
 		<!--// 후기 모음  -->

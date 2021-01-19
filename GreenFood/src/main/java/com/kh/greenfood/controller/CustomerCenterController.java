@@ -62,11 +62,11 @@ public class CustomerCenterController {
 //	-------------------- 공지사항 입력 데이타 리스트에 보여주기 -------------------------
 	@RequestMapping(value="/customerCenterMain", method=RequestMethod.GET)
 	public String listAll(Model model, PagingDto pagingDto) throws Exception {
-		
+		System.out.println("centerMain: " + pagingDto);
 		int count = noticeService.noticeListCount(pagingDto);
 		pagingDto.setTotalCount(count);
 		pagingDto.setPagingInfo();
-//		System.out.println("CustomerCenterController, listAll, pagingDto : " + pagingDto);
+		System.out.println("CustomerCenterController, listAll, pagingDto : " + pagingDto);
 		List<NoticeVo> noticeList = noticeService.noticeList(pagingDto);
 		
 //		System.out.println("CustomerCenterController, listAll, noticeList:" + noticeList);
@@ -233,13 +233,11 @@ public class CustomerCenterController {
 			TestVo testVo = (TestVo)session.getAttribute("testVo");
 			System.out.println("getorderList, testVo :"  + testVo);
 			String user_id = testVo.getUser_id();
-			List<OrderVo> orderList = questionOneService.getOrderList(user_id);
-			System.out.println("getOrderList, orderList :" + orderList);
+			List<OrderVo> orderedList = questionOneService.getOrderedList(user_id);
+			System.out.println("getOrderedList, orderedList :" + orderedList);
 					
-			return orderList;
+			return orderedList;
 		}
-		
-		
 		
 		
 		

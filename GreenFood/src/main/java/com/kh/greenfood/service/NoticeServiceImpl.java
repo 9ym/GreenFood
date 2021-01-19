@@ -25,6 +25,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public List<NoticeVo> noticeList(PagingDto pagingDto) throws Exception {
+		System.out.println("NoticeServiceImpl, noticeList, pagingDto:" + pagingDto);
 		List<NoticeVo> noticeList = noticeDao.noticeList(pagingDto);
 //		System.out.println("NoticeServiceImpl, noticeList, noticeList:" + noticeList);
 		return noticeList;
@@ -49,7 +50,7 @@ public class NoticeServiceImpl implements NoticeService {
 		noticeDao.deleteNotice(notice_no);
 	}
 
-	// ÀüÃ¼ °³½Ã±Û ¼ö °¡Á®¿À±â
+	// ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½Ã±ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@Override
 	public int noticeListCount(PagingDto pagingDto) throws Exception {
 		int count = noticeDao.noticeListCount(pagingDto);
