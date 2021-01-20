@@ -344,13 +344,25 @@ $(function(){
 						<c:if test="${i.index == j.index}">
 							<li>
 								<div align="left" class="imggg">
-									<span><a href="/product/detail/${productInfo.product_code}"><img src="${img}"></a></span>
+									<span>
+									<c:choose>
+											<c:when test="${productInfo.dead_line_count == 1}">
+												<img src="${img}">
+											</c:when>
+											<c:otherwise>
+												<a href="/product/detail/${productInfo.product_code}"><img src="${img}"></a>
+											</c:otherwise>
+										</c:choose>
+									</span>
 									<span>${productInfo.product_title}</span>
 									<span>${productInfo.order_quantity}개</span>
 									<span>${productInfo.product_price}원</span>
 									<c:if test="${orderVo.order_state == '10003'}">
 										<span><a class="review_write" href="" class="btn btn-success"
 												data-bno="${orderVo.order_code}">상품평 작성</a></span>
+									</c:if>
+									<c:if test="${productInfo.dead_line_count == 1}">
+										<span class="deadProduct">상품판매 종료된 제품입니다.</span>
 									</c:if>
 								</div>
 							</li>

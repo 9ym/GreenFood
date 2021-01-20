@@ -104,6 +104,11 @@ public class CustomerController {
 		getProductCate(model);
 		// 주문 상세 정보 -> 주문 리스트
 		List<OrderDetailDto> productDetailInfo = orderService.getProductDetailList(order_code);
+		for(OrderDetailDto dto : productDetailInfo) {
+			String product_code = dto.getProduct_code();
+			int count = orderService.checkDeadLine(product_code);
+			dto.setDead_line_count(count);
+		}
 		model.addAttribute("productDetailInfo", productDetailInfo);
 		getImgUrl(productDetailInfo, model);
 		// 주문 상세 정보 -> 결제 정보
