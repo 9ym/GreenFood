@@ -100,7 +100,7 @@ public class testProduct {
 	
 	@Test
 	public void testGetSearchProduct() throws Exception {
-		SearchDto dto = new SearchDto("new", "2006", "desc", "복"); // 레몬은 된다...
+		SearchDto dto = new SearchDto("star", "all", "desc", ""); // 레몬은 된다...
 		List<ProductVo> listSearch = productDao.getSearchProduct(dto);
 		System.out.println(listSearch);
 	}

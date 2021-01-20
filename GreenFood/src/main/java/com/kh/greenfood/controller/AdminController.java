@@ -6,8 +6,11 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.domain.OrderVo;
@@ -99,20 +102,61 @@ public class AdminController {
 	}
 	
 	/* 상품 관리 */
-	@RequestMapping(value="/productList", method=RequestMethod.GET)
+	/*@RequestMapping(value="/productList", method=RequestMethod.GET)
 	public String productList(SearchDto searchDto, Model model) throws Exception {
+		System.out.println("searchDto :" + searchDto);
+		int count = productService.getSearchProductCount(searchDto);
+		searchDto.setTotalCount(count);
+		searchDto.setPagingInfo();
+		model.addAttribute("searchDto", searchDto);
+		 상품 카테고리 
+		List<ProductCategoryDto> categoryList = productService.getCategory();
+		model.addAttribute("categoryList", categoryList);
+		 일단 상품 전부 다 
+		List<ProductVo> productList = productService.getProductList();
+		model.addAttribute("productListAll", productList);
+		return "/admin/productList";
+	}*/
+	
+	/* 상품 관리 - 검색 */
+	@RequestMapping(value="/productSearchList", method=RequestMethod.GET)
+	public String productSearchList(SearchDto searchDto, Model model) throws Exception {
 		
 		System.out.println("searchDto :" + searchDto);
 		
 		/* 상품 카테고리 */
 		List<ProductCategoryDto> categoryList = productService.getCategory();
 		model.addAttribute("categoryList", categoryList);
+
+		/* 검색 조건 + 페이징 (1page에 10개만 보이기)*/
+		int count = productService.getSearchProductCount(searchDto);
+		searchDto.setTotalCount(count);
+		searchDto.setPagingInfo();
+		System.out.println("searchDto-set :" + searchDto);
+		model.addAttribute("searchDto", searchDto);
+		model.addAttribute("searchCount", count);
 		
-		/* 일단 상품 전부 다 */
-		List<ProductVo> productList = productService.getProductList();
-		model.addAttribute("productListAll", productList);
+		/* 검색 결과 -> setPagingInfo() 후에 리스트 받기 */
+		List<ProductVo> listSearch = productService.getSearchProduct(searchDto);
+		model.addAttribute("productListAll", listSearch);
 		
 		return "/admin/productList";
+	}
+	
+	/* 상품 관리 - 판매 종료 */
+	@RequestMapping(value="/endProduct", method=RequestMethod.POST)
+	@ResponseBody
+	public String endProduct(@RequestParam(value="listEnd[]") List<String> listProductCode, 
+			Model model) throws Exception {
+		System.out.println("listProductCode :" + listProductCode);
+		String resultMsg = "";
+		int countEnd = productService.endProduct(listProductCode);
+		if (countEnd > 0) {
+			resultMsg = "end_success";
+		} else {
+			resultMsg = "end_fail";
+		}
+		return resultMsg;
 	}
 	
 }

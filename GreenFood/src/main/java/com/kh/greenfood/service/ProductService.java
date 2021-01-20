@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
+import com.kh.greenfood.domain.SearchDto;
 import com.kh.greenfood.domain.StarDto;
 
 public interface ProductService {
@@ -49,5 +50,14 @@ public interface ProductService {
 	
 	/* 후기 별점 -> 생성, 평균, 상품에 업데이트 */
 	public int setStar(StarDto starDto);
+	
+	/* 관리자 : 상품 검색 */
+	public List<ProductVo> getSearchProduct(SearchDto searchDto);
+	
+	/* 관리자 : 상품 검색 - 총 갯수 */
+	public int getSearchProductCount(SearchDto searchDto);
+	
+	/* 해당 상품 판매 종료 */
+	public int endProduct(List<String> listProductCode);
 	
 }

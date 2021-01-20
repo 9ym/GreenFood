@@ -66,5 +66,11 @@ public interface ProductDao {
 	
 	/* 관리자 : 상품 검색 */
 	public List<ProductVo> getSearchProduct(SearchDto searchDto);
+	
+	/* 관리자 : 상품 검색 - 총 갯수 */
+	public int getSearchProductCount(SearchDto searchDto);
+	
+	/* 해당 상품 판매 종료 */
+	public int endProduct(List<String> listProductCode);
 		
 }

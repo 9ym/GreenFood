@@ -438,7 +438,7 @@ function topClose() {
 				<c:choose>
 		 		<c:when test="${sessionScope.testVo.user_code == '1001'}">
 		 			<a href="/admin/customerList">회원관리</a>
-		 			<a href="/admin/productList">상품관리</a>
+		 			<a href="/admin/productSearchList">상품관리</a>
 		 			<a href="/admin/orderManager">주문관리</a>
 		 		</c:when>
 		 		<c:otherwise>		 		
