@@ -175,4 +175,18 @@ public class OrderServiceImpl implements OrderService {
 		return count;
 	}
 	
+	/* admin 배송 상태변경 */
+	@Override
+	public int updateState(String user_id, String order_code, String order_state_dsc) {
+		int count = orderDao.updateState(user_id, order_code, order_state_dsc);
+		return count;
+	}
+
+	/* 판매기한 체크 */
+	@Override
+	public int checkDeadLine(String product_code) {
+		int count = orderDao.checkDeadLine(product_code);
+		return count;
+	}
+	
 }

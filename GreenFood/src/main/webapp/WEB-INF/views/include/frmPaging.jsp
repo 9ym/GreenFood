@@ -46,4 +46,5 @@
 	<input type="hidden" name="selectType" value="${pagingDto.selectType}">
 	<input type="hidden" name="keyword" value="${pagingDto.keyword}">
 	<input type="hidden" name="page" value="${pagingDto.page}"/>
+	<input type="hidden" name="dropDownText" value="${pagingDto.dropDownText}"/>
 </form>

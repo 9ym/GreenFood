@@ -1,15 +1,19 @@
 package com.kh.greenfood.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.ProductCategoryDto;
@@ -19,6 +23,7 @@ import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.AdminService;
 import com.kh.greenfood.service.OrderService;
 import com.kh.greenfood.service.ProductService;
+import com.kh.greenfood.util.S3Util;
 
 @Controller
 @RequestMapping(value="/admin")
@@ -72,30 +77,57 @@ public class AdminController {
 	// 관리자 주문관리
 	@RequestMapping(value="/orderManager", method=RequestMethod.GET)
 	public String orderManager(Model model, PagingDto pagingDto) throws Exception {
-		System.out.println("페이징이전" + pagingDto);
 		int count = orderService.getTotalOrderListCount(pagingDto);	
 		pagingDto.setTotalCount(count);
 		pagingDto.setPagingInfo();
-		System.out.println("페이징이후" + pagingDto);
 		List<OrderVo> orderTotalList = orderService.getTotalOrderList(pagingDto);
 		model.addAttribute("pagingDto", pagingDto);
 		model.addAttribute("orderTotalList", orderTotalList);
 		return "/admin/orderManager";
 	}
 	
+	// 관리자 customer 주문 상태 변경시키기
+	@RequestMapping(value="/orderManager/changeState", method=RequestMethod.GET)
+	public String orderMangerChangeState(Model model, OrderVo orderVo) throws Exception{
+		String user_id = orderVo.getUser_id();
+		String order_code = orderVo.getOrder_code();
+		String order_state_dsc = orderVo.getOrder_state_dsc();
+		int count = orderService.updateState(user_id, order_code, order_state_dsc);
+		if(count > 0) {
+			model.addAttribute("msg","stateChangeSuccess");
+		}
+		return "/admin/orderManager";
+	}
+	
+	// 관리자 주문 코드 상세보기
+	@RequestMapping(value="/orderManager/orderDetail/{order_code}", method=RequestMethod.GET)
+	public String orderDetail(@PathVariable("order_code") String order_code, Model model) throws Exception{
+			// 주문 상세 정보 -> 주문 리스트
+			List<OrderDetailDto> productDetailInfo = orderService.getProductDetailList(order_code);
+			getImgUrl(productDetailInfo, model);
+			for(OrderDetailDto dto : productDetailInfo) {
+				String product_code = dto.getProduct_code();
+				int count = orderService.checkDeadLine(product_code);
+				dto.setDead_line_count(count);
+			}
+			// 주문 상세 정보 -> 결제 정보
+			OrderVo orderVo = orderService.getOrderUserInfo(order_code, null);
+			int total = orderVo.getOrder_total_price();
+			int sale = orderVo.getOrder_sale_price();
+			int usePoint = orderVo.getOrder_point_use();
+			int origin = total + sale + usePoint - 3000;
+			orderVo.setOrder_origin_price(origin);
+			model.addAttribute("productDetailInfo", productDetailInfo);
+			model.addAttribute("orderVo", orderVo);
+		return "/admin/orderDetail";
+	}
+	
 	// 30일 이상 지난 장바구니 데이터들 삭제
 	@RequestMapping(value="/deleteCartDate", method=RequestMethod.GET)
-	public String deleteCartDate(Model model) throws Exception{
+	@ResponseBody
+	public int deleteCartDate(Model model) throws Exception{
 		int count = orderService.deleteCartAdmin();
-		String page = "";
-		if (count > 0) {
-			model.addAttribute("msg", "deleteComp");
-			page = "/admin/orderManager";
-		} else {
-			model.addAttribute("msg", "deleteFail");
-			page = "/admin/orderManager";
-		}
-		return page;
+		return count;
 	}
 	
 	/* 상품 관리 */
@@ -114,5 +146,18 @@ public class AdminController {
 		
 		return "/admin/productList";
 	}
+	
+	/* img 링크 리스트 */
+	private void getImgUrl(List<OrderDetailDto> listCartDto, Model model) throws Exception {
+		List<String> listImgUrl = new ArrayList<>();
+		for (OrderDetailDto dto : listCartDto) {
+			String product_code = dto.getProduct_code();
+			String category = productService.getProduct(product_code).getProduct_category();
+			String fileName = productService.getProductImage(product_code).getImage_info_file_name();
+			String imgUrl = S3Util.getImageUrl(fileName, category);
+			listImgUrl.add(imgUrl);
+		}
+		model.addAttribute("imgList", listImgUrl);
+	} 
 	
 }

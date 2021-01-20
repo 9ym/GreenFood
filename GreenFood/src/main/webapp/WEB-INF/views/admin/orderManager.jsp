@@ -361,15 +361,43 @@ tbody tr {
 $(function(){
 	
 	var msg = "${msg}";
-	if(msg == "deleteComp"){
-		alert("정상적으로 삭제되었습니다.");
-	} else if(msg == "deleteFail"){
-		alert("데이터 삭제 실패");
+	if(msg == "stateChangeSuccess"){
+		$("#totalList").get(0).click();
 	}
 	
-	// 30일 이상 지난 장바구니 데이터 삭제
+	// 장바구니 30일 이상 데이터 삭제
 	$("#cartDelete").click(function(){
-		location.href="/admin/deleteCartDate";
+		var url = "/admin/deleteCartDate";
+		
+		$.get(url, function(data){
+			if (data > 0){
+				alert("장바구니 카트내용이 삭제되었습니다.");
+			} else if (data == 0){
+				alert("장바구니 삭제할 데이터가 없습니다.");
+			} else {
+				alert("삭제할 수 없습니다.");
+			}
+		});
+	});
+	
+	// 주문상태변경 시키기
+	$(".stateChange").click(function(){
+		var order_state_dsc = $(this).parent().prev().text().trim();
+		var user_id = $(this).parent().parent().children().eq(0).text().trim();
+		var order_code = $(this).parent().parent().children().eq(1).text().trim();
+		$("#frmOrdered").attr("action", "/admin/orderManager/changeState");
+		$("#frmOrdered > input[name=order_state_dsc]").val(order_state_dsc);
+		$("#frmOrdered > input[name=order_code]").val(order_code);
+		$("#frmOrdered > input[name=user_id]").val(user_id);
+		$("#frmOrdered").submit();
+	});
+	
+	// 카테고리 드롭다운 이벤트설정
+	$(".dropdown > div > a").click(function(){
+		var text = $(this).text();
+		$("#frmOrderPaging > input[name=dropDownText]").val(text);
+		$("#frmOrderPaging > input[name=page]").val(1);
+		$("#frmOrderPaging").submit();
 	});
 	
 	// 회원 이름 검색
@@ -397,10 +425,10 @@ $(function(){
 </script>
 
 <!-- ----------------  페이징 폼 넣어주기 -----------------------------------  -->
+<%@ include file="../include/frmOrdered.jsp" %>
 <%@ include file="../include/frmPaging.jsp" %>
 </head>
 <body>
-${pagingDto}
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
@@ -428,8 +456,12 @@ ${pagingDto}
 														type="button" id="dropdownMenuButton"
 														data-toggle="dropdown">카테고리 선택</button>
 													<div class="dropdown-menu"	aria-labelledby="dropdownMenuButton" id="divCate">
-														<a class="dropdown-item" href="/admin/orderManager">전체 보기</a>
-														<a class="dropdown-item" id="cartDelete" href="#">장바구니 삭제</a>
+														<a class="dropdown-item" id="totalList" href="/admin/orderManager">전체 보기</a>
+														<button class="dropdown-item" id="cartDelete">장바구니 삭제</button>
+														<a class="dropdown-item" id="deposit">입금대기중</a>
+														<a class="dropdown-item" id="preparationGoods">상품준비중</a>
+														<a class="dropdown-item" id="shipped">배송중</a>
+														<a class="dropdown-item" id="completedDelivery">배송완료</a>
 													</div>
 												</div>
 											</div>
@@ -446,9 +478,7 @@ ${pagingDto}
 											<tr>
 												<td>
 													<div class="xans-element- xans-myshop xans-myshop-couponserial ">
-														<table width="100%" class="xans-board-listheader jh"
-															cellpadding="0" cellspacing="0">
-
+														<table width="100%" class="xans-board-listheader jh" cellpadding="0" cellspacing="0">
 															<thead>
 																<tr>
 																	<th>아이디</th>
@@ -456,16 +486,25 @@ ${pagingDto}
 																	<th>주문일</th>
 																	<th>결제금액</th>
 																	<th>주문상태</th>
+ 																	<th>상태변경</th>
 																</tr>
 															</thead>
 															<tbody>
 															<c:forEach var="orderTotalList" items="${orderTotalList}">
 																<tr>
 																	<td>${orderTotalList.user_id}</td>
-																	<td>${orderTotalList.order_code}</td>
+																	<td>
+																		<a href="/admin/orderManager/orderDetail/${orderTotalList.order_code}">${orderTotalList.order_code}</a>
+																	</td>
 																	<td>${orderTotalList.order_date}</td>
 																	<td>${orderTotalList.order_total_price}</td>
 																	<td>${orderTotalList.order_state_dsc}</td>
+																	<td>
+																		<c:if test="${orderTotalList.order_state_dsc != '배송완료' and 
+																					orderTotalList.order_state_dsc != '배송중'}">
+																			<button type="button" class="btn btn-success stateChange">변경</button>
+																		</c:if>
+																	</td>
 																</tr>
 															</c:forEach>
 															</tbody>

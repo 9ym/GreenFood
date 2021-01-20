@@ -74,4 +74,10 @@ public interface OrderDao {
 	/* admin 장바구니 30 이상 삭제 */
 	public int deleteCartAdmin();
 	
+	/* admin 배송 상태변경 */
+	public int updateState(String user_id, String order_code, String order_state_dsc);
+
+	/* 판매기한 체크 */
+	public int checkDeadLine(String product_code);
+	
 }

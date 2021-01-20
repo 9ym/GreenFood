@@ -244,9 +244,4 @@ public class CustomerController {
 		model.addAttribute("imgList", listImgUrl);
 	} 
 	
-	/* User point 합산 */
-	private int userPointSum() throws Exception {
-		
-		return 0;
-	}
 }

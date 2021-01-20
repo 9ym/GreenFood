@@ -118,7 +118,7 @@
 		select sum(a.cnt) order_count, a.order_state, a.order_state_dsc, a.user_id
 			from (select c.order_state, c.order_state_dsc, nvl2(o.user_id, 1, 0) cnt, user_id
 				from (select * from tbl_order_state_category where substr(order_state, 1, 1) = 1) c,
-					(select * from tbl_order where user_id = 'user') o
+					(select * from tbl_order where user_id = #{user_id}) o
 						where c.order_state = o.order_state(+)	)a
 			group by a.order_state, a.order_state_dsc, a.user_id
 			order by order_state asc

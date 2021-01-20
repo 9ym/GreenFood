@@ -7,6 +7,7 @@ public class OrderDetailDto{
 	private int order_quantity;
 	private int product_price;
 	private int order_total_price;
+	private int dead_line_count;
 	public String getProduct_title() {
 		return product_title;
 	}
@@ -37,12 +38,18 @@ public class OrderDetailDto{
 	public void setOrder_total_price(int order_total_price) {
 		this.order_total_price = order_total_price;
 	}
+	public int getDead_line_count() {
+		return dead_line_count;
+	}
+	public void setDead_line_count(int dead_line_count) {
+		this.dead_line_count = dead_line_count;
+	}
+	
 	@Override
 	public String toString() {
 		return "OrderDetailDto [product_title=" + product_title + ", product_code=" + product_code + ", order_quantity="
 				+ order_quantity + ", product_price=" + product_price + ", order_total_price=" + order_total_price
-				+ "]";
+				+ ", dead_line_count=" + dead_line_count + "]";
 	}
-	
 	
 }
