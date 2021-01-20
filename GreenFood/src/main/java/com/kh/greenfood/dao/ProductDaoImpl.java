@@ -163,5 +163,19 @@ public class ProductDaoImpl implements ProductDao {
 		List<ProductVo> listSearch = sqlSession.selectList(NAMESPACE + "getSearchProduct", searchDto);
 		return listSearch;
 	}
+	
+	/* 관리자 : 상품 검색 - 총 갯수 */
+	@Override
+	public int getSearchProductCount(SearchDto searchDto) {
+		int count = sqlSession.selectOne(NAMESPACE + "getSearchProductCount", searchDto);
+		return count;
+	}
+	
+	/* 해당 상품 삭제 */
+	@Override
+	public int endProduct(List<String> listProductCode) {
+		int count = sqlSession.update(NAMESPACE + "endProduct", listProductCode);
+		return count;
+	}
 
 }

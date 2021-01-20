@@ -11,6 +11,7 @@ import com.kh.greenfood.dao.ProductDao;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
+import com.kh.greenfood.domain.SearchDto;
 import com.kh.greenfood.domain.StarDto;
 
 @Service
@@ -132,6 +133,27 @@ public class ProductServiceImpl implements ProductService {
 			countUpdate = productDao.updateStar(star_avg, starDto.getProduct_code());
 		}
 		return countUpdate;
+	}
+	
+	/* 관리자 : 상품 검색 */
+	@Override
+	public List<ProductVo> getSearchProduct(SearchDto searchDto) {
+		List<ProductVo> listSearch = productDao.getSearchProduct(searchDto);
+		return listSearch;
+	}
+	
+	/* 관리자 : 상품 검색 - 총 갯수 */
+	@Override
+	public int getSearchProductCount(SearchDto searchDto) {
+		int count = productDao.getSearchProductCount(searchDto);
+		return count;
+	}
+	
+	/* 해당 상품 삭제 */
+	@Override
+	public int endProduct(List<String> listProductCode) {
+		int count = productDao.endProduct(listProductCode);
+		return count;
 	}
 	
 }

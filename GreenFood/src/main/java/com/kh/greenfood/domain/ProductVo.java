@@ -7,7 +7,7 @@ public class ProductVo {
 	private String product_category;
 	private String product_title;
 	private int product_price;
-	private Timestamp product_registrantion_date;
+	private Timestamp product_registration_date;
 	private Timestamp product_sales_deadlines;
 	private int product_shelf_life;
 	private String product_sub_title;
@@ -19,6 +19,7 @@ public class ProductVo {
 	private int product_order_count;
 	private int product_star;
 	private int product_sale_rate;
+	private int rnum; // 관리자 - 상품 검색시에만 필요
 	
 	public ProductVo() { }
 	
@@ -40,7 +41,7 @@ public class ProductVo {
 	}
 
 	public ProductVo(String product_code, String product_category, String product_title, int product_price,
-			Timestamp product_registrantion_date, Timestamp product_sales_deadlines, int product_shelf_life,
+			Timestamp product_registration_date, Timestamp product_sales_deadlines, int product_shelf_life,
 			String product_sub_title, String product_content, int product_heart, String product_weight,
 			String product_sales_unit, String product_origin, int product_order_count, int product_sale_rate) {
 		super();
@@ -48,7 +49,7 @@ public class ProductVo {
 		this.product_category = product_category;
 		this.product_title = product_title;
 		this.product_price = product_price;
-		this.product_registrantion_date = product_registrantion_date;
+		this.product_registration_date = product_registration_date;
 		this.product_sales_deadlines = product_sales_deadlines;
 		this.product_shelf_life = product_shelf_life;
 		this.product_sub_title = product_sub_title;
@@ -77,8 +78,8 @@ public class ProductVo {
 		return product_price;
 	}
 
-	public Timestamp getProduct_registrantion_date() {
-		return product_registrantion_date;
+	public Timestamp getProduct_registration_date() {
+		return product_registration_date;
 	}
 
 	public Timestamp getProduct_sales_deadlines() {
@@ -137,8 +138,8 @@ public class ProductVo {
 		this.product_price = product_price;
 	}
 
-	public void setProduct_registrantion_date(Timestamp product_registrantion_date) {
-		this.product_registrantion_date = product_registrantion_date;
+	public void setProduct_registration_date(Timestamp product_registration_date) {
+		this.product_registration_date = product_registration_date;
 	}
 
 	public void setProduct_sales_deadlines(Timestamp product_sales_deadlines) {
@@ -188,12 +189,20 @@ public class ProductVo {
 	public void setProduct_sale_rate(int product_sale_rate) {
 		this.product_sale_rate = product_sale_rate;
 	}
+	
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 
 	@Override
 	public String toString() {
 		return "ProductVo [product_code=" + product_code + ", product_category=" + product_category + ", product_title="
-				+ product_title + ", product_price=" + product_price + ", product_registrantion_date="
-				+ product_registrantion_date + ", product_sales_deadlines=" + product_sales_deadlines
+				+ product_title + ", product_price=" + product_price + ", product_registration_date="
+				+ product_registration_date + ", product_sales_deadlines=" + product_sales_deadlines
 				+ ", product_shelf_life=" + product_shelf_life + ", product_sub_title=" + product_sub_title
 				+ ", product_content=" + product_content + ", product_heart=" + product_heart + ", product_weight="
 				+ product_weight + ", product_sales_unit=" + product_sales_unit + ", product_origin=" + product_origin

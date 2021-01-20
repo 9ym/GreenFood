@@ -519,7 +519,7 @@ ${testVo.user_id}
 				<c:choose>
 		 		<c:when test="${sessionScope.testVo.user_code == '1001'}">
 		 			<a href="/admin/customerList">회원관리</a>
-		 			<a href="/admin/productList">상품관리</a>
+		 			<a href="/admin/productSearchList?searchAnd=date&searchWhere=all&searchBy=desc&searchWhat=&page=1">상품관리</a>
 		 			<a href="/admin/orderManager">주문관리</a>
 		 		</c:when>
 		 		<c:otherwise>		 		

@@ -172,10 +172,21 @@
 		where product_code = #{product_code}
 	</update>
 	
-	<!-- 관리자 : 상품 검색 -->
+	<!-- 관리자 : 상품 검색, 순서  rnum 추가 -->
 	<select id="getSearchProduct" parameterType="SearchDto" resultType="ProductVo">
-			select * from tbl_product
-			<include refid="searchSql"/>
+		select p.* from 
+			(select rownum rnum, a.* from 
+				(select * from tbl_product
+				<include refid="searchSql"/>
+				)a
+			)p
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<!-- 관리자 : 상품 검색, 전체 갯수 -->
+	<select id="getSearchProductCount" parameterType="SearchDto" resultType="int">
+		select count(*) from tbl_product
+		<include refid="searchSql"/>
 	</select>
 	
 	<sql id="searchSql">
@@ -187,23 +198,21 @@
 				where product_category = #{searchWhere}
 			</otherwise>
 		</choose>
-		<choose>
-			<when test="searchWhat != null">
-				and product_title like '%' || #{searchWhat} || '%'
-			</when>
-		</choose>
+		<if test="searchWhat != null">
+			and product_title like '%' || #{searchWhat} || '%'
+		</if>
 		<choose>
 			<when test="searchAnd.equals('date')">
 				order by product_registration_date
 			</when>
 			<when test="searchAnd.equals('new')">
 				<![CDATA[
-				and sysdate - 14 < product_registration_date
+				and sysdate - 14 <= product_registration_date
 				order by product_registration_date
 				]]>
 			</when>
 			<when test="searchAnd.equals('sale')">
-				and product_sale_rate is not null
+				and product_sale_rate != 0
 				order by product_sale_rate
 			</when>
 			<when test="searchAnd.equals('star')">
@@ -214,8 +223,8 @@
 			</when>
 			<when test="searchAnd.equals('end')">
 				<![CDATA[
-				and sysdate > product_registration_date
-				order by product_registration_date
+				and sysdate > product_sales_deadlines
+				order by product_sales_deadlines
 				]]>
 			</when>
 		</choose>
@@ -228,5 +237,12 @@
 			</otherwise>
 		</choose>
 	</sql>
+	
+	<!-- 해당 상품 판매 종료 -->
+	<delete id="endProduct" parameterType="java.util.List">
+		update tbl_product
+			set product_sales_deadlines = sysdate -1
+		where product_code in ( <foreach collection="list" item="no" separator=",">#{no}</foreach> )
+	</delete>
 
 </mapper>
