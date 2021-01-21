@@ -14,6 +14,8 @@ public class ReviewVo {
 	private String review_image;
 	private String product_code;
 	private String product_title;
+	private String star_point;
+	
 	public String getUser_id() {
 		return user_id;
 	}
@@ -74,13 +76,19 @@ public class ReviewVo {
 	public void setProduct_title(String product_title) {
 		this.product_title = product_title;
 	}
+	public String getStar_point() {
+		return star_point;
+	}
+	public void setStar_point(String star_point) {
+		this.star_point = star_point;
+	}
 	@Override
 	public String toString() {
 		return "ReviewVo [user_id=" + user_id + ", order_code=" + order_code + ", review_no=" + review_no
 				+ ", review_content=" + review_content + ", review_date=" + review_date + ", review_title="
 				+ review_title + ", review_readcount=" + review_readcount + ", review_image=" + review_image
-				+ ", product_code=" + product_code + ", product_title=" + product_title + "]";
+				+ ", product_code=" + product_code + ", product_title=" + product_title + ", star_point=" + star_point
+				+ "]";
 	}
-	
 	
 }

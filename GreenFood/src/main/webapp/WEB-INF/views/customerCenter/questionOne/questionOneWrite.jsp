@@ -384,7 +384,8 @@ function make2digits(num) {
 																<option class="option-item questionOne"
 																	name="q_o_category" id="use" value="206">이용 및
 																	기타</option>
-														</select><br> <input type=text name="q_o_title"
+														</select><br> 
+														<input type=text name="q_o_title"
 															style="width: 100%" required label="제목" value=""
 															placeholder=" 제목을 입력해주세요."></td>
 													</tr>

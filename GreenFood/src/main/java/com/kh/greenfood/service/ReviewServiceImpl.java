@@ -55,6 +55,13 @@ public class ReviewServiceImpl implements ReviewService {
 		
 	}
 
+	@Override
+	public ReviewVo selectInfoOrderReview(String order_code) throws Exception {
+		ReviewVo reviewVo = reviewDao.selectInfoOrderReview(order_code);
+		System.out.println("ReviewServiceImpl, selectInfoOrderReview :" + reviewVo);
+		return reviewVo;
+	}
+
 	
 
 	

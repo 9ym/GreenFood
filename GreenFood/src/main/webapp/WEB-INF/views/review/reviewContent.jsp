@@ -138,7 +138,7 @@ table {
 			<div class="col-md-12">
 			<div class="review_page_top">
 				<h2 class="review_tit">후기</h2>
-				<h2 class="review_sub">.. 님께서 작성하신 소중한 후기입니다.</h2>
+				<h2 class="review_sub">${reviewVo.user_id } 님께서 작성하신 소중한 후기입니다.</h2>
 			</div>
 				<div class="row">
 					<div class="col-md-3"></div>
@@ -156,7 +156,7 @@ table {
 									</tr>
 								<tr>
 									<th>상품명</th>
-									<td style="width:250px;">작업중</td>
+									<td style="width:250px;">${reviewVo.product_title }</td>
 									<th style="width:130px;">작성일</th>
 									<td style="width:260px;">${reviewVo.review_date }</td>
 									<th style="width:130px;">조회수</th>

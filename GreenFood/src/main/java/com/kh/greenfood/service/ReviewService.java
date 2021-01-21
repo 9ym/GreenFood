@@ -26,5 +26,8 @@ public interface ReviewService {
 	// 글 삭제
 	public void deleteReview(int review_no) throws Exception;
 	
+	// 후기 작성시 넘겨온 주문번호,제품번호,제품명 나타내기
+	public ReviewVo selectInfoOrderReview(String order_code) throws Exception;
+	
 	
 }

@@ -9,8 +9,8 @@
 	
 	<!-- 후기 글쓰기 -->
 		<insert id="insertReview">
-			insert into tbl_review (review_no, review_content, review_title)
-				values(seq_review_reviewno.nextval, #{review_content}, #{review_title}) 
+			insert into tbl_review (review_no, user_id, review_content, review_title, order_code, product_title, star_point)
+				values(seq_review_reviewno.nextval, #{user_id}, #{review_content}, #{review_title}, #{order_code}, #{product_title}, #{star_point}) 
 		</insert>
 
 	<!-- 목록 -->
@@ -23,7 +23,7 @@
 		</select>
 	
 	<!-- 글 선택 -->
-	<select id="selectReview" resultType="ReviewVo">
+	<select id="selectReview"  resultType="ReviewVo">
 		select * from tbl_review
 		where review_no = #{review_no}
 	</select>
@@ -66,5 +66,20 @@
 			</choose>
 		</if>
 	</sql>
+	
+	
+	<!-- 후기 작성시 넘겨온 주문번호,제품번호,제품명 나타내기 -->
+	<select id="selectInfoOrderReview" resultType="ReviewVo">
+	select o.*, d.product_code, p.product_title
+	from tbl_order o 
+
+	inner join tbl_order_detail d
+	on o.order_code = d.order_code
+
+	inner join tbl_product p
+	on d.product_code = p.product_code
+
+	where o.order_code = #{order_code}
+	</select>
 
 </mapper>

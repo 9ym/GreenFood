@@ -211,10 +211,19 @@ $(function(){
 										<table class="table">
 										
 											<tbody>
+												<tr style="display: none;">
+													<th>작성자</th>
+													<td>
+													<input type=text name="user_id" style="width: 20%" value="${reviewVo.user_id }" 
+													readonly="readonly"   >
+													
+													</td>
+												</tr>
+												
 												<tr>
 													<th>주문번호</th>
 													<td>
-													<input type=text name="order_code" style="width: 20%" value="${orderVo.order_code }" 
+													<input type=text name="order_code" style="width: 20%" value="${reviewVo.order_code }" 
 													readonly="readonly"  >
 													
 													</td>
@@ -223,7 +232,7 @@ $(function(){
 												<tr>
 													<th>제품번호</th>
 													<td>
-													<input type=text name="product_code" style="width: 20%" value="" 
+													<input type=text name="product_code" style="width: 20%" value="${reviewVo.product_code }" 
 													readonly="readonly"  >
 													
 													</td>
@@ -232,11 +241,30 @@ $(function(){
 												<tr>
 													<th>제품명</th>
 													<td>
-													<input type=text name="product_title" style="width: 20%" value="" 
+													<input type=text name="product_title" style="width: 20%" value="${reviewVo.product_title }" 
 													readonly="readonly"  >
 													
 													</td>
 												</tr>
+												
+												<tr>
+														<th>별점주기</th>
+														<td><select name="star_point" required label="별점선택"
+															class=select>
+																<option value="">별점 선택</option>
+																<option class="option-item review"
+																	name="star_point" id="one" value="1">1 점</option>
+																<option class="option-item questionOne"
+																	name="star_point" id="two" value="2">2 점</option>
+																<option class="option-item review"
+																	name="star_point" id="three" value="3">3 점</option>
+																<option class="option-item review"
+																	name="star_point" id="four" value="4">4 점</option>
+																<option class="option-item review"
+																	name="star_point" id="five" value="5">5 점</option>
+																
+														</select>
+													</tr>
 												
 												<tr>
 													<th>제목</th>

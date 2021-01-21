@@ -134,21 +134,22 @@ tbody tr {
 }
 
 .xans-board-listheader td:nth-child(2) {
-    padding: 15px 0 15px 30px;
+    padding: 15px 0 ;
     vertical-align: middle;
+    text-align: center;
     font-size: 13px;
 }
 
 .xans-board-listheader td:nth-child(3) {
     padding: 15px 0;
     vertical-align: middle;
+    text-align: center;
     font-size: 13px;
 }
 
 .xans-board-listheader td:nth-child(4) {
-    padding: 15px 0;
+    padding: 15px 0 15px 30px;;
     vertical-align: middle;
-    text-align: center;
     font-size: 13px;
 }
 
@@ -160,6 +161,13 @@ tbody tr {
 }
 
 .xans-board-listheader td:nth-child(6) {
+    padding: 15px 0;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 13px;
+}
+
+.xans-board-listheader td:nth-child(7) {
     padding: 15px 0;
     vertical-align: middle;
     text-align: center;
@@ -244,9 +252,9 @@ tbody tr {
 <script>
 $(function(){
 	
-	$("#btnReviewWrite").click(function(){
+	/* $("#btnReviewWrite").click(function(){
 		location.href="/review/reviewWrite";
-	});
+	}); */
 	
 		
 	$(".review_title").click(function(e){
@@ -312,14 +320,14 @@ $(function(){
 							
 								<!-- ----------------- 메인창의 윗부분 ---------------------- -->
 							
-								<div class="head_aticle">
+								<div class="head_aticle" style="padding-bottom: 20px;">
 									<h2 class="tit">
 										후기모음 <span class="tit_sub"> 고객 여러분의 소중한 후기를 모아 봤습니다.</span>
 										
 									</h2>
-									<div class="div-button" style="padding-bottom: 10px; height: 40px;">
+									<!-- <div class="div-button" style="padding-bottom: 10px; height: 40px;">
 									<button type="button" id="btnReviewWrite">후기 작성하기</button>
-									</div>
+									</div> -->
 
 								</div><!-- // 메인창의 윗부분 -->
 
@@ -340,7 +348,8 @@ $(function(){
 														<thead>
 															<tr>
 																<th style="width : 60px;">번호</th>
-																<th style="width : 250px;">상품명</th>
+																<th style="width : 150px;">상품명</th>
+																<th style="width : 100px;">별점</th>
 																<th>제목</th>
 																<th style="width : 120px;">작성자</th>
 																<th style="width : 120px;">작성일</th>
@@ -351,11 +360,45 @@ $(function(){
 															<c:forEach var="reviewVo" items="${reviewList}">
 																<tr>
 																	<td>${reviewVo.review_no }</td>
-																	<td>작업중</td>
+																	<td>${reviewVo.product_title }</td>
+																	<td>
+																	<c:choose>
+																		<c:when test="${reviewVo.star_point == 1}">
+																			<label style="margin-bottom: 0px;">
+																			<img src="${path}/resources/images/review/star1.png" alt="">
+																			</label>
+																		</c:when>
+																		<c:when test="${reviewVo.star_point == 2}">
+																			<label style="margin-bottom: 0px;">
+																			<img src="${path}/resources/images/review/star2.png" alt="">
+																			</label>
+																		</c:when>
+																		<c:when test="${reviewVo.star_point == 3}">
+																			<label style="margin-bottom: 0px;">
+																			<img src="${path}/resources/images/review/star3.png" alt="">
+																			</label>
+																		</c:when>
+																		<c:when test="${reviewVo.star_point == 4}">
+																			<label style="margin-bottom: 0px;">
+																			<img src="${path}/resources/images/review/star4.png" alt="">
+																			</label>
+																		</c:when>
+																		<c:when test="${reviewVo.star_point == 5}">
+																			<label style="margin-bottom: 0px;">
+																			<img src="${path}/resources/images/review/star5.png" alt="">
+																			</label>
+																		</c:when>
+																		
+																		<c:otherwise></c:otherwise>
+																	
+																	</c:choose>
+																	
+																	
+																	</td>
 																	<td><a class="review_title" href="#"
 																			data-bno="${reviewVo.review_no}">${reviewVo.review_title}</a>
 																	</td>
-																	<td>작업중</td>
+																	<td>${reviewVo.user_id }</td>
 																	<td><fmt:formatDate pattern="yyyy-MM-DD" value="${reviewVo.review_date}"/></td>
 																	<td><span class="badge badge-success">${reviewVo.review_readcount}</span>
 																	</td>

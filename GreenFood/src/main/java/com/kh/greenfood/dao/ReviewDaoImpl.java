@@ -68,6 +68,13 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 
+	@Override
+	public ReviewVo selectInfoOrderReview(String order_code) throws Exception {
+		ReviewVo reviewVo = sqlSession.selectOne(NAMESPACE + "selectInfoOrderReview", order_code);
+		return reviewVo;
+	}
+
+
 	
 
 	

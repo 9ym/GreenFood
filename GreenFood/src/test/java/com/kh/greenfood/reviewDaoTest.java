@@ -63,7 +63,7 @@ public class reviewDaoTest {
 	
 	/*@Test
 	public void testReviewList() throws Exception {
-		List<ReviewVo> reviewList = reviewDao.getReviewList();
+		List<ReviewVo> reviewList = reviewDao.getReviewList(pagingDto);
 		System.out.println("testReviewList reviewList:" + reviewList);
 	}*/
 	
@@ -72,6 +72,13 @@ public class reviewDaoTest {
 		ReviewVo reviewVo = reviewDao.selectReview(9);
 		System.out.println("testReviewList reviewVo:" + reviewVo);
 	}
+	
+	@Test
+	public void testSelectInfoOrderReview() throws Exception {
+		ReviewVo reviewVo = reviewDao.selectInfoOrderReview("202101060007");
+		System.out.println("testSelectInfoOrderReview reviewVo:" + reviewVo);
+	}
+	
 	
 	
 	

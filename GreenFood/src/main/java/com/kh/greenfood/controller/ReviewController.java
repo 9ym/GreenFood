@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.ReviewVo;
 import com.kh.greenfood.service.ReviewService;
@@ -26,12 +27,13 @@ public class ReviewController {
 	@Inject
 	private ReviewService reviewService;
 	
-	
+	// 후기 작성시 넘겨온 주문번호,제품번호,제품명 나타내기
 	@RequestMapping(value="/reviewWrite/{order_code}")
 	public String reviewWrite(@PathVariable("order_code") String order_code, Model model) throws Exception{
 		System.out.println("ReviewController, reviewWrite : " + order_code);
-		
-		
+		ReviewVo reviewVo = reviewService.selectInfoOrderReview(order_code);
+		System.out.println("ReviewController, selectInfoOrderReview :" + reviewVo);
+		model.addAttribute("reviewVo", reviewVo);
 		return "/review/reviewWrite";
 	}
 	
@@ -69,7 +71,7 @@ public class ReviewController {
 		
 		List<ReviewVo> reviewList = reviewService.getReviewList(pagingDto);
 		
-		System.out.println("CustomerCenterController, reviewList, reviewList:" + reviewList);
+		System.out.println("ReviewController, reviewList, reviewList:" + reviewList);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "review/reviewMain";
