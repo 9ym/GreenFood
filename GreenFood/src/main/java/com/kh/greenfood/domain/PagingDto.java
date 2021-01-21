@@ -13,6 +13,7 @@ public class PagingDto {
 	private final int PAGE_BLOCK = 10; // Pagination의 갯수
 	private String selectType; // 검색 조건 (제목, 내용, ...)
 	private String keyword;    // 검색어
+	private String dropDownText; // 드롭다운 메뉴
 	
 	public void setPagingInfo() {
 //		this.selectType = selectType;
@@ -110,6 +111,14 @@ public class PagingDto {
 		this.keyword = keyword;
 	}
 
+	public String getDropDownText() {
+		return dropDownText;
+	}
+
+	public void setDropDownText(String dropDownText) {
+		this.dropDownText = dropDownText;
+	}
+
 	public int getPAGE_BLOCK() {
 		return PAGE_BLOCK;
 	}
@@ -119,7 +128,7 @@ public class PagingDto {
 		return "PagingDto [page=" + page + ", perPage=" + perPage + ", startRow=" + startRow + ", endRow=" + endRow
 				+ ", startPage=" + startPage + ", endPage=" + endPage + ", totalCount=" + totalCount + ", totalPage="
 				+ totalPage + ", PAGE_BLOCK=" + PAGE_BLOCK + ", selectType=" + selectType + ", keyword=" + keyword
-				+ "]";
+				+ ", dropDownText=" + dropDownText + "]";
 	}
 	
 }

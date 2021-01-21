@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
+import com.kh.greenfood.domain.SearchDto;
 import com.kh.greenfood.domain.StarDto;
 
 public interface ProductService {
@@ -31,7 +32,8 @@ public interface ProductService {
 	public List<ProductCategoryDto> getCategory();
 	
 	/* 상품 등록 (ProductVo, ProductImageDto) */
-	public boolean insertProductAll(ProductVo productVo, ProductImageDto productImageDto);
+	public boolean insertProductAll(ProductVo productVo, ProductImageDto productImageDto,
+			int shelfLife, int saleRate, int salesDeadlines);
 	
 	/* 신상품 (현재 날짜 - ?일 < 등록된 상품) */
 	public List<ProductVo> getLatestProduct(int conditionDate);
@@ -49,5 +51,17 @@ public interface ProductService {
 	
 	/* 후기 별점 -> 생성, 평균, 상품에 업데이트 */
 	public int setStar(StarDto starDto);
+	
+	/* 관리자 : 상품 검색 */
+	public List<ProductVo> getSearchProduct(SearchDto searchDto);
+	
+	/* 관리자 : 상품 검색 - 총 갯수 */
+	public int getSearchProductCount(SearchDto searchDto);
+	
+	/* 해당 상품 판매 종료 */
+	public int endProduct(List<String> listProductCode);
+	
+	/* 판매 종료 여부 확인 */
+	public int knowEndProduct(String product_code);
 	
 }

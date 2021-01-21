@@ -11,6 +11,17 @@
 <title>OrderManager</title>
 
 <style>
+#select {
+    width: auto;
+    padding: 6px 5px;
+    margin-bottom: 30px;
+    color: #202020;
+    font-size: 14px;
+    font-weight: 400px;
+    font-family: noto sans;
+    justify-content: center!important;
+}
+
 .notice .layout-pagination {
 	margin: 0
 }
@@ -347,11 +358,74 @@ tbody tr {
 </style>
 
 <script>
-
+$(function(){
+	
+	var msg = "${msg}";
+	if(msg == "stateChangeSuccess"){
+		$("#totalList").get(0).click();
+	}
+	
+	// 장바구니 30일 이상 데이터 삭제
+	$("#cartDelete").click(function(){
+		var url = "/admin/deleteCartDate";
+		
+		$.get(url, function(data){
+			if (data > 0){
+				alert("장바구니 카트내용이 삭제되었습니다.");
+			} else if (data == 0){
+				alert("장바구니 삭제할 데이터가 없습니다.");
+			} else {
+				alert("삭제할 수 없습니다.");
+			}
+		});
+	});
+	
+	// 주문상태변경 시키기
+	$(".stateChange").click(function(){
+		var order_state_dsc = $(this).parent().prev().text().trim();
+		var user_id = $(this).parent().parent().children().eq(0).text().trim();
+		var order_code = $(this).parent().parent().children().eq(1).text().trim();
+		$("#frmOrdered").attr("action", "/admin/orderManager/changeState");
+		$("#frmOrdered > input[name=order_state_dsc]").val(order_state_dsc);
+		$("#frmOrdered > input[name=order_code]").val(order_code);
+		$("#frmOrdered > input[name=user_id]").val(user_id);
+		$("#frmOrdered").submit();
+	});
+	
+	// 카테고리 드롭다운 이벤트설정
+	$(".dropdown > div > a").click(function(){
+		var text = $(this).text();
+		$("#frmOrderPaging > input[name=dropDownText]").val(text);
+		$("#frmOrderPaging > input[name=page]").val(1);
+		$("#frmOrderPaging").submit();
+	});
+	
+	// 회원 이름 검색
+	$("#btnSearch").click(function(){
+		var selectType = $("#selectType").val();
+		var keyword = $("#keyword").val();
+		if(keyword == "" || selectType == "선택"){
+			alert("타입선택 및 키워드를 입력해주세요.");
+			return;
+		}
+		$("#frmOrderPaging > input[name=selectType]").val(selectType);
+		$("#frmOrderPaging > input[name=keyword]").val(keyword);
+		$("#frmOrderPaging > input[name=page]").val(1);
+		$("#frmOrderPaging").submit();
+	});
+	
+	// 페이지네이션 - 페이지 번호 클릭했을때
+	$("a.page-link").click(function(e){
+		e.preventDefault();
+		var page = $(this).attr("data-page");
+		$("#frmOrderPaging").find("input[name=page]").val(page);
+		$("#frmOrderPaging").submit();
+	});
+});
 </script>
 
 <!-- ----------------  페이징 폼 넣어주기 -----------------------------------  -->
-
+<%@ include file="../include/frmOrdered.jsp" %>
 <%@ include file="../include/frmPaging.jsp" %>
 </head>
 <body>
@@ -365,16 +439,7 @@ tbody tr {
 						
 				<!-- --------------------------- 회원관리 왼쪽 작은창 ---------------------- -->
 							<div class="col-md-3">
-							<div id="snb" class="snb_cc">
-								<h2 class="tit_snb">회원관리</h2>
-								<div class="inner_snb">
-									<ul class="list_menu">
-<!-- 										<li class="on"><a href="/customerCenter/customerCenterMain">공지사항</a></li> -->
-										<li><a href="#">회원리스트</a></li>
-<!-- 										<li class="on"><a href="/customerCenter/questionOne/questionOneContent" >1:1 문의</a></li> -->
-									</ul>
-								</div>
-								</div>
+							
 							</div>
 
 
@@ -382,7 +447,7 @@ tbody tr {
 							<div class="col-md-9">
 								<div class="head_aticle">
 									<h2 class="tit">
-										회원리스트 <span class="tit_sub"> 회원정보리스트</span>
+										주문리스트 <span class="tit_sub"> 주문리스트</span>
 										
 										<!-- 자주하는 질문 드롭다운 -->
 											<div class="col-md-12">
@@ -391,8 +456,12 @@ tbody tr {
 														type="button" id="dropdownMenuButton"
 														data-toggle="dropdown">카테고리 선택</button>
 													<div class="dropdown-menu"	aria-labelledby="dropdownMenuButton" id="divCate">
-														<a class="dropdown-item" href="/admin/customerList">전체 보기</a>
-														<a class="dropdown-item" id="selectY" href="#">탈퇴한 회원</a>
+														<a class="dropdown-item" id="totalList" href="/admin/orderManager">전체 보기</a>
+														<button class="dropdown-item" id="cartDelete">장바구니 삭제</button>
+														<a class="dropdown-item" id="deposit">입금대기중</a>
+														<a class="dropdown-item" id="preparationGoods">상품준비중</a>
+														<a class="dropdown-item" id="shipped">배송중</a>
+														<a class="dropdown-item" id="completedDelivery">배송완료</a>
 													</div>
 												</div>
 											</div>
@@ -409,30 +478,33 @@ tbody tr {
 											<tr>
 												<td>
 													<div class="xans-element- xans-myshop xans-myshop-couponserial ">
-														<table width="100%" class="xans-board-listheader jh"
-															cellpadding="0" cellspacing="0">
-
+														<table width="100%" class="xans-board-listheader jh" cellpadding="0" cellspacing="0">
 															<thead>
 																<tr>
 																	<th>아이디</th>
-																	<th>이름</th>
-																	<th>가입날짜</th>
-																	<th>코드</th>
-																	<th>삭제정보</th>
-																	<th>탈퇴</th>
+																	<th>주문번호</th>
+																	<th>주문일</th>
+																	<th>결제금액</th>
+																	<th>주문상태</th>
+ 																	<th>상태변경</th>
 																</tr>
 															</thead>
 															<tbody>
-															<c:forEach var="customerList" items="${customerList}">
+															<c:forEach var="orderTotalList" items="${orderTotalList}">
 																<tr>
-																	<td>${customerList.user_id}</td>
-																	<td>${customerList.user_name}</td>
-																	<td>${customerList.user_date}</td>
-																	<td>${customerList.user_code}</td>
-																	<td>${customerList.user_deleted}</td>
-																	<c:if test="${customerList.user_deleted == 'N'}">
-																	<td><button type="button" id="deleteCustomer" class="btn btn-danger deleteCustomer">탈퇴</button></td>
-																	</c:if>
+																	<td>${orderTotalList.user_id}</td>
+																	<td>
+																		<a href="/admin/orderManager/orderDetail/${orderTotalList.order_code}">${orderTotalList.order_code}</a>
+																	</td>
+																	<td>${orderTotalList.order_date}</td>
+																	<td>${orderTotalList.order_total_price}</td>
+																	<td>${orderTotalList.order_state_dsc}</td>
+																	<td>
+																		<c:if test="${orderTotalList.order_state_dsc != '배송완료' and 
+																					orderTotalList.order_state_dsc != '배송중'}">
+																			<button type="button" class="btn btn-success stateChange">변경</button>
+																		</c:if>
+																	</td>
 																</tr>
 															</c:forEach>
 															</tbody>
@@ -456,8 +528,7 @@ tbody tr {
 														data-page="${pagingDto.startPage - 1}">이전</a></li>
 												</c:if>
 												<!-- 1 ~ 10 -->
-												<c:forEach var="i" begin="${pagingDto.startPage}"
-													end="${pagingDto.endPage}">
+												<c:forEach var="i" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
 													<li
 														<c:choose>
 															<c:when test="${i == pagingDto.page}">
@@ -467,7 +538,8 @@ tbody tr {
 																class="page-item"
 															</c:otherwise>
 														</c:choose>>
-														<a class="page-link" href="#" data-page="${i}">${i}</a></li>
+															<a class="page-link" href="#" data-page="${i}">${i}</a>
+													</li>
 												</c:forEach>
 												<!-- 다음 -->
 												<c:if test="${pagingDto.endPage < pagingDto.totalPage}">
@@ -481,11 +553,11 @@ tbody tr {
 								<!-- // pagination -->
 								
 								<!-- 검색 -->
-								<div class="row text-center">
+								<div class="row text-center" id="select">
 									<select id="selectType">
 										<option selected>선택</option>
-										<option>이름</option>
 										<option>아이디</option>
+										<option>주문번호</option>
 									</select>
 									<input type="text" id="keyword">
 									<button type="button" class="btn btn-success" id="btnSearch">검색</button>

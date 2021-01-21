@@ -63,7 +63,7 @@ $(function(){
 		<input type="text" id="user_id" name="user_id" class="input_login" placeholder="아이디를 입력해주세요" required value="${cookie.save_id.value}"></input>
 		비밀번호
 
-		<input type="password" id="user_pw" name="user_pw" class="input_login" placeholder="비밀번호를 입력해주세요" required value="user"></input>
+		<input type="password" id="user_pw" name="user_pw" class="input_login" placeholder="비밀번호를 입력해주세요" required value="admin"></input>
 		
 		<!-- 토글 -->
   		<div>
@@ -72,7 +72,7 @@ $(function(){
 				checked
 			</c:if>
     		>
-   			<label for="input_checkBox">로그인 유지</label>
+   			<label for="input_checkBox">아이디 저장</label>
   		</div>
 		<!-- // 토글 -->
 		

@@ -22,8 +22,8 @@ public class EmailUtil {
 					MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
 					helper.setFrom("zerll9100@gmail.com");
 					helper.setTo(email);
-					helper.setText("안녕하세요 그린푸드입니다 귀하의 임시비밀번호는"+ password +"입니다.");
-					helper.setSubject("안녕하세요. 그린푸드입니다.");
+					helper.setText("안녕하세요 그린푸드입니다. 귀하의 임시비밀번호는"+ password +"입니다.");
+					helper.setSubject("안녕하세요 그린푸드입니다. 임시비밀번호가 만들어졌습니다.");
 				}
 			};
 			mailSender.send(preparator);

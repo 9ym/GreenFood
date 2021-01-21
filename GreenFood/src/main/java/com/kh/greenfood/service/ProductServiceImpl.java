@@ -11,6 +11,7 @@ import com.kh.greenfood.dao.ProductDao;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
+import com.kh.greenfood.domain.SearchDto;
 import com.kh.greenfood.domain.StarDto;
 
 @Service
@@ -71,9 +72,11 @@ public class ProductServiceImpl implements ProductService {
 	/* 상품 등록 (ProductVo, ProductImageDto) */
 	@Override
 	@Transactional
-	public boolean insertProductAll(ProductVo productVo, ProductImageDto productImageDto) {
+	public boolean insertProductAll(ProductVo productVo, ProductImageDto productImageDto, 
+			int shelfLife, int saleRate, int salesDeadlines) {
 		Boolean resultInsert = false;
-		int countProduct = productDao.insertProduct(productVo);
+		/* int 파라미터들 값이 0 이냐 아니냐에 따라서 DB에 넣을 때 다름 */
+		int countProduct = productDao.insertProduct(productVo, shelfLife, saleRate, salesDeadlines);
 		ProductVo productVoLatest = productDao.getProductLatest();
 		if (countProduct > 0) {
 			productImageDto.setProduct_code(productVoLatest.getProduct_code());
@@ -132,6 +135,34 @@ public class ProductServiceImpl implements ProductService {
 			countUpdate = productDao.updateStar(star_avg, starDto.getProduct_code());
 		}
 		return countUpdate;
+	}
+	
+	/* 관리자 : 상품 검색 */
+	@Override
+	public List<ProductVo> getSearchProduct(SearchDto searchDto) {
+		List<ProductVo> listSearch = productDao.getSearchProduct(searchDto);
+		return listSearch;
+	}
+	
+	/* 관리자 : 상품 검색 - 총 갯수 */
+	@Override
+	public int getSearchProductCount(SearchDto searchDto) {
+		int count = productDao.getSearchProductCount(searchDto);
+		return count;
+	}
+	
+	/* 해당 상품 판매 종료 */
+	@Override
+	public int endProduct(List<String> listProductCode) {
+		int count = productDao.endProduct(listProductCode);
+		return count;
+	}
+	
+	/* 판매 종료 여부 확인 */
+	@Override
+	public int knowEndProduct(String product_code) {
+		int count = productDao.knowEndProduct(product_code);
+		return count;
 	}
 	
 }

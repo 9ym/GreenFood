@@ -12,6 +12,7 @@ import com.kh.greenfood.dao.OrderDao;
 import com.kh.greenfood.domain.CartDto;
 import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.TestVo;
 
 @Service
@@ -138,7 +139,6 @@ public class OrderServiceImpl implements OrderService {
 	public OrderVo getOrderUserInfo(String order_code, String user_id) {
 		OrderVo orderVo = orderDao.getOrderUserInfo(order_code, user_id);
 		return orderVo;
-
 	}
 	
 	/* 제일 최근에 결제 완료된 주문 */
@@ -154,5 +154,53 @@ public class OrderServiceImpl implements OrderService {
 		List<OrderVo> orderVoList = orderDao.getOrderStateInfoList(user_id, order_state);
 		return orderVoList;
 	}
+
+	@Override
+	public List<OrderVo> getTotalOrderList(PagingDto pagingDto) {
+		List<OrderVo> orderTotalList = orderDao.getTotalOrderList(pagingDto);
+		return orderTotalList;
+	}
+	
+	@Override
+	public int getTotalOrderListCount(PagingDto pagingDto) {
+		int count = orderDao.getTotalOrderListCount(pagingDto);
+		return count;
+	}
+	
+	/* admin 장바구니 30일 이상 삭제*/
+	@Override
+	public int deleteCartAdmin() {
+		int count = orderDao.deleteCartAdmin();
+		return count;
+	}
+	
+	/* admin 배송 상태변경 and 배송완료된 count에 따라 5면 gold 10이면 vip로 레벨 업 */
+	@Override
+	public int updateState(String user_id, String order_code, String order_state_dsc) {
+		int count = orderDao.updateState(user_id, order_code, order_state_dsc);
+		return count;
+	}
+	
+	/* customer 배송 상태 변경 */
+	@Override
+	public int updateState(String user_id, String order_code, String order_state, int user_level) {
+		int count = orderDao.updateState(user_id, order_code, order_state);
+		int orderCount = memberDao.orderCount(user_id);
+		int levelUp = 0;
+		if(count > 0) {
+			if(orderCount == 5 || orderCount == 10) {
+				levelUp = memberDao.updateUserLevel(user_id, user_level + 1);
+			}
+		}
+		return levelUp;
+	}
+
+	/* 판매기한 체크 */
+	@Override
+	public int checkDeadLine(String product_code) {
+		int count = orderDao.checkDeadLine(product_code);
+		return count;
+	}
+
 	
 }

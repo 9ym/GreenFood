@@ -42,4 +42,6 @@ public interface MemberDao {
 	/* 유저 포인트 변경 (포인트 추가, 감소, ..) */
 	public int updateUserPoint(int user_point, String user_id);
 	
+	/* 주문 건수에 따라 5회면 gold로 10회면 vip로 */
+	public int updateUserLevel(String user_id, int user_level);
 }

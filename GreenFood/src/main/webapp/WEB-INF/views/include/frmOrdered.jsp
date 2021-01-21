@@ -2,5 +2,7 @@
     pageEncoding="UTF-8"%>
 <form id="frmOrdered" action="/customer/customerOrderdList" method="get">
 	<input type="hidden" name="user_id" value="${sessionScope.testVo.user_id}"/>
-<!-- 	<input type="hidden" name="order_state" value=""/> -->
+	<input type="hidden" name="order_state_dsc"/>
+	<input type="hidden" name="order_state"/>
+	<input type="hidden" name="order_code"/>
 </form>

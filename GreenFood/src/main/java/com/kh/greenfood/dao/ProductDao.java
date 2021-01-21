@@ -32,7 +32,7 @@ public interface ProductDao {
 	public List<ProductCategoryDto> getCategory();
 	
 	/* 상품 추가 */
-	public int insertProduct(ProductVo productVo);
+	public int insertProduct(ProductVo productVo, int shelfLife, int saleRate, int salesDeadlines);
 	
 	/* 상품 이미지 추가 */
 	public int insertProductImage(ProductImageDto productImageDto);
@@ -66,5 +66,14 @@ public interface ProductDao {
 	
 	/* 관리자 : 상품 검색 */
 	public List<ProductVo> getSearchProduct(SearchDto searchDto);
+	
+	/* 관리자 : 상품 검색 - 총 갯수 */
+	public int getSearchProductCount(SearchDto searchDto);
+	
+	/* 해당 상품 판매 종료 */
+	public int endProduct(List<String> listProductCode);
 		
+	/* 판매 종료 여부 확인 */
+	public int knowEndProduct(String product_code);
+	
 }

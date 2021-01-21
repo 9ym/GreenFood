@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.greenfood.domain.CartDto;
 import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.PagingDto;
 
 public interface OrderDao {
 	
@@ -63,5 +64,20 @@ public interface OrderDao {
 	
 	/* 주문자 Order State List */
 	public List<OrderVo> getOrderStateInfoList(String user_id, int order_state);
+	
+	/* admin 주문 관리 - 주문 전체 정보 */
+	public List<OrderVo> getTotalOrderList(PagingDto pagingDto);
+
+	/* admin 주문 전체 카운트 */
+	public int getTotalOrderListCount(PagingDto pagingDto);
+
+	/* admin 장바구니 30 이상 삭제 */
+	public int deleteCartAdmin();
+	
+	/* admin 배송 상태변경 */
+	public int updateState(String user_id, String order_code, String order_state_dsc);
+
+	/* 판매기한 체크 */
+	public int checkDeadLine(String product_code);
 	
 }

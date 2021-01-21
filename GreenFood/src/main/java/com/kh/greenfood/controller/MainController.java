@@ -59,7 +59,6 @@ public class MainController {
 	public String customerFindPwRun(TestVo testVo, RedirectAttributes rttr) throws Exception{
 		TestVo testVo1 = memberService.findPw(testVo.getUser_id(), testVo.getUser_email());
 		String page = "";
-		System.out.println(testVo1);
 		// DB에서 확인한 customer 정보가 있다면
 		if(testVo1 != null) {
 			String origin_email = testVo.getUser_email().trim();
@@ -72,7 +71,6 @@ public class MainController {
 				if(count > 0) {
 					// 임시 비밀번호를 기존의 이메일로 보내기
 					boolean result = emailUtil.sendMail(origin_email, tempPassword);
-					System.out.println(result);
 					if (result == true) {
 						rttr.addFlashAttribute("msg", "tempPasswordCreate");
 						page = "redirect:/";
@@ -104,7 +102,6 @@ public class MainController {
 	// 아이디 찾기 실행
 	@RequestMapping(value="/customerFindIdRun", method=RequestMethod.POST)
 	public String customerFindIdRun(TestVo testVo, RedirectAttributes rttr, Model model) throws Exception{
-		System.out.println(testVo);
 		TestVo testVo1 = memberService.findId(testVo.getUser_name(), testVo.getUser_email(), testVo.getUser_phone());
 		String page = "";
 		if(testVo1 != null) {

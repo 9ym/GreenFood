@@ -76,7 +76,7 @@
 	<delete id="deleteCartAdmin">
 		<![CDATA[
 			delete from tbl_cart
-			where sysdate -30 >= cart_date
+			where sysdate -1 >= cart_date
 		]]>
 	</delete>
 	
@@ -128,8 +128,8 @@
 	
 	<select id="getOrderUserInfo" resultType="OrderVo">
 		select * from tbl_order
-			where user_id = #{user_id}
-			and order_code = #{order_code}
+			where order_code = #{order_code}
+			<include refid="existId"></include>
 	</select>
 	
 	<select id="getOrderStateInfoList" resultType="OrderVo">
@@ -140,6 +140,98 @@
 					and o.order_state = c.order_state
 				order by order_date desc
 	</select>
+	
+	<!-- 판매기한 카운트 -->
+	<select id="checkDeadLine" resultType="int">
+		select count(*) from tbl_product p
+			where sysdate > p.product_sales_deadlines
+			and p.product_code = #{product_code}
+	</select>
+	
+	<!-- admin 주문관리 - 주문 리스트 -->
+	<select id="getTotalOrderList" resultType="OrderVo">
+		select t.* from (select rownum rnum, a.* from (select o.*, c.order_state_dsc from tbl_order o, tbl_order_state_category c
+			where o.order_state = c.order_state
+			<include refid="search"></include>
+			<include refid="dropDownText"></include>
+			order by order_date desc) a) t
+			where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<!-- admin 주문 토탈 카운트 -->
+	<select id="getTotalOrderListCount" resultType="int">
+		select count(*) from tbl_order c
+			where 1 = 1
+			<include refid="search"></include>
+			<include refid="dropDownText"></include>
+	</select>
+	
+	<!-- admin 주문 상태 변경 -->
+	<update id="updateState">
+		update tbl_order set
+			order_state = <include refid="orderStateDsc"></include>
+				where user_id = #{user_id}
+				and order_code = #{order_code}
+	</update>
+	
+	<!-- admin 주문관리 아이디/주문번호 선택 검색시 -->
+	<sql id="search">
+		<if test="selectType != null">
+			<choose>
+				<when test='selectType == "아이디"'>
+					and user_id        like '%' || #{keyword} || '%'
+				</when>
+				<when test="selectType == '주문번호'">
+					and order_code     like '%' || #{keyword} || '%'
+				</when>
+			</choose>
+		</if>
+	</sql>
+	
+	<!-- admin 주문관리 카테고리 선택시 -->
+	<sql id="dropDownText">
+		<if test="dropDownText != null">
+			<choose>
+				<when test="dropDownText == '입금대기중'">
+					and c.order_state like '10000'
+				</when>
+				<when test="dropDownText == '상품준비중'">
+					and c.order_state like '10001'
+				</when>
+				<when test="dropDownText == '배송중'">
+					and c.order_state like '10002'
+				</when>
+				<when test="dropDownText == '배송완료'">
+					and c.order_state like '10003'
+				</when>
+			</choose>
+		</if>
+	</sql>
+	
+	<sql id="orderStateDsc">
+		<if test="order_state_dsc != null">
+			<choose>
+				<when test="order_state_dsc == '입금대기중'">
+					'10001'		
+				</when>
+				<when test="order_state_dsc == '상품준비중'">
+					'10002'			
+				</when>
+				<when test="order_state_dsc == '10002'">
+					'10003'
+				</when>
+			</choose>
+		</if>
+	</sql>
+	
+	<sql id="existId">
+		<if test="user_id != null">
+			and user_id = #{user_id}
+		</if>
+		<if test="user_id == null">
+		
+		</if>
+	</sql>
 	
 	<!-- //마이페이지 - > 주문번호 클릭시 --> 
 </mapper>

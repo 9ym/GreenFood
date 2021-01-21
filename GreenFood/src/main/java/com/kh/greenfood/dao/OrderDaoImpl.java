@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.greenfood.domain.CartDto;
 import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.PagingDto;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
@@ -144,5 +145,44 @@ public class OrderDaoImpl implements OrderDao {
 		map.put("user_id", user_id);
 		List<OrderVo> orderVoList = sqlSession.selectList(NAMESPACE + "getOrderStateInfoList", map);
 		return orderVoList;
+	}
+
+	/* admin 고객 주문 리스트 */
+	@Override
+	public List<OrderVo> getTotalOrderList(PagingDto pagingDto) {
+		List<OrderVo> orderTotalList = sqlSession.selectList(NAMESPACE + "getTotalOrderList", pagingDto);
+		return orderTotalList;
+	}
+	
+	/* admin 주문관리 토탈 카운트 */
+	@Override
+	public int getTotalOrderListCount(PagingDto pagingDto) {
+		int count = sqlSession.selectOne(NAMESPACE + "getTotalOrderListCount", pagingDto);
+		return count;
+	}
+	
+	/* admin 장바구니 30일 이상 삭제 */
+	@Override
+	public int deleteCartAdmin() {
+		int count = sqlSession.delete(NAMESPACE + "deleteCartAdmin");
+		return count;
+	}
+	
+	/* admin 배송 상태변경 */
+	@Override
+	public int updateState(String user_id, String order_code, String order_state_dsc) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("order_code", order_code);
+		map.put("order_state_dsc", order_state_dsc);
+		int count = sqlSession.update(NAMESPACE + "updateState", map);
+		return count;
+	}
+
+	/* 판매기한 체크*/
+	@Override
+	public int checkDeadLine(String product_code) {
+		int count = sqlSession.selectOne(NAMESPACE + "checkDeadLine", product_code);
+		return count;
 	}
 }

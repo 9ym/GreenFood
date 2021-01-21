@@ -21,4 +21,5 @@ public interface AdminService {
 
 	// 탈퇴한 회원 전체 카운트
 	public int deletedCustomerListCount(PagingDto pagingDto);
+
 }

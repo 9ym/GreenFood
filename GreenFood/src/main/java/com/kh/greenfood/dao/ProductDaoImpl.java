@@ -73,8 +73,13 @@ public class ProductDaoImpl implements ProductDao {
 	
 	/* 상품 추가 */
 	@Override
-	public int insertProduct(ProductVo productVo) {
-		int count = sqlSession.insert(NAMESPACE + "insertProduct", productVo);
+	public int insertProduct(ProductVo productVo, int shelfLife, int saleRate, int salesDeadlines) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("productVo", productVo);
+		map.put("shelfLife", shelfLife);
+		map.put("saleRate", saleRate);
+		map.put("salesDeadlines", salesDeadlines);
+		int count = sqlSession.insert(NAMESPACE + "insertProduct", map);
 		return count;
 	}
 	
@@ -163,5 +168,26 @@ public class ProductDaoImpl implements ProductDao {
 		List<ProductVo> listSearch = sqlSession.selectList(NAMESPACE + "getSearchProduct", searchDto);
 		return listSearch;
 	}
+	
+	/* 관리자 : 상품 검색 - 총 갯수 */
+	@Override
+	public int getSearchProductCount(SearchDto searchDto) {
+		int count = sqlSession.selectOne(NAMESPACE + "getSearchProductCount", searchDto);
+		return count;
+	}
+	
+	/* 해당 상품 삭제 */
+	@Override
+	public int endProduct(List<String> listProductCode) {
+		int count = sqlSession.update(NAMESPACE + "endProduct", listProductCode);
+		return count;
+	}
 
+	/* 판매 종료 여부 확인 */
+	@Override
+	public int knowEndProduct(String product_code) {
+		int count = sqlSession.selectOne(NAMESPACE + "knowEndProduct", product_code);
+		return count;
+	}
+	
 }

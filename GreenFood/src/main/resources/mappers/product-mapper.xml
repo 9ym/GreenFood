@@ -8,11 +8,31 @@
 	<!-- 상품 추가 -->
 	<insert id="insertProduct">
 		insert into tbl_product (product_code, product_category, product_title, 
-			product_price, product_shelf_life, product_sub_title, product_content, 
-			product_weight, product_sales_unit, product_origin)
-		values (seq_product_code.nextval, #{product_category}, #{product_title}, 
-			#{product_price}, #{product_shelf_life}, #{product_sub_title}, #{product_content}, 
-			#{product_weight}, #{product_sales_unit}, #{product_origin})
+			product_price, product_sub_title, product_content, 
+			product_weight, product_sales_unit, product_origin
+			<if test="shelfLife != 0">
+				, product_shelf_life
+			</if>
+			<if test="saleRate != 0">
+				, product_sale_rate
+			</if>
+			<if test="salesDeadlines != 0">
+				, product_sales_deadlines
+			</if>
+			)
+		values (seq_product_code.nextval, #{productVo.product_category}, #{productVo.product_title}, 
+			#{productVo.product_price}, #{productVo.product_sub_title}, #{productVo.product_content}, 
+			#{productVo.product_weight}, #{productVo.product_sales_unit}, #{productVo.product_origin}
+			<if test="shelfLife != 0">
+				, #{shelfLife}
+			</if>
+			<if test="saleRate != 0">
+				, #{saleRate}
+			</if>
+			<if test="salesDeadlines != 0">
+				, sysdate + #{salesDeadlines}
+			</if>
+			)
 	</insert>
 	
 	<!-- 제일 최근 추가된 상품 -->
@@ -90,7 +110,9 @@
 	<select id="getLatestProduct" resultType="ProductVo">
 		<![CDATA[
 			select * from tbl_product
-			where sysdate - #{conditionDate} < product_registration_date
+			where ( sysdate < product_sales_deadlines 
+				or product_sales_deadlines is null )
+			and sysdate - #{conditionDate} < product_registration_date
 			order by product_registration_date desc
 		]]>
 	</select>
@@ -172,10 +194,21 @@
 		where product_code = #{product_code}
 	</update>
 	
-	<!-- 관리자 : 상품 검색 -->
+	<!-- 관리자 : 상품 검색, 순서  rnum 추가 -->
 	<select id="getSearchProduct" parameterType="SearchDto" resultType="ProductVo">
-			select * from tbl_product
-			<include refid="searchSql"/>
+		select p.* from 
+			(select rownum rnum, a.* from 
+				(select * from tbl_product
+				<include refid="searchSql"/>
+				)a
+			)p
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<!-- 관리자 : 상품 검색, 전체 갯수 -->
+	<select id="getSearchProductCount" parameterType="SearchDto" resultType="int">
+		select count(*) from tbl_product
+		<include refid="searchSql"/>
 	</select>
 	
 	<sql id="searchSql">
@@ -187,23 +220,21 @@
 				where product_category = #{searchWhere}
 			</otherwise>
 		</choose>
-		<choose>
-			<when test="searchWhat != null">
-				and product_title like '%' || #{searchWhat} || '%'
-			</when>
-		</choose>
+		<if test="searchWhat != null">
+			and product_title like '%' || #{searchWhat} || '%'
+		</if>
 		<choose>
 			<when test="searchAnd.equals('date')">
 				order by product_registration_date
 			</when>
 			<when test="searchAnd.equals('new')">
 				<![CDATA[
-				and sysdate - 14 < product_registration_date
+				and sysdate - 14 <= product_registration_date
 				order by product_registration_date
 				]]>
 			</when>
 			<when test="searchAnd.equals('sale')">
-				and product_sale_rate is not null
+				and product_sale_rate != 0
 				order by product_sale_rate
 			</when>
 			<when test="searchAnd.equals('star')">
@@ -214,8 +245,8 @@
 			</when>
 			<when test="searchAnd.equals('end')">
 				<![CDATA[
-				and sysdate > product_registration_date
-				order by product_registration_date
+				and sysdate > product_sales_deadlines
+				order by product_sales_deadlines
 				]]>
 			</when>
 		</choose>
@@ -228,5 +259,22 @@
 			</otherwise>
 		</choose>
 	</sql>
+	
+	<!-- 해당 상품 판매 종료 -->
+	<delete id="endProduct" parameterType="java.util.List">
+		update tbl_product
+			set product_sales_deadlines = sysdate -1
+		where product_code in ( <foreach collection="list" item="no" separator=",">#{no}</foreach> )
+	</delete>
+	
+	<!-- 판매 종료 여부 확인 (0:판매 종료 / 1:판매중)-->
+	<select id="knowEndProduct" resultType="int">
+		<![CDATA[
+			select count(*) from tbl_product
+			where (product_sales_deadlines >= sysdate
+					or product_sales_deadlines is null)
+			and product_code = #{product_code}
+		]]>
+	</select>
 
 </mapper>

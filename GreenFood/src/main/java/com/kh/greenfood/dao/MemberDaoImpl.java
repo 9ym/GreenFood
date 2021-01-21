@@ -134,5 +134,15 @@ public class MemberDaoImpl implements MemberDao {
 		int count = sqlSession.update(NAMESPACE + "updateUserPoint", map);
 		return count;
 	}
+	
+	/* 주문 건수에 따라 5회면 gold로 10회면 vip로 */
+	@Override
+	public int updateUserLevel(String user_id, int user_level) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("user_level", user_level);
+		int count = sqlSession.update(NAMESPACE + "updateUserLevel", map);
+		return count;
+	}
 
 }

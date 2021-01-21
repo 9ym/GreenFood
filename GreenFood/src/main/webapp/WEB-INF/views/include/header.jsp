@@ -438,7 +438,7 @@ function topClose() {
 				<c:choose>
 		 		<c:when test="${sessionScope.testVo.user_code == '1001'}">
 		 			<a href="/admin/customerList">회원관리</a>
-		 			<a href="/admin/productList">상품관리</a>
+		 			<a href="/admin/productSearchList?searchAnd=date&searchWhere=all&searchBy=desc&searchWhat=&page=1">상품관리</a>
 		 			<a href="/admin/orderManager">주문관리</a>
 		 		</c:when>
 		 		<c:otherwise>		 		
@@ -453,7 +453,9 @@ function topClose() {
 					src="https://www.oasis.co.kr/images/common/bg_footer.png"> --> 
 			</c:otherwise>
 			</c:choose>
-				<a href="/order/cart" id="anchorCart">장바구니</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+				<c:if test="${sessionScope.testVo.user_code != '1001'}">
+					<a href="/order/cart" id="anchorCart">장바구니</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+				</c:if>
 				<a href="/main/customer/customerCenter" id="customerCenter" data="고객센터">고객센터</a>					
 			</div>	
 			<div id="header_menu_out">						

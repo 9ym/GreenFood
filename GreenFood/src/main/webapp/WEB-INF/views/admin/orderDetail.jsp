@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
-<%@include file="../include/frmOrdered.jsp" %>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/css_customerMyPage.css"/>
 <style>
 .container-fluid {
@@ -258,10 +257,6 @@
 <script src="/resources/js/myScript.js"></script>
 <script>
 $(function(){
-	var msg = "${msg}";
-	if(msg =="levelUp"){
-		alert("levelUP");
-	}
 	
 	/* 결제수단 addComma */
 	var comma = $(".needComma");
@@ -289,70 +284,19 @@ $(function(){
 		
 		location.href="/review/reviewWrite/" + p_code;
 	});
-	
-	$(".completedDelivery").click(function(e){
-		e.preventDefault();
-		var code = $(this).attr("data-bno");
-		var state = "${orderVo.order_state}";
-		$("#frmOrdered").attr("action", "/customer/completedDeliveryRun");
-		$("#frmOrdered > input[name=order_code]").val(code);
-		$("#frmOrdered > input[name=order_state]").val(state);
-		$("#frmOrdered").submit();
-	});
 });
 </script>
 <content>
 <div class="container-fluid">
-	<div id="content_left" style="width:300px; height: 700px; float:left; border-top:2px solid #6ca435; margin:0; padding:0;">
-	<div id="leftContent_top">
-		<div id="profileImgBox" style="background: #BDBDBD;">
-			<!--여기에 사진 파일주소 넣어줌-->
-			<img class="profile" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCZq00uO6xhj9L20RgKIakgz8aYT3wfFqZKw&usqp=CAU">
-		</div>
-		<p>반갑습니다!</p>
-		<p>구매자</p>
-		<p><span id="spanUserName">${sessionScope.testVo.user_name}</span>님</p>
-	</div>
-	<div id="left_bottom">
-		<div><a href="/customer/customerProfile" class="btn">프로필</a>></div>
-		<div>나의 쇼핑 활동</div>
-		<div><a href="/customerCenter/question/questionContent" class="btn">Q&amp;A</a></div>
-	</div>
-	</div>
+
 	<!--오른쪽 메뉴-->
 	<div id="content_right" style="float:right; width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-bottom:200px;">
-	<div id="pageName" >주문 상세</div>
 	
 	<!-- 주문 상세 내역 -->
-	<h2>${sessionScope.testVo.user_name}님 주문상세 내역입니다.</h2>
-
 	<div class="container-fluidInner">
 	<div class="row">
 		<div class="col-md-12 div-cart">
-			<strong>
-			<c:choose>
-				<c:when test="${orderVo.order_state == '10000'}">
-					입금대기중입니다. 입금하여 주세요.
-				</c:when>
-				<c:when test="${orderVo.order_state == '10001'}">
-					상품준비중입니다. 곧 배송이 시작될 예정입니다.
-				</c:when>
-				<c:when test="${orderVo.order_state == '10002'}">
-					배송중입니다. 고객님께 안전하게 전달해 드리겠습니다.
-				</c:when>
-				<c:otherwise>
-					배송완료된 상품입니다.
-					저희 상품을 이용해 주셔서 감사합니다.
-				</c:otherwise>
-			</c:choose>
-			</strong>
-				<div>
-					<c:if test="${orderVo.order_state == '10002'}">
-						<span><a class="btn btn-success completedDelivery" href=""
-							data-bno="${orderVo.order_code}">배송 완료</a></span>
-					</c:if>
-				</div>
-				<div class="div-pay">
+			<div class="div-pay">
 				<div class="pay-inner ">
 					<strong>주문상세</strong>
 					<div class="ul-pay-list product-list">
@@ -367,7 +311,7 @@ $(function(){
 							<li>
 								<div align="left" class="imggg">
 									<span>
-									<c:choose>
+										<c:choose>
 											<c:when test="${productInfo.dead_line_count == 1}">
 												<img src="${img}">
 											</c:when>
@@ -379,13 +323,9 @@ $(function(){
 									<span>${productInfo.product_title}</span>
 									<span>${productInfo.order_quantity}개</span>
 									<span>${productInfo.product_price}원</span>
-									<c:if test="${productInfo.dead_line_count == 1}">
-										<span class="deadProduct">상품판매 종료된 제품입니다.</span>
-									</c:if>
-									<c:if test="${orderVo.order_state == '10003'}">
-										<span><a class="btn btn-success review_write" href="" style="float:right; margin-top:28px;" 
-												data-bno="${orderVo.order_code}">상품평 작성</a></span>
-									</c:if>
+										<c:if test="${productInfo.dead_line_count == 1}">
+											<span class="deadProduct">상품판매 종료된 제품입니다.</span>
+										</c:if>
 								</div>
 							</li>
 						</c:if>
@@ -401,7 +341,7 @@ $(function(){
 						<li class="order-addr">${orderVo.order_addr1}</li>
 						<li class="order-addr">${orderVo.order_addr2}</li>
 						<li class="order-addr">${orderVo.order_addr3}</li>
-						<li><span>받는 사람 : ${sessionScope.testVo.user_name}</span></li>
+						<li><span>받는 사람 : ${orderVo.user_id}</span></li>
 					</ul>
 				</div>
 

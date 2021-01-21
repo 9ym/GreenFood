@@ -12,6 +12,10 @@
 <script src="/resources/js/myScript.js"></script>
 <script>
 $(function(){
+	var msg = "${msg}";
+	if(msg == "levelUp"){
+		alert("levelUp");
+	}
 	
 	/* 마이페이지 최근 주문 내역 addComma */
 	$(".addComma").each(function(){
@@ -41,6 +45,7 @@ $(function(){
 </script>
 
 <content>
+${sessionScope.testVo}
 <div class="container-fluid">
 <div id="content_left" style="width:300px;
 height: 700px;
@@ -92,10 +97,14 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 						<span>
 							<c:choose>
 								<c:when test="${sessionScope.testVo.user_level eq '0'}">
+								
 									${5 - orderCount}
+									
 								</c:when>
 								<c:when test="${sessionScope.testVo.user_level eq '1'}">
+								
 									${10 - orderCount}
+									
 								</c:when>
 							</c:choose>
 						</span>
