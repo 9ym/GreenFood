@@ -534,9 +534,11 @@ ${testVo.user_id}
 					src="https://www.oasis.co.kr/images/common/bg_footer.png"> --> 
 			</c:otherwise>
 			</c:choose>
-		<a href="/order/cart" id="anchorCart">장바구니</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-		<a href="#">주문배송</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
-		<a href="/customerCenter/customerCenterMain">고객센터</a>
+			<c:if test="${sessionScope.testVo.user_code != '1001'}">
+				<a href="/order/cart" id="anchorCart">장바구니</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+				<a href="#">주문배송</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
+			</c:if>
+			<a href="/customerCenter/customerCenterMain">고객센터</a>
 	</div>
 	<div id="header_menu_out">
 		<div id="header_menu">

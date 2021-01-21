@@ -141,5 +141,12 @@ public class MemberServiceImpl implements MemberService {
 		return countUpdate;
 	}
 	
+	/* 주문 건수에 따라 5회면 gold로 10회면 vip로 */
+	@Override
+	public int updateUserLevel(String user_id, int user_level) {
+		int count = memberDao.updateUserLevel(user_id, user_level);
+		return count;
+	}
+	
 }
 

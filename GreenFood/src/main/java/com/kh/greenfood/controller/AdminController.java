@@ -93,11 +93,9 @@ public class AdminController {
 		String user_id = orderVo.getUser_id();
 		String order_code = orderVo.getOrder_code();
 		String order_state_dsc = orderVo.getOrder_state_dsc();
-		int count = orderService.updateState(user_id, order_code, order_state_dsc);
-		if(count > 0) {
-			model.addAttribute("msg","stateChangeSuccess");
-		}
-		return "/admin/orderManager";
+		orderService.updateState(user_id, order_code, order_state_dsc);
+		
+		return "redirect:/admin/orderManager";
 	}
 	
 	// 관리자 주문 코드 상세보기

@@ -58,4 +58,7 @@ public interface MemberService {
 	/* 포인트 추가 (tbl_member, tbl_point) */
 	public int addUserPoint(String user_id, int point_score, int point_category, int point_now);
 
+	/* 주문 건수에 따라 5회면 gold로 10회면 vip로 */
+	public int updateUserLevel(String user_id, int user_level);
+
 }

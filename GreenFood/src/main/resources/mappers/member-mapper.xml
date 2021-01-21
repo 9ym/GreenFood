@@ -104,10 +104,17 @@
 	<update id="updateUserPoint">
 		update tbl_member set
 			user_point = #{user_point}
-		where user_id = #{user_id}
+			where user_id = #{user_id}
 	</update>
 	
-	<!-- 주문건수 -->
+	<!-- 유저 레벨 변경 -->
+	<update id="updateUserLevel">
+		update tbl_member set
+			user_level = #{user_level}
+			where user_id = #{user_id}
+	</update>
+	
+	<!-- 주문건수 배송완료된 것 카운트 -->
 	<select id="orderCount" resultType="int">
 		select count(*) from tbl_order
 			where user_id = #{user_id} and order_state = '10003'

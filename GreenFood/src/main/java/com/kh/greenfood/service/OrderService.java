@@ -54,8 +54,10 @@ public interface OrderService {
 	
 	/* admin 배송 상태변경 */
 	public int updateState(String user_id, String order_code, String order_state_dsc);
+	public int updateState(String user_id, String order_code, String order_state, int user_level);
 
 	/* 판매기한 체크 */
 	public int checkDeadLine(String product_code);
+
 	
 }

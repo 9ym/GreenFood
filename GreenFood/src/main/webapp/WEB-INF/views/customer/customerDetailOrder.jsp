@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
+<%@include file="../include/frmOrdered.jsp" %>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/css_customerMyPage.css"/>
 <style>
 .container-fluid {
@@ -257,6 +258,10 @@
 <script src="/resources/js/myScript.js"></script>
 <script>
 $(function(){
+	var msg = "${msg}";
+	if(msg =="levelUp"){
+		alert("levelUP");
+	}
 	
 	/* 결제수단 addComma */
 	var comma = $(".needComma");
@@ -284,6 +289,16 @@ $(function(){
 		
 		location.href="/review/reviewWrite/" + p_code;
 	});
+	
+	$(".completedDelivery").click(function(e){
+		e.preventDefault();
+		var code = $(this).attr("data-bno");
+		var state = "${orderVo.order_state}";
+		$("#frmOrdered").attr("action", "/customer/completedDeliveryRun");
+		$("#frmOrdered > input[name=order_code]").val(code);
+		$("#frmOrdered > input[name=order_state]").val(state);
+		$("#frmOrdered").submit();
+	});
 });
 </script>
 <content>
@@ -310,6 +325,7 @@ $(function(){
 	
 	<!-- 주문 상세 내역 -->
 	<h2>${sessionScope.testVo.user_name}님 주문상세 내역입니다.</h2>
+
 	<div class="container-fluidInner">
 	<div class="row">
 		<div class="col-md-12 div-cart">
@@ -330,7 +346,13 @@ $(function(){
 				</c:otherwise>
 			</c:choose>
 			</strong>
-			<div class="div-pay">
+				<div>
+					<c:if test="${orderVo.order_state == '10002'}">
+						<span><a class="btn btn-success completedDelivery" href=""
+							data-bno="${orderVo.order_code}">배송 완료</a></span>
+					</c:if>
+				</div>
+				<div class="div-pay">
 				<div class="pay-inner ">
 					<strong>주문상세</strong>
 					<div class="ul-pay-list product-list">
@@ -357,12 +379,12 @@ $(function(){
 									<span>${productInfo.product_title}</span>
 									<span>${productInfo.order_quantity}개</span>
 									<span>${productInfo.product_price}원</span>
-									<c:if test="${orderVo.order_state == '10003'}">
-										<span><a class="review_write" href="" class="btn btn-success"
-												data-bno="${orderVo.order_code}">상품평 작성</a></span>
-									</c:if>
 									<c:if test="${productInfo.dead_line_count == 1}">
 										<span class="deadProduct">상품판매 종료된 제품입니다.</span>
+									</c:if>
+									<c:if test="${orderVo.order_state == '10003'}">
+										<span><a class="btn btn-success review_write" href="" style="float:right; margin-top:28px;" 
+												data-bno="${orderVo.order_code}">상품평 작성</a></span>
 									</c:if>
 								</div>
 							</li>

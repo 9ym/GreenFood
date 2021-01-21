@@ -217,6 +217,9 @@
 				<when test="order_state_dsc == '상품준비중'">
 					'10002'			
 				</when>
+				<when test="order_state_dsc == '10002'">
+					'10003'
+				</when>
 			</choose>
 		</if>
 	</sql>

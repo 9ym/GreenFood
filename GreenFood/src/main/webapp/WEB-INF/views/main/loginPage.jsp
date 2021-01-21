@@ -72,7 +72,7 @@ $(function(){
 				checked
 			</c:if>
     		>
-   			<label for="input_checkBox">로그인 유지</label>
+   			<label for="input_checkBox">아이디 저장</label>
   		</div>
 		<!-- // 토글 -->
 		
