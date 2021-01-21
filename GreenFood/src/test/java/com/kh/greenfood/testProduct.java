@@ -58,10 +58,15 @@ public class testProduct {
 		System.out.println("category :" + list);
 	}
 	
-//	@Test
-//	public void testInsertProduct() throws Exception {
-//
-//	}
+	@Test
+	public void testInsertProduct() throws Exception {
+		ProductVo vo = new ProductVo("2001", "aaa222", 999, "ㄷㄷㄷ", "ㅁㅁㅁ", "10g", "1봉지", "수입");
+		int shelfLife = 0;
+		int saleRate = 25;
+		int salesDeadlines = 0;
+		int count = productDao.insertProduct(vo, shelfLife, saleRate, salesDeadlines);
+		System.out.println("count :" + count);
+	}
 	
 	@Test
 	public void testInsertProductImage() throws Exception {
