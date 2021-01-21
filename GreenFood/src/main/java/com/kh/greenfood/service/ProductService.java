@@ -32,7 +32,8 @@ public interface ProductService {
 	public List<ProductCategoryDto> getCategory();
 	
 	/* 상품 등록 (ProductVo, ProductImageDto) */
-	public boolean insertProductAll(ProductVo productVo, ProductImageDto productImageDto);
+	public boolean insertProductAll(ProductVo productVo, ProductImageDto productImageDto,
+			int shelfLife, int saleRate, int salesDeadlines);
 	
 	/* 신상품 (현재 날짜 - ?일 < 등록된 상품) */
 	public List<ProductVo> getLatestProduct(int conditionDate);
@@ -59,5 +60,8 @@ public interface ProductService {
 	
 	/* 해당 상품 판매 종료 */
 	public int endProduct(List<String> listProductCode);
+	
+	/* 판매 종료 여부 확인 */
+	public int knowEndProduct(String product_code);
 	
 }

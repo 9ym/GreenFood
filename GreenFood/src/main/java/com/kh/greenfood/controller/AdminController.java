@@ -18,6 +18,7 @@ import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.ProductCategoryDto;
+import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
 import com.kh.greenfood.domain.SearchDto;
 import com.kh.greenfood.domain.TestVo;
@@ -171,18 +172,37 @@ public class AdminController {
 		return "/admin/productList";
 	}
 	
-	/* img 링크 리스트 */
-	private void getImgUrl(List<OrderDetailDto> listCartDto, Model model) throws Exception {
-		List<String> listImgUrl = new ArrayList<>();
-		for (OrderDetailDto dto : listCartDto) {
-			String product_code = dto.getProduct_code();
-			String category = productService.getProduct(product_code).getProduct_category();
-			String fileName = productService.getProductImage(product_code).getImage_info_file_name();
-			String imgUrl = S3Util.getImageUrl(fileName, category);
-			listImgUrl.add(imgUrl);
-		}
-		model.addAttribute("imgList", listImgUrl);
-	} 
+	/* 상품 등록 페이지 이동 */
+	@RequestMapping(value="/productAddForm", method=RequestMethod.GET)
+	public String productAddForm(Model model) throws Exception {
+		/* 상품 카테고리 */
+		List<ProductCategoryDto> categoryList = productService.getCategory();
+		model.addAttribute("categoryList", categoryList);
+		
+		return "/admin/productAdd";
+	}
+	
+	/* 상품 수정 페이지 이동 */
+	@RequestMapping(value="/productUpdateForm/{product_code}", method=RequestMethod.GET) 
+	public String productUpdate(@PathVariable("product_code") String product_code ,Model model) throws Exception {
+		/* 상품 카테고리 */
+		List<ProductCategoryDto> categoryList = productService.getCategory();
+		model.addAttribute("categoryList", categoryList);
+		
+		/* 해당 상품 */
+		ProductVo productVo = productService.getProduct(product_code);
+		model.addAttribute("productVo", productVo);
+		
+		/* 해당 상품 이미지 */
+		ProductImageDto imageDto = productService.getProductImage(product_code);
+		model.addAttribute("imageDto", imageDto);
+		
+		/* 판매 종료 여부 확인 */
+		int countEnd = productService.knowEndProduct(product_code);
+		model.addAttribute("countEnd", countEnd);
+		
+		return "/admin/productUpdate";
+	}
 	
 	/* 상품 관리 - 판매 종료 */
 	@RequestMapping(value="/endProduct", method=RequestMethod.POST)
@@ -199,5 +219,18 @@ public class AdminController {
 		}
 		return resultMsg;
 	}
+	
+	/* img 링크 리스트 */
+	private void getImgUrl(List<OrderDetailDto> listCartDto, Model model) throws Exception {
+		List<String> listImgUrl = new ArrayList<>();
+		for (OrderDetailDto dto : listCartDto) {
+			String product_code = dto.getProduct_code();
+			String category = productService.getProduct(product_code).getProduct_category();
+			String fileName = productService.getProductImage(product_code).getImage_info_file_name();
+			String imgUrl = S3Util.getImageUrl(fileName, category);
+			listImgUrl.add(imgUrl);
+		}
+		model.addAttribute("imgList", listImgUrl);
+	} 
 	
 }

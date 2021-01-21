@@ -157,7 +157,7 @@ label {
 <%-- 						<td>${productVo.rnum}</td> --%>
 						<td>${productVo.product_code}</td>
 						<td>${cate.product_category_dsc}</td>
-						<td><a href="#">${productVo.product_title}</a></td>
+						<td><a href="/admin/productUpdateForm/${productVo.product_code}">${productVo.product_title}</a></td>
 						<td class="td-date">${productVo.product_registration_date}</td>
 						<td class="td-date td-deadlines" data-deadlines="${productVo.product_sales_deadlines}">
 						<c:choose>
@@ -231,6 +231,14 @@ label {
 <script>
 $(function(){
 	
+// 	/* 상품 등록 성공 여부 알림 */
+// 	var resultMsg = "${resultMsg}";
+// 	if (resultMag == "add_success") {
+// 		alert("상품 등록이 완료되었습니다.")
+// 	} else if (resultMsg == "add_fail") {
+// 		alert("상품 등록이 실패했습니다. 다시 등록해 주세요.")
+// 	}
+	
 	// 페이지네이션 - 페이지 번호 클릭했을때
 	$("a.page-link").click(function(e){
 		e.preventDefault();
@@ -288,7 +296,7 @@ $(function(){
 
 /* 상품 등록 페이지로 이동 */
 function insertProduct(obj) {
-	location.href="/upload/productAddForm";
+	location.href="/admin/productAddForm";
 }
 
 /* 상품 전체 선택 */
@@ -346,8 +354,13 @@ function endProduct(obj) {
 function search(obj) {
 	$(".search-select").each(function(index) {
 		/* 검색 조건 보내기 */
-		var value = $(this).find("option:selected").val();
-		$("#frmSearch > input").eq(index).val(value);
+		if (index < 3) {
+			var value = $(this).find("option:selected").val();
+			$("#frmSearch > input").eq(index).val(value);
+		} else {
+			var value3 = $(".search-select").eq(3).val();
+			$("#frmSearch > input").eq(3).val(value3);
+		}
 	});
 	$("#frmSearch").submit();
 }
