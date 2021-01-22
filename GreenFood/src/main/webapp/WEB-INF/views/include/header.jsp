@@ -417,16 +417,20 @@ function topClose() {
 		<header>	
 		
 		<!-- 제일 상단 버튼 : 회원가입 혜택 안내?? -->
-		<div class="div-top">	
-			<a href="#">
-				<span>지금 가입하고 포인트 받으세요!</span>
-				<div>
-					<div>
+		<c:if test="${empty sessionScope.testVo}">
+		<div class="div-top">
+			<a href="/main/memberJoinForm">
+				<span>
+					지금 가입하고 포인트 받으세요!
+				</span>
+				<span>
+					<span>
 						<button type="button" onclick="jsvascript:topClose();">X</button>
-					</div>
-				</div>
+					</span>	
+				</span>
 			</a>
 		</div>
+		</c:if>
 		<!--// 제일 상단 버튼 -->
 									
 <!-- 		<div id="page_background">								 -->

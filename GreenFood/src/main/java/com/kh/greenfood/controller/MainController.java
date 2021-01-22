@@ -1,5 +1,7 @@
 package com.kh.greenfood.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -10,8 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.dao.EmailDto;
+import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.MemberService;
+import com.kh.greenfood.service.ProductService;
 import com.kh.greenfood.util.EmailUtil;
 import com.kh.greenfood.util.TempPassCreateUtil;
 
@@ -25,19 +29,25 @@ public class MainController {
 	@Inject
 	private MemberService memberService;
 	
+	@Inject
+	private ProductService productService;
+	
 	@RequestMapping(value="/memberJoinForm")
-	public String memberJoinForm() throws Exception{
+	public String memberJoinForm(Model model) throws Exception{
+		getProductCate(model);
 		return "memberJoinForm";
 	}
 	
 	@RequestMapping(value="/loginPage")
-	public String loginPage() throws Exception{
+	public String loginPage(Model model) throws Exception{
+		getProductCate(model);
 		return "/main/loginPage";
 		
 	}
 	
 	@RequestMapping(value="/event/eventMain")
-	public String eventMain() throws Exception{
+	public String eventMain(Model model) throws Exception{
+		getProductCate(model);
 		return "event/eventMain";
 		
 	}
@@ -114,6 +124,12 @@ public class MainController {
 		}
 		
 		return page;
+	}
+	
+	private void getProductCate (Model model) throws Exception{
+		/* 상품 카테고리 */
+		List<ProductCategoryDto> categoryList = productService.getCategory();
+		model.addAttribute("categoryList", categoryList);
 	}
 	
 	/*@RequestMapping(value="/review/reviewMain")

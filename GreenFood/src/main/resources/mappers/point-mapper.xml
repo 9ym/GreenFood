@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.greenfood.point">
+	
+	<!-- 포인트 지급 -->
+	<insert id="insertPoint">
+	insert into tbl_point(point_no, user_id, point_category, point_score, point_date)
+		VALUES(SEQ_POINT_NO.nextval, #{user_id}, #{point_category}, #{point_score}, sysdate)
+	</insert>
+</mapper>

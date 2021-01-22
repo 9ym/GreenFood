@@ -1,5 +1,6 @@
 package com.kh.greenfood.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -69,14 +70,19 @@ public class ReviewDaoImpl implements ReviewDao {
 
 
 	@Override
-	public ReviewVo selectInfoOrderReview(String order_code) throws Exception {
-		ReviewVo reviewVo = sqlSession.selectOne(NAMESPACE + "selectInfoOrderReview", order_code);
+	public ReviewVo selectInfoOrderReview(String order_code, String product_code) throws Exception {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("order_code", order_code);
+		map.put("product_code", product_code);
+		ReviewVo reviewVo = sqlSession.selectOne(NAMESPACE + "selectInfoOrderReview", map);
 		return reviewVo;
 	}
 
-
-	
-
-	
+	// 상품평 등록했는 지에 따른 카운트
+	@Override
+	public int productReviewsCount(String order_code) {
+		int count = sqlSession.selectOne(NAMESPACE + "productReviewsCount", order_code);
+		return count;
+	}
 
 }

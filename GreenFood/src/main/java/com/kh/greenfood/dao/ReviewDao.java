@@ -30,5 +30,8 @@ public interface ReviewDao {
 	public void deleteReview(int review_no) throws Exception;
 	
 	// 후기 작성시 넘겨온 주문번호,제품번호,제품명 나타내기
-	public ReviewVo selectInfoOrderReview(String order_code) throws Exception;
+	public ReviewVo selectInfoOrderReview(String order_code, String product_code) throws Exception;
+
+	// 상품평 등록했는 지에 따른 카운트
+	public int productReviewsCount(String order_code);
 }

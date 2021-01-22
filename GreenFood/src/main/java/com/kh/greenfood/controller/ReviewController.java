@@ -1,9 +1,5 @@
 package com.kh.greenfood.controller;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,9 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PagingDto;
+import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ReviewVo;
+import com.kh.greenfood.domain.TestVo;
+import com.kh.greenfood.service.MemberService;
+import com.kh.greenfood.service.PointService;
+import com.kh.greenfood.service.ProductService;
 import com.kh.greenfood.service.ReviewService;
 
 @Controller
@@ -27,11 +27,24 @@ public class ReviewController {
 	@Inject
 	private ReviewService reviewService;
 	
+	@Inject
+	private MemberService memberService;
+	
+	@Inject
+	private PointService pointService;
+	
+	@Inject
+	private ProductService productService;
+	
+	private final int reviewPoint = 102;
+	
 	// 후기 작성시 넘겨온 주문번호,제품번호,제품명 나타내기
 	@RequestMapping(value="/reviewWrite/{order_code}")
-	public String reviewWrite(@PathVariable("order_code") String order_code, Model model) throws Exception{
+	public String reviewWrite(@PathVariable("order_code") String order_code, String product_code, Model model) throws Exception{
+		getProductCate(model);
+		System.out.println("review: " + product_code);
 		System.out.println("ReviewController, reviewWrite : " + order_code);
-		ReviewVo reviewVo = reviewService.selectInfoOrderReview(order_code);
+		ReviewVo reviewVo = reviewService.selectInfoOrderReview(order_code, product_code);
 		System.out.println("ReviewController, selectInfoOrderReview :" + reviewVo);
 		model.addAttribute("reviewVo", reviewVo);
 		return "/review/reviewWrite";
@@ -41,7 +54,8 @@ public class ReviewController {
 	@RequestMapping(value="/insertReview", method=RequestMethod.POST)
 	public String insertReview(ReviewVo reviewVo, HttpSession session) throws Exception {
 //		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
-			
+		TestVo testVo = (TestVo)session.getAttribute("testVo");
+		String user_id = testVo.getUser_id();
 //		commentVo.setUser_id(memberVo.getUser_id());
 //		System.out.println("noticeVo:" + noticeVo);
 		System.out.println("insert: " +  reviewVo);
@@ -53,7 +67,8 @@ public class ReviewController {
 		change_date = new SimpleDateFormat("yyyy-mm-dd");
 		System.out.println("change_date : " + change_date);*/
 		
-		
+		/* 후기 남긴 포인트 지급 */
+		pointService.insertPoint(user_id, 102, 500);
 		
 		System.out.println("insertReview reviewVo:" + reviewVo);
 		reviewService.insertReview(reviewVo);
@@ -103,6 +118,12 @@ public class ReviewController {
 	public String deleteReview(int review_no) throws Exception {
 		reviewService.deleteReview(review_no);
 		return "redirect:/review/reviewMain";
+	}
+	
+	private void getProductCate (Model model) throws Exception{
+		/* 상품 카테고리 */
+		List<ProductCategoryDto> categoryList = productService.getCategory();
+		model.addAttribute("categoryList", categoryList);
 	}
 			
 }

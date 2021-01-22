@@ -61,4 +61,6 @@ public interface MemberService {
 	/* 주문 건수에 따라 5회면 gold로 10회면 vip로 */
 	public int updateUserLevel(String user_id, int user_level);
 
+	public void updateUserPoint(String user_id, int discount);
+
 }

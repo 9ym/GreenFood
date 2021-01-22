@@ -94,6 +94,7 @@ public class AdminController {
 		String user_id = orderVo.getUser_id();
 		String order_code = orderVo.getOrder_code();
 		String order_state_dsc = orderVo.getOrder_state_dsc();
+		System.out.println(user_id + order_code + order_state_dsc);
 		orderService.updateState(user_id, order_code, order_state_dsc);
 		
 		return "redirect:/admin/orderManager";

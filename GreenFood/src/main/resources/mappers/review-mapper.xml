@@ -9,8 +9,8 @@
 	
 	<!-- 후기 글쓰기 -->
 		<insert id="insertReview">
-			insert into tbl_review (review_no, user_id, review_content, review_title, order_code, product_title, star_point)
-				values(seq_review_reviewno.nextval, #{user_id}, #{review_content}, #{review_title}, #{order_code}, #{product_title}, #{star_point}) 
+			insert into tbl_review (review_no, user_id, review_content, review_title, order_code, product_title, star_point, product_code)
+				values(seq_review_reviewno.nextval, #{user_id}, #{review_content}, #{review_title}, #{order_code}, #{product_title}, #{star_point}, #{product_code}) 
 		</insert>
 
 	<!-- 목록 -->
@@ -80,6 +80,15 @@
 	on d.product_code = p.product_code
 
 	where o.order_code = #{order_code}
+	and p.product_code = #{product_code}
+	</select>
+	
+	<!-- 상품평 등록했는 지에 따른 카운트 -->
+	<select id="productReviewsCount" resultType="int">
+		select count(*) 
+			from (select r.*, p.product_code from tbl_review r, tbl_product p
+   			 where order_code = #{order_code}
+    		and r.product_title = p.product_title)
 	</select>
 
 </mapper>

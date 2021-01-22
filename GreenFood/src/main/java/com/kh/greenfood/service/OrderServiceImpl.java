@@ -201,6 +201,5 @@ public class OrderServiceImpl implements OrderService {
 		int count = orderDao.checkDeadLine(product_code);
 		return count;
 	}
-
 	
 }
