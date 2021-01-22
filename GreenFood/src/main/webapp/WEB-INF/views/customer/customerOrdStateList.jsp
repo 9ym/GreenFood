@@ -56,8 +56,8 @@ $(function(){
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th>주문일</th>
 						<th>주문번호</th>
+						<th>주문일</th>
 						<th>결제금액</th>
 						<th>주문상태</th>
 					</tr>
@@ -65,8 +65,8 @@ $(function(){
 				<tbody>
 				<c:forEach var="orderVoList" items="${orderVoList}">
 						<tr>
-							<td>${orderVoList.order_date}</td>
 							<td><a href="/customer/customerDetailOrder/${orderVoList.order_code}">${orderVoList.order_code}</a></td>
+							<td>${orderVoList.order_date}</td>
 							<td class="addComma">${orderVoList.order_total_price}</td>
 							<td>${orderVoList.order_state_dsc}</td>
 						</tr>

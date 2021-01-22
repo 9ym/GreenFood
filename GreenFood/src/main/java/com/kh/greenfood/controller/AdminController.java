@@ -94,6 +94,7 @@ public class AdminController {
 		String user_id = orderVo.getUser_id();
 		String order_code = orderVo.getOrder_code();
 		String order_state_dsc = orderVo.getOrder_state_dsc();
+		System.out.println(user_id + order_code + order_state_dsc);
 		orderService.updateState(user_id, order_code, order_state_dsc);
 		
 		return "redirect:/admin/orderManager";
@@ -219,6 +220,22 @@ public class AdminController {
 		}
 		return resultMsg;
 	}
+	
+	/* 상품 관리 - 다시 판매 */
+	@RequestMapping(value="/startProduct", method=RequestMethod.POST)
+	@ResponseBody
+	public String startProduct(String product_code ,Model model) throws Exception {
+		System.out.println("product_code :" + product_code);
+		String resultMsg = "";
+		int countStart = productService.startProduct(product_code);
+		if (countStart > 0) {
+			resultMsg = "start_success";
+		} else {
+			resultMsg = "start_fail";
+		}
+		return resultMsg;
+	}
+	
 	
 	/* img 링크 리스트 */
 	private void getImgUrl(List<OrderDetailDto> listCartDto, Model model) throws Exception {

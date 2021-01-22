@@ -64,9 +64,9 @@ $(function(){
 		<p><span id="spanUserName">${sessionScope.testVo.user_name}</span>님</p>
 	</div>
 	<div id="left_bottom">
-		<div><a href="/customer/customerProfile">프로필</a>></div>
+		<div><a href="/customer/customerProfile" class="btn">프로필</a></div>
 		<div>나의 쇼핑 활동</div>
-		<div>Q&amp;A</div>
+		<div><a href="/customerCenter/question/questionContent" class="btn">Q&amp;A</a></div>
 	</div>
 	</div>
 <!--오른쪽 메뉴-->

@@ -56,16 +56,18 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public ReviewVo selectInfoOrderReview(String order_code) throws Exception {
-		ReviewVo reviewVo = reviewDao.selectInfoOrderReview(order_code);
-//		System.out.println("ReviewServiceImpl, selectInfoOrderReview :" + reviewVo);
+
+	public ReviewVo selectInfoOrderReview(String order_code, String product_code) throws Exception {
+		ReviewVo reviewVo = reviewDao.selectInfoOrderReview(order_code, product_code);
+		System.out.println("ReviewServiceImpl, selectInfoOrderReview :" + reviewVo);
+
 		return reviewVo;
 	}
-
 	
-
-	
-	
-
-
+	// 상품평 등록했는지에 따른 count
+	@Override
+	public int productReviewsCount(String order_code) {
+		int count = reviewDao.productReviewsCount(order_code);
+		return count;
+	}
 }

@@ -385,11 +385,13 @@ $(function(){
 		var order_state_dsc = $(this).parent().prev().text().trim();
 		var user_id = $(this).parent().parent().children().eq(0).text().trim();
 		var order_code = $(this).parent().parent().children().eq(1).text().trim();
-		$("#frmOrdered").attr("action", "/admin/orderManager/changeState");
-		$("#frmOrdered > input[name=order_state_dsc]").val(order_state_dsc);
-		$("#frmOrdered > input[name=order_code]").val(order_code);
-		$("#frmOrdered > input[name=user_id]").val(user_id);
-		$("#frmOrdered").submit();
+		$("#frmOrdereding > input[name=order_state_dsc]").val(order_state_dsc);
+		$("#frmOrdereding > input[name=order_code]").val(order_code);
+		$("#frmOrdereding > input[name=user_id]").val(user_id);
+		console.log(order_state_dsc);
+		console.log(user_id);
+		console.log(order_code);
+		$("#frmOrdereding").submit();
 	});
 	
 	// 카테고리 드롭다운 이벤트설정

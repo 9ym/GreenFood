@@ -147,6 +147,12 @@ public class MemberServiceImpl implements MemberService {
 		int count = memberDao.updateUserLevel(user_id, user_level);
 		return count;
 	}
+
+	@Override
+	public void updateUserPoint(String user_id, int discount) {
+		memberDao.updateUserPoint(discount, user_id);
+		
+	}
 	
 }
 

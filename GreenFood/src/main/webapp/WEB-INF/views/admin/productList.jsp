@@ -233,7 +233,7 @@ $(function(){
 	
 // 	/* 상품 등록 성공 여부 알림 */
 // 	var resultMsg = "${resultMsg}";
-// 	if (resultMag == "add_success") {
+// 	if (resultMsg == "add_success") {
 // 		alert("상품 등록이 완료되었습니다.")
 // 	} else if (resultMsg == "add_fail") {
 // 		alert("상품 등록이 실패했습니다. 다시 등록해 주세요.")
@@ -340,7 +340,7 @@ function endProduct(obj) {
 				} else {
 					alert("판매가 종료되지 않았습니다. 조금 뒤에 다시 시도해 주세요");
 				}
-// 				$("#frmSearch").submit(); // 페이지 새로고침
+				location.reload(); // 페이지 새로고침
 			});
 		} else {
 			$(".input-checked").prop("checked", false); // 선택 취소

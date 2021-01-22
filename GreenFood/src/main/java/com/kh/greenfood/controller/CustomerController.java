@@ -2,6 +2,7 @@ package com.kh.greenfood.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -26,7 +27,9 @@ import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.MemberService;
 import com.kh.greenfood.service.OrderService;
+import com.kh.greenfood.service.PointService;
 import com.kh.greenfood.service.ProductService;
+import com.kh.greenfood.service.ReviewService;
 import com.kh.greenfood.util.S3Util;
 
 @Controller
@@ -41,6 +44,20 @@ public class CustomerController {
 	
 	@Inject
 	private OrderService orderService;
+	
+	@Inject
+	private ReviewService reviewService;
+	
+	@Inject
+	private PointService pointService;
+	
+	private final int SILVER = 0;
+	
+	private final int GOLD = 1;
+	
+	private final int VIP = 2;
+	
+	private final int BUY = 101;
 	
 	// 마이페이지 포워드
 	@RequestMapping(value="/customerMyPage", method=RequestMethod.GET)
@@ -61,23 +78,33 @@ public class CustomerController {
 		// 주문 상세 갯수(입금대기, 상품준비, 배송중, 배송완료)
 		List<OrderListCountDto> customerOrderCountList = memberService.getCustomerOrderCountList(user_id);
 		model.addAttribute("customerOrderCountList", customerOrderCountList);
-//		// 포인트 합계
-//		if(testVo.getUser_point() != 0) {
-//			int pointSum = memberService.getPointSum(user_id);
-//			testVo.setUser_point(pointSum);
-//		}
+		// 포인트 합계
+		List<PointVo> pointVo = memberService.getUserPoint(user_id);
+		int sum = 0;
+		for(PointVo pto : pointVo) {
+			int point = pto.getPoint_score();
+			int ptocode = pto.getPoint_category();
+			if(ptocode != 104) {
+				sum += point;
+			} else if (ptocode == 104) {
+				sum -= point;
+			}
+		}
+		testVo.setUser_point(sum);
 		return "customer/customerMyPage";
 	}
 	
 	// 마이페이지 -> 등급별 혜택
 	@RequestMapping(value="/customerMembership")
-	public String customerMembership () throws Exception{
+	public String customerMembership (Model model) throws Exception{
+		getProductCate(model);
 		return "customer/customerMembership";
 	}
 	
 	// 마이페이지 -> 적립금 내역
 	@RequestMapping(value="/customerPoint")
 	public String customerPoint (HttpSession session, Model model) throws Exception{
+		getProductCate(model);
 		TestVo testVo = (TestVo)session.getAttribute("testVo");
 		String user_id = testVo.getUser_id();
 		List<PointVo> pointVo = memberService.getUserPoint(user_id);
@@ -88,6 +115,7 @@ public class CustomerController {
 	// 마이페이지 상의 주문내역 전체보기
 	@RequestMapping(value="/customerOrderdList", method=RequestMethod.GET)
 	public String customerOrderdList(HttpSession session, Model model) throws Exception{
+		getProductCate(model);
 		TestVo testVo = (TestVo)session.getAttribute("testVo");
 		String user_id = testVo.getUser_id();
 		List<OrderVo> orderedList = memberService.getOrderedList(user_id);
@@ -100,6 +128,15 @@ public class CustomerController {
 	public String customerDetailOrder(@PathVariable("order_code") String order_code, Model model, HttpSession session)throws Exception{
 		TestVo testVo = (TestVo)session.getAttribute("testVo");
 		String user_id = testVo.getUser_id();
+		int reviewCount = reviewService.productReviewsCount(order_code);
+		boolean reviewExist;
+		if(reviewCount > 0) {
+			reviewExist = true;
+			model.addAttribute("reviewExist", reviewExist);
+		} else {
+			reviewExist = false;
+			model.addAttribute("reviewExist", reviewExist);
+		}
 		// 전체보기 카테고리
 		getProductCate(model);
 		// 주문 상세 정보 -> 주문 리스트
@@ -124,16 +161,49 @@ public class CustomerController {
 	
 	/* customer 배송중->배송완료  customer 주문횟수 5라면 level gold 주문횟수 10이라면 level vip*/
 	@RequestMapping(value="/completedDeliveryRun", method=RequestMethod.GET)
-	public String completedDeliveryRun(String order_code, String order_state, HttpSession session, RedirectAttributes rttr) throws Exception {
+	public String completedDeliveryRun(String order_code, String order_state, int order_total_price, HttpSession session, RedirectAttributes rttr) throws Exception {
 		TestVo testVo = (TestVo)session.getAttribute("testVo");
 		String user_id = testVo.getUser_id();
 		int user_level = testVo.getUser_level();
+		/* user_level에 따라 포인트 % 지급*/
+		double percent = 0;
+		int discount = 0;
+		String page = "";
+		switch(user_level) {
+			case SILVER:
+				percent = 5 * 0.01;
+				discount = (int) (percent * order_total_price);
+				int count = pointService.insertPoint(user_id, BUY, discount);
+				memberService.updateUserPoint(user_id, discount);
+				if(count > 0) {
+					page = "redirect:/customer/customerDetailOrder/" + order_code;
+				}
+				break;
+			case GOLD:
+				percent = 10 * 0.01;
+				discount = (int) (percent * order_total_price);
+				int count1 = pointService.insertPoint(user_id, BUY, discount);
+				memberService.updateUserPoint(user_id, discount);
+				if(count1 > 0) {
+					page = "redirect:/customer/customerDetailOrder/" + order_code;
+				}
+				break;
+			case VIP:
+				percent = 15 * 0.01;
+				discount = (int) (percent * order_total_price);
+				int count2 = pointService.insertPoint(user_id, BUY, discount);
+				memberService.updateUserPoint(user_id, discount);
+				if(count2 > 0) {
+					page = "redirect:/customer/customerDetailOrder/" + order_code;
+				}
+				break;
+		}
 		int levelUp = orderService.updateState(user_id, order_code, order_state, user_level);
 		if(levelUp > 0) {
 			testVo.setUser_level(user_level + 1);
 			rttr.addFlashAttribute("msg", "levelUp");
 		}
-		return "redirect:/customer/customerDetailOrder/" + order_code;
+		return page;
 	}
 
 	// 회원가입 포워드
@@ -144,7 +214,8 @@ public class CustomerController {
 	
 	// 마이페이지 내에 프로필 포워드
 	@RequestMapping(value="/customerProfile")
-	public String customerProfile() throws Exception{
+	public String customerProfile(Model model) throws Exception{
+		getProductCate(model);
 		return "customer/customerProfile";
 	}
 	
@@ -216,6 +287,7 @@ public class CustomerController {
 	// 마이페이지 -> 주문상태 클릭했을시 리스트 보여주기
 	@RequestMapping(value="/customerOrdStateList/{order_state}", method=RequestMethod.GET)
 	public String ordDelivery(@PathVariable("order_state") int order_state, HttpSession session, Model model) throws Exception{
+		getProductCate(model);
 		TestVo testVo = (TestVo)session.getAttribute("testVo");
 		String user_id = testVo.getUser_id();
 		List<OrderVo> orderVoList = orderService.getOrderStateInfoList(user_id, order_state);

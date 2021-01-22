@@ -47,7 +47,23 @@ $(function(){
 		alert("잘못된 접근입니다.");
 	}
 	
-	${sessionScope.msg}
+	/* 회원가입 유도 x 눌렀을 시 쿠키 */
+	$("#btnX").click(function(e){
+		e.preventDefault();
+		setCookie("expend", "true", 10);
+// 		deleteCookie("expend");
+		topClose();
+	});
+	
+	var deleteCookie = function(name) {
+		document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
+		};
+	
+	var setCookie = function(name, value, exp) {
+		var date = new Date();
+		var tt = date.setTime(date.getTime() + exp * 1000);
+		document.cookie = name + '=' + value + ';expires=' + date.toGMTString() + ';path=/';
+	};
 	
 	/* 베스트 상품 가격에 , 추가 */
 	var len = "${mainProductCount}";
@@ -499,20 +515,24 @@ ul li a{ text-decoration:none; }
 <!-- 스타일 끝 -->
 </head>
 <body>
-${testVo}
-${testVo.user_id}
+<script>
+</script>
 <header>
 	<!-- 제일 상단 버튼 : 회원가입 혜택 안내?? -->
-	<div class="div-top">	
-		<a href="#">
-			<span>지금 가입하고 포인트 받으세요!</span>
-			<div>
+	<c:choose>
+		<c:when test="${empty sessionScope.testVo}">
+		<div class="div-top">	
+			<a href="/main/memberJoinForm">
+				<span>지금 가입하고 포인트 받으세요!</span>
 				<div>
-					<button type="button" onclick="javascript:topClose();">X</button>
+					<div>
+						<button type="button" id="btnX">X</button>
+					</div>
 				</div>
-			</div>
-		</a>
-	</div>
+			</a>
+		</div>
+		</c:when>
+	</c:choose>
 	<!--// 제일 상단 버튼 -->
 	
 	<!-- 이미지 슬라이드 -->

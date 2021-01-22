@@ -75,7 +75,7 @@ public class reviewDaoTest {
 	
 	@Test
 	public void testSelectInfoOrderReview() throws Exception {
-		ReviewVo reviewVo = reviewDao.selectInfoOrderReview("202101060007");
+		ReviewVo reviewVo = reviewDao.selectInfoOrderReview("202101060007", "115");
 		System.out.println("testSelectInfoOrderReview reviewVo:" + reviewVo);
 	}
 	

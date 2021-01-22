@@ -258,6 +258,7 @@
 <script src="/resources/js/myScript.js"></script>
 <script>
 $(function(){
+	/* 주문 5회/10회 gold/vip */
 	var msg = "${msg}";
 	if(msg =="levelUp"){
 		alert("levelUP");
@@ -282,14 +283,18 @@ $(function(){
 	$("#page_background").css({"background-repeat":"no-repeat"});
 	$("#boardNames").text("마이페이지");/* 게시판 이름 */
 	
-	
+	/* 상품평 작성버튼(배송완료된 order_code만 나타남)*/
 	$(".review_write").click(function(e){
 		e.preventDefault();
-		var p_code = $(this).attr("data-bno");
-		
-		location.href="/review/reviewWrite/" + p_code;
+		var order_code = $(this).attr("data-bno");
+		var product_code = $(this).parent().parent().find("a").attr("data-productcode");
+		$("#frmOrdered").attr("action", "/review/reviewWrite/" + order_code);
+		$("#frmOrdered > input[name=order_code]").val(order_code);
+		$("#frmOrdered > input[name=product_code]").val(product_code);
+		$("#frmOrdered").submit();
 	});
 	
+	/* 배송완료 버튼(customer에게 배송중 -> 배송완료 order_state변경)*/
 	$(".completedDelivery").click(function(e){
 		e.preventDefault();
 		var code = $(this).attr("data-bno");
@@ -297,6 +302,7 @@ $(function(){
 		$("#frmOrdered").attr("action", "/customer/completedDeliveryRun");
 		$("#frmOrdered > input[name=order_code]").val(code);
 		$("#frmOrdered > input[name=order_state]").val(state);
+		$("#frmOrdered > input[name=order_total_price").val("${orderVo.order_total_price}");
 		$("#frmOrdered").submit();
 	});
 });
@@ -369,10 +375,10 @@ $(function(){
 									<span>
 									<c:choose>
 											<c:when test="${productInfo.dead_line_count == 1}">
-												<img src="${img}">
+												<a href="/product/detail/${productInfo.product_code}" style="pointer-events: none;" data-productcode="${productInfo.product_code}"><img src="${img}"></a>
 											</c:when>
 											<c:otherwise>
-												<a href="/product/detail/${productInfo.product_code}"><img src="${img}"></a>
+												<a href="/product/detail/${productInfo.product_code}" data-productcode="${productInfo.product_code}"><img src="${img}"></a>
 											</c:otherwise>
 										</c:choose>
 									</span>
@@ -382,9 +388,12 @@ $(function(){
 									<c:if test="${productInfo.dead_line_count == 1}">
 										<span class="deadProduct">상품판매 종료된 제품입니다.</span>
 									</c:if>
-									<c:if test="${orderVo.order_state == '10003'}">
+									<c:if test="${orderVo.order_state == '10003' && reviewExist == false}">
 										<span><a class="btn btn-success review_write" href="" style="float:right; margin-top:28px;" 
 												data-bno="${orderVo.order_code}">상품평 작성</a></span>
+									</c:if>
+									<c:if test="${reviewExist == true}">
+										
 									</c:if>
 								</div>
 							</li>

@@ -18,10 +18,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.greenfood.domain.NoticeVo;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PagingDto;
+import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.QuestionOneVo;
 import com.kh.greenfood.domain.QuestionVo;
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.NoticeService;
+import com.kh.greenfood.service.ProductService;
 import com.kh.greenfood.service.QuestionOneService;
 import com.kh.greenfood.service.QuestionService;
 
@@ -41,15 +43,20 @@ public class CustomerCenterController {
 	@Inject
 	private QuestionOneService questionOneService;
 	
+	@Inject
+	private ProductService productService;
+	
 	
 	@RequestMapping(value="/notice/noticeWriteForm")
-	public String noticeWriteForm() throws Exception{
+	public String noticeWriteForm(Model model) throws Exception{
+		getProductCate(model);
 		return "/customerCenter/notice/noticeWriteForm";
 	}
 	
 //	--------------------- 공지사항 입력하기 ------------------------------
 	@RequestMapping(value="/notice/insertNotice", method=RequestMethod.GET)
-	public String insertNotice(NoticeVo noticeVo, HttpSession session) throws Exception {
+	public String insertNotice(Model model, NoticeVo noticeVo, HttpSession session) throws Exception {
+		getProductCate(model);
 //		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 //		commentVo.setUser_id(memberVo.getUser_id());
 //		System.out.println("noticeVo:" + noticeVo);
@@ -62,14 +69,12 @@ public class CustomerCenterController {
 //	-------------------- 공지사항 입력 데이타 리스트에 보여주기 -------------------------
 	@RequestMapping(value="/customerCenterMain", method=RequestMethod.GET)
 	public String listAll(Model model, PagingDto pagingDto) throws Exception {
-		System.out.println("centerMain: " + pagingDto);
+		getProductCate(model);
 		int count = noticeService.noticeListCount(pagingDto);
 		pagingDto.setTotalCount(count);
 		pagingDto.setPagingInfo();
-//		System.out.println("CustomerCenterController, listAll, pagingDto : " + pagingDto);
 		List<NoticeVo> noticeList = noticeService.noticeList(pagingDto);
 		
-//		System.out.println("CustomerCenterController, listAll, noticeList:" + noticeList);
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "customerCenter/customerCenterMain";
@@ -80,6 +85,7 @@ public class CustomerCenterController {
 // -------------------  공지사항 리스트 받아와서 noticeContent 로 보여주기 --------------------
 	@RequestMapping(value="/notice/noticeContent/{notice_no}", method=RequestMethod.GET)
 	public String noticeContent(@PathVariable("notice_no") int notice_no, Model model) throws Exception{
+		getProductCate(model);
 //		System.out.println("notice_no noticeContent :" + notice_no);
 		NoticeVo noticeVo = noticeService.selectNotice(notice_no);
 		model.addAttribute("noticeVo", noticeVo);
@@ -129,7 +135,8 @@ public class CustomerCenterController {
 	
 	
 	@RequestMapping(value="/question/questionWriteForm")
-	public String questionWriteForm() throws Exception{
+	public String questionWriteForm(Model model) throws Exception{
+		getProductCate(model);
 		return "/customerCenter/question/questionWriteForm";
 	}
 	
@@ -147,7 +154,7 @@ public class CustomerCenterController {
 	// ------------------------ 자주하는 질문 입력한 데이타 리스트에 보여주기 ---------------------
 	@RequestMapping(value="/question/questionContent", method=RequestMethod.GET)
 	public String questionListAll(Model model, PagingDto pagingDto) throws Exception {
-		System.out.println("centerController , questionListAll: " + pagingDto);
+		getProductCate(model);
 		int count = questionService.questionListCount(pagingDto);
 		pagingDto.setTotalCount(count);
 		pagingDto.setPagingInfo();
@@ -172,6 +179,7 @@ public class CustomerCenterController {
 	// -------------------  자주하는 질문 리스트에 해당하는 답변글 받아오기 --------------------
 		@RequestMapping(value="/question/questionAnswer/{question_no}", method=RequestMethod.GET)
 		public String questionAnswer(@PathVariable("question_no") int question_no, Model model) throws Exception{
+			getProductCate(model);
 //			System.out.println("questionAnswer question_no  :" + question_no);
 			QuestionVo questionVo = questionService.selectQuestion(question_no);
 			model.addAttribute("questionVo", questionVo);
@@ -204,6 +212,7 @@ public class CustomerCenterController {
 		
 		@RequestMapping(value="/questionOne/questionOneWrite")
 		public String questionOneWrite(Model model, HttpSession session) throws Exception{
+			getProductCate(model);
 //			OrderVo orderVo = (OrderVo)session.getAttribute("orderVo");
 //			String order_code = orderVo.getOrder_code();
 //			System.out.println("questionOneContent, order_code:" + order_code);
@@ -242,7 +251,7 @@ public class CustomerCenterController {
 //		-------------------- 1:1 문의 데이타 리스트에 보여주기 -------------------------
 		@RequestMapping(value="/questionOne/questionOneContent", method=RequestMethod.GET)
 		public String questionOneListAll(Model model, PagingDto pagingDto, HttpSession session) throws Exception {
-			System.out.println("centerController, questionOneListAll : " + pagingDto);
+			getProductCate(model);
 			TestVo testVo = (TestVo)session.getAttribute("testVo");
 			String q_o_writer = testVo.getUser_id();
 			
@@ -333,6 +342,12 @@ public class CustomerCenterController {
 		public String deleteQuestionOne(int q_o_no) throws Exception {
 			questionOneService.deleteQuestionOne(q_o_no);
 			return "redirect:/customerCenter/questionOne/questionOneContent";
+		}
+		
+		private void getProductCate (Model model) throws Exception{
+			/* 상품 카테고리 */
+			List<ProductCategoryDto> categoryList = productService.getCategory();
+			model.addAttribute("categoryList", categoryList);
 		}
 		
 }

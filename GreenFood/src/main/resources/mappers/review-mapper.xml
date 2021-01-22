@@ -80,6 +80,15 @@
 	on d.product_code = p.product_code
 
 	where o.order_code = #{order_code}
+	and p.product_code = #{product_code}
+	</select>
+	
+	<!-- 상품평 등록했는 지에 따른 카운트 -->
+	<select id="productReviewsCount" resultType="int">
+		select count(*) 
+			from (select r.*, p.product_code from tbl_review r, tbl_product p
+   			 where order_code = #{order_code}
+    		and r.product_title = p.product_title)
 	</select>
 
 </mapper>

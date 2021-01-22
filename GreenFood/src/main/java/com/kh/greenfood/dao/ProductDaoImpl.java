@@ -197,4 +197,35 @@ public class ProductDaoImpl implements ProductDao {
 		return reviewListProduct;
 	}
 	
+	/* 해당 상품 다시 판매 */
+	@Override
+	public int startProduct(String product_code) {
+		int count = sqlSession.update(NAMESPACE + "startProduct", product_code);
+		return count;
+	}
+	
+	/* 상품 수정 */
+	@Override
+	public int updateProduct(ProductVo productVo, HashMap<String, Object> mapShelfLife, 
+			HashMap<String, Object> mapSaleRate, HashMap<String, Object> mapSalesDeadlines) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("productVo", productVo);
+		map.put("mapShelfLife", mapShelfLife);
+		map.put("mapSaleRate", mapSaleRate);
+		map.put("mapSalesDeadlines", mapSalesDeadlines);
+		int count = sqlSession.update(NAMESPACE + "updateProduct", map);
+		return count;
+	}
+	
+	/* 상품 이미지 수정 */
+	@Override
+	public int updateProductImage(ProductImageDto productImageDto, String product_code, String isImage) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("productImageDto", productImageDto);
+		map.put("product_code", product_code);
+		map.put("isImage", isImage);
+		int count = sqlSession.update(NAMESPACE + "updateProductImage", map);
+		return count;
+	}
+	
 }

@@ -59,5 +59,4 @@ public interface OrderService {
 	/* 판매기한 체크 */
 	public int checkDeadLine(String product_code);
 
-	
 }
