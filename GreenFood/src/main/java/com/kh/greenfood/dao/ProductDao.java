@@ -1,5 +1,6 @@
 package com.kh.greenfood.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.kh.greenfood.domain.ProductCategoryDto;
@@ -75,5 +76,15 @@ public interface ProductDao {
 		
 	/* 판매 종료 여부 확인 */
 	public int knowEndProduct(String product_code);
+	
+	/* 해당 상품 다시 판매 */
+	public int startProduct(String product_code);
+	
+	/* 상품 수정 */
+	public int updateProduct(ProductVo productVo, HashMap<String, Object> mapShelfLife, 
+			HashMap<String, Object> mapSaleRate, HashMap<String, Object> mapSalesDeadlines);
+	
+	/* 상품 이미지 수정 */
+	public int updateProductImage(ProductImageDto productImageDto, String product_code, String isImage);
 	
 }

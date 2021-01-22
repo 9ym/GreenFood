@@ -32,9 +32,12 @@ textarea {
 	width : 500px;
 	height : 200px;
 }
-button {
+#btnAdd {
 	position : absolute;
 	left : 553px;
+}
+#btnBefore {
+	float : left;
 }
 
 </style>
@@ -120,7 +123,10 @@ button {
 					<input type="file" class="input-add" name="file2" accept="image/*" required="required">
 				</div>
 				
-				<button type="button" class="btn btn-outline-success btn-sm"
+				<button type="button" class="btn btn-outline-info btn-sm" id="btnBefore"
+						onclick="javascript:goBefore(this);">상품 관리</button>
+						
+				<button type="button" class="btn btn-outline-success btn-sm" id="btnAdd"
 					onclick="javascript:addCheck(this);">상품 등록</button>
 			</form>
 		</div>
@@ -134,13 +140,24 @@ $(function(){
 
 	/* 상품 등록 성공 여부 알림 */
 	var resultMsg = "${resultMsg}";
-	if (resultMag == "add_success") {
+	if (resultMsg == "add_success") {
 		alert("상품 등록이 완료되었습니다.")
 	} else if (resultMsg == "add_fail") {
 		alert("상품 등록이 실패했습니다. 다시 등록해 주세요.")
 	}
 	
 });
+
+/* 상품관리로 이동 */
+function goBefore(obj) {
+	location.href = "/admin/productSearchList?searchAnd=date&searchWhere=all&searchBy=desc&searchWhat=&page=1";
+}
+
+/* 카테고리 데이터 저장 */
+function addCategory(obj) {
+	var category = $(obj).val();
+	$(obj).prev().val(category);
+}
 
 /* 상품 등록 전에 확인!! */
 function addCheck(obj) {
@@ -163,25 +180,15 @@ function checkSaleRate() {
 	return "ok";
 }
 
-/* 카테고리 데이터 저장 */
-function addCategory(obj) {
-	var category = $(obj).val();
-	$(obj).prev().val(category);
-}
-
 /* input-num 값 임시로 0 */
 function addNum() {
 	$(".input-num").each(function() {
 		var val = $(this).val();
-// 		console.log(val);
 		if (val == "" || val == null) {
-// 			console.log($(this));
 			$(this).val(0);
 		}
 	});
 }
-
-
 
 </script>
 

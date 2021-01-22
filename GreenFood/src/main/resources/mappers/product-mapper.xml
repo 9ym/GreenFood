@@ -276,5 +276,53 @@
 			and product_code = #{product_code}
 		]]>
 	</select>
+	
+	<!-- 해당 상품 다시 판매 -->
+	<delete id="startProduct">
+		update tbl_product
+			set product_sales_deadlines = null
+		where product_code = #{product_code}
+	</delete>
+	
+	<!-- 상품 수정 -->
+	<update id="updateProduct">
+		update tbl_product set
+			product_category = #{productVo.product_category},
+			product_title = #{productVo.product_title},
+			product_price = #{productVo.product_price},
+			product_sub_title = #{productVo.product_sub_title},
+			product_content = #{productVo.product_content},
+			product_weight = #{productVo.product_weight},
+			product_sales_unit = #{productVo.product_sales_unit},
+			product_origin = #{productVo.product_origin}
+			<if test="mapShelfLife.shelfLifeStr.equals('updateYes')">
+				, product_shelf_life = #{mapShelfLife.shelfLife}
+			</if>
+			<if test="mapSaleRate.saleRateStr.equals('updateYes')">
+				, product_sale_rate = #{mapSaleRate.saleRate}
+			</if>
+			<if test="mapSalesDeadlines.salesDeadlinesStr.equals('updateYes')">
+				, product_sales_deadlines = sysdate + #{mapSalesDeadlines.salesDeadlines}
+			</if>
+		where product_code = #{productVo.product_code}
+	</update>
+	
+	<!-- 상품 이미지 수정 -->
+	<update id="updateProductImage">
+		update tbl_product_image set
+		<choose>
+			<when test="isImage.equals('isInfo')">
+				image_info_file_name = #{productImageDto.image_info_file_name}
+			</when>
+			<when test="isImage.equals('isContent')">
+				image_content_file_name = #{productImageDto.image_content_file_name}
+			</when>
+			<when test="isImage.equals('isAll')">
+				image_info_file_name = #{productImageDto.image_info_file_name}, 
+				image_content_file_name = #{productImageDto.image_content_file_name}
+			</when>
+		</choose>
+		where product_code = #{product_code}
+	</update>
 
 </mapper>

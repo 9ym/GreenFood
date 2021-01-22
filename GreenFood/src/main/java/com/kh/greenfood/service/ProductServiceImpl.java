@@ -1,5 +1,6 @@
 package com.kh.greenfood.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -163,6 +164,37 @@ public class ProductServiceImpl implements ProductService {
 	public int knowEndProduct(String product_code) {
 		int count = productDao.knowEndProduct(product_code);
 		return count;
+	}
+	
+	/* 해당 상품 다시 판매 */
+	@Override
+	public int startProduct(String product_code) {
+		int count = productDao.startProduct(product_code);
+		return count;
+	}
+	
+	/* 상품 수정 + 이미지 수정 */
+	@Override
+	public String updateProduct(ProductVo productVo, ProductImageDto productImageDto, 
+			HashMap<String, Object> mapShelfLife, HashMap<String, Object> mapSaleRate,
+			HashMap<String, Object> mapSalesDeadlines, String isImage) {
+		String updateResult = "";
+		int countProductUpdate = productDao.updateProduct(productVo, mapShelfLife, mapSaleRate, mapSalesDeadlines);
+		if (countProductUpdate > 0) {
+			updateResult = "update_product";
+			System.out.println("---"+ updateResult);
+			System.out.println("==="+ productImageDto);
+			if (productImageDto != null) {
+				int countImageUpdate = productDao.updateProductImage(productImageDto, 
+						productVo.getProduct_code(), isImage);
+				if (countImageUpdate > 0) {
+					updateResult = "update_all";
+				}
+			}
+		} else {
+			updateResult = "update_fail";
+		}
+		return updateResult;
 	}
 	
 }

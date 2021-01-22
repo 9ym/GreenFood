@@ -1,5 +1,6 @@
 package com.kh.greenfood.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.kh.greenfood.domain.ProductCategoryDto;
@@ -63,5 +64,13 @@ public interface ProductService {
 	
 	/* 판매 종료 여부 확인 */
 	public int knowEndProduct(String product_code);
+	
+	/* 해당 상품 다시 판매 */
+	public int startProduct(String product_code);
+	
+	/* 상품 수정 + 이미지 수정 */
+	public String updateProduct(ProductVo productVo, ProductImageDto productImageDto, 
+			HashMap<String, Object> mapShelfLife, HashMap<String, Object> mapSaleRate,
+			HashMap<String, Object> mapSalesDeadlines, String isImage);
 	
 }
