@@ -38,10 +38,10 @@ public class S3Util implements Keys, BucketFolder {
 	}
 	
 	/* 파일 삭제 */
-	// S3Util.fileDelete(fileName);
-	public static void fileDelete(String fileName) {
+	// S3Util.fileDelete(fileName, category);
+	public static void fileDelete(String fileName, String category) {
 		AmazonS3 s3 = access();
-		s3.deleteObject(BUCKET, fileName);
+		s3.deleteObject(BUCKET, setS3FileName(fileName, category));
 	}
 	
 	/* 이미지 파일 url 불러오기 => 버킷주소/폴더 이름/파일 이름.### 생성 */

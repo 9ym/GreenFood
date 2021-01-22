@@ -221,6 +221,22 @@ public class AdminController {
 		return resultMsg;
 	}
 	
+	/* 상품 관리 - 다시 판매 */
+	@RequestMapping(value="/startProduct", method=RequestMethod.POST)
+	@ResponseBody
+	public String startProduct(String product_code ,Model model) throws Exception {
+		System.out.println("product_code :" + product_code);
+		String resultMsg = "";
+		int countStart = productService.startProduct(product_code);
+		if (countStart > 0) {
+			resultMsg = "start_success";
+		} else {
+			resultMsg = "start_fail";
+		}
+		return resultMsg;
+	}
+	
+	
 	/* img 링크 리스트 */
 	private void getImgUrl(List<OrderDetailDto> listCartDto, Model model) throws Exception {
 		List<String> listImgUrl = new ArrayList<>();
