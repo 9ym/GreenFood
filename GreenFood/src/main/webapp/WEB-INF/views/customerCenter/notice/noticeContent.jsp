@@ -167,13 +167,7 @@ table {
 							<tbody>
 								<tr>
 									<th>제목</th>
-									<!-- <td style="width: 153px;">작업중</td>
-									<th>작업중</th>
-									<td style="width: 273px;">작업중</td>
-									<th>조회수</th>
-									<td>작업중</td> -->
-									
-									<td colspan="5">
+									<td colspan="5" style="padding-top: 8px; padding-bottom: 8px;"> 
 									<input type="text" style="background-color: white" style="border: none"
 										class="form-control update" id="notice_title" 
 										placeholder="제목을 입력해주세요" value="${noticeVo.notice_title}" readonly

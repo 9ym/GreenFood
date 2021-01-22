@@ -148,7 +148,7 @@ table {
 							<tbody>
 								<tr>
 									<th>제목</th>
-									<td colspan="5">
+									<td colspan="5" style="padding-top: 8px; padding-bottom: 8px;">
 									<input type="text" style="background-color: white" style="border: none"
 										class="form-control update" id="question_title" 
 										placeholder="제목을 입력해주세요" value="${questionVo.question_title}" readonly

@@ -8,8 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>EventMain Page</title>
-</head>
-<body>
+
 <style>
 
 .event_page_top {
@@ -47,36 +46,10 @@ img {
  
 }
 
-/* .list a{
-	display:block;
-	width:328px;
-	height:248px;
-	border-radius: 30px;
-} */
-
-
-/* #mainEvent{
-		position:absolute;
-		top:250px;
-		left:150px;
-		z-index:1;
-		color:white;
-		
-	} */
 	
 #mainEvent #first_li{padding-top: 20px}
 	
 #mainEvent li{padding-bottom:20px}
-
-
-
-/* #mainEvent a{display:block;overflow:hidden;position:relative}
-#mainEvent .cover{position:absolute;left:0;top:0;width:100%;height:100%;background-color:#5f0080;background-position:50% 50%;background-repeat:no-repeat;opacity:0;
-    -webkit-transition:opacity 0.5s;transition:opacity 0.5s
-}
-#mainEvent a:hover .cover{opacity:1;
-    -webkit-transition:opacity 0.5s;transition:opacity 0.5s
-} */
 
 .container-fluid {
 	padding-top : 150px;
@@ -87,6 +60,11 @@ img {
 }
 					
 </style>
+
+</head>
+<body>
+
+
 
 	<div class="container-fluid">
 		<div class="row">

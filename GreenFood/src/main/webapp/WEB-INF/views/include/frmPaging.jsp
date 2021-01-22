@@ -48,3 +48,8 @@
 	<input type="hidden" name="page" value="${pagingDto.page}"/>
 	<input type="hidden" name="dropDownText" value="${pagingDto.dropDownText}"/>
 </form>
+
+<form id="frmSearchPaging" action="" method="get">
+	<input type="hidden" name="keyword" value="${pagingDto.keyword}">
+	<%-- <input type="hidden" name="page" value="${pagingDto.page}"/> --%>
+</form>

@@ -11,6 +11,7 @@ import com.kh.greenfood.dao.ProductDao;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
+import com.kh.greenfood.domain.ReviewVo;
 import com.kh.greenfood.domain.SearchDto;
 import com.kh.greenfood.domain.StarDto;
 
@@ -163,6 +164,12 @@ public class ProductServiceImpl implements ProductService {
 	public int knowEndProduct(String product_code) {
 		int count = productDao.knowEndProduct(product_code);
 		return count;
+	}
+
+	@Override
+	public List<ReviewVo> getReviewdListProduct(String product_title) throws Exception {
+		List<ReviewVo> reviewListProduct = productDao.getReviewdListProduct(product_title);
+		return reviewListProduct;
 	}
 	
 }

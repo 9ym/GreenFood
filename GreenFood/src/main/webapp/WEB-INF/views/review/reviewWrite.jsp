@@ -289,18 +289,14 @@ $(function(){
 														style="border: solid 1px #f4f4f4; border-collapse: collapse;">
 														<tr id="tr_0">
 															<td width=10px; nowrap align="center" style="width: 30px;">1</td>
-															<td width=100%><input type=file name="review_image"
-																style="width: 50%" class=linebg> <!-- <a
-																href="javascript:add()"><img
+															<td width=100%>
+															<input type=file name="review_image" style="width: 50%" class=linebg> 
+															<!-- <a href="javascript:add()"><img
 																	src="/shop/data/skin/designgj/img/common/btn_upload_plus.gif"
 																	align=absmiddle></a> --></td>
 														</tr>
 													</table>
-													<!-- <table>
-														<tr>
-															<td height=1></td>
-														</tr>
-													</table> -->
+													
 													<div width=100% style="padding: 5px; font-size: 10pt; color: #5AB63F"" class=stxt>
 														* 파일은 최대 5개까지 업로드가 가능합니다.<br>
 													</div>

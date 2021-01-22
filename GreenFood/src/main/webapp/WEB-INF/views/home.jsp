@@ -17,6 +17,26 @@
 <script type="text/javascript" src="${path}/resources/js/myScript.js"></script>
 <script>
 $(function(){
+	
+	// 상품 검색
+	
+	$("#header_menu_right_img").click(function(){
+// 		console.log("클릭2");
+		var keyword = $("#header_menu_right_input").val();
+		console.log(keyword);
+		
+// 		if(keyword == "" || selectType == "선택"){
+// 			alert("타입선택 및 키워드를 입력해주세요.");
+// 			return;
+// 		}
+		
+		$("#frmSearchPaging > input[name=keyword]").val(keyword);
+		/* $("#frmSearchPaging > input[name=page]").val(1); */
+		$("#frmSearchPaging").submit();
+	});
+	
+	
+	
 	var msg = "${msg}";
 	var user_id = "${findUser_id}";
 	if(msg == "tempPasswordCreate"){
@@ -558,8 +578,8 @@ ${testVo.user_id}
 				<li><a href="/main/event/eventMain">이벤트</a></li>
 			</ul>
 			<div id="header_menu_right">
-				<a href="#"><img src="https://www.oasis.co.kr/images/common/gnbSearch.png"></a>
-				<input type="text" placeholder="무엇이 궁금하세요?"></input>
+				<a href="#" id="header_menu_right_img"><img src="https://www.oasis.co.kr/images/common/gnbSearch.png"></a>
+				<input type="text" id="header_menu_right_input" placeholder="무엇이 궁금하세요?"></input>
 			</div>
 		</div>
 	</div>

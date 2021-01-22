@@ -361,6 +361,23 @@ animation:fade 8s infinite;
 <script>
 $(function(){
 	
+	// 상품 검색
+		
+	$("#header_menu_right").click(function(){
+		console.log("클릭2");
+		/* var keyword = $("#header_menu_right_input").val();
+		console.log(keyword); */
+		
+// 		if(keyword == "" || selectType == "선택"){
+// 			alert("타입선택 및 키워드를 입력해주세요.");
+// 			return;
+// 		}
+		
+		/* $("#frmSearchPaging > input[name=keyword]").val(keyword);
+		$("#frmSearchPaging > input[name=page]").val(1);
+		$ ("#frmSearchPaging").submit(); */
+	});
+	
 	$("#eventWrite").click(function(e){
 		e.preventDefault();
 		var data = $(this).attr("data");
@@ -410,7 +427,12 @@ $(function(){
 function topClose() {
 	$(".div-top").hide();
 }
-</script>								
+</script>	
+
+<!-- ----------------  페이징 폼 넣어주기 -----------------------------------  -->
+
+<%@ include file="../include/frmPaging.jsp" %>
+							
 </head>										
 <body>										
 										
@@ -476,7 +498,7 @@ function topClose() {
 						<li><a href="/main/event/eventMain" id="eventWrite" data="이벤트">이벤트</a></li>								
 					</ul>						
 					<div id="header_menu_right">						
-						<a href="#"><img id="header_menu_right_img" src="https://www.oasis.co.kr/images/common/gnbSearch.png"></a> 
+						<a href="#"  id="header_menu_right_img"><img class="searchImg" name="searchImg" src="https://www.oasis.co.kr/images/common/gnbSearch.png"></a> 
 						<input id="header_menu_right_input" type="text" placeholder="무엇이 궁금하세요?"></input>				
 					</div>						
 											

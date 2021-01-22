@@ -9,8 +9,8 @@
 	
 	<!-- 후기 글쓰기 -->
 		<insert id="insertReview">
-			insert into tbl_review (review_no, user_id, review_content, review_title, order_code, product_title, star_point)
-				values(seq_review_reviewno.nextval, #{user_id}, #{review_content}, #{review_title}, #{order_code}, #{product_title}, #{star_point}) 
+			insert into tbl_review (review_no, user_id, review_content, review_title, order_code, product_title, star_point, product_code)
+				values(seq_review_reviewno.nextval, #{user_id}, #{review_content}, #{review_title}, #{order_code}, #{product_title}, #{star_point}, #{product_code}) 
 		</insert>
 
 	<!-- 목록 -->

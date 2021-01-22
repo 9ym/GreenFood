@@ -30,9 +30,9 @@ public class ReviewController {
 	// 후기 작성시 넘겨온 주문번호,제품번호,제품명 나타내기
 	@RequestMapping(value="/reviewWrite/{order_code}")
 	public String reviewWrite(@PathVariable("order_code") String order_code, Model model) throws Exception{
-		System.out.println("ReviewController, reviewWrite : " + order_code);
+//		System.out.println("ReviewController, reviewWrite : " + order_code);
 		ReviewVo reviewVo = reviewService.selectInfoOrderReview(order_code);
-		System.out.println("ReviewController, selectInfoOrderReview :" + reviewVo);
+//		System.out.println("ReviewController, selectInfoOrderReview :" + reviewVo);
 		model.addAttribute("reviewVo", reviewVo);
 		return "/review/reviewWrite";
 	}
@@ -42,18 +42,8 @@ public class ReviewController {
 	public String insertReview(ReviewVo reviewVo, HttpSession session) throws Exception {
 //		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 			
-//		commentVo.setUser_id(memberVo.getUser_id());
-//		System.out.println("noticeVo:" + noticeVo);
+
 		System.out.println("insert: " +  reviewVo);
-		
-		
-		/*Date review_date = reviewVo.getReview_date();
-		SimpleDateFormat change_date;
-		
-		change_date = new SimpleDateFormat("yyyy-mm-dd");
-		System.out.println("change_date : " + change_date);*/
-		
-		
 		
 		System.out.println("insertReview reviewVo:" + reviewVo);
 		reviewService.insertReview(reviewVo);
@@ -71,7 +61,7 @@ public class ReviewController {
 		
 		List<ReviewVo> reviewList = reviewService.getReviewList(pagingDto);
 		
-		System.out.println("ReviewController, reviewList, reviewList:" + reviewList);
+//		System.out.println("ReviewController, reviewList, reviewList:" + reviewList);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "review/reviewMain";
@@ -80,19 +70,18 @@ public class ReviewController {
 	// -------------------  후기 리스트에 해당하는 글 상세보기  --------------------
 	@RequestMapping(value="/reviewContent/{review_no}", method=RequestMethod.GET)
 	public String reviewContent(@PathVariable("review_no") int review_no, Model model) throws Exception{
-		System.out.println("reviewContent review_no  :" + review_no);
+//		System.out.println("reviewContent review_no  :" + review_no);
 		ReviewVo reviewVo = reviewService.selectReview(review_no);
 		model.addAttribute("reviewVo", reviewVo);
-		System.out.println("reviewContent reviewVo :" + reviewVo);
+//		System.out.println("reviewContent reviewVo :" + reviewVo);
 		return "review/reviewContent";
 	}
 	
 	// --------------------------  후기 수정하기	 -------------------------
 	@RequestMapping(value="/updateReview", method=RequestMethod.POST)
 	public String updateReview(ReviewVo reviewVo) throws Exception {
-		System.out.println("ReviewController updateReview, reviewVo: " + reviewVo);
+//		System.out.println("ReviewController updateReview, reviewVo: " + reviewVo);
 		reviewService.updateReview(reviewVo);
-//		rttr.addFlashAttribute("msg", "updateSuccess");
 						
 		return "redirect:/review/reviewMain";
 	}

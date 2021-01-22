@@ -14,6 +14,7 @@ import com.kh.greenfood.dao.ProductDao;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
+import com.kh.greenfood.domain.ReviewVo;
 import com.kh.greenfood.domain.SearchDto;
 import com.kh.greenfood.domain.StarDto;
 import com.kh.greenfood.service.ProductService;
@@ -108,6 +109,12 @@ public class testProduct {
 		SearchDto dto = new SearchDto("star", "all", "desc", ""); // 레몬은 된다...
 		List<ProductVo> listSearch = productDao.getSearchProduct(dto);
 		System.out.println(listSearch);
+	}
+	
+	@Test
+	public void testGetReviewdListProduct(String product_title) throws Exception {
+		List<ReviewVo> reviewListproduct = productDao.getReviewdListProduct(product_title);
+		System.out.println(reviewListproduct);
 	}
 	
 }

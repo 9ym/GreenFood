@@ -273,9 +273,6 @@ $(function(){
 		$(".btn_checkOrderModalClose").trigger("click");
 	});
 	
-	
-	
-	
 }); 
 
 function changeDateString(timestamp) {
@@ -438,8 +435,8 @@ function make2digits(num) {
 																<tr id="tr_0">
 																	<td width=10px; nowrap align="center"
 																		style="width: 30px;">1</td>
-																	<td width=100%><input type=file name="q_o_image"
-																		style="width: 50%" class=linebg> <!-- <a
+																	<td width=100%>
+																	<input type=file name="q_o_image" style="width: 50%" class=linebg> <!-- <a
 																href="javascript:add()"><img
 																	src="/shop/data/skin/designgj/img/common/btn_upload_plus.gif"
 																	align=absmiddle></a> --></td>

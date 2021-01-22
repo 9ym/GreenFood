@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
+import com.kh.greenfood.domain.ReviewVo;
 import com.kh.greenfood.domain.SearchDto;
 import com.kh.greenfood.domain.StarDto;
 
@@ -63,5 +64,8 @@ public interface ProductService {
 	
 	/* 판매 종료 여부 확인 */
 	public int knowEndProduct(String product_code);
+	
+	/* 리뷰 리스트 받아오기 */
+	public List<ReviewVo> getReviewdListProduct(String product_title) throws Exception;
 	
 }

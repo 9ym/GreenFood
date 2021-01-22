@@ -25,7 +25,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<ReviewVo> getReviewList(PagingDto pagingDto) throws Exception {
 		List<ReviewVo> reviewList = reviewDao.getReviewList(pagingDto);
-		System.out.println("ReviewServiceImpl reviewList :" + reviewList);
+//		System.out.println("ReviewServiceImpl reviewList :" + reviewList);
 		return reviewList;
 	}
 
@@ -58,7 +58,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public ReviewVo selectInfoOrderReview(String order_code) throws Exception {
 		ReviewVo reviewVo = reviewDao.selectInfoOrderReview(order_code);
-		System.out.println("ReviewServiceImpl, selectInfoOrderReview :" + reviewVo);
+//		System.out.println("ReviewServiceImpl, selectInfoOrderReview :" + reviewVo);
 		return reviewVo;
 	}
 

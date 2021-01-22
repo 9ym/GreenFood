@@ -29,7 +29,7 @@ public class ReviewDaoImpl implements ReviewDao {
 	@Override
 	public List<ReviewVo> getReviewList(PagingDto pagingDto) throws Exception {
 		List<ReviewVo> reviewList = sqlSession.selectList(NAMESPACE + "getReviewList", pagingDto);
-		System.out.println("ReviewDaoImpl reviewList :" + reviewList);
+//		System.out.println("ReviewDaoImpl reviewList :" + reviewList);
 		return reviewList;
 	}
 

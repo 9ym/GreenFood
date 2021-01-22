@@ -219,7 +219,6 @@ public class CustomerCenterController {
 //			MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 		
 //			commentVo.setUser_id(memberVo.getUser_id());
-//			System.out.println("noticeVo:" + noticeVo);
 			System.out.println("insertQuestionOne questionOneVo:" + questionOneVo);
 			questionOneService.insertQuestionOne(questionOneVo);
 		

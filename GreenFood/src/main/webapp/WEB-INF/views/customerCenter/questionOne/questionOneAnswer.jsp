@@ -159,7 +159,7 @@ table {
 							<tbody>
 								<tr>
 									<th>제목</th>
-									<td colspan="5">
+									<td colspan="5" style="padding-top: 8px; padding-bottom: 8px;">
 									<input type="text" style="background-color: white" style="border: none"
 										class="form-control update" id="q_o_title" 
 										placeholder="제목을 입력해주세요" value="${questionOneVo.q_o_title}" readonly
@@ -181,12 +181,9 @@ table {
 						<div class="questionOneAnswer">
 						<div class="contentArea" style="margin-top: 15px;">
 							<textarea style="padding-top: 10px; background-color: white" style="border: none" class="form-control update" id="q_o_content"
-							placeholder="내용을 입력해주세요." readonly>${questionOneVo.q_o_content}</textarea>
+							placeholder="내용을 입력해주세요." readonly>${questionOneVo.q_o_content}${questionOneVo.q_o_image }</textarea>
 						</div>
 						<div class="contentArea" style="margin-top: 15px; border-style:solid; border-width: 1px; border-color: #39d070 ">
-							<%-- <textarea style="background-color: white" style="border: none" class="form-control update" id="q_o_content"
-							placeholder="내용을 입력해주세요." readonly>${questionOneVo.q_o_content}</textarea> --%>
-							
 							<c:choose>
 								<c:when test="${questionOneVo.q_o_answer == null}">
 									<p style="padding-top: 10px;">[ 답변중 입니다. ]</p>

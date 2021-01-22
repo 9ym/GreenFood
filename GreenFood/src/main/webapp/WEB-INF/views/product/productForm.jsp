@@ -3,6 +3,7 @@
 <%@include file="../include/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <!-- <link rel="stylesheet" type="text/css" href="#"/>css 하다가 따로 파일 만들어서 저장 -->
@@ -19,6 +20,63 @@
 // }); 
 
 $(function() {
+	
+	// 후기 누르면 후기 리스트 나타내기
+	$("#reviewList").click(function(){
+			var url = "/product/review/getReviewdListProduct";
+			var product_title = "${productVo.product_title}";
+			var sendData = {
+					"product_title" : product_title
+			};
+			$.post(url, sendData, function(data){
+				console.log(data);
+				$("#checkOrderTable > tbody").empty();
+					
+					console.log(product_title);
+				$.each(data, function(){
+					console.log(this.product_title);
+						
+						/* if (this.product_title == product_title) { */
+						
+							var img1 = ("<img src='/resources/images/review/star1.png'>");
+							var img2 = ("<img src='/resources/images/review/star2.png'>");
+							var img3 = ("<img src='/resources/images/review/star3.png'>");
+							var img4 = ("<img src='/resources/images/review/star4.png'>");
+							var img5 = ("<img src='/resources/images/review/star5.png'>");
+						
+						
+						 	var tr = $("#trTable").find("tr").clone();
+							tr.find("th").eq(0).html(this.review_no);
+							tr.find("th").eq(1).html(this.product_title);
+							 
+							if (this.star_point == 1 ) {
+								 tr.find("th").eq(2).html(img1);
+							} else if (this.star_point == 2 ) {
+								 tr.find("th").eq(2).html(img2);
+							}  else if (this.star_point == 3 ) {
+								 tr.find("th").eq(2).html(img3);
+							}  else if (this.star_point == 4 ) {
+								 tr.find("th").eq(2).html(img4);
+							}  else if (this.star_point == 5 ) {
+								 tr.find("th").eq(2).html(img5);
+							}
+							 tr.find("th").eq(3).html(this.review_title);
+							 tr.find("th").eq(4).html(this.user_id);
+							 tr.find("th").eq(5).html(changeDateString(this.review_date));
+							 tr.find("th").eq(6).html(this.review_readcount);
+							 
+							 $("#checkOrderTable > tbody").append(tr);
+							 
+						/* } else {
+							 $("#checkOrderTable > tbody").empty();
+						} */
+				});
+			});
+	});
+	
+	
+	
+	
 	/* 최종 가격 표현 */
 	var priceGeneral = "${productVo.product_price}";
 	$("#priceGeneral").text(addComma(priceGeneral));
@@ -166,6 +224,28 @@ function btnPay(obj) {
 //		$.session.set("dest", "/product/detail/${productVo.product_code}");
 		location.href="/main/loginPage";
 	}
+}
+
+function changeDateString(timestamp) {
+	
+	
+	var d = new Date(timestamp);
+	var year = d.getFullYear();
+	var month = make2digits(d.getMonth() + 1);
+	var date = make2digits(d.getDate());
+	var hour = make2digits(d.getHours());
+	var minute = make2digits(d.getMinutes());
+	var second = make2digits(d.getSeconds());
+	
+	return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+	
+}
+
+function make2digits(num) {
+	if (num < 10) {
+		num = "0" + num;
+	}
+	return num;
 }
 
 </script>
@@ -597,7 +677,6 @@ function btnPay(obj) {
 
 
 </style>
-
 <div class="container-fluid">
 
 	<!-- <div class="row">
@@ -758,7 +837,7 @@ function btnPay(obj) {
 					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver; border-bottom: 0px; 
 						background-color: white; z-index: 2;">상품설명</a></li>
 					<li><a href="#imsi-tab">임시</a></li>
-					<li><a href="#tbl-review-tab">후기</a></li>
+					<li><a href="#tbl-review-tab" id="reviewList">후기</a></li>
 				</ul>
 			</div>
 			<div class="view-content">
@@ -825,34 +904,36 @@ function btnPay(obj) {
 												<div
 													class="xans-element- xans-myshop xans-myshop-couponserial ">
 													<table width="100%" class="xans-board-listheader jh"
-														cellpadding="0" cellspacing="0">
-
-														<thead>
+														cellpadding="0" cellspacing="0" id="trTable"
+														style="border-top-style: hidden; padding-bottom: 10px; display: none;">
+														
+															<tr style="text-align: center; color: #98a18f; font-weight: 500;">
+																<th style="width : 60px;"></th>
+																<th style="width : 150px;"></th>
+																<th style="width : 100px;"></th>
+																<th></th>
+																<th style="width : 120px;"></th>
+																<th style="width : 120px;"></th>
+																<th style="width : 80px;"></th>
+															</tr>
+														</table>
+														
+														<table width="100%" class="xans-board-listheader jh"
+															cellpadding="0" cellspacing="0" id="checkOrderTable"
+															style="border-top-style: hidden; padding-bottom: 10px;">
+														<thead class="checkOrder">
 															<tr>
 																<th style="width : 60px;">번호</th>
-																<th style="width : 250px;">상품명</th>
+																<th style="width : 150px;">상품명</th>
+																<th style="width : 100px;">별점</th>
 																<th>제목</th>
 																<th style="width : 120px;">작성자</th>
 																<th style="width : 120px;">작성일</th>
 																<th style="width : 80px;">조회수</th>
 															</tr>
 														</thead>
-														<tbody>
-															<%-- <c:forEach var="reviewVo" items="${reviewList}"> --%>
-																<tr>
-																	<td>11111</td>
-																	<td>작업중</td>
-																	<td><%-- <a class="review_title" href="#"
-																			data-bno="${reviewVo.review_no}">${reviewVo.review_title}</a> --%>
-																	작업중
-																	</td>
-																	<td>작업중</td>
-																	<td>작업중
-																	<%-- <fmt:formatDate pattern="yyyy-MM-DD" value="${reviewVo.review_date}"/> --%></td>
-																	<td><span class="badge badge-success"><%-- ${reviewVo.review_readcount} --%>1</span>
-																	</td>
-																</tr>
-															<%-- </c:forEach> --%>
+														<tbody class="checkOrder" id="tableTbody">
+														
 														</tbody>
 
 													</table>
@@ -861,26 +942,6 @@ function btnPay(obj) {
 										</tr>
 									</tbody>
 								</table>
-				
-				
-				
-				<!-- <table class="table table-bordered">
-					<thead>
-						<tr>
-							<th>1</th>
-							<th>2</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>11</td>
-							<td>22</td>
-						</tr>
-					</tbody>
-				</table> -->
-				
-				
-				
 				
 			</div>
 		</div>

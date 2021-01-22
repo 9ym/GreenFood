@@ -147,7 +147,7 @@ table {
 							<tbody>
 								<tr>
 									<th>제목</th>
-									<td colspan="5">
+									<td colspan="5" style="padding-top: 8px; padding-bottom: 8px;">
 									<input type="text" style="background-color: white" style="border: none"
 										class="form-control update" id="review_title"  name="review_title"
 										placeholder="제목을 입력해주세요" value="${reviewVo.review_title}" readonly
@@ -156,11 +156,42 @@ table {
 									</tr>
 								<tr>
 									<th>상품명</th>
-									<td style="width:250px;">${reviewVo.product_title }</td>
-									<th style="width:130px;">작성일</th>
-									<td style="width:260px;">${reviewVo.review_date }</td>
-									<th style="width:130px;">조회수</th>
-									<td style="width:70px;">${reviewVo.review_readcount }</td>
+									<td style="width:220px;">${reviewVo.product_title }</td>
+									<th style="width:110px;">별점</th>
+									<td style="width:150px;">
+									<c:choose>
+										<c:when test="${reviewVo.star_point == 1}">
+											<label style="margin-bottom: 0px;">
+											<img src="${path}/resources/images/review/star1.png" alt="">
+											</label>
+										</c:when>
+										<c:when test="${reviewVo.star_point == 2}">
+											<label style="margin-bottom: 0px;">
+											<img src="${path}/resources/images/review/star2.png" alt="">
+											</label>
+										</c:when>
+										<c:when test="${reviewVo.star_point == 3}">
+											<label style="margin-bottom: 0px;">
+											<img src="${path}/resources/images/review/star3.png" alt="">
+											</label>
+										</c:when>
+										<c:when test="${reviewVo.star_point == 4}">
+											<label style="margin-bottom: 0px;">
+											<img src="${path}/resources/images/review/star4.png" alt="">
+											</label>
+										</c:when>
+										<c:when test="${reviewVo.star_point == 5}">
+											<label style="margin-bottom: 0px;">
+											<img src="${path}/resources/images/review/star5.png" alt="">
+											</label>
+										</c:when>
+										
+										<c:otherwise></c:otherwise>
+									
+									</c:choose>
+									</td>
+									<th style="width:110px;">작성일</th>
+									<td style="width:200px;">${reviewVo.review_date }</td>
 									
 								</tr>
 								</tbody>
@@ -169,7 +200,7 @@ table {
 						<div class="reviewContent">
 						<div class="contentArea" style="margin-top: 15px;">
 							<textarea style="padding-top: 10px; background-color: white" style="border: none" class="form-control update" 
-							id="review_content" name="review_content" placeholder="내용을 입력해주세요." readonly>${reviewVo.review_content}</textarea>
+							id="review_content" name="review_content" placeholder="내용을 입력해주세요." readonly>${reviewVo.review_content}${reviewVo.review_image }</textarea>
 							
 						</div>
 						</div>
