@@ -21,6 +21,23 @@
 
 $(function() {
 	
+	//페이지네이션 - 페이지 번호 클릭했을때
+	$("a.page-link").click(function(e){
+		e.preventDefault();
+		var page = $(this).attr("data-page");
+		console.log(page);
+		$("#frmProductReviewPaging").find("input[name=page]").val(page);
+		$("#frmProductReviewPaging").submit();
+	});
+	
+	/* $(".review_title").click(function(e){
+		e.preventDefault();
+		var n_no = $(this).attr("data-bno");
+		
+		location.href="/review/reviewContent/" + n_no;
+	}); */
+	
+	
 	// 후기 리스트 나타내기
 	/* $("#reviewList").click(function(){ */
 			var url = "/product/review/getReviewdListProduct";
@@ -42,7 +59,8 @@ $(function() {
 							var img4 = ("<img src='/resources/images/review/star4.png'>");
 							var img5 = ("<img src='/resources/images/review/star5.png'>");
 						
-						
+							
+							
 						 	var tr = $("#trTable").find("tr").clone();
 							tr.find("th").eq(0).html(this.review_no);
 							tr.find("th").eq(1).html(this.product_title);
@@ -58,7 +76,7 @@ $(function() {
 							}  else if (this.star_point == 5 ) {
 								 tr.find("th").eq(2).html(img5);
 							}
-							 tr.find("th").eq(3).html(this.review_title);
+							 tr.find("th").eq(3).html("<a href=/review/reviewContent/"+ this.review_no +">"+this.review_title+"</a>");
 							 tr.find("th").eq(4).html(this.user_id);
 							 tr.find("th").eq(5).html(changeDateString(this.review_date));
 							 tr.find("th").eq(6).html(this.review_readcount);
@@ -240,9 +258,43 @@ function make2digits(num) {
 	return num;
 }
 
+
+
 </script>
 
 <style>
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #7f8284;
+    font-size: 13px;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #5AB63F;
+    border-color: #5AB63F;
+}
+
+.page-link:hover {
+    z-index: 2;
+    color: #fff;
+    text-decoration: none;
+    background-color: #92e978;
+    border-color: #92e978;
+}
+
+.col-md-12 text-center {
+	padding-top: 30px;
+}
+
 .row {
 	font-family: 'Black Han Sans', sans-serif, ;
 	font-family: 'Noto Serif KR', serif;
@@ -665,10 +717,20 @@ function make2digits(num) {
     font-size: 13px;
 }
 
+a {
+	color: #98a18f;
+}
 
 <%@ include file="../include/frmOrdered.jsp" %>
 
 </style>
+
+
+<!-- ----------------  페이징 폼 넣어주기 -----------------------------------  -->
+
+<%@ include file="../include/frmPaging.jsp" %>
+
+
 <div class="container-fluid">
 
 	<!-- <div class="row">
@@ -903,7 +965,8 @@ function make2digits(num) {
 																<th style="width : 60px;"></th>
 																<th style="width : 150px;"></th>
 																<th style="width : 100px;"></th>
-																<th></th>
+																<th><a class="review_title" href="#"
+																			data-bno="${reviewVo.review_no}"></a></th>
 																<th style="width : 120px;"></th>
 																<th style="width : 120px;"></th>
 																<th style="width : 80px;"></th>
@@ -934,7 +997,44 @@ function make2digits(num) {
 										</tr>
 									</tbody>
 								</table>
-				
+								
+								
+								<!-- ----------------------------------- pagination -------------------------------- -->
+
+								<div class="row">
+									<div class="col-md-12 text-center" style="margin-top: 30px;">
+										<nav>
+											<ul class="pagination justify-content-center">
+												<!-- 이전 -->
+												<c:if test="${pagingDto.startPage != 1}">
+													<li class="page-item"><a class="page-link" href="#"
+														data-page="${pagingDto.startPage - 1}">이전</a></li>
+												</c:if>
+												<!-- 1 ~ 10 -->
+												<c:forEach var="i" begin="${pagingDto.startPage}"
+													end="${pagingDto.endPage}">
+													<li
+														<c:choose>
+															<c:when test="${i == pagingDto.page}">
+																class="page-item active"
+															</c:when>
+															<c:otherwise>
+																class="page-item"
+															</c:otherwise>
+														</c:choose>>
+														<a class="page-link" href="#" data-page="${i}">${i}</a></li>
+												</c:forEach>
+												<!-- 다음 -->
+												<c:if test="${pagingDto.endPage < pagingDto.totalPage}">
+													<li class="page-item"><a class="page-link" href="#"
+														data-page="${pagingDto.endPage + 1}">다음</a></li>
+												</c:if>
+											</ul>
+										</nav>
+									</div>
+								</div><!-- // pagination -->
+								
+								
 			</div>
 		</div>
 		<!--// 후기 모음  -->
