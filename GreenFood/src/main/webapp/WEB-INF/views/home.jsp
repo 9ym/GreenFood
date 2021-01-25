@@ -295,7 +295,7 @@ ul li a{ text-decoration:none; }
 		margin-top:20px;
 		margin-top:20px;
 		margin-right:45px;
-		height:30px;
+/* 		height:30px; */
 		border:1px solid Gainsboro;
 	}
 	#header_menu_right input{

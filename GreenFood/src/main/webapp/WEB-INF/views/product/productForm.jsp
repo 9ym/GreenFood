@@ -836,7 +836,7 @@ function make2digits(num) {
 				<ul>
 					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver; border-bottom: 0px; 
 						background-color: white; z-index: 2;">상품설명</a></li>
-					<li><a href="#imsi-tab">임시</a></li>
+<!-- 					<li><a href="#imsi-tab">임시</a></li> -->
 					<li><a href="#tbl-review-tab" id="reviewList">후기</a></li>
 				</ul>
 			</div>
@@ -865,22 +865,22 @@ function make2digits(num) {
 		<div class="col-md-3"></div>
 	</div>
 	
-	<div class="row div-content" id="imsi-tab">
-		<div class="col-md-3"></div>
-		<div class="col-md-6 view-wrap">
-			<div class="imsi view-tab">
-				<ul>
-					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver;">상품설명</a></li>
-					<li><a href="#imsi-tab" style="background-color: white; border-bottom: 0px; z-index: 2;">임시</a></li>
-					<li><a href="#tbl-review-tab">후기</a></li>
-				</ul>
-			</div>
-			<div class="view-content">
-				<p>ghghghgh</p>
-			</div>
-		</div>
-		<div class="col-md-3"></div>
-	</div>
+<!-- 	<div class="row div-content" id="imsi-tab"> -->
+<!-- 		<div class="col-md-3"></div> -->
+<!-- 		<div class="col-md-6 view-wrap"> -->
+<!-- 			<div class="imsi view-tab"> -->
+<!-- 				<ul> -->
+<!-- 					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver;">상품설명</a></li> -->
+<!-- 					<li><a href="#imsi-tab" style="background-color: white; border-bottom: 0px; z-index: 2;">임시</a></li> -->
+<!-- 					<li><a href="#tbl-review-tab">후기</a></li> -->
+<!-- 				</ul> -->
+<!-- 			</div> -->
+<!-- 			<div class="view-content"> -->
+<!-- 				<p>ghghghgh</p> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="col-md-3"></div> -->
+<!-- 	</div> -->
 	
 	<div class="row div-content">
 		<div class="col-md-3"></div>
@@ -889,7 +889,7 @@ function make2digits(num) {
 			<div class="view-tab">
 				<ul>
 					<li><a href="#infoMove-tab" style="border-left: 1px solid Silver;">상품설명</a></li>
-					<li><a href="#imsi-tab">임시</a></li>
+<!-- 					<li><a href="#imsi-tab">임시</a></li> -->
 					<li><a href="#tbl-review-tab" style="background-color: white; border-bottom: 0px; z-index: 2;">후기</a></li>
 				</ul>
 			</div>

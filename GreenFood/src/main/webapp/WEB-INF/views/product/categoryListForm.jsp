@@ -103,7 +103,7 @@
 								<a class="item-title" href="/product/detail/${productVo.product_code}">
 									<span class="span-title">${productVo.product_title}</span>
 									<span class="span-price">${productVo.product_price}</span>
-									<span class="span-3">3.간단 설명</span>
+<!-- 									<span class="span-3">3.간단 설명</span> -->
 								</a>
 							</div>
 						</li>

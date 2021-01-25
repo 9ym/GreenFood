@@ -9,6 +9,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.CopyObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 public class S3Util implements Keys, BucketFolder {
@@ -35,6 +36,17 @@ public class S3Util implements Keys, BucketFolder {
 		PutObjectRequest putObjectRequest = new PutObjectRequest(BUCKET, s3FileName, file);
 		putObjectRequest.setCannedAcl(CannedAccessControlList.PublicReadWrite);
 		s3.putObject(putObjectRequest);
+	}
+	
+	/* 파일 복사 */
+	// S3Util.fileCopy(fileName, categoryBefore, categoryAfter);
+	public static void fileCopy(String fileName, String categoryBefore, String categoryAfter) {
+		AmazonS3 s3 = access();
+		String fileNameBefore = setS3FileName(fileName, categoryBefore);
+		String fileNameAfter = setS3FileName(fileName, categoryAfter);
+		CopyObjectRequest copyObjectRequest = new CopyObjectRequest(BUCKET, fileNameBefore, BUCKET, fileNameAfter);
+		copyObjectRequest.setCannedAccessControlList(CannedAccessControlList.PublicReadWrite);
+		s3.copyObject(copyObjectRequest);
 	}
 	
 	/* 파일 삭제 */
