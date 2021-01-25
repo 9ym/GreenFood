@@ -192,6 +192,7 @@ public class UploadController {
 		}
 		model.addAttribute("resultMsg", resultMsg);
 		
+//		return "/admin/productUpdateForm/" + vo.getProduct_code();
 		return "/admin/productUpdateForm/" + vo.getProduct_code();
 	}
 	

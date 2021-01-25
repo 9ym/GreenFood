@@ -11,6 +11,5 @@ public interface BucketFolder {
 	static final String CATEGORY_2005 = "category_2005";
 	static final String CATEGORY_2006 = "category_2006";
 	static final String CATEGORY_2007 = "category_2007";
-	static final String CATEGORY_2008 = "category_2008";
 	
 }

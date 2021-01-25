@@ -28,20 +28,15 @@ $(function(){
 		alert("잘못된 접근입니다.");
 	}
 	
-	// 상품 검색
+	/* 상품 검색 */
 	$("#header_menu_right_img").click(function(){
-// 		console.log("클릭2");
-		var keyword = $("#header_menu_right_input").val();
-		console.log(keyword);
+		var product_title = $("#header_menu_right_input").val();
 		
-// 		if(keyword == "" || selectType == "선택"){
-// 			alert("타입선택 및 키워드를 입력해주세요.");
-// 			return;
-// 		}
-		
-		$("#frmSearchPaging > input[name=keyword]").val(keyword);
-		/* $("#frmSearchPaging > input[name=page]").val(1); */
-		$("#frmSearchPaging").submit();
+		if (product_title == null || product_title.length == 0 || product_title == "") {
+			alert("공백은 검색 할 수 없습니다. 다시 검색해 주세요.");
+		} else {
+			location.href = "/product/searchTitle/" + product_title;
+		}
 	});
 	
 	/* 회원가입 유도 x 눌렀을 시 쿠키 */
@@ -150,10 +145,15 @@ ul li a{ text-decoration:none; }
 .slide{height:270px;overflow:hidden; margin-left : 150px; margin-right : 150px; margin-top:170px;}
 .slide ul{position:relative;height:100%;  }
 .slide li{position:absolute;left:0;right:0;top:0;bottom:0;opacity:0;animation:fade 8s infinite; display:block;}
-.slide li:nth-child(1){background-image:url("https://file.mk.co.kr/meet/neds/2020/01/image_readtop_2020_83302_15800838754063133.jpg");animation-delay:0s;background-repeat:no-repeat;background-size: 100% 100%;}
-.slide li:nth-child(2){background-image:url("https://images.unsplash.com/photo-1591981093673-984cd7de9ca4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80");animation-delay:2s;background-repeat:no-repeat;background-size:100%100%;}
-.slide li:nth-child(3){background-image:url("https://images.unsplash.com/photo-1594069213067-8996d741badb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80");animation-delay:4s;background-repeat:no-repeat;background-size:100%100%;}
-.slide li:nth-child(4){background-image:url("https://images.unsplash.com/photo-1580910365203-91ea9115a319?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80");animation-delay:6s;background-repeat:no-repeat;background-size:100%100%;}
+.slide li:nth-child(1){background-image:url("https://images.unsplash.com/photo-1591981093673-984cd7de9ca4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80");animation-delay:0s;background-repeat:no-repeat;background-size: 100% 100%;}
+.slide li:nth-child(2){background-image:url("https://images.unsplash.com/photo-1587482990911-773a2aef47dc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80");animation-delay:2s;background-repeat:no-repeat;background-size:100%100%;}
+.slide li:nth-child(3){background-image:url("https://images.unsplash.com/photo-1510442393143-041057d09394?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80");animation-delay:4s;background-repeat:no-repeat;background-size:100%100%;}
+.slide li:nth-child(4){background-image:url("https://images.unsplash.com/photo-1541683746238-470486ba4a00?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80");animation-delay:6s;background-repeat:no-repeat;background-size:100%100%;}
+	
+/* .slide li:nth-child(1){background-image:url("https://file.mk.co.kr/meet/neds/2020/01/image_readtop_2020_83302_15800838754063133.jpg");animation-delay:0s;background-repeat:no-repeat;background-size: 100% 100%;} */
+/* .slide li:nth-child(2){background-image:url("https://images.unsplash.com/photo-1591981093673-984cd7de9ca4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80");animation-delay:2s;background-repeat:no-repeat;background-size:100%100%;} */
+/* .slide li:nth-child(3){background-image:url("https://images.unsplash.com/photo-1594069213067-8996d741badb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80");animation-delay:4s;background-repeat:no-repeat;background-size:100%100%;} */
+/* .slide li:nth-child(4){background-image:url("https://images.unsplash.com/photo-1580910365203-91ea9115a319?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80");animation-delay:6s;background-repeat:no-repeat;background-size:100%100%;} */
 	
      /* 100 / 8 = 12.5 */
     @keyframes fade {
@@ -590,7 +590,7 @@ ul li a{ text-decoration:none; }
 			</ul>
 			<div id="header_menu_right">
 				<a href="#" id="header_menu_right_img"><img src="https://www.oasis.co.kr/images/common/gnbSearch.png"></a>
-				<input type="text" id="header_menu_right_input" placeholder="무엇이 궁금하세요?"></input>
+				<input type="text" id="header_menu_right_input" placeholder="어떤 상품을 찾으세요?"></input>
 			</div>
 		</div>
 	</div>

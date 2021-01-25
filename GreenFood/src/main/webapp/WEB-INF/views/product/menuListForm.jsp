@@ -107,6 +107,24 @@
 	color: Tomato;
 }
 
+.div-search {
+	display : none;
+	margin : 30px;
+	padding : 20px 0px;
+/* 	border-top : 1px solid gainsboro; */
+/* 	border-bottom : 1px solid gainsboro; */
+ 	text-align : center; 
+	color : darkgray;
+}
+.div-search span{
+ 	margin-left : 30px;
+	padding : 5px 30px;
+/* 	border-top : 1px solid gainsboro; */
+	border-bottom : 1px solid gainsboro;
+	text-align : center;
+	color : darkgray;
+}
+
 </style>
 
 <div class="container-fluid">
@@ -125,6 +143,10 @@
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
+			<div class="div-search">
+<!-- 				<h3>상품 검색</h3> -->
+				<strong>검색 조건 : <span>${searchTitle}</span></strong>
+			</div>
 			<div class="productList">
 				<div>
 					<ul class="list">
@@ -171,6 +193,17 @@
 <script src="/resources/js/myScript.js"></script>
 <script type="text/javascript">
 $(function() {
+	
+	/* 상품명 전체 검색 -> 결과 메시지 */
+	var msgResult = "${msgResult}";
+	if (msgResult == "noList") {
+		$(".div-search > strong").empty();
+		alert("검색 결과가 없습니다. 다시 검색해 주세요.");
+		$(".div-search > strong").text("검색 결과가 없습니다.")
+	} else {
+// 		alert("비슷한 제품을 찾았습니다.");
+		$(".div-search").attr("display", "block");
+	}
 	
 	/* s3에서 이미지 받아오기 */
 	$(".img-thumb").each(function() {

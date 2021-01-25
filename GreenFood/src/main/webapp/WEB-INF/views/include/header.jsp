@@ -368,20 +368,15 @@ $(function(){
 		topClose();
 	});
 	
-	// 상품 검색
-	$("#header_menu_right").click(function(){
-		console.log("클릭2");
-		/* var keyword = $("#header_menu_right_input").val();
-		console.log(keyword); */
+	/* 상품 검색 */
+	$("#header_menu_right_img").click(function(){
+		var product_title = $("#header_menu_right_input").val();
 		
-// 		if(keyword == "" || selectType == "선택"){
-// 			alert("타입선택 및 키워드를 입력해주세요.");
-// 			return;
-// 		}
-		
-		/* $("#frmSearchPaging > input[name=keyword]").val(keyword);
-		$("#frmSearchPaging > input[name=page]").val(1);
-		$ ("#frmSearchPaging").submit(); */
+		if (product_title == null || product_title.length == 0 || product_title == "") {
+			alert("공백은 검색 할 수 없습니다. 다시 검색해 주세요.");
+		} else {
+			location.href = "/product/searchTitle/" + product_title;
+		}
 	});
 	
 	$("#eventWrite").click(function(e){

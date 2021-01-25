@@ -911,7 +911,7 @@ a {
 				</div>
 				<div class="div-img">
 <%-- 					<img alt="상세 사진" src="${path}/resources/images/tempsnip.png"> --%>
-					<img alt="상세 사진" src="https://img-cf.kurly.com/shop/data/goodsview/20180719/gv10000027609_1.jpg">
+					<img alt="상세 사진" src="https://img-cf.kurly.com/shop/data/goodsview/20200518/gv30000095827_1.jpg">
 				</div>
 			</div>
 		</div>
