@@ -18,8 +18,17 @@
 <script>
 $(function(){
 	
-	// 상품 검색
+	var msg = "${msg}";
+	var user_id = "${findUser_id}";
+	if(msg == "tempPasswordCreate"){
+		alert("임시 비밀번호가 발송되었습니다.");
+	} else if(user_id != ""){
+		alert("회원님의 아이디는" + user_id + "입니다.")
+	} else if(msg == "missing"){
+		alert("잘못된 접근입니다.");
+	}
 	
+	// 상품 검색
 	$("#header_menu_right_img").click(function(){
 // 		console.log("클릭2");
 		var keyword = $("#header_menu_right_input").val();
@@ -35,35 +44,12 @@ $(function(){
 		$("#frmSearchPaging").submit();
 	});
 	
-	
-	
-	var msg = "${msg}";
-	var user_id = "${findUser_id}";
-	if(msg == "tempPasswordCreate"){
-		alert("임시 비밀번호가 발송되었습니다.");
-	} else if(user_id != ""){
-		alert("회원님의 아이디는" + user_id + "입니다.")
-	} else if(msg == "missing"){
-		alert("잘못된 접근입니다.");
-	}
-	
 	/* 회원가입 유도 x 눌렀을 시 쿠키 */
 	$("#btnX").click(function(e){
 		e.preventDefault();
-		setCookie("expend", "true", 10);
-// 		deleteCookie("expend");
+		setCookie("expend", "true", 60*30);
 		topClose();
 	});
-	
-	var deleteCookie = function(name) {
-		document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
-		};
-	
-	var setCookie = function(name, value, exp) {
-		var date = new Date();
-		var tt = date.setTime(date.getTime() + exp * 1000);
-		document.cookie = name + '=' + value + ';expires=' + date.toGMTString() + ';path=/';
-	};
 	
 	/* 베스트 상품 가격에 , 추가 */
 	var len = "${mainProductCount}";
@@ -125,14 +111,23 @@ $(function(){
 		});
 	});
 	
-});	
-
-function topClose() {
-// 	$(".div-top").hide();
-// 	$(".div-top").css("height", "0px");
-	$(".div-top").css("display", "none");
-// 	$(".div-top a div").css("position", none);
-}
+	/* 쿠키 삭제 */
+	var deleteCookie = function(name) {
+		document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
+	};
+	
+	/* 쿠키 생성 */
+	var setCookie = function(name, value, exp) {
+		var date = new Date();
+		var tt = date.setTime(date.getTime() + exp * 1000);
+		document.cookie = name + '=' + value + ';expires=' + date.toGMTString() + ';path=/';
+	};
+	
+	function topClose() {
+		$(".div-top").css("display", "none");
+	};
+	
+});
 </script>
 <!-- 스크립트 끝 -->
 
@@ -515,12 +510,10 @@ ul li a{ text-decoration:none; }
 <!-- 스타일 끝 -->
 </head>
 <body>
-<script>
-</script>
 <header>
 	<!-- 제일 상단 버튼 : 회원가입 혜택 안내?? -->
 	<c:choose>
-		<c:when test="${empty sessionScope.testVo}">
+		<c:when test="${empty sessionScope.testVo && empty cookie.expend}">
 		<div class="div-top">	
 			<a href="/main/memberJoinForm">
 				<span>지금 가입하고 포인트 받으세요!</span>
@@ -534,7 +527,6 @@ ul li a{ text-decoration:none; }
 		</c:when>
 	</c:choose>
 	<!--// 제일 상단 버튼 -->
-	
 	<!-- 이미지 슬라이드 -->
 	<div class="slide">
 	  <ul>
@@ -551,7 +543,6 @@ ul li a{ text-decoration:none; }
 		<p id=>농산물 직거래 플랫폼</p>
 		<p>우리 지역 농산물의 <span id="main_text_span">신선함</span>을 그대로 전달해 드립니다</p>
 	</div> -->
-	
 	<div id="header_small_menu">
 		<c:choose>
 			<c:when test="${not empty sessionScope.testVo }">

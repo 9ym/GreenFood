@@ -31,5 +31,11 @@ public interface ReviewService {
 
 	// 상품평 등록했는지에 따른 count
 	public int productReviewsCount(String order_code);
+	
+	// 리뷰 리스트 가져오기
+	public List<ReviewVo> getReviewList(String user_id);
+
+	// 리뷰 카운트 가져오기
+	public int getReviewCount(String user_id);
 
 }

@@ -34,4 +34,10 @@ public interface ReviewDao {
 
 	// 상품평 등록했는 지에 따른 카운트
 	public int productReviewsCount(String order_code);
+
+	// 마이페이지 - 리뷰 모음
+	public List<ReviewVo> getReivewList(String user_id);
+
+	// 마이페이지 - 리뷰 카운트
+	public int getReviewCount(String user_id);
 }
