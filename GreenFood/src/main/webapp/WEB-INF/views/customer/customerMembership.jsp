@@ -65,7 +65,6 @@ $(function(){
 	</div>
 	<div id="left_bottom">
 		<div><a href="/customer/customerProfile" class="btn">프로필</a></div>
-		<div>나의 쇼핑 활동</div>
 		<div><a href="/customerCenter/question/questionContent" class="btn">Q&amp;A</a></div>
 	</div>
 	</div>

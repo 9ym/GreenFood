@@ -361,8 +361,14 @@ animation:fade 8s infinite;
 <script>
 $(function(){
 	
+	/* 회원가입 유도 X버튼 눌렀을 시 쿠키생성*/
+	$("#btnX").click(function(e){
+		e.preventDefault();
+		setCookie("expend", "true", 60*30);
+		topClose();
+	});
+	
 	// 상품 검색
-		
 	$("#header_menu_right").click(function(){
 		console.log("클릭2");
 		/* var keyword = $("#header_menu_right_input").val();
@@ -424,9 +430,22 @@ $(function(){
 	
 });
 
+/* 쿠키 삭제 */
+var deleteCookie = function(name) {
+	document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
+};
+
+/* 쿠키 생성 */
+var setCookie = function(name, value, exp) {
+	var date = new Date();
+	var tt = date.setTime(date.getTime() + exp * 1000);
+	document.cookie = name + '=' + value + ';expires=' + date.toGMTString() + ';path=/';
+};
+
 function topClose() {
-	$(".div-top").hide();
-}
+	$(".div-top").css("display", "none");
+};
+
 </script>	
 
 <!-- ----------------  페이징 폼 넣어주기 -----------------------------------  -->
@@ -434,25 +453,24 @@ function topClose() {
 <%@ include file="../include/frmPaging.jsp" %>
 							
 </head>										
-<body>										
-										
+<body>								
 		<header>	
 		
 		<!-- 제일 상단 버튼 : 회원가입 혜택 안내?? -->
-		<c:if test="${empty sessionScope.testVo}">
+	<c:choose>
+		<c:when test="${empty sessionScope.testVo && empty cookie.expend}">
 		<div class="div-top">
 			<a href="/main/memberJoinForm">
-				<span>
-					지금 가입하고 포인트 받으세요!
-				</span>
-				<span>
-					<span>
-						<button type="button" onclick="jsvascript:topClose();">X</button>
-					</span>	
-				</span>
+				<span>지금 가입하고 포인트 받으세요!</span>
+				<div>
+					<div>
+						<button type="button" id="btnX">X</button>
+					</div>	
+				</div>
 			</a>
 		</div>
-		</c:if>
+		</c:when>
+	</c:choose>
 		<!--// 제일 상단 버튼 -->
 									
 <!-- 		<div id="page_background">								 -->

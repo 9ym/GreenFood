@@ -165,15 +165,14 @@ $(function() {
 /* 장바구니에 상품 넣기 */
 function btnCart(obj) {
 	var testVo = "${sessionScope.testVo}";
-	
+
 	/* 로그인 됐으면 장바구니 추가 가능 */
-	if (testVo != "") { 
-// 		console.log("not null");
+	if(testVo != ""){
 		var user_id = "${sessionScope.testVo.user_id}";
 		var product_code = "${productVo.product_code}";
-		var product_title = "${productVo.product_title}"
-		var product_price = "${productVo.product_price}"
-		var product_sale_rate = "${productVo.product_sale_rate}"
+		var product_title = "${productVo.product_title}";
+		var product_price = "${productVo.product_price}";
+		var product_sale_rate = "${productVo.product_sale_rate}";
 		var cart_quantity = parseInt($("#productCount").val());
 		var sendData = {
 				"user_id" : user_id,
@@ -185,17 +184,14 @@ function btnCart(obj) {
 		};
 		var url = "/order/addCart";
 		$.post(url, sendData, function(data) {
-// 			console.log(data);
+			console.log(data);
 			if (data == "newCart") {
 				alert("장바구니에 상품을 담았습니다.");
 			} else if (data == "dupCart") {
 				alert("이미 담으신 상품이 있어 추가되었습니다.");
-			}
+			} 
 		});
-	/* 로그인 페이지 강제? 이동 */
 	} else {
-// 		console.log("null");
-// 		$.session.set("dest", "/product/detail/${productVo.product_code}");
 		location.href="/main/loginPage";
 	}
 }
@@ -674,7 +670,7 @@ function make2digits(num) {
 }
 
 
-
+<%@ include file="../include/frmOrdered.jsp" %>
 
 </style>
 <div class="container-fluid">

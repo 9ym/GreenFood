@@ -85,4 +85,18 @@ public class ReviewDaoImpl implements ReviewDao {
 		return count;
 	}
 
+
+	@Override
+	public List<ReviewVo> getReivewList(String user_id) {
+		List<ReviewVo> reviewVoList = sqlSession.selectList(NAMESPACE + "getMyReviewList", user_id);
+		return reviewVoList;
+	}
+
+
+	@Override
+	public int getReviewCount(String user_id) {
+		int count = sqlSession.selectOne(NAMESPACE + "getReviewCount", user_id);
+		return count;
+	}
+
 }

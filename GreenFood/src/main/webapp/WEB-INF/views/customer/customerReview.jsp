@@ -11,14 +11,6 @@
 <script src="/resources/js/myScript.js"></script>
 <script>
 $(function(){
-	
-	/* 마이페이지 전체 주문 내역 addComma */
-	$(".addComma").each(function(){
-		var text = $(this).text();
-		var total_price = addComma(text);
-		$(this).text(total_price);
-	});
-	
 	/* 헤더 배경화면, 게시판 이름 바꾸는 부분 */
 	/* url 뒤에 사진 넣으면됩니다. */
 	$("#page_background").css({"background-image":"url('${path}/resources/images/login_dog.jpg')"});
@@ -47,27 +39,31 @@ $(function(){
 	</div>
 	<!--오른쪽 메뉴-->
 	<div id="content_right" style="float:right; width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-bottom:200px;">
-	<div id="pageName" >주문 내역</div>
+	<div id="pageName" >후기 내역</div>
 	
 	<!-- 전체 주문 내역 -->
 		<div class="container">
-			<h2>${sessionScope.testVo.user_name}님 </h2>
+			<h2>${sessionScope.testVo.user_name}님 전체 후기내역입니다.</h2>
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th>주문번호</th>
-						<th>주문일</th>
-						<th>결제금액</th>
-						<th>주문상태</th>
+						<th>번호</th>
+						<th>상품명</th>
+						<th>별점</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="orderVoList" items="${orderVoList}">
+				<c:forEach var="reviewVo" items="${reviewVoList}">
 						<tr>
-							<td><a href="/customer/customerDetailOrder/${orderVoList.order_code}">${orderVoList.order_code}</a></td>
-							<td>${orderVoList.order_date}</td>
-							<td class="addComma">${orderVoList.order_total_price}</td>
-							<td>${orderVoList.order_state_dsc}</td>
+							<td><a href="/review/reviewContent/${reviewVo.review_no}">${reviewVo.review_no}</a></td>
+							<td>${reviewVo.product_title}</td>
+							<td>${reviewVo.star_point}</td>
+							<td>${reviewVo.review_title}</td>
+							<td>${reviewVo.user_id}</td>
+							<td>${reviewVo.review_date}</td>
 						</tr>
 				</c:forEach>
 				</tbody>
