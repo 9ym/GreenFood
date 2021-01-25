@@ -22,7 +22,7 @@ $(function(){
 <body>
 
 <style>
-img {
+.list img {
   display: block;
   margin-left: auto;
   margin-right: auto;

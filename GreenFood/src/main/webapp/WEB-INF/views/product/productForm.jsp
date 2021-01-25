@@ -21,8 +21,8 @@
 
 $(function() {
 	
-	// 후기 누르면 후기 리스트 나타내기
-	$("#reviewList").click(function(){
+	// 후기 리스트 나타내기
+	/* $("#reviewList").click(function(){ */
 			var url = "/product/review/getReviewdListProduct";
 			var product_title = "${productVo.product_title}";
 			var sendData = {
@@ -35,8 +35,6 @@ $(function() {
 					console.log(product_title);
 				$.each(data, function(){
 					console.log(this.product_title);
-						
-						/* if (this.product_title == product_title) { */
 						
 							var img1 = ("<img src='/resources/images/review/star1.png'>");
 							var img2 = ("<img src='/resources/images/review/star2.png'>");
@@ -67,12 +65,10 @@ $(function() {
 							 
 							 $("#checkOrderTable > tbody").append(tr);
 							 
-						/* } else {
-							 $("#checkOrderTable > tbody").empty();
-						} */
+						
 				});
 			});
-	});
+	/* }); */
 	
 	
 	

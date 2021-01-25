@@ -39,7 +39,21 @@
 }/* 이벤트 설명 관련  */
 
 /* 이미지 중앙으로 배치시키기  */
-img {
+#first_liEvent img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+ 
+}
+
+#second_liEvent img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+ 
+}
+
+#third_liEvent img {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -47,9 +61,13 @@ img {
 }
 
 	
-#mainEvent #first_li{padding-top: 20px}
+#mainEvent #first_liEvent{
+	padding-top: 20px;
+}
 	
-#mainEvent li{padding-bottom:20px}
+#mainEvent li{
+	padding-bottom:20px;
+}
 
 .container-fluid {
 	padding-top : 150px;
@@ -79,13 +97,13 @@ img {
 				<div class="page_aticle">
 					<div id="mainEvent" class="page_section section_event">
 						<ul class="list">
-							<li id="first_li"><a href="/main/event/event1221_01"><img
+							<li id="first_liEvent"><a href="/main/event/event1221_01"><img
 									src="${path}/resources/images/event/event01.png" alt=""></a>
 							</li>
-							<li><a href="/main/event/event1221_02"><img
+							<li id="second_liEvent"><a href="/main/event/event1221_02"><img
 									src="${path}/resources/images/event/event02.png" alt=""></a>
 							</li>
-							<li><a href="/main/event/event1221_03"><img
+							<li id="third_liEvent"><a href="/main/event/event1221_03"><img
 									src="${path}/resources/images/event/event03.png" alt=""></a>
 							</li>
 						</ul>
