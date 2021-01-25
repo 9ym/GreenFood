@@ -56,7 +56,9 @@ public class OrderController {
 	@RequestMapping(value="/addCart", method=RequestMethod.POST)
 	@ResponseBody
 	public String cartIn(String user_id, String product_code, String product_title, 
-			int product_price, int product_sale_rate, int cart_quantity) throws Exception {
+			int product_price, int product_sale_rate, int cart_quantity, HttpSession session) throws Exception {
+		TestVo testVo =  (TestVo)session.getAttribute("testVo");
+		System.out.println("addCart : " + testVo);
 		CartDto cartDto = new CartDto(user_id, product_code, product_title, 
 				product_price, product_sale_rate, cart_quantity);
 		String result = orderService.addCart(cartDto);

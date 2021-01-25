@@ -112,9 +112,15 @@ public class testProduct {
 	}
 	
 	@Test
-	public void testGetReviewdListProduct(String product_title) throws Exception {
-		List<ReviewVo> reviewListproduct = productDao.getReviewdListProduct(product_title);
+	public void testGetReviewdListProduct() throws Exception {
+		List<ReviewVo> reviewListproduct = productDao.getReviewdListProduct("당근");
 		System.out.println(reviewListproduct);
+	}
+	
+	@Test
+	public void testGetSearchTitle() throws Exception {
+		List<ProductVo> list = productDao.getSearchTitle("고");
+		System.out.println("list :" + list);
 	}
 	
 }

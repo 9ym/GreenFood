@@ -70,4 +70,18 @@ public class ReviewServiceImpl implements ReviewService {
 		int count = reviewDao.productReviewsCount(order_code);
 		return count;
 	}
+	
+	// 마이페이지 - 리뷰 모음
+	@Override
+	public List<ReviewVo> getReviewList(String user_id) {
+		List<ReviewVo> reviewVoList = reviewDao.getReivewList(user_id);
+		return reviewVoList;
+	}
+	
+	// 마이페이지 - 리뷰 카운트
+	@Override
+	public int getReviewCount(String user_id) {
+		int count = reviewDao.getReviewCount(user_id);
+		return count;
+	}
 }

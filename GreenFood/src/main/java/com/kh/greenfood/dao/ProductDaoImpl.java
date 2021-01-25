@@ -228,4 +228,11 @@ public class ProductDaoImpl implements ProductDao {
 		return count;
 	}
 	
+	/* 상품명으로 전체 검색 */
+	@Override
+	public List<ProductVo> getSearchTitle(String product_title) {
+		List<ProductVo> list = sqlSession.selectList(NAMESPACE + "getSearchTitle", product_title);
+		return list;
+	}
+	
 }

@@ -161,15 +161,14 @@ $(function() {
 /* 장바구니에 상품 넣기 */
 function btnCart(obj) {
 	var testVo = "${sessionScope.testVo}";
-	
+
 	/* 로그인 됐으면 장바구니 추가 가능 */
-	if (testVo != "") { 
-// 		console.log("not null");
+	if(testVo != ""){
 		var user_id = "${sessionScope.testVo.user_id}";
 		var product_code = "${productVo.product_code}";
-		var product_title = "${productVo.product_title}"
-		var product_price = "${productVo.product_price}"
-		var product_sale_rate = "${productVo.product_sale_rate}"
+		var product_title = "${productVo.product_title}";
+		var product_price = "${productVo.product_price}";
+		var product_sale_rate = "${productVo.product_sale_rate}";
 		var cart_quantity = parseInt($("#productCount").val());
 		var sendData = {
 				"user_id" : user_id,
@@ -181,17 +180,14 @@ function btnCart(obj) {
 		};
 		var url = "/order/addCart";
 		$.post(url, sendData, function(data) {
-// 			console.log(data);
+			console.log(data);
 			if (data == "newCart") {
 				alert("장바구니에 상품을 담았습니다.");
 			} else if (data == "dupCart") {
 				alert("이미 담으신 상품이 있어 추가되었습니다.");
-			}
+			} 
 		});
-	/* 로그인 페이지 강제? 이동 */
 	} else {
-// 		console.log("null");
-// 		$.session.set("dest", "/product/detail/${productVo.product_code}");
 		location.href="/main/loginPage";
 	}
 }
@@ -670,7 +666,7 @@ function make2digits(num) {
 }
 
 
-
+<%@ include file="../include/frmOrdered.jsp" %>
 
 </style>
 <div class="container-fluid">
@@ -832,7 +828,7 @@ function make2digits(num) {
 				<ul>
 					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver; border-bottom: 0px; 
 						background-color: white; z-index: 2;">상품설명</a></li>
-					<li><a href="#imsi-tab">임시</a></li>
+<!-- 					<li><a href="#imsi-tab">임시</a></li> -->
 					<li><a href="#tbl-review-tab" id="reviewList">후기</a></li>
 				</ul>
 			</div>
@@ -861,22 +857,22 @@ function make2digits(num) {
 		<div class="col-md-3"></div>
 	</div>
 	
-	<div class="row div-content" id="imsi-tab">
-		<div class="col-md-3"></div>
-		<div class="col-md-6 view-wrap">
-			<div class="imsi view-tab">
-				<ul>
-					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver;">상품설명</a></li>
-					<li><a href="#imsi-tab" style="background-color: white; border-bottom: 0px; z-index: 2;">임시</a></li>
-					<li><a href="#tbl-review-tab">후기</a></li>
-				</ul>
-			</div>
-			<div class="view-content">
-				<p>ghghghgh</p>
-			</div>
-		</div>
-		<div class="col-md-3"></div>
-	</div>
+<!-- 	<div class="row div-content" id="imsi-tab"> -->
+<!-- 		<div class="col-md-3"></div> -->
+<!-- 		<div class="col-md-6 view-wrap"> -->
+<!-- 			<div class="imsi view-tab"> -->
+<!-- 				<ul> -->
+<!-- 					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver;">상품설명</a></li> -->
+<!-- 					<li><a href="#imsi-tab" style="background-color: white; border-bottom: 0px; z-index: 2;">임시</a></li> -->
+<!-- 					<li><a href="#tbl-review-tab">후기</a></li> -->
+<!-- 				</ul> -->
+<!-- 			</div> -->
+<!-- 			<div class="view-content"> -->
+<!-- 				<p>ghghghgh</p> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="col-md-3"></div> -->
+<!-- 	</div> -->
 	
 	<div class="row div-content">
 		<div class="col-md-3"></div>
@@ -885,7 +881,7 @@ function make2digits(num) {
 			<div class="view-tab">
 				<ul>
 					<li><a href="#infoMove-tab" style="border-left: 1px solid Silver;">상품설명</a></li>
-					<li><a href="#imsi-tab">임시</a></li>
+<!-- 					<li><a href="#imsi-tab">임시</a></li> -->
 					<li><a href="#tbl-review-tab" style="background-color: white; border-bottom: 0px; z-index: 2;">후기</a></li>
 				</ul>
 			</div>

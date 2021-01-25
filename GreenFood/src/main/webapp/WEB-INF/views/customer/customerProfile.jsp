@@ -363,7 +363,7 @@ ${testVo}
   </div>
   </div>
   
-  <div id="content_left" style="width:300px;
+ <div id="content_left" style="width:300px;
 height: 700px;
 float:left;
 border-top:2px solid #6ca435;
@@ -381,7 +381,6 @@ padding:0;">
 		
 		<div id="left_bottom">
 			<div><a href="/customer/customerProfile" class="btn">프로필</a></div>
-			<div>나의 쇼핑 활동</div>
 			<div><a href="/customerCenter/question/questionContent" class="btn">Q&amp;A</a></div>
 		</div>
 </div>

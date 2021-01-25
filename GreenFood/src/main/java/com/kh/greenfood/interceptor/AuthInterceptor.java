@@ -25,6 +25,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			} else {
 				query = "?" + query;
 			}
+			System.out.println("uri : " + uri);
+			System.out.println("query : " + query);
 			session.setAttribute("dest", uri + query);
 			response.sendRedirect("/main/loginPage");
 			return false;

@@ -204,4 +204,11 @@ public class ProductServiceImpl implements ProductService {
 		return updateResult;
 	}
 	
+	/* 상품명으로 전체 검색 */
+	@Override
+	public List<ProductVo> getSearchTitle(String product_title) {
+		List<ProductVo> list = productDao.getSearchTitle(product_title);
+		return list;
+	}
+	
 }

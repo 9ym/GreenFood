@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -66,7 +67,6 @@ padding:0;">
 		
 		<div id="left_bottom">
 			<div><a href="/customer/customerProfile" class="btn">프로필</a></div>
-			<div>나의 쇼핑 활동</div>
 			<div><a href="/customerCenter/question/questionContent" class="btn">Q&amp;A</a></div>
 		</div>
 	</div>
@@ -125,8 +125,8 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 				</div>
 				<div id="makeReview">
 					<img src="${path}/resources/images/pencil_review.png" style="width:70px;">
-					<p>후기작성 <span class="showsign">></span></p><img src="">
-					<p><span>후기 갯수</span></p>
+					<p><a href="/customer/customerReview" class="btn">후기작성</a><span class="showsign">></span></p><img src="">
+					<p><span>후기 갯수 : ${reviewCount}개</span></p>
 				</div>
 			</div>
 			<div id="chkorder">

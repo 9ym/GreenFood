@@ -78,5 +78,7 @@ public interface ProductService {
 			HashMap<String, Object> mapShelfLife, HashMap<String, Object> mapSaleRate,
 			HashMap<String, Object> mapSalesDeadlines, String isImage);
 
+	/* 상품명으로 전체 검색 */
+	public List<ProductVo> getSearchTitle(String product_title);
 	
 }

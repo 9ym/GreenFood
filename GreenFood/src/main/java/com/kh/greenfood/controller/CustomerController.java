@@ -24,6 +24,7 @@ import com.kh.greenfood.domain.OrderListCountDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PointVo;
 import com.kh.greenfood.domain.ProductCategoryDto;
+import com.kh.greenfood.domain.ReviewVo;
 import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.MemberService;
 import com.kh.greenfood.service.OrderService;
@@ -91,6 +92,9 @@ public class CustomerController {
 			}
 		}
 		testVo.setUser_point(sum);
+		// 후기 갯수
+		int count = reviewService.getReviewCount(user_id);
+		model.addAttribute("reviewCount", count);
 		return "customer/customerMyPage";
 	}
 	
@@ -293,6 +297,16 @@ public class CustomerController {
 		List<OrderVo> orderVoList = orderService.getOrderStateInfoList(user_id, order_state);
 		model.addAttribute("orderVoList", orderVoList);
 		return "/customer/customerOrdStateList";
+	}
+	
+	// 마이페이지 -> 후기
+	@RequestMapping(value="/customerReview", method=RequestMethod.GET)
+	public String getReview(HttpSession session, Model model) throws Exception{
+		TestVo testVo = (TestVo)session.getAttribute("testVo");
+		String user_id = testVo.getUser_id();
+		List<ReviewVo> reviewVoList = reviewService.getReviewList(user_id);
+		model.addAttribute("reviewVoList", reviewVoList);
+		return "/customer/customerReview";
 	}
 	
 	// 회원가입

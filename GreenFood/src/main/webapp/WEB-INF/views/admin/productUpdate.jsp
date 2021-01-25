@@ -395,9 +395,25 @@ function knowDiff() {
 		var hourNow = dateNow.getHours();
 		/* 몇 일 차이 나나? */
 		var diff = Math.abs(dateDeadlines.getTime() - dateNow.getTime());
-	    diff = Math.ceil(diff / (1000 * 3600 * 24));
+	    diff = Math.floor(diff / (1000 * 3600 * 24));
+	    
+	    console.log("dateDeadlines.getTime() :" + dateDeadlines.getTime());
+		console.log("dateNow.getTime() :" + dateNow.getTime());
+		console.log("diff :" + (dateDeadlines.getTime() - dateNow.getTime()));
+		console.log("diff :" + ((dateDeadlines.getTime() - dateNow.getTime()) / (1000 * 3600 * 24)));
+		console.log("diff :" + Math.abs(dateDeadlines.getTime() - dateNow.getTime()));
+		console.log("diff :" + diff);
+		
+		var dateShow = year +"년 "+ month +"월 "+ date + "일 " + hour;
+		
+		if (dateNow > dateDeadlines) {
+			dateShow += "시 (오늘부터 " + diff + "일 전)";
+		} else {
+			dateShow += "시 (오늘부터 " + diff + "일 뒤)";
+		}
+	    
 		/* 보여줄 문장 */
-	    var dateShow = year +"년 "+ month +"월 "+ date + "일 " + hour + "시 (오늘부터 " + diff + "일 뒤)";
+// 	    var dateShow = year +"년 "+ month +"월 "+ date + "일 " + hour + "시 (오늘부터 " + diff + "일 뒤)";
 		console.log(dateShow);
 		$(".input-date").val(dateShow);
 		return diff;
@@ -483,7 +499,7 @@ function isImage() {
 	var categoryUpdate = $("#product_category").val();
 	console.log("categoryOrigin :" + categoryOrigin);
 	console.log("categoryUpdate :" + categoryUpdate);
-	if ((categoryOrigin != categoryUpdate) && (isImageResult == "isNull")) {
+	if ((categoryOrigin != categoryUpdate) && (isImageResult == "isNull")) { // 카테고리 변경
 		isImageResult = "changeCategory";
 	}
 	console.log("isImageResult :" + isImageResult);
