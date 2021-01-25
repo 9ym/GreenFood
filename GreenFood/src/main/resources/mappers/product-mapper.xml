@@ -152,7 +152,7 @@
 		<![CDATA[
 			select * from  
 			    (select * from tbl_product
-			    where ( sysdate < product_sales_deadlines
+			    where ( sysdate <= product_sales_deadlines
 					or product_sales_deadlines is null )
 			    and ( product_category = #{product_category}
 			   		and product_code != #{product_code} )

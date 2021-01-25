@@ -95,9 +95,6 @@ public class S3Util implements Keys, BucketFolder {
 		case "2007":
 			folderName = CATEGORY_2007;
 			break;
-		case "2008":
-			folderName = CATEGORY_2008;
-			break;
 		}
 		return folderName;
 	}
