@@ -74,9 +74,6 @@ $(function() {
 			});
 	});
 	
-	
-	
-	
 	/* 최종 가격 표현 */
 	var priceGeneral = "${productVo.product_price}";
 	$("#priceGeneral").text(addComma(priceGeneral));
@@ -167,7 +164,6 @@ function btnCart(obj) {
 	var testVo = "${sessionScope.testVo}";
 
 	/* 로그인 됐으면 장바구니 추가 가능 */
-	if(testVo != ""){
 		var user_id = "${sessionScope.testVo.user_id}";
 		var product_code = "${productVo.product_code}";
 		var product_title = "${productVo.product_title}";
@@ -191,9 +187,6 @@ function btnCart(obj) {
 				alert("이미 담으신 상품이 있어 추가되었습니다.");
 			} 
 		});
-	} else {
-		location.href="/main/loginPage";
-	}
 }
 
 /* 바로구매(결제) 이동 */

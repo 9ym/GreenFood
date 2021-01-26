@@ -22,9 +22,11 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			String query = request.getQueryString();
 			if(query == null || query.equals("")) {
 				query = "";
+			} else if(uri == "/order/addCart") {
+				System.out.println("음");
 			} else {
 				query = "?" + query;
-			}
+			} 
 			System.out.println("uri : " + uri);
 			System.out.println("query : " + query);
 			session.setAttribute("dest", uri + query);
