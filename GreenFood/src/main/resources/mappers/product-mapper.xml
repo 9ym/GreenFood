@@ -133,8 +133,8 @@
 	<select id="getSaleProduct" resultType="ProductVo">
 		<![CDATA[
 			select * from tbl_product
-			where ( sysdate < product_sales_deadlines
-			    and product_sales_deadlines is not null )
+			where ( product_sales_deadlines >= sysdate
+					and product_sales_deadlines is not null )
 			and sysdate + 14 >= product_sales_deadlines
 			order by product_sales_deadlines asc
 		]]>
@@ -152,7 +152,7 @@
 		<![CDATA[
 			select * from  
 			    (select * from tbl_product
-			    where ( sysdate < product_sales_deadlines
+			    where ( sysdate <= product_sales_deadlines
 					or product_sales_deadlines is null )
 			    and ( product_category = #{product_category}
 			   		and product_code != #{product_code} )
@@ -291,7 +291,7 @@
 	<sql id="search">
 		<choose>
 			<when test="keyword != null">
-				where product_title      like '%' || #{keyword} || '%'
+				where product_title like '%' || #{keyword} || '%'
 			</when>
 		</choose>
 		
@@ -345,5 +345,10 @@
 		where product_code = #{product_code}
 	</update>
 
+	<!-- 상품명으로 전체 검색 -->
+	<select id="getSearchTitle" resultType="ProductVo">
+		select * from tbl_product
+		where product_title like '%' || #{product_title} || '%'
+	</select>
 
 </mapper>

@@ -87,6 +87,31 @@ public class ProductController {
 		return "product/menuListForm";
 	}
 	
+	/* 상품명으로 전체 검색 */
+	@RequestMapping(value="/searchTitle/{product_title}", method=RequestMethod.GET)
+	public String getSearchTitle(@PathVariable String product_title, Model model) throws Exception {
+		/* 비슷한 상품명 리스트 + 이미지 리스트 */
+		List<ProductVo> listSearchTitle = productService.getSearchTitle(product_title);
+		model.addAttribute("productList", listSearchTitle);
+		addProductImageDtoList(listSearchTitle, model);
+		
+		/* 검색 결과 메세지 */
+		String result = "";
+		if (listSearchTitle.size() != 0) {
+			result = "isList";
+		} else {
+			result = "noList";
+		}
+		model.addAttribute("msgResult", result);
+		
+		/* 검색 내용 넘기기 */
+		model.addAttribute("searchTitle", product_title);
+		
+		addProductCategoryList(model);
+		
+		return "product/menuListForm";
+	}
+	
 	/* 상품 각각에 대한 ProductImageDto */
 	private void addProductImageDtoList(List<ProductVo> productList, Model model) throws Exception {
 		List<ProductImageDto> listImageDto = new ArrayList<>();
@@ -113,7 +138,5 @@ public class ProductController {
 		model.addAttribute("reviewListProduct", reviewListProduct);
 		return reviewListProduct;
 	}
-	
-	
 	
 }

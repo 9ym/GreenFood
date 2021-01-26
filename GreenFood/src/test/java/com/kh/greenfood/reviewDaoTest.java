@@ -55,7 +55,8 @@ public class reviewDaoTest {
 	@Test
 	public void testInsertReview() throws Exception {
 		ReviewVo reviewVo = new ReviewVo();
-		reviewVo.setReview_title("후기제목3");
+		reviewVo.setProduct_title("당근");
+		reviewVo.setReview_title("당근3");
 		reviewVo.setReview_content("후기내용3");
 		reviewDao.insertReview(reviewVo);
 //		System.out.println("testInsertReview, reviewVo :" + reviewVo );

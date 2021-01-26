@@ -280,6 +280,10 @@ $(function(){
 			var dateDeadLines = $(this).attr("data-deadlines");
 			var dateDeadNew = new Date(dateDeadLines);
 			var now = new Date();
+			
+			console.log("dateDeadNew :" + dateDeadNew);
+			console.log("now :" + now);
+			
 			if (dateDeadNew < now) {
 				$(this).parent().css("text-decoration", "line-through");
 				$(this).css("color", "tomato");

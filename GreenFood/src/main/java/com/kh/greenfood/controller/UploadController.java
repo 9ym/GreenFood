@@ -158,6 +158,10 @@ public class UploadController {
 			/* imageDtoOrigin 그대로 + productVo 카테고리 변경 : s3 에서 카테고리 수정 */
 			if (isImage.equals("changeCategory")) {
 				// 바꾼 카테로 이미지 복사하고 -> 이전 카테에서 이미지 삭제
+				S3Util.fileCopy(imageDtoOrigin.getImage_info_file_name(), 
+						categoryOrigin, vo.getProduct_category());
+				S3Util.fileCopy(imageDtoOrigin.getImage_content_file_name(), 
+						categoryOrigin, vo.getProduct_category());
 				S3Util.fileDelete(imageDtoOrigin.getImage_info_file_name(), categoryOrigin);
 				S3Util.fileDelete(imageDtoOrigin.getImage_content_file_name(), categoryOrigin);
 //				S3Util.fileUpload(f, file.getOriginalFilename(), vo.getProduct_category());
@@ -188,6 +192,7 @@ public class UploadController {
 		}
 		model.addAttribute("resultMsg", resultMsg);
 		
+//		return "/admin/productUpdateForm/" + vo.getProduct_code();
 		return "/admin/productUpdateForm/" + vo.getProduct_code();
 	}
 	

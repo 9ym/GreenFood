@@ -93,5 +93,7 @@ public interface ProductDao {
 	/* 상품 이미지 수정 */
 	public int updateProductImage(ProductImageDto productImageDto, String product_code, String isImage);
 	
-
+	/* 상품명으로 전체 검색 */
+	public List<ProductVo> getSearchTitle(String product_title);
+	
 }
