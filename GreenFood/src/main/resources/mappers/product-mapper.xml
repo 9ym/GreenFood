@@ -294,7 +294,6 @@
 				where product_title like '%' || #{keyword} || '%'
 			</when>
 		</choose>
-		
 	</sql>
 
 	<!-- 해당 상품 다시 판매 -->

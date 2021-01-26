@@ -9,15 +9,18 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
+import com.kh.greenfood.domain.SearchDto;
 import com.kh.greenfood.service.ProductService;
 import com.kh.greenfood.util.S3Util;
 
@@ -31,7 +34,8 @@ public class UploadController {
 	/* 상품 등록 -> ProductVo, ProductImageDto DB 생성 + 이미지 s3 업로드 */
 	@RequestMapping(value="/productAdd", method=RequestMethod.POST)
 	public String productAdd(@RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2,
-			Model model, ProductVo vo, int shelfLife, int saleRate, int salesDeadlines) throws Exception {
+			Model model, ProductVo vo, int shelfLife, int saleRate, int salesDeadlines, 
+			RedirectAttributes rttr) throws Exception {
 		
 		System.out.println("in in in in in");
 		System.out.println("vo:" + vo);
@@ -40,10 +44,6 @@ public class UploadController {
 		System.out.println("salesDeadlines:" + salesDeadlines);
 		System.out.println("file 이름 :" + file.getOriginalFilename());
 		System.out.println("file2 이름 :" + file2.getOriginalFilename());
-		
-		/* 상품 카테고리 */
-		List<ProductCategoryDto> categoryList = productService.getCategory();
-		model.addAttribute("categoryList", categoryList);
 		
 		/* img 파일 변환 - ProductImageDto 생성 */
 		File f = new File(file.getOriginalFilename());
@@ -65,9 +65,17 @@ public class UploadController {
 		} else {
 			resultMsg = "add_fail";
 		}
-		model.addAttribute("resultMsg", resultMsg);
+//		model.addAttribute("resultMsg", resultMsg);
+		rttr.addFlashAttribute("reaultMsg", resultMsg);
 		
-		return "/admin/productAdd";
+		/* 상품 카테고리 */
+		List<ProductCategoryDto> categoryList = productService.getCategory();
+		model.addAttribute("categoryList", categoryList);
+		
+		ProductVo voLatest = productService.getProductLatest();
+		
+		/* 방금 막 등록한 관리자-상품 페이지로 이동 */
+		return "redirect:/admin/productUpdateForm/" + voLatest.getProduct_code();
 	}
 	
 	/* 상품 수정 -> ProductVo, ProductImageDto DB 수정 + 이미지 s3 삭제 후 업로드 */
@@ -75,7 +83,7 @@ public class UploadController {
 	public String productUpdate(@RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2,
 			ProductVo vo, int shelfLife, int saleRate, int salesDeadlines, 
 			String shelfLifeStr, String saleRateStr, String salesDeadlinesStr,
-			String categoryOrigin, String isImage , Model model) throws Exception {
+			String categoryOrigin, String isImage , Model model, RedirectAttributes rttr) throws Exception {
 		
 		System.out.println("in-update");
 		System.out.println("vo-update :" + vo);
@@ -99,10 +107,6 @@ public class UploadController {
 		/* 상품 카테고리 */
 		List<ProductCategoryDto> categoryList = productService.getCategory();
 		model.addAttribute("categoryList", categoryList);
-		
-		/* 모든 상품 전부 다 */ 
-		List<ProductVo> productList = productService.getProductList();
-		model.addAttribute("productListAll", productList);
 		
 		/* 원래 ProductImageDto */
 		ProductImageDto imageDtoOrigin = productService.getProductImage(vo.getProduct_code());
@@ -129,6 +133,7 @@ public class UploadController {
 			file2.transferTo(f2);
 			imageDtoUpdate = new ProductImageDto(vo.getProduct_code(), 
 					file.getOriginalFilename(), file2.getOriginalFilename());
+			break;
 		}
 		System.out.println("imageDtoUpdate :" + imageDtoUpdate);
 		
@@ -152,7 +157,7 @@ public class UploadController {
 				mapShelfLife, mapSaleRate, mapSalesDeadlines, isImage);
 		System.out.println("updateResult :" + updateResult);
 		
-		/* 상품 등록 성공 -> 이미지 s3 삭제 후 업로드 */
+		/* 상품 등록 성공 -> 이미지 s3 수정 여부 */
 		String resultMsg = "";
 		if (updateResult.equals("update_product")) {
 			/* imageDtoOrigin 그대로 + productVo 카테고리 변경 : s3 에서 카테고리 수정 */
@@ -164,11 +169,10 @@ public class UploadController {
 						categoryOrigin, vo.getProduct_category());
 				S3Util.fileDelete(imageDtoOrigin.getImage_info_file_name(), categoryOrigin);
 				S3Util.fileDelete(imageDtoOrigin.getImage_content_file_name(), categoryOrigin);
-//				S3Util.fileUpload(f, file.getOriginalFilename(), vo.getProduct_category());
-//				S3Util.fileUpload(f2, file2.getOriginalFilename(), vo.getProduct_category());
 				System.out.println("s3 카테고리 변경 시도??");
 			}
 			resultMsg = "update_product_success";
+		/* 상품 등록 성공 -> 이미지 s3 삭제 후 업로드 */
 		} else if (updateResult.equals("update_all")){
 			switch (isImage) {
 			case "isInfo" :
@@ -190,10 +194,10 @@ public class UploadController {
 		} else {
 			resultMsg = "update_fail";
 		}
-		model.addAttribute("resultMsg", resultMsg);
+		rttr.addFlashAttribute("resultMsg", resultMsg);
 		
 //		return "/admin/productUpdateForm/" + vo.getProduct_code();
-		return "/admin/productUpdateForm/" + vo.getProduct_code();
+		return "redirect:/admin/productUpdateForm/" + vo.getProduct_code();
 	}
 	
 	/* s3에 업로드 된 이미지 파일  url 얻기 */

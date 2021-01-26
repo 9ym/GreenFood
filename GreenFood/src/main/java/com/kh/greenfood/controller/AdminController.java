@@ -160,8 +160,7 @@ public class AdminController {
 
 		/* 검색 조건 + 페이징 (1page에 10개만 보이기)*/
 		int count = productService.getSearchProductCount(searchDto);
-		searchDto.setTotalCount(count);
-		searchDto.setPagingInfo();
+		searchDto.setPagingInfo(count);
 		System.out.println("searchDto-set :" + searchDto);
 		model.addAttribute("searchDto", searchDto);
 		model.addAttribute("searchCount", count);

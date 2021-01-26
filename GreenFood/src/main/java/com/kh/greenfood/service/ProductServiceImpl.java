@@ -211,4 +211,11 @@ public class ProductServiceImpl implements ProductService {
 		return list;
 	}
 	
+	/* 제일 최근에 추가된 상품 */
+	@Override
+	public ProductVo getProductLatest() {
+		ProductVo vo = productDao.getProductLatest();
+		return vo;
+	}
+	
 }

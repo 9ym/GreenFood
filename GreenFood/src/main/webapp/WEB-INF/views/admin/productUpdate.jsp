@@ -246,16 +246,30 @@ input[readonly], textarea[readonly] {
 <script>
 $(function(){
 
-	/* 상품 등록 성공 여부 알림 */
+	/* 상품 등록, 수정, ... 여부 알림 */
 	var resultMsg = "${resultMsg}";
-	if (resultMsg == "end_success") {
-		alert("판매 중지되었습니다.")
-	} else if (resultMsg == "end_fail") {
-		alert("판매 중지가 실패했습니다. 다시 시도해 주세요.")
-	} else if (resultMsg == "start_success") {
-		alert("판매 시작했습니다.")
-	} else if (resultMsg == "start_fail") {
-		alert("판매 시작이 실패했습니다. 다시 시도해 주세요.")
+	switch (resultMsg) {
+		case 'end_success':
+			alert("판매 중지되었습니다.")
+			break;
+		case 'end_fail':
+			alert("판매 중지가 실패했습니다. 다시 시도해 주세요.")
+			break;
+		case 'start_success':
+			alert("판매 시작했습니다.")
+			break;
+		case 'start_fail':
+			alert("판매 시작이 실패했습니다. 다시 시도해 주세요.")
+			break;
+		case 'update_product_success':
+			alert("상품 수정을 성공했습니다.")
+			break;
+		case 'update_all_success':
+			alert("상품과 이미지 수정을 성공했습니다.")
+			break;
+		case 'update_fail':
+			alert("상품 수정을 실패했습니다. 다시 시도해 주세요.")
+			break;
 	}
 
 	/* amazon s3 이미지 불러오기 */

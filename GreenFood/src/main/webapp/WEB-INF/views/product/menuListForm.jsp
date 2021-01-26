@@ -197,12 +197,13 @@ $(function() {
 	/* 상품명 전체 검색 -> 결과 메시지 */
 	var msgResult = "${msgResult}";
 	if (msgResult == "noList") {
-		$(".div-search > strong").empty();
+// 		$(".div-search > strong").empty();
 		alert("검색 결과가 없습니다. 다시 검색해 주세요.");
-		$(".div-search > strong").text("검색 결과가 없습니다.")
-	} else {
+		$(".div-search").show();
+		$(".div-search > strong").text("검색 결과가 없습니다. 다시 검색해 주세요.")
+	} else if (msgResult == "isList") {
 // 		alert("비슷한 제품을 찾았습니다.");
-		$(".div-search").attr("display", "block");
+		$(".div-search").show();
 	}
 	
 	/* s3에서 이미지 받아오기 */

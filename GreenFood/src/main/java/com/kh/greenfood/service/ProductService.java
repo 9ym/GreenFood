@@ -81,4 +81,7 @@ public interface ProductService {
 	/* 상품명으로 전체 검색 */
 	public List<ProductVo> getSearchTitle(String product_title);
 	
+	/* 제일 최근에 추가된 상품 */
+	public ProductVo getProductLatest();
+	
 }
