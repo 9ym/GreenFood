@@ -310,7 +310,7 @@ public class CustomerCenterController {
 			questionOneService.updateQuestionOneAnswer(questionOneVo);
 //			rttr.addFlashAttribute("msg", "updateSuccess");
 
-			/*//	----------- 문자 메세지 보내기 ---------------------------		
+			//	----------- 문자 메세지 보내기 ---------------------------		
 			String api_key = "NCSUYJ0RBVZP2OXB";
 		    String api_secret = "DVQ7LGFSMK6FDRWFCNJFPTQMFRGQ19YS";
 		    Message coolsms = new Message(api_key, api_secret);
@@ -331,7 +331,7 @@ public class CustomerCenterController {
 		      System.out.println(e.getMessage());
 		      System.out.println(e.getCode());
 		    } // 문자메시지 보내기 끝
-*/			
+			
 		    return "redirect:/customerCenter/questionOne/questionOneContent";
 		}
 		
