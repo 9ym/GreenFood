@@ -521,7 +521,16 @@ $(function(){
 																	<td>${customerList.user_name}</td>
 																	<td>${customerList.user_date}</td>
 																	<td>${customerList.user_code}</td>
-																	<td>${customerList.user_deleted}</td>
+																	<td
+																	<c:choose>
+																		<c:when test="${customerList.user_deleted == 'Y'}">
+																			style="color : red;"
+																		</c:when>
+																		<c:when test="${customerList.user_deleted == 'N'}">
+																			style="color : blue;"
+																		</c:when>
+																	</c:choose>
+																	>${customerList.user_deleted}</td>
 																	<c:choose>
 																	<c:when test="${customerList.user_deleted == 'N'}">
 																	<td><button type="button" id="deleteCustomer" class="deleteCustomer">탈퇴</button></td>

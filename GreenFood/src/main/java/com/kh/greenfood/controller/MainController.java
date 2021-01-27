@@ -8,12 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.CustomerVo;
-import com.kh.greenfood.domain.EmailDto;
 import com.kh.greenfood.service.MemberService;
 import com.kh.greenfood.service.ProductService;
 import com.kh.greenfood.util.EmailUtil;

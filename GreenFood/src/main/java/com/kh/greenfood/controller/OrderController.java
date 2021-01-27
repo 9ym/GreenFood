@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +18,6 @@ import com.kh.greenfood.domain.CartDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.CustomerVo;
-import com.kh.greenfood.service.MemberService;
 import com.kh.greenfood.service.OrderService;
 import com.kh.greenfood.service.ProductService;
 import com.kh.greenfood.util.S3Util;
@@ -56,7 +54,6 @@ public class OrderController {
 	@ResponseBody
 	public String cartIn(String user_id, String product_code, String product_title, 
 			int product_price, int product_sale_rate, int cart_quantity, HttpSession session) throws Exception {
-		CustomerVo customerVo =  (CustomerVo)session.getAttribute("customerVo");
 		CartDto cartDto = new CartDto(user_id, product_code, product_title, 
 				product_price, product_sale_rate, cart_quantity);
 		String result = orderService.addCart(cartDto);

@@ -123,4 +123,11 @@ public class testProduct {
 		System.out.println("list :" + list);
 	}
 	
+	@Test
+	public void testCont() throws Exception {
+		SearchDto searchDto = new SearchDto("date", "all", "desc", null);
+		int count = productDao.getSearchProductCount(searchDto);
+		System.out.println("count :" + count);
+	}
+	
 }

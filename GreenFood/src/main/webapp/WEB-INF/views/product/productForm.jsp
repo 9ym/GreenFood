@@ -167,7 +167,7 @@ $(function() {
 /* 장바구니에 상품 넣기 */
 function btnCart(obj) {
 	var customerVo = "${sessionScope.customerVo}";
-
+	if(customerVo != ""){
 	/* 로그인 됐으면 장바구니 추가 가능 */
 		var user_id = "${sessionScope.customerVo.user_id}";
 		var product_code = "${productVo.product_code}";
@@ -192,6 +192,9 @@ function btnCart(obj) {
 				alert("이미 담으신 상품이 있어 추가되었습니다.");
 			} 
 		});
+	} else {
+		location.href="/main/loginPage";
+	}
 }
 
 /* 바로구매(결제) 이동 */
