@@ -12,8 +12,6 @@
 <meta charset="UTF-8">
 <title>QuestionOneWrite</title>
 
-
-
 <style>
 .page_aticle.aticle_type2 {
     padding-top: 65px;
@@ -26,7 +24,6 @@
 div {
     display: block;
 }
-
 
 #snb {
 	padding: 0 10px 0 20px;
@@ -232,7 +229,6 @@ $(function(){
 			var url = "/customerCenter/questionOne/getOrderList"
 		
 			$.post(url, function(data){
-// 				console.log(data);
 				$("#checkOrderTable > tbody").empty();
 				var nowCode = 0;
 				var count = 0;
@@ -293,10 +289,8 @@ function make2digits(num) {
 }
 </script>
 
-
 </head>
 <body>
-	orderVo : ${OrderVo }
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12 main-col">
@@ -318,35 +312,24 @@ function make2digits(num) {
 											<li><a
 												href="/customerCenter/questionOne/questionOneContent">1:1
 													문의</a></li>
-											<!--
-										<li><a href="#">상품 제안</a></li>
-										<li><a href="#">에코포장 피드백</a></li> -->
 										</ul>
 									</div>
-									<!-- <a href="#"
-									class="link_inquire"><span class="emph">도움이 필요하신가요 ?</span>
-									1:1 문의하기</a> -->
 								</div>
 							</div>
-
 
 							<!-- ------------------------- 1 : 1 문의 메인 창 --------------------------- -->
 							<div class="col-md-9">
 								<div class="head_aticle">
 									<h2 class="tit">
 										1 : 1 문의 <span class="tit_sub"> 궁금하신 내용을 문의해 주세요.</span>
-										<!-- <button type="button" id="btnNoticeWrite">공지사항 작성</button> -->
 									</h2>
 
 								</div>
 
 								<div class="row">
 									<div class="col-md-12">
-										<form role="form"
-											action="/customerCenter/questionOne/insertOuestionOne"
-											method="post">
+										<form role="form" action="/customerCenter/questionOne/insertOuestionOne" method="post">
 											<table class="table">
-
 												<tbody>
 													<tr>
 														<th>작성자</th>
@@ -354,9 +337,8 @@ function make2digits(num) {
 															value="${sessionScope.customerVo.user_id}" size=26
 															class="read_only"
 															style="background-color: #f7f5f8; width: 150px;"
-															readonly="readonly"></td>
+															readonly="readonly" name="q_o_writer"></td>
 													</tr>
-
 
 													<tr>
 														<th>제목</th>
@@ -385,11 +367,11 @@ function make2digits(num) {
 														<th>주문번호</th>
 														<td><input type=text id="q_o_order_code"
 															name="q_o_order_code" style="width: 25%" value=""
-															placeholder=" 주문번호를  조회해주세요."> <a
+															placeholder=" 주문번호를  조회해주세요." required> <a
 															id="modal-75830" href="#modal-container-75830"
 															role="button" class="" data-toggle="modal"> <input
 																type="button" class="bhs_button yb checkOrder"
-																value="주문조회" id="orderList"></a> <br> <span
+																value="주문조회" id="orderList" ></a> <br> <span
 															id="span1" style="font-size: 10pt; color: #5AB63F">*
 																주문내역이 없으면 비워두세요.</span></td>
 													</tr>
@@ -399,9 +381,6 @@ function make2digits(num) {
 															value="${sessionScope.customerVo.user_email}" size=26
 															class="read_only" style="width: 200px;"> <span
 															class="noline smalle" style="padding-left: 10px">
-																<input type=checkbox name=mailling style="width: 20px;">
-																<span style="font-size: 8pt; color: #5AB63F">답변
-																	내용을 이메일로 받겠습니다.</span>
 														</span></td>
 													</tr>
 													<tr>
@@ -422,32 +401,7 @@ function make2digits(num) {
 																class="editing_area" required label="내용"
 																placeholder=" 문의 내용을 입력해주세요."></textarea></td>
 													</tr>
-													<tr>
-														<th>이미지 첨부</th>
-														<td>
-															<table width=100% id=table
-																style="border: solid 1px #f4f4f4; border-collapse: collapse;">
-																<tr id="tr_0">
-																	<td width=10px; nowrap align="center"
-																		style="width: 30px;">1</td>
-																	<td width=100%>
-																	<input type=file name="q_o_image" style="width: 50%" class=linebg> <!-- <a
-																href="javascript:add()"><img
-																	src="/shop/data/skin/designgj/img/common/btn_upload_plus.gif"
-																	align=absmiddle></a> --></td>
-																</tr>
-															</table> <!-- <table>
-														<tr>
-															<td height=1></td>
-														</tr>
-													</table> -->
-															<div width=100%
-																style="padding: 5px; font-size: 10pt; color: #5AB63F"
-																" class=stxt>
-																* 파일은 최대 5개까지 업로드가 가능합니다.<br>
-															</div>
-														</td>
-													</tr>
+													
 												</tbody>
 											</table>
 
@@ -493,7 +447,6 @@ function make2digits(num) {
 															style="padding-bottom: 7px; border-bottom: 2px solid #5AB63F;">문의하실
 															주문번호를 선택해주세요</div>
 
-
 														<table width="100%" align="center" cellpadding="0"
 															cellspacing="0">
 															<tbody
@@ -517,8 +470,6 @@ function make2digits(num) {
 																					</td>
 																				</tr>
 																			</table>
-
-
 
 																			<table width="100%" class="xans-board-listheader jh"
 																				cellpadding="0" cellspacing="0" id="checkOrderTable"
@@ -548,12 +499,7 @@ function make2digits(num) {
 														</table>
 													</div>
 
-
-
-
-
 													<div class="modal-footer">
-
 
 														<button type="button" class="btn_checkOrderModalClose"
 															data-dismiss="modal">close x</button>
@@ -566,8 +512,6 @@ function make2digits(num) {
 
 									</div>
 								</div>
-
-
 							</div>
 							<!-- // 자주하는 질문 메인창  -->
 

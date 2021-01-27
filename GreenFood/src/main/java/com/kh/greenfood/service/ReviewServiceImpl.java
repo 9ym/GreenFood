@@ -18,6 +18,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Inject
 	private ReviewDao reviewDao;
 
+	// 입력
 	@Override
 	@Transactional
 	public int insertReview(ReviewVo reviewVo) throws Exception {
@@ -31,12 +32,14 @@ public class ReviewServiceImpl implements ReviewService {
 		return countResult;
 	}
 
+	// 목록
 	@Override
 	public List<ReviewVo> getReviewList(PagingDto pagingDto) throws Exception {
 		List<ReviewVo> reviewList = reviewDao.getReviewList(pagingDto);
 		return reviewList;
 	}
 
+	// 글 조회
 	@Override
 	public ReviewVo selectReview(int review_no) throws Exception {
 		reviewDao.updateReviewReadcount(review_no);
@@ -44,27 +47,29 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewVo;
 	}
 
-
+	// 전체 개시글 수 가져오기
 	@Override
 	public int reviewListCount(PagingDto pagingDto) throws Exception {
 		int count = reviewDao.reviewListCount(pagingDto);
 		return count;
 	}
 	
+	// 글 수정
 	@Override
 	public void updateReview(ReviewVo reviewVo) throws Exception {
 		reviewDao.updateReview(reviewVo);
 		
 	}
 
+	// 글 삭제
 	@Override
 	public void deleteReview(int review_no) throws Exception {
 		reviewDao.deleteReview(review_no);
 		
 	}
-
+	
+	// 후기 작성시 넘겨온 주문번호,제품번호,제품명 나타내기
 	@Override
-
 	public ReviewVo selectInfoOrderReview(String order_code, String product_code) throws Exception {
 		ReviewVo reviewVo = reviewDao.selectInfoOrderReview(order_code, product_code);
 		System.out.println("ReviewServiceImpl, selectInfoOrderReview :" + reviewVo);

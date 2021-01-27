@@ -20,7 +20,6 @@ $(function(){
 	$("#btnAnswer").click(function(e){
 		e.preventDefault();
 		var q_no = $(this).attr("data-bno");
-		
 		location.href="/customerCenter/questionOne/questionOneAnswerWrite/" + q_no;
 	});
 	
@@ -143,8 +142,6 @@ table {
 }
 </style>
 
-
-
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
@@ -181,7 +178,7 @@ table {
 						<div class="questionOneAnswer">
 						<div class="contentArea" style="margin-top: 15px;">
 							<textarea style="padding-top: 10px; background-color: white" style="border: none" class="form-control update" id="q_o_content"
-							placeholder="내용을 입력해주세요." readonly>${questionOneVo.q_o_content}${questionOneVo.q_o_image }</textarea>
+							placeholder="내용을 입력해주세요." readonly>${questionOneVo.q_o_content}</textarea>
 						</div>
 						<div class="contentArea" style="margin-top: 15px; border-style:solid; border-width: 1px; border-color: #39d070 ">
 							<c:choose>
@@ -189,7 +186,7 @@ table {
 									<p style="padding-top: 10px;">[ 답변중 입니다. ]</p>
 								</c:when>
 								<c:otherwise>
-									<p style="padding-top: 10px;">${questionOneVo.q_o_answer }</p>
+									<p style="padding-top: 10px;">${questionOneVo.q_o_answer}</p>
 								</c:otherwise> 
 							</c:choose>
 							
@@ -229,14 +226,6 @@ table {
 			<c:otherwise>
 			</c:otherwise> 
 		</c:choose>
-		
-		
-		
-		
-		
-		
-		
-		
 	</div>
 	</div>
 

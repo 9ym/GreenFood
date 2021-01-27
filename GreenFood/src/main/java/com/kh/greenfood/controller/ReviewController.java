@@ -47,8 +47,7 @@ public class ReviewController {
 	// -------------------------- 후기 입력하기 --------------------------------
 	@RequestMapping(value="/insertReview", method=RequestMethod.POST)
 	public String insertReview(ReviewVo reviewVo, HttpSession session, Model model) throws Exception {
-//		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
-
+		
 		CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
 		String user_id = customerVo.getUser_id();
 		

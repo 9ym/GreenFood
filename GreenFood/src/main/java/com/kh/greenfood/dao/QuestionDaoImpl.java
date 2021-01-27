@@ -1,4 +1,4 @@
-package com.kh.greenfood.dao;
+﻿package com.kh.greenfood.dao;
 
 import java.util.List;
 
@@ -18,50 +18,54 @@ public class QuestionDaoImpl implements QuestionDao {
 	@Inject
 	private SqlSession sqlSession;
 
+	// 자주하는 질문
 	@Override
 	public void insertQuestion(QuestionVo questionVo) throws Exception {
 		sqlSession.insert(NAMESPACE + "insertQuestion", questionVo);
 
 	}
 
+	// 자주하는 질문 리스트
 	@Override
 	public List<QuestionVo> getQuestionList(PagingDto pagingDto) throws Exception {
 		List<QuestionVo> questionList = sqlSession.selectList(NAMESPACE + "getQuestionList", pagingDto);
 		return questionList;
 	}
 
+	// 자주하는 질문 리스트 카테고리
 	@Override
 	public QuestionVo selectQuestion(int question_no) throws Exception {
 		QuestionVo questionVo = sqlSession.selectOne(NAMESPACE + "selectQuestion", question_no);
 		return questionVo;
 	}
 
-	
+	// 자주하는 질문 카운트
 	@Override
 	public void updateQuestion(QuestionVo questionVo) throws Exception {
 		sqlSession.update(NAMESPACE + "updateQuestion", questionVo);
 		
 	}
 
+	// 자주하는 질문 상세보기
 	@Override
 	public void deleteQuestion(int question_no) throws Exception {
 		sqlSession.delete(NAMESPACE + "deleteQuestion", question_no);
 		
 	}
 
+	// 자주하는 질문 수정
 	@Override
 	public int questionListCount(PagingDto pagingDto) throws Exception {
 		int count = sqlSession.selectOne(NAMESPACE + "questionListCount", pagingDto);
 		return count;
 	}
 
-	// // ī�װ��� �ش��ϴ� ����Ʈ �޾ƿ���
+	// 자주하는 질문 삭제
 	@Override
 	public List<QuestionVo> getQuestionListCategory(int question_category) {
 		List<QuestionVo> questionListCategory = sqlSession.selectList(NAMESPACE + "getQuestionListCategory", question_category);
 		return questionListCategory;
 	}
 
-	
 
 }
