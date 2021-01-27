@@ -6,6 +6,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.kh.greenfood.dao.ReviewDao;
 import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.ReviewVo;
@@ -17,15 +19,21 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewDao reviewDao;
 
 	@Override
-	public void insertReview(ReviewVo reviewVo) throws Exception {
-		reviewDao.insertReview(reviewVo);
-		
+	@Transactional
+	public int insertReview(ReviewVo reviewVo) throws Exception {
+		int count = reviewDao.insertReview(reviewVo);
+		int countResult = 0;
+		if(count > 0) {
+			String product_code = reviewVo.getProduct_code();
+			int avg_count = reviewDao.averageStar(product_code);
+			countResult = reviewDao.updateStar(avg_count, product_code);
+		}
+		return countResult;
 	}
 
 	@Override
 	public List<ReviewVo> getReviewList(PagingDto pagingDto) throws Exception {
 		List<ReviewVo> reviewList = reviewDao.getReviewList(pagingDto);
-//		System.out.println("ReviewServiceImpl reviewList :" + reviewList);
 		return reviewList;
 	}
 
@@ -82,6 +90,13 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int getReviewCount(String user_id) {
 		int count = reviewDao.getReviewCount(user_id);
+		return count;
+	}
+
+	// 상품 보기에서 리뷰카운트
+	@Override
+	public int getProductReviewCount(String product_code) {
+		int count = reviewDao.getProductReviewCount(product_code);
 		return count;
 	}
 }

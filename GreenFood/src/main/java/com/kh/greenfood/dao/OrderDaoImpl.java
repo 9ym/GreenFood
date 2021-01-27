@@ -186,4 +186,11 @@ public class OrderDaoImpl implements OrderDao {
 		return count;
 	}
 
+	/* 오더 카운트 업데이트 */
+	@Override
+	public int updateOrderCount(String product_code) {
+		int updateCount = sqlSession.update(NAMESPACE + "updateOrderCount", product_code);
+		return updateCount;
+	}
+
 }

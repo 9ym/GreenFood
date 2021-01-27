@@ -113,8 +113,8 @@ public class testProduct {
 	
 	@Test
 	public void testGetReviewdListProduct() throws Exception {
-		List<ReviewVo> reviewListproduct = productDao.getReviewdListProduct("당근");
-		System.out.println(reviewListproduct);
+		List<ReviewVo> reviewListproduct = productDao.getReviewdListProduct("1243", 1, 5);
+		System.out.println("reviewListproduct : " + reviewListproduct);
 	}
 	
 	@Test

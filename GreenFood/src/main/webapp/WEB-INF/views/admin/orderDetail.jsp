@@ -104,52 +104,6 @@
 #btnFinalPay {
 	margin-top : 50px;
 }
-/*
-.div-btn {
-	position : absolute;
-	left : 400px;
-	top : 43px;
-	width : 100px;
-}
-.div-btn input{
-	float : left;
-	width : 40px;
-	height : 26px;	
-	border-top : 1px solid LightGray;
-	border-bottom : 1px solid LightGray;
-	border-left : 0px;
-	border-right : 0px;
-	text-align : center;
-}
-.div-btn button{
-	float : left;
-	border: solid 1.5px LightGray;
-	width: 20px;
-    height: 26px;
-    text-align: center;
-    color: #6ca435;
-    font-weight: bold;
-    font-size: 17px;
-/* 	position : relative; 
-/* 	bottom : 25px; 
-}
-.div-btn-delete {
-	position: absolute;
-    left: 600px;
-    top: 43px;
-    width: 100px;
-}
-.div-btn-delete .btnDelete {
-	border : 0px;
-	background-color: white;
-	width: 20px;
-    height: 26px;
-    text-align: center;
-    color: gainsboro;
-}
-.div-hidden {
-	display : none;
-}*/
 
 .txt {
 	padding : 120px 0px;
@@ -159,12 +113,9 @@
 }
 .div-price {
 	float : right;
-/* 	border : 2px dashed green; */
-/* 	display : block; */
 	width : 30%;
 	height : auto;
 	margin-top : 10px;
-/* 	margin-left : 20px; */
 	position : relative;
 }
 .inner-price {
@@ -231,9 +182,6 @@
 }
 .notice-txt {
  	display : block;
-/* 	position : relative; */
-/* 	top : 250px; */
-/* 	width : 250px; */
 	font-size: 12px;
 }
 .product-list span{

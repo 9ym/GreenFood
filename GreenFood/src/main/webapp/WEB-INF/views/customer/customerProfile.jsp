@@ -165,7 +165,7 @@ $(function(){
 				that.parent().parent().hide();
 				$("#divForm1").show();
 				// 핸드폰 split
-				var user_phone = "${sessionScope.testVo.user_phone}";
+				var user_phone = "${sessionScope.customerVo.user_phone}";
 				var phone_split = user_phone.split("-", 3);
 				var iMei = phone_split[0];
 				var midNum = phone_split[1];
@@ -176,7 +176,7 @@ $(function(){
 				$("#lastPhoneNum").val(lastNum);
 				
 				// 이메일 split
-				var user_email = "${sessionScope.testVo.user_email}";
+				var user_email = "${sessionScope.customerVo.user_email}";
 				var email_split = user_email.split("@", 2);
 				var email_id = email_split[0];
 				var email_domain = email_split[1];
@@ -185,9 +185,9 @@ $(function(){
 				$("#emailDomain").val(email_domain);
 				
 				// 주소 넣기
-				var postalCode = "${sessionScope.testVo.user_addr1}";
-				var roadAddress = "${sessionScope.testVo.user_addr2}";
-				var detailAddress = "${sessionScope.testVo.user_addr3}";
+				var postalCode = "${sessionScope.customerVo.user_addr1}";
+				var roadAddress = "${sessionScope.customerVo.user_addr2}";
+				var detailAddress = "${sessionScope.customerVo.user_addr3}";
 				$("#postalCode").val(postalCode);
 				$("#roadAddress").val(roadAddress);
 				$("#detailAddress").val(detailAddress);
@@ -305,7 +305,7 @@ $(function(){
 		}
 		
 		// 히든에 date값 넣어주기
-		var user_date = "${sessionScope.testVo.user_date}";
+		var user_date = "${sessionScope.customerVo.user_date}";
 		$("#frmMemberModify > input[type=hidden]").eq(2).val(user_date);
 		
 		$("#frmMemberModify").submit();
@@ -314,7 +314,7 @@ $(function(){
 });
 </script>
 <content>
-${testVo}
+${customerVo}
 <body>
 <div class="container-fluid1">
 
@@ -335,10 +335,10 @@ ${testVo}
         <!-- Modal body -->
         <div class="modal-body">
         	<div>
-          		<span>${sessionScope.testVo.user_name}</span>님 비밀번호를 변경해주세요.
+          		<span>${sessionScope.customerVo.user_name}</span>님 비밀번호를 변경해주세요.
         	</div>
           <div class="form-group">
-          	<input type="password" class="form-control form-control-lg" id="presentPw" placeholder="현재 비밀번호 입력" value="${sessionScope.testVo.user_pw}">
+          	<input type="password" class="form-control form-control-lg" id="presentPw" placeholder="현재 비밀번호 입력" value="${sessionScope.customerVo.user_pw}">
           </div>
           <div class="form-group">
           	<input type="password" class="form-control form-control-lg" id="newPw1" placeholder="새 비밀번호 입력(8~10 영문/숫자/특수문자 조합)">
@@ -376,7 +376,7 @@ padding:0;">
 					</div>
 			<p>반갑습니다!</p>
 			<p>구매자</p>
-			<p><span id="spanUserName">${sessionScope.testVo.user_name}</span>님</p>
+			<p><span id="spanUserName">${sessionScope.customerVo.user_name}</span>님</p>
 		</div>
 		
 		<div id="left_bottom">
@@ -403,7 +403,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 					<label for="user_id" class="t_tit1">
 						아이디
 					</label>
-					<input type="text" class="form-control" id="user_id" name ="user_id" value="${sessionScope.testVo.user_id}" readonly/>
+					<input type="text" class="form-control" id="user_id" name ="user_id" value="${sessionScope.customerVo.user_id}" readonly/>
 				</div>
 			</div>
 			<div class="row">
@@ -411,7 +411,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 					<label for="user_pw" class="t_tit1">
 						비밀번호 확인
 					</label>
-					<input type="password" class="form-control" id="user_pw" value="${sessionScope.testVo.user_pw}" placeholder="현재 비밀번호를 입력해주세요"/>
+					<input type="password" class="form-control" id="user_pw" value="${sessionScope.customerVo.user_pw}" placeholder="현재 비밀번호를 입력해주세요"/>
 				</div>
 			</div>
 				<button type="button" id="btnPassCheckComplete" class="btn btn-primary">
@@ -445,7 +445,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 							<label for="user_id">
 							아이디<span aria-label="필수 항목" class="required">*</span>
 							</label>
-							<input type="text" class="form-control" id="user_id" name="user_id" readonly required value="${sessionScope.testVo.user_id}"/>
+							<input type="text" class="form-control" id="user_id" name="user_id" readonly required value="${sessionScope.customerVo.user_id}"/>
 							<br/>
 						</div>
 						
@@ -462,7 +462,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 	<div class="form-row user_name">
 		<div class="form-group col-md-3">
 			<label>이름<span aria-label="필수 항목" class="required">*</span></label>
-			<input type="text" class="form-control" value="${sessionScope.testVo.user_name}" name="user_name" readonly>
+			<input type="text" class="form-control" value="${sessionScope.customerVo.user_name}" name="user_name" readonly>
 		</div>
 	</div>
 	<hr/>
@@ -516,15 +516,6 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 		</div>
 	</div>
 	<!-- //이메일 row 끝 -->
-	
-	<!--
-	<div class="form-row">
-		<div class="form-group col-md-6">
-			<label class="small">생년월일</label>
-			<input type="date" class="form-control" name="user_birth">
-		</div>
-	</div>
-	-->
 	
 	<hr>
 		

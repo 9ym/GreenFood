@@ -13,8 +13,6 @@
 	padding-top : 180px;
 }
 .div-cart {
-/* 	display : block; */
-/* 	border : 1px dotted red; */
 	margin-bottom : 80px;
 }
 .div-cart strong {
@@ -25,7 +23,6 @@
 }
 .div-cart-list {
 	float : left;
-/* 	border : 2px dashed blue; */
 	border-bottom : 1px solid gainsboro;
  	display : block; 
 	width : 70%;
@@ -37,13 +34,11 @@
 .cart-inner-select label {
 	margin-left : 5px;
 	margin-right : 10px;
-/* 	margin-bottom : 5px; */
 }
 .cart-inner-select #line {
 	color : gainsboro;
 }
 .cart-inner-select a {
-/* 	display : inline-block;  */
 	padding-left : 10px;
 	border-left : 1px solid gainsboro;
 	height : 22px;
@@ -52,7 +47,6 @@
 }
 .cart-inner {
 	border-top : 1px solid black;
-/* 	border-bottom : 1px solid gainsboro; */
 	padding : 10px;
 	height : auto;
 }
@@ -65,7 +59,6 @@
 	width : 300px;
  	clear : both;
 	margin : 10px;
-/* 	border : 1px solid black; */
 }
 .ul-cart-list li .item{
  	display : block; 
@@ -82,7 +75,6 @@
 }
 .img {
 	display : block;
-/* 	position : absolute; */
 	left : 80px;
 	margin : 10px 50px;
 }
@@ -124,7 +116,6 @@
 	position : relative;
  	left : 420px; 
  	float : left; 
-/*  	margin-left : 10px; */
 }
 .div-btn {
 	position : absolute;
@@ -151,8 +142,6 @@
     color: #6ca435;
     font-weight: bold;
     font-size: 17px;
-/* 	position : relative; */
-/* 	bottom : 25px; */
 }
 .div-btn-delete {
 	position: absolute;
@@ -180,11 +169,8 @@
 }
 .div-price {
 	float : right;
-/* 	border : 2px dashed green; */
-/* 	display : block; */
 	width : 30%;
 	height : auto;
-/* 	margin-left : 20px; */
 	position : relative;
 }
 .inner-price {
@@ -243,9 +229,6 @@
 }
 .notice-txt {
  	display : block;
-/* 	position : relative; */
-/* 	top : 250px; */
-/* 	width : 250px; */
 	font-size: 12px;
 }
 </style>

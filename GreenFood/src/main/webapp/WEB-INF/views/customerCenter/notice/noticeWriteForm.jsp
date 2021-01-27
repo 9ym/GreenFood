@@ -10,17 +10,6 @@
 <meta charset="UTF-8">
 <title>공지사항 작성</title>
 
-<script>
-/* $(function(){
-	
-	$("#btnNoticeOk").click(function(){
-		location.href="/notice/insertNotice";
-	});
-	
-}); */
-</script>
-
-
 </head>
 <body>
 
@@ -103,7 +92,6 @@
 								<label id="notice-content-label" for="exampleInputText2"> 내용 </label> 
 								<textarea rows="20" cols="" class="form-control" id="notice-content-input"
 									placeholder="공지할 내용을 입력해주세요" required="required" name="notice_content"></textarea>
-								<!-- <input type="text" class="form-control" id="notice-content-input" /> -->
 							</div>
 							
 							<div class="btnNoticeOk" >
@@ -119,11 +107,6 @@
 		
 		
 	</div>
-
-
-
-
-
 
 </body>
 </html>

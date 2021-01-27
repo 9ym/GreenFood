@@ -68,7 +68,7 @@ public interface ProductService {
 	
 
 	/* 리뷰 리스트 받아오기 */
-	public List<ReviewVo> getReviewdListProduct(String product_title) throws Exception;
+	public List<ReviewVo> getReviewdListProduct(String product_code, int startRow, int endRow);
 
 	/* 해당 상품 다시 판매 */
 	public int startProduct(String product_code);

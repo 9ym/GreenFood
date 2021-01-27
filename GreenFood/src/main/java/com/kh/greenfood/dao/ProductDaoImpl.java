@@ -191,9 +191,14 @@ public class ProductDaoImpl implements ProductDao {
 		return count;
 	}
 
+	// review
 	@Override
-	public List<ReviewVo> getReviewdListProduct(String product_title) throws Exception {
-		List<ReviewVo> reviewListProduct = sqlSession.selectList(NAMESPACE + "getReviewdListProduct", product_title);
+	public List<ReviewVo> getReviewdListProduct(String product_code, int startRow, int endRow) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("product_code", product_code);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		List<ReviewVo> reviewListProduct = sqlSession.selectList(NAMESPACE + "getReviewdListProduct", map);
 		return reviewListProduct;
 	}
 	
@@ -207,7 +212,7 @@ public class ProductDaoImpl implements ProductDao {
 	/* 상품 수정 */
 	@Override
 	public int updateProduct(ProductVo productVo, HashMap<String, Object> mapShelfLife, 
-			HashMap<String, Object> mapSaleRate, HashMap<String, Object> mapSalesDeadlines) {
+		HashMap<String, Object> mapSaleRate, HashMap<String, Object> mapSalesDeadlines) {
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("productVo", productVo);
 		map.put("mapShelfLife", mapShelfLife);

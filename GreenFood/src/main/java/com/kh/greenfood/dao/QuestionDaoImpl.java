@@ -27,8 +27,6 @@ public class QuestionDaoImpl implements QuestionDao {
 	@Override
 	public List<QuestionVo> getQuestionList(PagingDto pagingDto) throws Exception {
 		List<QuestionVo> questionList = sqlSession.selectList(NAMESPACE + "getQuestionList", pagingDto);
-//		System.out.println("QuestionDaoImpl, questionList, pagingDto :" + pagingDto);
-//		System.out.println("QuestionDaoImpl, questionList, questionList :" + questionList);
 		return questionList;
 	}
 
@@ -54,7 +52,6 @@ public class QuestionDaoImpl implements QuestionDao {
 	@Override
 	public int questionListCount(PagingDto pagingDto) throws Exception {
 		int count = sqlSession.selectOne(NAMESPACE + "questionListCount", pagingDto);
-//		System.out.println("QuestionDaoImpl ,questionListCount, count :" + count);
 		return count;
 	}
 
@@ -62,7 +59,6 @@ public class QuestionDaoImpl implements QuestionDao {
 	@Override
 	public List<QuestionVo> getQuestionListCategory(int question_category) {
 		List<QuestionVo> questionListCategory = sqlSession.selectList(NAMESPACE + "getQuestionListCategory", question_category);
-		System.out.println("QuestionDaoImpl ,questionListCategory, questionListCategory :" + questionListCategory);
 		return questionListCategory;
 	}
 

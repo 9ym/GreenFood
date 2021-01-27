@@ -8,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.greenfood.domain.OrderVo;
-import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.QuestionOneVo;
 
 @Repository
@@ -29,7 +28,6 @@ public class QuestionOneDaoImpl implements QuestionOneDao {
 	public List<QuestionOneVo> getQuestionOneList() throws Exception {
 		
 		List<QuestionOneVo> questionOneList = sqlSession.selectList(NAMESPACE + "getQuestionOneList");
-//		System.out.println("QuestionOneDaoImpl, getQuestionOneList, questionOneList :" + questionOneList);
 		return questionOneList;
 	}
 
@@ -60,9 +58,7 @@ public class QuestionOneDaoImpl implements QuestionOneDao {
 
 	@Override
 	public int questionOneListCountUser(String q_o_writer) throws Exception {
-//		System.out.println("QuestionOneDaoImpl, questionOneListCountUser, q_o_writer:" + q_o_writer);
 		int count = sqlSession.selectOne(NAMESPACE + "questionOneListCountUser", q_o_writer);
-//		System.out.println("QuestionOneDaoImpl, questionOneListCountUser, count : " + count);
 		return count;
 	}
 

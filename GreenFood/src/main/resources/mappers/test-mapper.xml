@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.kh.greenfood.board">
-	<select id="sel" resultType="TestVo">
+	<select id="sel" resultType="customerVo">
 		select * from tbl_test
 	</select>
 	<insert id="ins">

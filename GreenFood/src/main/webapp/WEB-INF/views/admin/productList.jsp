@@ -154,7 +154,6 @@ label {
 							<input type="checkbox" class="input-checked" value="${productVo.product_code}"
 								onchange="javascript:checkSelect(this);">
 						</td>
-<%-- 						<td>${productVo.rnum}</td> --%>
 						<td>${productVo.product_code}</td>
 						<td>${cate.product_category_dsc}</td>
 						<td><a href="/admin/productUpdateForm/${productVo.product_code}">${productVo.product_title}</a></td>
@@ -230,14 +229,6 @@ label {
 
 <script>
 $(function(){
-	
-// 	/* 상품 등록 성공 여부 알림 */
-// 	var resultMsg = "${resultMsg}";
-// 	if (resultMsg == "add_success") {
-// 		alert("상품 등록이 완료되었습니다.")
-// 	} else if (resultMsg == "add_fail") {
-// 		alert("상품 등록이 실패했습니다. 다시 등록해 주세요.")
-// 	}
 	
 	// 페이지네이션 - 페이지 번호 클릭했을때
 	$("a.page-link").click(function(e){

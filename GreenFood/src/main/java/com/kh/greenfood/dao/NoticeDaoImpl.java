@@ -29,19 +29,6 @@ public class NoticeDaoImpl implements NoticeDao {
 	public void insertNotice(NoticeVo noticeVo) throws Exception {
 		sqlSession.insert(NAMESPACE+ "insertNotice", noticeVo);
 	}
-/*
-	@Override
-	public NoticeVo selectNotice(int notice_no) throws Exception {
-		NoticeVo noticeVo = sqlSession.selectOne(NAMESPACE + "selectNotice");
-		return noticeVo;
-	}
-
-	@Override
-	public int getNoticenoNextVal() {
-		int notice_no = sqlSession.selectOne(NAMESPACE + "getNoticenoNextVal");
-		return notice_no;
-	}
-	*/
 
 	@Override
 	public NoticeVo selectNotice(int notice_no) throws Exception {
@@ -54,7 +41,6 @@ public class NoticeDaoImpl implements NoticeDao {
 		sqlSession.update(NAMESPACE + "updateNotice", noticeVo);
 		
 	}
-	
 
 	@Override
 	public void deleteNotice(int notice_no) throws Exception {
@@ -71,14 +57,7 @@ public class NoticeDaoImpl implements NoticeDao {
 	@Override
 	public int noticeListCount(PagingDto pagingDto) throws Exception {
 		int count = sqlSession.selectOne(NAMESPACE + "noticeListCount", pagingDto);
-//		System.out.println("NoticeDaoImpl, noticeListCount, count :" + count);
 		return count;
 	}
-
-	
-	
-
-	
-
 	
 }

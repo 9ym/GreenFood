@@ -502,8 +502,6 @@ function isImage() {
 	if ((categoryOrigin != categoryUpdate) && (isImageResult == "isNull")) { // 카테고리 변경
 		isImageResult = "changeCategory";
 	}
-	console.log("isImageResult :" + isImageResult);
-// 	console.log("isImageStr :" + isImageStr);
 	switch (isImageStr) {
 	  case "info":
 		isImageResult = "isInfo";

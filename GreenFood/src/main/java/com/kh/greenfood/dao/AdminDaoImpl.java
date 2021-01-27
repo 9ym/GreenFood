@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.greenfood.domain.PagingDto;
-import com.kh.greenfood.domain.TestVo;
+import com.kh.greenfood.domain.CustomerVo;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -19,8 +19,8 @@ public class AdminDaoImpl implements AdminDao {
 	private SqlSession sqlSession;
 
 	@Override
-	public List<TestVo> getCustomerList(PagingDto pagingDto) {
-		List<TestVo> customerList = sqlSession.selectList(NAMESPACE + "getCustomerList", pagingDto);
+	public List<CustomerVo> getCustomerList(PagingDto pagingDto) {
+		List<CustomerVo> customerList = sqlSession.selectList(NAMESPACE + "getCustomerList", pagingDto);
 		return customerList;
 	}
 
@@ -37,8 +37,8 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<TestVo> getDeletedCustomerList(PagingDto pagingDto) {
-		List<TestVo> getDeletedCustomerList = sqlSession.selectList(NAMESPACE + "getDeletedCustomerList", pagingDto);
+	public List<CustomerVo> getDeletedCustomerList(PagingDto pagingDto) {
+		List<CustomerVo> getDeletedCustomerList = sqlSession.selectList(NAMESPACE + "getDeletedCustomerList", pagingDto);
 		return getDeletedCustomerList;
 	}
 

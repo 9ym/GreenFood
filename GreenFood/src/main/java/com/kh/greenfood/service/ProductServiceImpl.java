@@ -168,8 +168,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ReviewVo> getReviewdListProduct(String product_title) throws Exception {
-		List<ReviewVo> reviewListProduct = productDao.getReviewdListProduct(product_title);
+	public List<ReviewVo> getReviewdListProduct(String product_code, int startRow, int endRow) {
+		List<ReviewVo> reviewListProduct = productDao.getReviewdListProduct(product_code, startRow, endRow);
 		return reviewListProduct;
 	}
 	

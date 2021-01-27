@@ -36,9 +36,3 @@ function subComma(value){
 	value = value.toString().replace(/[^\d]+/g, "");
 	return value;
 }
-
-/* 할인된 값 */
-/*function getSalePrice(price, saleRate) {
-	price = Math.ceil(price * (100 - saleRate) / 100); 
-	return price;
-}*/

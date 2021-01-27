@@ -10,35 +10,6 @@
 <meta charset="UTF-8">
 <title>Question Answer</title>
 
-<script>
-$(function(){
-	
-	/* $("#btnAnswerFinish").click(function(e){
-		e.preventDefault();
-		var q_no = $(this).attr("data-bno");
-		
-		location.href="/customerCenter/questionOne/questionOneAnswer/" + q_no;
-	}); */
-	
-	// ---------------- 수정 버튼 누르면 수정할수 있게 -------------------------	
-// 	 $("#btnUpdateQuestionOne").click(function() {
-// 		$(".update").prop("readonly", false); // 제목, 내용 입력 읽기 전용 제거
-// 		$(this).hide("slow"); // "fast", "normal", "slow"
-// 		$("#btnUpdateFinish").show(1000); // millisecond
-// 	});
-	 
-// --------------------- 수정 후 수정완료 누르면 입력한 값 넘겨주기 -----------------------
-// 	$("#btnUpdateFinish").click(function() {
-// 		var questino_title = $("#question_title").val(); // title 입력한 값 지정
-// 		var question_content = $("#question_content").val(); // content 입력한 값 지정
-// 		$("#frmUpdate > input[type=hidden]").eq(1).val(questino_title); // 붙여넣기
-// 		$("#frmUpdate > input[type=hidden]").eq(2).val(question_content); // 붙여넣기
-// 		$("#frmUpdate").submit(); // 서밋 해 줘야함..
-// 	});
-	
-});
-</script>
-
 </head>
 <body>
 <style>
@@ -154,10 +125,6 @@ table {
 								<tr>
 									<th>제목</th>
 									<td colspan="5">
-									<%-- <input type="text" style="background-color: white" style="border: none"
-										class="form-control update" id="q_o_title" 
-										placeholder="제목을 입력해주세요" value="${questionOneVo.q_o_title}" readonly
-										required /> --%>
 									${questionOneVo.q_o_title}
 									</td>
 									</tr>
@@ -175,8 +142,6 @@ table {
 						<!-- <div class="noticeContent"> -->
 						<div class="questionOneAnswer">
 						<div class="contentArea" style="margin-top: 15px; border-style:solid; border-width: 1px; border-color: #39d070 ">
-							<%-- <textarea style="background-color: white" style="border: none" class="form-control update" id="q_o_content"
-							placeholder="내용을 입력해주세요." readonly>${questionOneVo.q_o_content}</textarea> --%>
 							<p style="padding-top: 10px;">${questionOneVo.q_o_content}</p>
 						</div>
 						
@@ -206,21 +171,6 @@ table {
 	
 	<div>
 	<div class="btnList" >
-		<%-- <button type="submit" id="btnAnswerFinish" class="btn btn-success" data-bno="${questionOneVo.q_o_no}">답변완료</button> --%>
-		
-		<!-- <button type="button" id="btnUpdateQuestionOne" class="btn btn-warning" style="margin-left: 10px">수정</button> -->
-		
-		<%-- <form id="frmUpdate" action="/customerCenter/question/updateQuestion" method="POST">
-			<input type="hidden" name="question_no" class="btn btn-warning" value="${questionVo.question_no }"/>
-			<input type="hidden" name="question_title" class="btn btn-warning"/>
-			<input type="hidden" name="question_content" class="btn btn-warning"/>
-			<button type="button" id="btnUpdateFinish" class="btn btn-warning" style="margin-left: 10px; display: none;">수정완료</button>
-		</form> --%>
-		
-		<%-- <form action="/customerCenter/question/deleteQuestion" method="get">
-			<input type="hidden" name="question_no" class="btn btn-danger" value="${questionVo.question_no }"/>
-			<button type="submit" id="btnDeleteQuestion" class="btn btn-danger" style="margin-left: 10px">삭제</button>
-		</form> --%>
 		
 	</div>
 	</div>

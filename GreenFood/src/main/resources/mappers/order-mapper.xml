@@ -84,7 +84,12 @@
 	
 	
 	<!-- 주문 order -->
-	
+	<!-- 주문 카운트 업데이트 -->
+	<update id="updateOrderCount">
+		update tbl_product set
+    		product_order_count = product_order_count + 1
+    		where product_code = #{product_code}
+	</update>	
 	<!-- 결제할 상품 목록 -->
 	<select id="getListCartPay" parameterType="java.util.List" resultType="CartDto">
 		select * from tbl_cart

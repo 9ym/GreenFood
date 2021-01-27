@@ -13,17 +13,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>										
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>										
 <!-- icon -->										
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">										 -->
+
 
 <title>ܤܤ그린푸드ܤܤ</title>										
-<!-- <link rel="preconnect" href="https://fonts.gstatic.com">										 -->
-<!-- <link										 -->
-<!-- 	href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"									 -->
-<!-- 	rel="stylesheet">									 -->
-<!-- <link										 -->
-<!-- 	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"									 -->
-<!-- 	rel="stylesheet">									 -->
-<!-- 	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Roboto&display=swap" rel="stylesheet">	 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
 								
@@ -453,7 +445,7 @@ function topClose() {
 		
 		<!-- 제일 상단 버튼 : 회원가입 혜택 안내?? -->
 	<c:choose>
-		<c:when test="${empty sessionScope.testVo && empty cookie.expend}">
+		<c:when test="${empty sessionScope.customerVo && empty cookie.expend}">
 		<div class="div-top">
 			<a href="/main/memberJoinForm">
 				<span>지금 가입하고 포인트 받으세요!</span>
@@ -472,10 +464,10 @@ function topClose() {
 <!-- 		</div>								 -->
 			<div id="header_small_menu">		
 			<c:choose>
-			<c:when test="${not empty sessionScope.testVo }">
+			<c:when test="${not empty sessionScope.customerVo }">
 				<a href="/logout">로그아웃</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 				<c:choose>
-		 		<c:when test="${sessionScope.testVo.user_code == '1001'}">
+		 		<c:when test="${sessionScope.customerVo.user_code == '1001'}">
 		 			<a href="/admin/customerList">회원관리</a>
 		 			<a href="/admin/productSearchList?searchAnd=date&searchWhere=all&searchBy=desc&searchWhat=&page=1">상품관리</a>
 		 			<a href="/admin/orderManager">주문관리</a>
@@ -492,7 +484,7 @@ function topClose() {
 					src="https://www.oasis.co.kr/images/common/bg_footer.png"> --> 
 			</c:otherwise>
 			</c:choose>
-				<c:if test="${sessionScope.testVo.user_code != '1001'}">
+				<c:if test="${sessionScope.customerVo.user_code != '1001'}">
 					<a href="/order/cart" id="anchorCart">장바구니</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 				</c:if>
 				<a href="/main/customer/customerCenter" id="customerCenter" data="고객센터">고객센터</a>					
@@ -521,9 +513,6 @@ function topClose() {
 											
 				</div>	
 			</div>						
-<!-- 			<div id="boardName">							 -->
-<!-- 			</div>							 -->
 			<!-- 게시판 이름을 입력해주세요 -->							
-<!-- 			<span id="boardNames"></span>							 -->
 			<!-- //게시판 이름을 입력해주세요 -->							
 		</header>								

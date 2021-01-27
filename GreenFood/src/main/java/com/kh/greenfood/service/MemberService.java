@@ -5,17 +5,17 @@ import java.util.List;
 import com.kh.greenfood.domain.OrderListCountDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PointVo;
-import com.kh.greenfood.domain.TestVo;
+import com.kh.greenfood.domain.CustomerVo;
 
 public interface MemberService {
 	
-	public TestVo login(String user_id, String user_pw);
+	public CustomerVo login(String user_id, String user_pw);
 	
 	// 회원가입
-	public int insertMember(TestVo testVo);
+	public int insertMember(CustomerVo customerVo);
 	
 	// 회원조회 아이디 값으로 DB 정보불러오기
-	public TestVo selectMember(String user_id);
+	public CustomerVo selectMember(String user_id);
 	
 //	public TestVo profilePwCheck(String user_id, String user_pw);
 	
@@ -23,13 +23,13 @@ public interface MemberService {
 	public int changePw(String user_id, String user_pw);
 	
 	// 비밀번호 찾기 -> 아이디, 이메일 정보 확인
-	public TestVo findPw(String user_id, String user_email);
+	public CustomerVo findPw(String user_id, String user_email);
 	
 	// 아이디 찾기 -> 이름, 이메일, 핸드폰번호 확인
-	public TestVo findId(String user_name, String user_email, String user_phone);
+	public CustomerVo findId(String user_name, String user_email, String user_phone);
 	
 	// 프로필 회원정보 수정
-	public int customerModify(TestVo testVo);
+	public int customerModify(CustomerVo customerVo);
 
 	// 전체 주문정보 불러오기
 	public List<OrderVo> getOrderedList(String user_id);

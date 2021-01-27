@@ -408,20 +408,6 @@ $(function(){
  		$("#frmDeleteCustomer").submit();
 	});
 	
-	// 탈퇴한 회원 클릭
-// 	$("#selectY").click(function(e){
-// 		e.preventDefault();
-// 		// N인 것들만 제거
-// 		$(".xans-board-listheader > tbody > tr").each(function() {
-// 			var td = $(this).find("td").eq(4);
-// 			var yn = td.text();
-// 			console.log(yn);
-// 			if (yn == "N") {
-// 				$(this).remove();
-// 			}
-// 		});
-// 	});
-	
 	// 카테고리 중에서 탈퇴한 회원 클릭
 	$("#selectY").click(function(e){
 		e.preventDefault();

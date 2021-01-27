@@ -3,13 +3,12 @@ package com.kh.greenfood.dao;
 import java.util.List;
 
 import com.kh.greenfood.domain.PagingDto;
-import com.kh.greenfood.domain.QuestionOneVo;
 import com.kh.greenfood.domain.ReviewVo;
 
 public interface ReviewDao {
 
 	// 입력
-	public void insertReview(ReviewVo reviewVo) throws Exception;
+	public int insertReview(ReviewVo reviewVo) throws Exception;
 	
 	// 목록
 	public List<ReviewVo> getReviewList(PagingDto pagingDto) throws Exception;
@@ -40,4 +39,13 @@ public interface ReviewDao {
 
 	// 마이페이지 - 리뷰 카운트
 	public int getReviewCount(String user_id);
+	
+	// 평균 별점
+	public int averageStar(String product_code);
+
+	// 평균 별점 product에 update
+	public int updateStar(int avg_count, String product_code);
+
+	// 상품 보기에서 리뷰카운트
+	public int getProductReviewCount(String product_code);
 }

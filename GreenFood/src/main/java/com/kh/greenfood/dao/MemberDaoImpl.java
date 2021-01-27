@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.greenfood.domain.OrderListCountDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PointVo;
-import com.kh.greenfood.domain.TestVo;
+import com.kh.greenfood.domain.CustomerVo;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
@@ -23,24 +23,24 @@ public class MemberDaoImpl implements MemberDao {
 	private SqlSession sqlSession;
 
 	@Override
-	public TestVo login(String user_id, String user_pw) {
+	public CustomerVo login(String user_id, String user_pw) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("user_id", user_id);
 		map.put("user_pw", user_pw);
-		TestVo testVo = sqlSession.selectOne(NAMESPACE + "login", map);
-		return testVo;
+		CustomerVo customerVo = sqlSession.selectOne(NAMESPACE + "login", map);
+		return customerVo;
 	}
 
 	@Override
-	public int insertMember(TestVo testVo) {
-		int count = sqlSession.insert(NAMESPACE + "insertMember", testVo);
+	public int insertMember(CustomerVo customerVo) {
+		int count = sqlSession.insert(NAMESPACE + "insertMember", customerVo);
 		return count;
 	}
 
 	@Override
-	public TestVo selectMember(String user_id) {
-		TestVo testVo = sqlSession.selectOne(NAMESPACE + "selectMember", user_id);
-		return testVo;
+	public CustomerVo selectMember(String user_id) {
+		CustomerVo customerVo = sqlSession.selectOne(NAMESPACE + "selectMember", user_id);
+		return customerVo;
 	}
 
 	@Override
@@ -53,29 +53,29 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public int customerModify(TestVo testVo) {
-		int count = sqlSession.update(NAMESPACE + "customerModify", testVo);
+	public int customerModify(CustomerVo customerVo) {
+		int count = sqlSession.update(NAMESPACE + "customerModify", customerVo);
 		return count;
 	}
 
 	@Override
-	public TestVo findPw(String user_id, String user_email) {
+	public CustomerVo findPw(String user_id, String user_email) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("user_id", user_id);
 		map.put("user_email", user_email);
-		TestVo testVo = sqlSession.selectOne(NAMESPACE + "findPw", map);
-		return testVo;
+		CustomerVo customerVo = sqlSession.selectOne(NAMESPACE + "findPw", map);
+		return customerVo;
 	}
 
 	@Override
-	public TestVo findId(String user_name, String user_email, String user_phone) {
+	public CustomerVo findId(String user_name, String user_email, String user_phone) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("user_name", user_name);
 		map.put("user_email", user_email);
 		map.put("user_phone", user_phone);
 		System.out.println(map);
-		TestVo testVo = sqlSession.selectOne(NAMESPACE + "findId", map);
-		return testVo;
+		CustomerVo customerVo = sqlSession.selectOne(NAMESPACE + "findId", map);
+		return customerVo;
 	}
 
 	@Override

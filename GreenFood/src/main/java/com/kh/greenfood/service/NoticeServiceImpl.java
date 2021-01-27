@@ -25,9 +25,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public List<NoticeVo> noticeList(PagingDto pagingDto) throws Exception {
-		System.out.println("NoticeServiceImpl, noticeList, pagingDto:" + pagingDto);
 		List<NoticeVo> noticeList = noticeDao.noticeList(pagingDto);
-//		System.out.println("NoticeServiceImpl, noticeList, noticeList:" + noticeList);
 		return noticeList;
 	}
 

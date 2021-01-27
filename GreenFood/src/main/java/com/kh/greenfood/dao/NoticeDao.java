@@ -6,9 +6,6 @@ import com.kh.greenfood.domain.NoticeVo;
 import com.kh.greenfood.domain.PagingDto;
 
 public interface NoticeDao {
-	
-		// nextval 받아오기
-//		public int getNoticenoNextVal();
 		
 		// 목록
 		public List<NoticeVo> noticeList(PagingDto pagingDto) throws Exception;

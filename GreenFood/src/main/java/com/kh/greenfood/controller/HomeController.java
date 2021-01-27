@@ -22,7 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
-import com.kh.greenfood.domain.TestVo;
+import com.kh.greenfood.domain.CustomerVo;
 import com.kh.greenfood.service.MemberService;
 import com.kh.greenfood.service.ProductService;
 
@@ -65,9 +65,9 @@ public class HomeController {
 	@RequestMapping(value="/checkDupId/{user_id}", method=RequestMethod.GET)
 	@ResponseBody
 	public String checkDupId(@PathVariable("user_id") String user_id) {
-		TestVo testVo = memberService.selectMember(user_id);
+		CustomerVo customerVo = memberService.selectMember(user_id);
 		String message = "";
-		if(testVo == null) {
+		if(customerVo == null) {
 			message = "idDontExist";
 		} else {
 			message = "idExist";
@@ -78,11 +78,10 @@ public class HomeController {
 	@RequestMapping(value="/loginRun", method=RequestMethod.POST)
 	public String login(String user_id, String user_pw, String checked_id, HttpSession session, RedirectAttributes rttr,Model model, HttpServletResponse response) {
 		
-		TestVo testVo = memberService.login(user_id, user_pw);
-		System.out.println("loginRun : " + testVo);
+		CustomerVo customerVo = memberService.login(user_id, user_pw);
 		String page = "";
-		// testVo가 있고, 회원 탈퇴가 안된 회원만 로그인
-		if(testVo != null && !testVo.getUser_deleted().equals("Y")) {
+		// customerVo가 있고, 회원 탈퇴가 안된 회원만 로그인
+		if(customerVo != null && !customerVo.getUser_deleted().equals("Y")) {
 			
 			Cookie cookie = new Cookie("save_id", user_id);
 			if(checked_id != null && !checked_id.equals("")) {
@@ -93,15 +92,15 @@ public class HomeController {
 			response.addCookie(cookie);
 			
 			// 회원 가입일자 간소화 0000-00-00 00:00:00 -> 0000-00-00
-			String user_date = testVo.getUser_date();
+			String user_date = customerVo.getUser_date();
 			int lastIndex = user_date.lastIndexOf("-") + 3;
 			String user_join_date = user_date.substring(0, lastIndex);
-			testVo.setUser_date(user_join_date);
+			customerVo.setUser_date(user_join_date);
 			// 끝 회원가입일자 간소화
 			
 			// 로그인 되어 있지 않은 상태로 로그인이 필요한 페이지 접근시 session에 저장된 "dest" 값을 받아와서 로그인한 뒤에 redirect
 			// "dest"값은 Interceptor에서 저장시킴
-			session.setAttribute("testVo", testVo);
+			session.setAttribute("customerVo", customerVo);
 			String dest = (String)session.getAttribute("dest");
 			session.removeAttribute("dest");
 			if(dest != null) {
@@ -109,12 +108,12 @@ public class HomeController {
 			} else {
 				page = "redirect:/";
 			}
-			// testVo가 없을 때 -> 로그인 실패 alert
-		} else if(testVo == null){
+			// customerVo가 없을 때 -> 로그인 실패 alert
+		} else if(customerVo == null){
 			rttr.addFlashAttribute("msg", "loginFail");
 			page="redirect:/main/loginPage";
 			// 로그인 시도 -> 삭제 처리된 아이디로 접근 -> alert
-		} else if(testVo.getUser_deleted().equals("Y")) {
+		} else if(customerVo.getUser_deleted().equals("Y")) {
 			rttr.addFlashAttribute("msg", "deletedCustomer");
 			page="redirect:/main/loginPage";
 		}
@@ -126,13 +125,5 @@ public class HomeController {
 		session.invalidate();
 		return "redirect:/";
 	}
-	
-	/*@RequestMapping(value="/")
-	public String productShowHome(Model model) throws Exception {
-		List<ProductVo> productList = productService.getProductList();
-		System.out.println("--" + productList);
-		model.addAttribute("productList", productList);
-		return "home";
-	}*/
 	
 }

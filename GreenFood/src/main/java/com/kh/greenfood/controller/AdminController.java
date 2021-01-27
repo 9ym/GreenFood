@@ -21,7 +21,7 @@ import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
 import com.kh.greenfood.domain.SearchDto;
-import com.kh.greenfood.domain.TestVo;
+import com.kh.greenfood.domain.CustomerVo;
 import com.kh.greenfood.service.AdminService;
 import com.kh.greenfood.service.OrderService;
 import com.kh.greenfood.service.ProductService;
@@ -46,7 +46,7 @@ public class AdminController {
 		int count = adminService.customerListCount(pagingDto);
 		pagingDto.setTotalCount(count);
 		pagingDto.setPagingInfo();
-		List<TestVo> customerList = adminService.getCustomerList(pagingDto);
+		List<CustomerVo> customerList = adminService.getCustomerList(pagingDto);
 		model.addAttribute("customerList", customerList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "/admin/customerList";
@@ -58,7 +58,7 @@ public class AdminController {
 		int count = adminService.deletedCustomerListCount(pagingDto);
 		pagingDto.setTotalCount(count);
 		pagingDto.setPagingInfo();
-		List<TestVo> customerList = adminService.getDeletedCustomerList(pagingDto);		
+		List<CustomerVo> customerList = adminService.getDeletedCustomerList(pagingDto);		
 		model.addAttribute("customerList", customerList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "/admin/customerList";
@@ -130,23 +130,6 @@ public class AdminController {
 		int count = orderService.deleteCartAdmin();
 		return count;
 	}
-	
-	/* 상품 관리 */
-	/*@RequestMapping(value="/productList", method=RequestMethod.GET)
-	public String productList(SearchDto searchDto, Model model) throws Exception {
-		System.out.println("searchDto :" + searchDto);
-		int count = productService.getSearchProductCount(searchDto);
-		searchDto.setTotalCount(count);
-		searchDto.setPagingInfo();
-		model.addAttribute("searchDto", searchDto);
-		 상품 카테고리 
-		List<ProductCategoryDto> categoryList = productService.getCategory();
-		model.addAttribute("categoryList", categoryList);
-		 일단 상품 전부 다 
-		List<ProductVo> productList = productService.getProductList();
-		model.addAttribute("productListAll", productList);
-		return "/admin/productList";
-	}*/
 	
 	/* 상품 관리 - 검색 */
 	@RequestMapping(value="/productSearchList", method=RequestMethod.GET)

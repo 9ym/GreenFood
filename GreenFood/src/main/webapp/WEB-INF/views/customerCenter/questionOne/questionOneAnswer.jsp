@@ -209,7 +209,7 @@ table {
 		<c:choose>
 			<c:when test="${questionOneVo.q_o_answer == null}">
 				
-				<c:if test="${sessionScope.testVo.user_id == 'admin'}">
+				<c:if test="${sessionScope.customerVo.user_id == 'admin'}">
 				<button type="button" id="btnAnswer" class="btn btn-primary" href="#" data-bno="${questionOneVo.q_o_no}">답변하기</button>
 				</c:if>
 				<button type="button" id="btnUpdateQuestionOne" class="btn btn-warning" style="margin-left: 10px">수정</button>
@@ -227,7 +227,6 @@ table {
 			
 			</c:when>
 			<c:otherwise>
-				<!-- <span style="color: white" class="badge badge-primary">답변완료</span> -->
 			</c:otherwise> 
 		</c:choose>
 		

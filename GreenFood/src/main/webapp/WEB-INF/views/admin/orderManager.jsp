@@ -207,9 +207,7 @@ tbody tr {
 
 .xans-board-listheader {
     border-top-style: solid;
-	/* border-right-style: dotted; */
 	border-bottom-style: solid;
-	/* border-left-style: groove; */
 	border-width: 1px;
 	border-color: #6ca435;
     

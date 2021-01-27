@@ -10,18 +10,12 @@
 	padding-top : 180px;
 }
 .row {
-/* 	border-top : 1px dashed red; */
-/* 	border-bottom : 1px dashed blue; */
 	margin-bottom : 30px;
 }
 .productList {
 	height : 100%;
-/* 	background-color : #f7f7f7; */
-/* 	border-right : dotted 3px green; */
-/* 	border-left : dotted 3px green; */
 	text-align: center;
 	padding : 0px 15px;
-/* 	padding-top : 180px; */
 }
 .list {
 	text-align: center;
@@ -33,10 +27,8 @@
 	margin : 10px;
 	bottom : 60px;
 	position : relative;
-/* 	border : solid Coral 1px; */
 }
 .item {
-/* 	border : solid LimeGreen 1px; */
 }
 .item a {
 	text-decoration: none;
@@ -71,20 +63,8 @@
 .span-sale .span-ratio {
 	font-size : 18px;
 	font-weight : bold;
-/* 	opacity : 1.0; */
 }
-/* .span-sale .span-percentage { */
-/* 	clear : both; */
-/* } */
-/* .item-thumb .group-btn {
-	display : block;
- 	position : relative;
-	bottom : 50px;
-	left : 193px;
-    width : 40px;
-    height : 40px;
-    border : 1px solid red;
-} */
+
 .item-title {
 	display : block;
 	padding-left : 0px;
@@ -111,15 +91,12 @@
 	display : none;
 	margin : 30px;
 	padding : 20px 0px;
-/* 	border-top : 1px solid gainsboro; */
-/* 	border-bottom : 1px solid gainsboro; */
  	text-align : center; 
 	color : darkgray;
 }
 .div-search span{
  	margin-left : 30px;
 	padding : 5px 30px;
-/* 	border-top : 1px solid gainsboro; */
 	border-bottom : 1px solid gainsboro;
 	text-align : center;
 	color : darkgray;
@@ -128,23 +105,11 @@
 </style>
 
 <div class="container-fluid">
-
-<%-- 	${productCategoryList} --%>
-<%-- 	${productImageList} --%>
-	
-<!-- 	<div class="row"> -->
-<!-- 		<div class="col-md-2"></div> -->
-<!-- 		<div class="col-md-8"> -->
-<!-- 			<p>메뉴 보여주기</p> -->
-<!-- 		</div> -->
-<!-- 		<div class="col-md-2"></div> -->
-<!-- 	</div> -->
 	
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
 			<div class="div-search">
-<!-- 				<h3>상품 검색</h3> -->
 				<strong>검색 조건 : <span>${searchTitle}</span></strong>
 			</div>
 			<div class="productList">
@@ -169,12 +134,10 @@
 											data-img="${imageDto.image_info_file_name}" 
 											data-category="${productVo.product_category}">
 									</a>
-<!-- 									<div class="group-btn"><button></button></div> -->
 								</div>
 								<a class="item-title" href="/product/detail/${productVo.product_code}">
 									<span class="span-title">${productVo.product_title}</span>
 									<span class="span-price">${productVo.product_price}</span>
-<!-- 									<span class="span-3">3.간단 설명</span> -->
 								</a>
 							</div>
 						</li>
@@ -224,7 +187,6 @@ $(function() {
 	/* 가격에 , 적용하기 */
 	$(".span-price").each(function() {
 		var price = $(this).text();
-// 		console.log(price);
 		$(this).text(addComma(price));
 	});
 	

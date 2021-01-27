@@ -9,11 +9,6 @@
 
 	<!-- b_no.nextval 얻어오기 -->
 
-		<!-- <select resultType="int" id="getNoticenoNextVal">
-			select seq_notice_no.nextval from dual
-		</select> -->
-
-
 	<!-- 공지사항 글쓰기 -->
 		<insert id="insertNotice">
 			insert into tbl_notice (notice_no, notice_title, notice_content)
@@ -29,16 +24,11 @@
 				where rnum between #{startRow} and #{endRow}
 		</select>
 		
-		
-		
 	<!-- 전체 글갯수 읽어오기 -->	
 	<select id="noticeListCount" resultType="int">
 		select count(*) from tbl_notice
 		<include refid="search"></include>
 	</select>
-	
-		
-		
 		
 	<!-- 글 선택 -->
 	<select id="selectNotice" resultType="NoticeVo">

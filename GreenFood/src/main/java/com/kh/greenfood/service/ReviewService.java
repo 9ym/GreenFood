@@ -9,7 +9,7 @@ import com.kh.greenfood.domain.ReviewVo;
 public interface ReviewService {
 
 	// 입력
-	public void insertReview(ReviewVo reviewVo) throws Exception;
+	public int insertReview(ReviewVo reviewVo) throws Exception;
 	
 	// 목록
 	public List<ReviewVo> getReviewList(PagingDto pagingDto) throws Exception;
@@ -37,5 +37,8 @@ public interface ReviewService {
 
 	// 리뷰 카운트 가져오기
 	public int getReviewCount(String user_id);
+
+	// 상품 보기에서 리뷰카운트
+	public int getProductReviewCount(String product_code);
 
 }
