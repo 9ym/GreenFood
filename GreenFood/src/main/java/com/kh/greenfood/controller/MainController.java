@@ -85,7 +85,7 @@ public class MainController {
 					boolean result = emailUtil.sendMail(origin_email, tempPassword);
 					if (result == true) {
 						rttr.addFlashAttribute("msg", "tempPasswordCreate");
-						page = "redirect:/";
+						page = "redirect:/main/loginPage";
 					} else {
 						rttr.addFlashAttribute("msg", "tempPasswordCreateFail");
 						page = "redirect:/main/customerFindPw";
@@ -119,7 +119,7 @@ public class MainController {
 		if(customerVo1 != null) {
 			String user_id = customerVo1.getUser_id();
 			rttr.addFlashAttribute("findUser_id", user_id);
-			page = "redirect:/";
+			page = "redirect:/main/loginPage";
 		} else {
 			rttr.addFlashAttribute("msg", "notFoundCustomerInfo");
 			page = "redirect:/main/customerFindId";

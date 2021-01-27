@@ -140,9 +140,6 @@ input[type=checkbox] {
 
 </head>
 <body>
-
-
-
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
@@ -166,10 +163,6 @@ input[type=checkbox] {
 										후기 작성 <span class="tit_sub"> 고객 여러분의 소중한 후기를 작성해주세요.</span>
 										
 									</h2>
-									<!-- <div class="div-button" style="padding-bottom: 10px; height: 40px;">
-									<button type="button" id="btnNoticeWrite">후기 작성하기</button>
-									</div> -->
-
 								</div><!-- // 메인창의 윗부분 -->
 
 
@@ -252,26 +245,7 @@ input[type=checkbox] {
 														required  label="내용" placeholder=" 후기 내용을 입력해주세요."></textarea>
 													</td>
 												</tr>
-												<tr>
-													<th>이미지 첨부</th>
-													<td>
-													<table width=100% id=table 
-														style="border: solid 1px #f4f4f4; border-collapse: collapse;">
-														<tr id="tr_0">
-															<td width=10px; nowrap align="center" style="width: 30px;">1</td>
-															<td width=100%>
-															<input type=file name="review_image" style="width: 50%" class=linebg> 
-															<!-- <a href="javascript:add()"><img
-																	src="/shop/data/skin/designgj/img/common/btn_upload_plus.gif"
-																	align=absmiddle></a> --></td>
-														</tr>
-													</table>
-													
-													<div width=100% style="padding: 5px; font-size: 10pt; color: #5AB63F"" class=stxt>
-														* 파일은 최대 5개까지 업로드가 가능합니다.<br>
-													</div>
-												</td>
-												</tr>
+												
 											</tbody>
 										</table>
 										

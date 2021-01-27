@@ -20,7 +20,6 @@ $(function(){
 });
 </script>
 <content>
-${pointVo}
 <div class="container-fluid">
 	<div id="content_left" style="width:300px; height: 700px; float:left; border-top:2px solid #6ca435; margin:0; padding:0;">
 	<div id="leftContent_top">
@@ -60,9 +59,9 @@ ${pointVo}
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="pointVo" items="${pointVo}">
+					<c:forEach var="pointVo" items="${pointVo}" varStatus="status">
 						<tr>
-							<td>${pointVo.rnum}</td>
+							<td>${status.index + 1}</td>
 							<td>${pointVo.point_date}</td>
 							<td>${pointVo.point_category_dsc}</td>
 							<td>

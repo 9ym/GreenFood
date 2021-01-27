@@ -81,8 +81,11 @@ public class ReviewDaoImpl implements ReviewDao {
 
 	// 상품평 등록했는 지에 따른 카운트
 	@Override
-	public int productReviewsCount(String order_code) {
-		int count = sqlSession.selectOne(NAMESPACE + "productReviewsCount", order_code);
+	public int productReviewsCount(String order_code, String product_code) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("order_code", order_code);
+		map.put("product_code", product_code);
+		int count = sqlSession.selectOne(NAMESPACE + "productReviewsCount", map);
 		return count;
 	}
 

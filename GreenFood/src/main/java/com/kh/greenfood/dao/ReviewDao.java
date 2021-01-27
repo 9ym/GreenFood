@@ -32,7 +32,7 @@ public interface ReviewDao {
 	public ReviewVo selectInfoOrderReview(String order_code, String product_code) throws Exception;
 
 	// 상품평 등록했는 지에 따른 카운트
-	public int productReviewsCount(String order_code);
+	public int productReviewsCount(String order_code, String product_code);
 
 	// 마이페이지 - 리뷰 모음
 	public List<ReviewVo> getReivewList(String user_id);

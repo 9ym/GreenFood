@@ -23,24 +23,29 @@
 
 <script>
 $(function(){
+	
+	var msg = "${msg}";
+	var user_id = "${findUser_id}";
+	if(msg == "tempPasswordCreate"){
+		alert("임시 비밀번호가 발송되었습니다. 이메일을 확인해 주세요.");
+	} else if(user_id != ""){
+		alert("회원님의 아이디는" + user_id + "입니다.")
+	} else if(msg == "missing"){
+		alert("잘못된 접근입니다.");
+	} else if(msg == "loginFail"){
+		alert("로그인 실패");
+	} else if(msg == "memberJoinSuccess"){
+		alert("회원가입 성공");
+	} else if(msg == "deletedCustomer"){
+		alert("삭제된 아이디입니다.");
+	}
+	
 	/* 헤더 배경화면, 게시판 이름 바꾸는 부분 */
 	/* url 뒤에 사진 넣으면됩니다. */
 	$("#page_background").css({"background-image":"url('${path}/resources/images/login_dog.jpg')"});
 	$("#page_background").css({"background-size":"100% 100%"});
 	$("#page_background").css({"background-repeat":"no-repeat"});
 	$("#boardNames").text("로그인");/* 게시판 이름 */
-	
-	var msg = "${msg}";
-	console.log(msg);
-	if(msg == "loginFail"){
-		alert("로그인 실패");
-	} else if(msg == "memberJoinSuccess"){
-		alert("회원가입 성공");
-	} else if(msg == "tempPasswordCreate"){
-		alert("임시 비밀번호가 발급되었습니다. 이메일을 확인해주세요.");
-	} else if(msg == "deletedCustomer"){
-		alert("삭제된 아이디입니다.");
-	}
 	
 	// 로그인 버튼 클릭시 -> 회원 정보 폼 전송
 	$("#btnLogin").click(function(){
@@ -63,7 +68,7 @@ $(function(){
 		<input type="text" id="user_id" name="user_id" class="input_login" placeholder="아이디를 입력해주세요" required value="${cookie.save_id.value}"></input>
 		비밀번호
 
-		<input type="password" id="user_pw" name="user_pw" class="input_login" placeholder="비밀번호를 입력해주세요" required value="admin"></input>
+		<input type="password" id="user_pw" name="user_pw" class="input_login" placeholder="비밀번호를 입력해주세요" required></input>
 		
 		<!-- 토글 -->
   		<div>

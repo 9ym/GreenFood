@@ -252,14 +252,12 @@
 				<!-- 히든정보 이메일 폰번호 주소 -->
 				<input type="hidden" name="user_email" /> <input type="hidden"
 					name="user_phone" />
-				<!-- 					<input type="hidden" name="user_address"/> -->
 
 				<!-- 아이디 비밀번호 확인 row -->
 				<div class="row">
 					<div class="col-md-6">
 						<label for="user_id"> 아이디 </label> <input type="text"
-							class="form-control" id="user_id" name="user_id" required
-							value="user" />
+							class="form-control" id="user_id" name="user_id" required/>
 					</div>
 
 					<div class="col-md-6">
@@ -280,10 +278,10 @@
 				<div class="form-group">
 					<label for="user_pw"> 비밀번호 </label> <input id="user_pw"
 						name="user_pw" class="form-control" type="password"
-						placeholder="비밀번호" required value="@rnlghks1"> <label
+						placeholder="비밀번호" required> <label
 						for="user_pw"> 비밀번호 확인 </label> <input id="user_pw1"
 						type="password" class="form-control" placeholder="비밀번호 확인"
-						required value="@rnlghks1">
+						required>
 				</div>
 
 				<div class="form-row">
@@ -305,7 +303,7 @@
 					<div class="form-group col-md-6">
 						<label class="small">이름 입력</label> <input id="user_name"
 							name="user_name" type="text" class="form-control"
-							placeholder="한글 영어 10자까지 입니다." required value="신귀환">
+							placeholder="한글 영어 10자까지 입니다." required>
 					</div>
 
 					<div class="form-group col-md-2">
@@ -321,12 +319,12 @@
 
 					<div class="form-group col-md-2">
 						<label class="small"> 　　</label>
-						<input type="text" id="midPhoneNum" class="form-control" required value="6428" />
+						<input type="text" id="midPhoneNum" class="form-control" required/>
 					</div>
 
 					<div class="form-group col-md-2">
 						<label class="small"> 　　</label>
-						<input type="text" id="lastPhoneNum" class="form-control" required value="4092" />
+						<input type="text" id="lastPhoneNum" class="form-control" required/>
 					</div>
 				</div>
 
@@ -345,7 +343,7 @@
 					<div class="form-group col-md-4">
 						<label class="small" for="emailId">이메일</label> <input type="text"
 							id="emailId" class="form-control" placeholder="이메일 아이디" required
-							value="zerll5100" />
+							/>
 					</div>
 					<div class="form-group col-md-1">
 						<label class="small"></label> <span class="form-control"
@@ -353,7 +351,7 @@
 					</div>
 					<div class="form-group col-md-4">
 						<label class="small" for="emailDomain">도메인</label>
-						<input type="text" id="emailDomain" class="form-control" placeholder="도메인 입력" required value="naver.com" />
+						<input type="text" id="emailDomain" class="form-control" placeholder="도메인 입력" required/>
 					</div>
 					<div class="form-group col-3">
 						<label class="small">　　　</label>
@@ -376,7 +374,7 @@
 					<div class="col-md-6">
 						<label class="small">주소(기본배송지)</label> <input type="text"
 							placeholder="우편번호" id="postalCode" name="user_addr1"
-							class="form-control" required value="44024" />
+							class="form-control" required/>
 					</div>
 
 					<div class="col-md-6">
@@ -388,14 +386,14 @@
 					<div class="col-md-12">
 						<label class="small">주소</label> <input type="text"
 							id="roadAddress" class="form-control" placeholder="주소를 입력해주세요"
-							required id="roadAddress" name="user_addr2" value="울산 북구 신천로 26" />
+							required id="roadAddress" name="user_addr2"/>
 					</div>
 
 					<div class="col-md-12">
 						<label class="small">상세주소</label> <input type="text"
 							id="detailAddress" class="form-control"
 							placeholder="상세주소를 입력해주세요" required id="detailAddress"
-							name="user_addr3" value="(신천효성해링턴) 103동 2104호" />
+							name="user_addr3"/>
 					</div>
 
 				</div>

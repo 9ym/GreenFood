@@ -40,11 +40,11 @@ $(function(){
             <div class="box_login">
                 <div class="inp_text">
                 <label for="loginId" class="screen_out">아이디</label>
-                <input type="text" id="user_id" name="user_id" placeholder="아이디" value="user" required>
+                <input type="text" id="user_id" name="user_id" placeholder="아이디" required>
                 </div>
                 <div class="inp_text">
                 <label for="loginPw" class="screen_out">이메일</label>
-                <input type="text" id="user_email" name="user_email" placeholder="이메일" value="zerll9100@gmail.com" required>
+                <input type="text" id="user_email" name="user_email" placeholder="이메일" required>
                 </div>
             </div>
             <button type="submit" class="btn_findPw">비밀번호 찾기</button>

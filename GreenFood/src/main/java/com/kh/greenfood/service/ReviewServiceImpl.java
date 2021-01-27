@@ -1,6 +1,7 @@
 package com.kh.greenfood.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,7 +9,9 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.greenfood.dao.OrderDao;
 import com.kh.greenfood.dao.ReviewDao;
+import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.ReviewVo;
 
@@ -17,6 +20,9 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	@Inject
 	private ReviewDao reviewDao;
+	
+	@Inject
+	private OrderDao orderDao;
 
 	// 입력
 	@Override
@@ -79,9 +85,16 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	// 상품평 등록했는지에 따른 count
 	@Override
-	public int productReviewsCount(String order_code) {
-		int count = reviewDao.productReviewsCount(order_code);
-		return count;
+	@Transactional
+	public List<Integer> productReviewsCount(String order_code) {
+		List<OrderDetailDto> orderDetailList = orderDao.getProductDetailList(order_code);
+		System.out.println("서스" + orderDetailList);
+		List<Integer> list = new ArrayList<>();
+		for(OrderDetailDto dto : orderDetailList) {
+			int count = reviewDao.productReviewsCount(order_code, dto.getProduct_code());
+			list.add(count);
+		}
+		return list;
 	}
 	
 	// 마이페이지 - 리뷰 모음

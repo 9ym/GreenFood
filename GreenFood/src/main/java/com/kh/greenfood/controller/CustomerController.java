@@ -127,15 +127,17 @@ public class CustomerController {
 	public String customerDetailOrder(@PathVariable("order_code") String order_code, Model model, HttpSession session)throws Exception{
 		CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
 		String user_id = customerVo.getUser_id();
-		int reviewCount = reviewService.productReviewsCount(order_code);
-		boolean reviewExist;
-		if(reviewCount > 0) {
-			reviewExist = true;
-			model.addAttribute("reviewExist", reviewExist);
-		} else {
-			reviewExist = false;
-			model.addAttribute("reviewExist", reviewExist);
-		}
+		List<Integer> listCount = reviewService.productReviewsCount(order_code);
+		model.addAttribute("listCount", listCount);
+//		boolean reviewExist;
+//		if(listCount > 0) {
+//			reviewExist = true;
+//			model.addAttribute("reviewExist", reviewExist);
+//		} else {
+//			reviewExist = false;
+//			model.addAttribute("reviewExist", reviewExist);
+//		}
+		
 		// 전체보기 카테고리
 		getProductCate(model);
 		// 주문 상세 정보 -> 주문 리스트
