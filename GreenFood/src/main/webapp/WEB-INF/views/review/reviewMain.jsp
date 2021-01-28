@@ -252,10 +252,12 @@ tbody tr {
 <script>
 $(function(){
 	
-	/* $("#btnReviewWrite").click(function(){
-		location.href="/review/reviewWrite";
-	}); */
-	
+	var msg ="${msg}";
+	if(msg == "reviewOk"){
+		alert("리뷰 쓰기가 완료되었습니다.");
+	} else if(msg == "reviewFail"){
+		alert("리뷰 쓰기가 실패했습니다.");
+	}
 		
 	$(".review_title").click(function(e){
 		e.preventDefault();
@@ -325,9 +327,6 @@ $(function(){
 										후기모음 <span class="tit_sub"> 고객 여러분의 소중한 후기를 모아 봤습니다.</span>
 										
 									</h2>
-									<!-- <div class="div-button" style="padding-bottom: 10px; height: 40px;">
-									<button type="button" id="btnReviewWrite">후기 작성하기</button>
-									</div> -->
 
 								</div><!-- // 메인창의 윗부분 -->
 
@@ -360,7 +359,7 @@ $(function(){
 															<c:forEach var="reviewVo" items="${reviewList}">
 																<tr>
 																	<td>${reviewVo.review_no }</td>
-																	<td>${reviewVo.product_title }</td>
+																	<td><a href="/product/detail/${reviewVo.product_code}">${reviewVo.product_title }</a></td>
 																	<td>
 																	<c:choose>
 																		<c:when test="${reviewVo.star_point == 1}">

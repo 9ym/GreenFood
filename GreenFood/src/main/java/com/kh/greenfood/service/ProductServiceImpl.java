@@ -168,8 +168,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ReviewVo> getReviewdListProduct(String product_title) throws Exception {
-		List<ReviewVo> reviewListProduct = productDao.getReviewdListProduct(product_title);
+	public List<ReviewVo> getReviewdListProduct(String product_code, int startRow, int endRow) {
+		List<ReviewVo> reviewListProduct = productDao.getReviewdListProduct(product_code, startRow, endRow);
 		return reviewListProduct;
 	}
 	
@@ -209,6 +209,13 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVo> getSearchTitle(String product_title) {
 		List<ProductVo> list = productDao.getSearchTitle(product_title);
 		return list;
+	}
+	
+	/* 제일 최근에 추가된 상품 */
+	@Override
+	public ProductVo getProductLatest() {
+		ProductVo vo = productDao.getProductLatest();
+		return vo;
 	}
 	
 }

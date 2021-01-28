@@ -2,30 +2,25 @@ package com.kh.greenfood.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.amazonaws.services.simpleworkflow.flow.worker.SynchronousActivityTaskPoller;
-import com.kh.greenfood.domain.CartDto;
 import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderListCountDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PointVo;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ReviewVo;
-import com.kh.greenfood.domain.TestVo;
+import com.kh.greenfood.domain.CustomerVo;
 import com.kh.greenfood.service.MemberService;
 import com.kh.greenfood.service.OrderService;
 import com.kh.greenfood.service.PointService;
@@ -63,8 +58,8 @@ public class CustomerController {
 	// 마이페이지 포워드
 	@RequestMapping(value="/customerMyPage", method=RequestMethod.GET)
 	public String customerMyPage(HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
-		TestVo testVo = (TestVo)session.getAttribute("testVo");
-		String user_id = testVo.getUser_id();
+		CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
+		String user_id = customerVo.getUser_id();
 		// 상품 전체보기 카테고리
 		getProductCate(model);
 		// 상품 전체 품목 OrderVo -> session
@@ -91,7 +86,7 @@ public class CustomerController {
 				sum -= point;
 			}
 		}
-		testVo.setUser_point(sum);
+		customerVo.setUser_point(sum);
 		// 후기 갯수
 		int count = reviewService.getReviewCount(user_id);
 		model.addAttribute("reviewCount", count);
@@ -109,8 +104,8 @@ public class CustomerController {
 	@RequestMapping(value="/customerPoint")
 	public String customerPoint (HttpSession session, Model model) throws Exception{
 		getProductCate(model);
-		TestVo testVo = (TestVo)session.getAttribute("testVo");
-		String user_id = testVo.getUser_id();
+		CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
+		String user_id = customerVo.getUser_id();
 		List<PointVo> pointVo = memberService.getUserPoint(user_id);
 		model.addAttribute("pointVo", pointVo);
 		return "customer/customerPoint";
@@ -120,8 +115,8 @@ public class CustomerController {
 	@RequestMapping(value="/customerOrderdList", method=RequestMethod.GET)
 	public String customerOrderdList(HttpSession session, Model model) throws Exception{
 		getProductCate(model);
-		TestVo testVo = (TestVo)session.getAttribute("testVo");
-		String user_id = testVo.getUser_id();
+		CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
+		String user_id = customerVo.getUser_id();
 		List<OrderVo> orderedList = memberService.getOrderedList(user_id);
 		model.addAttribute("orderedList", orderedList);
 		return "customer/customerOrderdList";
@@ -130,8 +125,8 @@ public class CustomerController {
 	// 마이페이지 상의 order_code 클릭시 주문상세 내역 보여주기
 	@RequestMapping(value="/customerDetailOrder/{order_code}", method=RequestMethod.GET)
 	public String customerDetailOrder(@PathVariable("order_code") String order_code, Model model, HttpSession session)throws Exception{
-		TestVo testVo = (TestVo)session.getAttribute("testVo");
-		String user_id = testVo.getUser_id();
+		CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
+		String user_id = customerVo.getUser_id();
 		int reviewCount = reviewService.productReviewsCount(order_code);
 		boolean reviewExist;
 		if(reviewCount > 0) {
@@ -166,9 +161,9 @@ public class CustomerController {
 	/* customer 배송중->배송완료  customer 주문횟수 5라면 level gold 주문횟수 10이라면 level vip*/
 	@RequestMapping(value="/completedDeliveryRun", method=RequestMethod.GET)
 	public String completedDeliveryRun(String order_code, String order_state, int order_total_price, HttpSession session, RedirectAttributes rttr) throws Exception {
-		TestVo testVo = (TestVo)session.getAttribute("testVo");
-		String user_id = testVo.getUser_id();
-		int user_level = testVo.getUser_level();
+		CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
+		String user_id = customerVo.getUser_id();
+		int user_level = customerVo.getUser_level();
 		/* user_level에 따라 포인트 % 지급*/
 		double percent = 0;
 		int discount = 0;
@@ -204,7 +199,7 @@ public class CustomerController {
 		}
 		int levelUp = orderService.updateState(user_id, order_code, order_state, user_level);
 		if(levelUp > 0) {
-			testVo.setUser_level(user_level + 1);
+			customerVo.setUser_level(user_level + 1);
 			rttr.addFlashAttribute("msg", "levelUp");
 		}
 		return page;
@@ -227,9 +222,9 @@ public class CustomerController {
 	@RequestMapping(value="/customerProfileRun", method=RequestMethod.POST)
 	@ResponseBody
 	public String customerProfileRun(HttpSession session, String user_pw) throws Exception{
-		TestVo testVo = (TestVo)session.getAttribute("testVo");
+		CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
 		// 비동기 요청 성공시 success, 실패시 fail
-		if (testVo.getUser_pw().equals(user_pw)) {
+		if (customerVo.getUser_pw().equals(user_pw)) {
 			return "success";
 		} else {
 			return "fail";
@@ -238,13 +233,13 @@ public class CustomerController {
 	
 	// 마이페이지 -> 프로필 회원 정보 수정완료 버튼
 	@RequestMapping(value="/customerProfileModifyRun", method=RequestMethod.POST)
-	public String customerProfileModifyRun(HttpSession session, TestVo testVo, RedirectAttributes rttr) throws Exception{
-		int count = memberService.customerModify(testVo);
+	public String customerProfileModifyRun(HttpSession session, CustomerVo customerVo, RedirectAttributes rttr) throws Exception{
+		int count = memberService.customerModify(customerVo);
 		String page = "";
 		if(count > 0) {
-			testVo.setUser_pw(((TestVo)session.getAttribute("testVo")).getUser_pw());
-			testVo.setUser_level(((TestVo)session.getAttribute("testVo")).getUser_level());
-			session.setAttribute("testVo", testVo);
+			customerVo.setUser_pw(((CustomerVo)session.getAttribute("customerVo")).getUser_pw());
+			customerVo.setUser_level(((CustomerVo)session.getAttribute("customerVo")).getUser_level());
+			session.setAttribute("customerVo", customerVo);
 			rttr.addFlashAttribute("msg", "modifySuccess");
 			page = "redirect:/customer/customerMyPage";
 		} else {
@@ -258,11 +253,11 @@ public class CustomerController {
 	@RequestMapping(value="/customerProfilePwChangeChkRun", method=RequestMethod.POST)
 	@ResponseBody
 	public String customerProfilePwChangeChkRun(HttpSession session, String presentPw) throws Exception{
-		TestVo testVo = (TestVo)session.getAttribute("testVo");
-		String user_id = testVo.getUser_id();
-		TestVo testVo1 = memberService.login(user_id, presentPw);
+		CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
+		String user_id = customerVo.getUser_id();
+		CustomerVo customerVo1 = memberService.login(user_id, presentPw);
 		// 비동기 요청 비밀번호 같을시 equals, 아닐시 fail
-		if(testVo1 != null) {
+		if(customerVo1 != null) {
 			return "equals";
 		} else {
 			return "fail";
@@ -272,13 +267,13 @@ public class CustomerController {
 	// 마이페이지 -> 프로필 비밀번호 변경
 	@RequestMapping(value="/customerProfilePwChange", method=RequestMethod.POST)
 	public String customerProfilePwChange(HttpSession session,String user_pw, RedirectAttributes rttr) throws Exception{
-		TestVo testVo = (TestVo)session.getAttribute("testVo");
-		String user_id = testVo.getUser_id();
+		CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
+		String user_id = customerVo.getUser_id();
 		int count = memberService.changePw(user_id, user_pw);
 		String page = "";
 		if(count > 0) {
-			testVo.setUser_pw(user_pw);
-			session.setAttribute("testVo", testVo);
+			customerVo.setUser_pw(user_pw);
+			session.setAttribute("customerVo", customerVo);
 			rttr.addFlashAttribute("msg", "pwChangeSuccess");
 			page = "redirect:/customer/customerProfile";
 		} else {
@@ -292,8 +287,8 @@ public class CustomerController {
 	@RequestMapping(value="/customerOrdStateList/{order_state}", method=RequestMethod.GET)
 	public String ordDelivery(@PathVariable("order_state") int order_state, HttpSession session, Model model) throws Exception{
 		getProductCate(model);
-		TestVo testVo = (TestVo)session.getAttribute("testVo");
-		String user_id = testVo.getUser_id();
+		CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
+		String user_id = customerVo.getUser_id();
 		List<OrderVo> orderVoList = orderService.getOrderStateInfoList(user_id, order_state);
 		model.addAttribute("orderVoList", orderVoList);
 		return "/customer/customerOrdStateList";
@@ -302,8 +297,8 @@ public class CustomerController {
 	// 마이페이지 -> 후기
 	@RequestMapping(value="/customerReview", method=RequestMethod.GET)
 	public String getReview(HttpSession session, Model model) throws Exception{
-		TestVo testVo = (TestVo)session.getAttribute("testVo");
-		String user_id = testVo.getUser_id();
+		CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
+		String user_id = customerVo.getUser_id();
 		List<ReviewVo> reviewVoList = reviewService.getReviewList(user_id);
 		model.addAttribute("reviewVoList", reviewVoList);
 		return "/customer/customerReview";
@@ -311,12 +306,12 @@ public class CustomerController {
 	
 	// 회원가입
 	@RequestMapping(value="/customerMemberJoinRun", method=RequestMethod.POST)
-	public String customerMemberJoinRun(TestVo testVo, RedirectAttributes rttr) throws Exception {
+	public String customerMemberJoinRun(CustomerVo customerVo, RedirectAttributes rttr) throws Exception {
 		// 회원가입시 포인트 1000점 부여
-		testVo.setUser_point(1000);
+		customerVo.setUser_point(1000);
 		// 회원 코드 1002(구매자) 부여
-		testVo.setUser_code("1002");
-		int count = memberService.insertMember(testVo);
+		customerVo.setUser_code("1002");
+		int count = memberService.insertMember(customerVo);
 		String page = "";
 		// insert 성공시 loginPage로 이동, 실패시 joinForm으로 이동
 		if(count > 0) {

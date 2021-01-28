@@ -220,11 +220,6 @@ input[type=checkbox] {
 	padding-top: 30px;
 }
 
-
-
-
-
-
 </style>
 
 <script src="/resources/js/myScript.js"></script>
@@ -356,7 +351,7 @@ function make2digits(num) {
 													<tr>
 														<th>작성자</th>
 														<td><input type=text name="q_o_writer"
-															value="${sessionScope.testVo.user_id}" size=26
+															value="${sessionScope.customerVo.user_id}" size=26
 															class="read_only"
 															style="background-color: #f7f5f8; width: 150px;"
 															readonly="readonly"></td>
@@ -401,7 +396,7 @@ function make2digits(num) {
 													<tr>
 														<th>이메일</th>
 														<td><input type=text name="q_o_email"
-															value="${sessionScope.testVo.user_email}" size=26
+															value="${sessionScope.customerVo.user_email}" size=26
 															class="read_only" style="width: 200px;"> <span
 															class="noline smalle" style="padding-left: 10px">
 																<input type=checkbox name=mailling style="width: 20px;">
@@ -412,7 +407,7 @@ function make2digits(num) {
 													<tr>
 														<th>전화번호</th>
 														<td><input type=text name="q_o_phone"
-															value="${sessionScope.testVo.user_phone}"
+															value="${sessionScope.customerVo.user_phone}"
 															class="read_only" style="width: 130px;"> <span
 															class="noline smalle" style="padding-left: 10px">
 																<input type=checkbox name=sms style="width: 20px;">

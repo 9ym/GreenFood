@@ -51,7 +51,6 @@
 
 <form id="frmSearchPaging" action="" method="get">
 	<input type="hidden" name="keyword" value="${pagingDto.keyword}">
-	<%-- <input type="hidden" name="page" value="${pagingDto.page}"/> --%>
 </form>
 
 

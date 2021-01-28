@@ -304,9 +304,6 @@ $(function(){
 
 </head>
 <body>
-${testVo}
-
-
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
@@ -324,13 +321,8 @@ ${testVo}
 										<li class="on"><a href="#">공지사항</a></li>
 										<li><a href="/customerCenter/question/questionContent">자주하는 질문</a></li>
 										<li><a href="/customerCenter/questionOne/questionOneContent" >1:1 문의</a></li>
-										<!-- <li><a href="#">상품 제안</a></li>
-										<li><a href="#">에코포장 피드백</a></li> -->
 									</ul>
 								</div>
-								<!-- <a href="#"
-									class="link_inquire"><span class="emph">도움이 필요하신가요 ?</span>
-									1:1 문의하기</a> -->
 								</div>
 							</div>
 
@@ -343,7 +335,7 @@ ${testVo}
 								<div class="head_aticle">
 									<h2 class="tit">
 										공지사항 <span class="tit_sub"> 새로운 공지사항과 소식을 확인해주세요.</span>
-										<c:if test="${sessionScope.testVo.user_id == 'admin'}">
+										<c:if test="${sessionScope.customerVo.user_id == 'admin'}">
 											<button type="button" id="btnNoticeWrite">공지사항 작성</button>
 										</c:if>
 									</h2>

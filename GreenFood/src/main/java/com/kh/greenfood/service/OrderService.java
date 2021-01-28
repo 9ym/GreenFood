@@ -6,7 +6,7 @@ import com.kh.greenfood.domain.CartDto;
 import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PagingDto;
-import com.kh.greenfood.domain.TestVo;
+import com.kh.greenfood.domain.CustomerVo;
 
 public interface OrderService {
 
@@ -29,7 +29,7 @@ public interface OrderService {
 	public List<CartDto> getListCartPay (List<String> listCartNo);
 	
 	/* 결제 완료 - 주문 전부 생성, 멤버 포인트 변경 */
-	public boolean setOrder(OrderVo orderVo, List<String> listCartPay, TestVo testVo, int finalPointUse);
+	public boolean setOrder(OrderVo orderVo, List<String> listCartPay, CustomerVo customerVo, int finalPointUse);
 	
 	/* 제일 최근에 결제 완료된 주문 */
 	public OrderVo getOrderLatest();

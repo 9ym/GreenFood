@@ -38,7 +38,7 @@ $(function(){
 		</div>
 		<p>반갑습니다!</p>
 		<p>구매자</p>
-		<p><span id="spanUserName">${sessionScope.testVo.user_name}</span>님</p>
+		<p><span id="spanUserName">${sessionScope.customerVo.user_name}</span>님</p>
 	</div>
 	<div id="left_bottom">
 		<div><a href="/customer/customerProfile" class="btn">프로필</a></div>
@@ -51,7 +51,7 @@ $(function(){
 	
 	<!-- 전체 주문 내역 -->
 		<div class="container">
-			<h2>${sessionScope.testVo.user_name}님 </h2>
+			<h2>${sessionScope.customerVo.user_name}님 </h2>
 			<table class="table table-striped">
 				<thead>
 					<tr>

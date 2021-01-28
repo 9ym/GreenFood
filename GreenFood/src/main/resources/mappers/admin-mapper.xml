@@ -6,7 +6,7 @@
 <mapper namespace="com.kh.greenfood.admin">
 
 	<!-- 회원 구매자 1002 리스트 불러오기 -->
-	<select id="getCustomerList" resultType="testVo">
+	<select id="getCustomerList" resultType="customerVo">
 		select * from 
 			(select ROW_NUMBER() OVER (ORDER BY user_date desc) rnum, a.* from tbl_member a
 			where 1 = 1
@@ -39,7 +39,7 @@
 	</select>
 	
 	<!-- 탈퇴한 회원 리스트 -->
-	<select id="getDeletedCustomerList" resultType="testVo">
+	<select id="getDeletedCustomerList" resultType="customerVo">
 		select * 
 			from (select ROW_NUMBER() OVER (ORDER BY user_date desc) rnum, a.* 
 				from tbl_member a where 1 = 1 and user_code = '1002' and user_deleted = 'Y')

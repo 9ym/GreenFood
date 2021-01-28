@@ -138,36 +138,6 @@ input[type=checkbox] {
 
 </style>
 
-<script>
-$(function(){
-	
-	/* $("#btnNoticeWrite").click(function(){
-		location.href="/customerCenter/notice/noticeWriteForm";
-	});
-	
-		
-	$(".notice_title").click(function(e){
-		e.preventDefault();
-		var n_no = $(this).attr("data-bno");
-		
-		location.href="/customerCenter/notice/noticeContent/" + n_no;
-	});
-	
-	// 페이지네이션 - 페이지 번호 클릭했을때
-	$("a.page-link").click(function(e){
-		e.preventDefault();
-		var page = $(this).attr("data-page");
-		console.log(page);
-		$("#frmNoticePaging").find("input[name=page]").val(page);
-		$("#frmNoticePaging").submit();
-	}); */
-	
-	
-});
-</script>
-
-
-
 </head>
 <body>
 

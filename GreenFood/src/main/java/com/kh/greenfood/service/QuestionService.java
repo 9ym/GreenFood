@@ -21,9 +21,6 @@ public interface QuestionService {
 	
 	// �� ��ȸ
 	public QuestionVo selectQuestion(int question_no) throws Exception;
-	
-	/*// ī�װ� �� �ϳ� �޾ƿ���
-	public QuestionVo getQuestionCategory(int question_category) throws Exception;*/
 		
 	// �� ����
 	public void updateQuestion(QuestionVo questionVo) throws Exception;

@@ -127,9 +127,7 @@ $(function(){
 <!-- 스크립트 끝 -->
 
 <title>ܤܤ그린푸드ܤܤ</title>
-<!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
-<!-- <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> -->
-<!-- <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet"> -->
+
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
 
@@ -150,11 +148,6 @@ ul li a{ text-decoration:none; }
 .slide li:nth-child(3){background-image:url("https://images.unsplash.com/photo-1510442393143-041057d09394?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80");animation-delay:4s;background-repeat:no-repeat;background-size:100%100%;}
 .slide li:nth-child(4){background-image:url("https://images.unsplash.com/photo-1541683746238-470486ba4a00?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80");animation-delay:6s;background-repeat:no-repeat;background-size:100%100%;}
 	
-/* .slide li:nth-child(1){background-image:url("https://file.mk.co.kr/meet/neds/2020/01/image_readtop_2020_83302_15800838754063133.jpg");animation-delay:0s;background-repeat:no-repeat;background-size: 100% 100%;} */
-/* .slide li:nth-child(2){background-image:url("https://images.unsplash.com/photo-1591981093673-984cd7de9ca4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80");animation-delay:2s;background-repeat:no-repeat;background-size:100%100%;} */
-/* .slide li:nth-child(3){background-image:url("https://images.unsplash.com/photo-1594069213067-8996d741badb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80");animation-delay:4s;background-repeat:no-repeat;background-size:100%100%;} */
-/* .slide li:nth-child(4){background-image:url("https://images.unsplash.com/photo-1580910365203-91ea9115a319?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80");animation-delay:6s;background-repeat:no-repeat;background-size:100%100%;} */
-	
      /* 100 / 8 = 12.5 */
     @keyframes fade {
       0% {opacity:0;}
@@ -170,28 +163,6 @@ ul li a{ text-decoration:none; }
 		z-index:99999;
 		background-color:yellow;
 	}
-	
-	/* #main_text{
-		position:absolute;
-		top:500px;
-		left:750px;
-		z-index:1;
-		color:white;
-		font-size:20px;
-	}
-	#main_text p:nth-child(1){
-		position:relative;
-		left:100px;
-	}
-	#main_text p:nth-child(2){
-		position:relative;
-		left:40px;
-		font-size:40px;
-	}
-	#main_text p:nth-child(3) #main_text_span{
-		font-weight:bold;
-		font-size:30px;
-	} */
 	
 	* {
 		font-family: 'Noto Sans', sans-serif;
@@ -241,14 +212,9 @@ ul li a{ text-decoration:none; }
 	#header_menu #first_li{
 		height: 70px;
 		width:120px;
-/* 		text-align : center; */
-/* 		float : left; */
 	}
 	#a-first_li {										
 		display:inline;	
-/* 		border-top: #6ca435 1px solid; */
-/* 		border-bottom: #6ca435 1px solid; */
-/* 		padding : 20px 20px;	 */
 	}										
 	#first_li a{
 		display:inline;
@@ -277,7 +243,6 @@ ul li a{ text-decoration:none; }
 		color:#6ca435;
 	}
 	#header_menu ul a{
-/* 		font-family: 'Nanum Gothic', sans-serif; */
 		font-family: 'Noto Sans', sans-serif;
 		color:black;
 		font-weight:bold;
@@ -290,7 +255,6 @@ ul li a{ text-decoration:none; }
 		margin-top:20px;
 		margin-top:20px;
 		margin-right:45px;
-/* 		height:30px; */
 		border:1px solid Gainsboro;
 	}
 	#header_menu_right input{
@@ -308,7 +272,6 @@ ul li a{ text-decoration:none; }
 	}
 	
 	#header_small_menu{
-/* 		min-width:270px; */
 		width:500px;
  		position:absolute; 
  		top:35px;
@@ -513,7 +476,7 @@ ul li a{ text-decoration:none; }
 <header>
 	<!-- 제일 상단 버튼 : 회원가입 혜택 안내?? -->
 	<c:choose>
-		<c:when test="${empty sessionScope.testVo && empty cookie.expend}">
+		<c:when test="${empty sessionScope.customerVo && empty cookie.expend}">
 		<div class="div-top">	
 			<a href="/main/memberJoinForm">
 				<span>지금 가입하고 포인트 받으세요!</span>
@@ -538,17 +501,12 @@ ul li a{ text-decoration:none; }
 	</div>
 	<!--// 이미지 슬라이드 -->
 	
-	<!-- <div id="main_text">
-		<p>바른 먹거리 신뢰와 상생</p>
-		<p id=>농산물 직거래 플랫폼</p>
-		<p>우리 지역 농산물의 <span id="main_text_span">신선함</span>을 그대로 전달해 드립니다</p>
-	</div> -->
 	<div id="header_small_menu">
 		<c:choose>
-			<c:when test="${not empty sessionScope.testVo }">
+			<c:when test="${not empty sessionScope.customerVo }">
 				<a href="/logout">로그아웃</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 				<c:choose>
-		 		<c:when test="${sessionScope.testVo.user_code == '1001'}">
+		 		<c:when test="${sessionScope.customerVo.user_code == '1001'}">
 		 			<a href="/admin/customerList">회원관리</a>
 		 			<a href="/admin/productSearchList?searchAnd=date&searchWhere=all&searchBy=desc&searchWhat=&page=1">상품관리</a>
 		 			<a href="/admin/orderManager">주문관리</a>
@@ -565,7 +523,7 @@ ul li a{ text-decoration:none; }
 					src="https://www.oasis.co.kr/images/common/bg_footer.png"> --> 
 			</c:otherwise>
 			</c:choose>
-			<c:if test="${sessionScope.testVo.user_code != '1001'}">
+			<c:if test="${sessionScope.customerVo.user_code != '1001'}">
 				<a href="/order/cart" id="anchorCart">장바구니</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 				<a href="#">주문배송</a><img src="https://www.oasis.co.kr/images/common/bg_footer.png">
 			</c:if>
@@ -621,7 +579,6 @@ ul li a{ text-decoration:none; }
 						<p class="price-p">${productVo.product_price}</p>
 					</div>
 					<div class="showPoints">
-<%-- 						<img src="${path}/resources/images/thumbs_up.png"> --%>
 						<img src="https://www.oasis.co.kr/images/shop/pd_like.png">
 						<span class="spanShowPoints">
 						<c:forEach begin="1" end="${productVo.product_star}">

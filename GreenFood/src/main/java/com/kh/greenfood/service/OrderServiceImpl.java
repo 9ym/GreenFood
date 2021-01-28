@@ -13,7 +13,7 @@ import com.kh.greenfood.domain.CartDto;
 import com.kh.greenfood.domain.OrderDetailDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PagingDto;
-import com.kh.greenfood.domain.TestVo;
+import com.kh.greenfood.domain.CustomerVo;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -87,13 +87,13 @@ public class OrderServiceImpl implements OrderService {
 	/* 결제 완료 - 주문 전부 생성, 멤버 포인트 변경 */
 	@Override
 	@Transactional
-	public boolean setOrder(OrderVo orderVo, List<String> listCartPay, TestVo testVo, int finalPointUse) {
+	public boolean setOrder(OrderVo orderVo, List<String> listCartPay, CustomerVo customerVo, int finalPointUse) {
 		/* 포인트 차감 */
 		int countUpdate = 0;
 		if (finalPointUse != 0) {
-			int count = memberDao.insertPoint(testVo.getUser_id(), finalPointUse, 104); // 104 : 포인트 사용
+			int count = memberDao.insertPoint(customerVo.getUser_id(), finalPointUse, 104); // 104 : 포인트 사용
 			if (count > 0) { // 원래 포인트 - 추가 포인트
-				countUpdate = memberDao.updateUserPoint(testVo.getUser_point() - finalPointUse, testVo.getUser_id()); 
+				countUpdate = memberDao.updateUserPoint(customerVo.getUser_point() - finalPointUse, customerVo.getUser_id()); 
 			}
 		}
 		
@@ -183,13 +183,26 @@ public class OrderServiceImpl implements OrderService {
 	
 	/* customer 배송 상태 변경 */
 	@Override
+	@Transactional
 	public int updateState(String user_id, String order_code, String order_state, int user_level) {
+		// 배송상태 배송중 -> 배송완료
 		int count = orderDao.updateState(user_id, order_code, order_state);
-		int orderCount = memberDao.orderCount(user_id);
 		int levelUp = 0;
 		if(count > 0) {
+			List<OrderDetailDto> orderDetailList = orderDao.getProductDetailList(order_code);
+			for(OrderDetailDto list : orderDetailList) {
+				String product_code = list.getProduct_code();
+				orderDao.updateOrderCount(product_code);
+			}
+		}
+		// 주문 횟수 체크
+		int orderCount = memberDao.orderCount(user_id);
+		if(count > 0) {
 			if(orderCount == 5 || orderCount == 10) {
-				levelUp = memberDao.updateUserLevel(user_id, user_level + 1);
+				int count1 = memberDao.updateUserLevel(user_id, user_level + 1);
+				if(count1 > 0) {
+					levelUp = count1;
+				}
 			}
 		}
 		return levelUp;

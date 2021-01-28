@@ -19,14 +19,11 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public void insertQuestion(QuestionVo questionVo) throws Exception {
 		questionDao.insertQuestion(questionVo);
-
 	}
 
 	@Override
 	public List<QuestionVo> getQuestionList(PagingDto pagingDto) throws Exception {
 		List<QuestionVo> questionList = questionDao.getQuestionList(pagingDto);
-//		System.out.println("QuestionServiceImpl, getQuestionList, pagingDto :" + pagingDto);
-//		System.out.println("QuestionServiceImpl, questionList :" + questionList);
 		return questionList;
 	}
 
@@ -61,27 +58,5 @@ public class QuestionServiceImpl implements QuestionService {
 		System.out.println("QuestionServiceImpl, questionListCategory :" + questionListCategory);
 		return questionListCategory;
 	}
-
-	
-
-	
-
-	
-	
-	
-
-	/*@Override
-	public QuestionVo getQuestionCategory(int question_category) throws Exception {
-		QuestionVo questionVo = questionDao.getQuestionCategory(question_category);
-		return questionVo;
-	}*/
-
-	/*@Override
-	public List<QuestionCategoryDto> getCategoryList() {
-		List<QuestionCategoryDto> categoryList = questionDao.getCategoryList();
-		return categoryList;
-	}*/
-
-	
 
 }

@@ -184,7 +184,7 @@ table {
 	<div>
 	<div class="btnList" >
 		<button type="submit" id="btnList" class="btn btn-success">목록</button>
-		<c:if test="${sessionScope.testVo.user_id == 'admin'}">
+		<c:if test="${sessionScope.customerVo.user_id == 'admin'}">
 		<button type="button" id="btnUpdateQuestion" class="btn btn-warning" style="margin-left: 10px">수정</button>
 		</c:if>
 		<form id="frmUpdate" action="/customerCenter/question/updateQuestion" method="POST">
@@ -194,7 +194,7 @@ table {
 			<button type="button" id="btnUpdateFinish" class="btn btn-warning" style="margin-left: 10px; display: none;">수정완료</button>
 		</form>
 		
-		<c:if test="${sessionScope.testVo.user_id == 'admin'}">
+		<c:if test="${sessionScope.customerVo.user_id == 'admin'}">
 		<form action="/customerCenter/question/deleteQuestion" method="get">
 			<input type="hidden" name="question_no" class="btn btn-danger" value="${questionVo.question_no }"/>
 			<button type="submit" id="btnDeleteQuestion" class="btn btn-danger" style="margin-left: 10px">삭제</button>

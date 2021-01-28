@@ -29,13 +29,7 @@ public class noticeDaoTest {
 			noticeVo.setNotice_title(i + " ��° �Խù� �Դϴ�.");
 
 			noticeVo.setNotice_content(i + " ��° �Խù� �Դϴ�.");
-		
-		/*noticeVo.setNotice_no(notice_no);*/
-		/*noticeVo.setNotice_title("������������");
-		noticeVo.setNotice_content("���볻�볻��");*/
-		/*noticeVo.setAdmin_id("admin");*/
 		noticeDao.insertNotice(noticeVo);
-		System.out.println("noticeVo :" + noticeVo);
 	
 		}
 	}
@@ -49,7 +43,6 @@ public class noticeDaoTest {
 		noticeVo.setNotice_content("����5 ����");
 		noticeVo.setNotice_no(61);
 		noticeDao.updateNotice(noticeVo);
-		System.out.println("noticeVo :" + noticeVo);
 	}
 	
 	@Test
@@ -59,8 +52,6 @@ public class noticeDaoTest {
 		/*pagingDto.setPage(10);*/
 		pagingDto.setTotalCount(noticeDao.noticeListCount(pagingDto));
 		pagingDto.setPagingInfo();
-		List<NoticeVo> boardList = noticeDao.noticeList(pagingDto);
-		System.out.println("boardList:" + boardList);
 	}
 	
 	

@@ -5,14 +5,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.greenfood.dao.AdminDao;
-import com.kh.greenfood.dao.MemberDao;
-import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PagingDto;
-import com.kh.greenfood.domain.PointVo;
-import com.kh.greenfood.domain.TestVo;
+import com.kh.greenfood.domain.CustomerVo;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -21,8 +17,8 @@ public class AdminServiceImpl implements AdminService {
 	private AdminDao adminDao;
 
 	@Override
-	public List<TestVo> getCustomerList(PagingDto pagingDto) {
-		List<TestVo> customerList = adminDao.getCustomerList(pagingDto);
+	public List<CustomerVo> getCustomerList(PagingDto pagingDto) {
+		List<CustomerVo> customerList = adminDao.getCustomerList(pagingDto);
 		return customerList;
 	}
 
@@ -39,8 +35,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<TestVo> getDeletedCustomerList(PagingDto pagingDto) {
-		List<TestVo> getDeletedCustomerList = adminDao.getDeletedCustomerList(pagingDto);
+	public List<CustomerVo> getDeletedCustomerList(PagingDto pagingDto) {
+		List<CustomerVo> getDeletedCustomerList = adminDao.getDeletedCustomerList(pagingDto);
 		return getDeletedCustomerList;
 	}
 

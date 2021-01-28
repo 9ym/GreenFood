@@ -68,7 +68,7 @@ public interface ProductService {
 	
 
 	/* 리뷰 리스트 받아오기 */
-	public List<ReviewVo> getReviewdListProduct(String product_title) throws Exception;
+	public List<ReviewVo> getReviewdListProduct(String product_code, int startRow, int endRow);
 
 	/* 해당 상품 다시 판매 */
 	public int startProduct(String product_code);
@@ -80,5 +80,8 @@ public interface ProductService {
 
 	/* 상품명으로 전체 검색 */
 	public List<ProductVo> getSearchTitle(String product_title);
+	
+	/* 제일 최근에 추가된 상품 */
+	public ProductVo getProductLatest();
 	
 }

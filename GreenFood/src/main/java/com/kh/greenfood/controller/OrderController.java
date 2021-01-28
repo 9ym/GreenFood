@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,8 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.greenfood.domain.CartDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.ProductCategoryDto;
-import com.kh.greenfood.domain.TestVo;
-import com.kh.greenfood.service.MemberService;
+import com.kh.greenfood.domain.CustomerVo;
 import com.kh.greenfood.service.OrderService;
 import com.kh.greenfood.service.ProductService;
 import com.kh.greenfood.util.S3Util;
@@ -37,9 +35,8 @@ public class OrderController {
 	/* 장바구니 이동 */
 	@RequestMapping(value="/cart", method=RequestMethod.GET)
 	public String cart(HttpSession session, Model model) throws Exception {
-		TestVo testVo = (TestVo) session.getAttribute("testVo");
-		List<CartDto> list = orderService.seeCartList(testVo.getUser_id());
-		System.out.println("cart: " +  list);
+		CustomerVo customerVo = (CustomerVo) session.getAttribute("customerVo");
+		List<CartDto> list = orderService.seeCartList(customerVo.getUser_id());
 		model.addAttribute("cartList", list);
 		
 		/* img 링크 리스트 */
@@ -57,8 +54,6 @@ public class OrderController {
 	@ResponseBody
 	public String cartIn(String user_id, String product_code, String product_title, 
 			int product_price, int product_sale_rate, int cart_quantity, HttpSession session) throws Exception {
-		TestVo testVo =  (TestVo)session.getAttribute("testVo");
-		System.out.println("addCart : " + testVo);
 		CartDto cartDto = new CartDto(user_id, product_code, product_title, 
 				product_price, product_sale_rate, cart_quantity);
 		String result = orderService.addCart(cartDto);
@@ -101,8 +96,8 @@ public class OrderController {
 		model.addAttribute("listPrices", listPrices);
 		
 		/* 회원 정보 */
-		TestVo testVo = (TestVo) session.getAttribute("testVo");
-		model.addAttribute("testVo", testVo);
+		CustomerVo customerVo = (CustomerVo) session.getAttribute("customerVo");
+		model.addAttribute("customerVo", customerVo);
 		
 		/* 결제할 상품 정보 */
 		List<CartDto> listCartPay = orderService.getListCartPay(listCartNo);
@@ -116,11 +111,11 @@ public class OrderController {
 	public String pay(CartDto cartDto, Model model, HttpSession session) throws Exception {
 		
 		/* 회원 정보 */
-		TestVo testVo = (TestVo) session.getAttribute("testVo");
-		model.addAttribute("testVo", testVo);
+		CustomerVo customerVo = (CustomerVo) session.getAttribute("customerVo");
+		model.addAttribute("customerVo", customerVo);
 		
 		/* 결제할 상품 정보 -> 상품 바로결제, 상품 1개 */
-		cartDto.setUser_id(testVo.getUser_id());
+		cartDto.setUser_id(customerVo.getUser_id());
 		CartDto newCartDto = orderService.addCartOne(cartDto);
 		List<CartDto> listCartPay = new ArrayList<>();
 		listCartPay.add(newCartDto);
@@ -171,21 +166,20 @@ public class OrderController {
 			order_pay_method = "deposit"; // 무통장입금
 			break;
 		}
-		TestVo testVo = (TestVo) session.getAttribute("testVo");
-		OrderVo orderVo = new OrderVo(testVo.getUser_id(), finalTotalPrice, finalSalePrice, finalPointUse, 
+		CustomerVo customerVo = (CustomerVo) session.getAttribute("customerVo");
+		OrderVo orderVo = new OrderVo(customerVo.getUser_id(), finalTotalPrice, finalSalePrice, finalPointUse, 
 				order_state, listAddr.get(0), listAddr.get(1), listAddr.get(2), order_pay_method);
 		
 		/* DB에 결제 데이터 저장 : 주문, 포인트 변경 */
-		boolean result = orderService.setOrder(orderVo, listCartPay, testVo, finalPointUse);
+		boolean result = orderService.setOrder(orderVo, listCartPay, customerVo, finalPointUse);
 		
 		String finalPayResult = "";
 		if (result) {
-			/* 포인트 사용 : 수정된 testVo로 session에 넣기 */
-			session.removeAttribute("testVo");
-			int user_point = testVo.getUser_point() - finalPointUse;
-			testVo.setUser_point(user_point);
-			session.setAttribute("testVo", testVo);
-			System.out.println("use-"+testVo);
+			/* 포인트 사용 : 수정된 customerVo로 session에 넣기 */
+			session.removeAttribute("customerVo");
+			int user_point = customerVo.getUser_point() - finalPointUse;
+			customerVo.setUser_point(user_point);
+			session.setAttribute("customerVo", customerVo);
 			
 			/* 주문 상세 페이지 이동하는데 필요한 order_code */
 			OrderVo orderVoLatest = orderService.getOrderLatest();

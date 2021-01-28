@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ReviewVo;
-import com.kh.greenfood.domain.TestVo;
-import com.kh.greenfood.service.MemberService;
+import com.kh.greenfood.domain.CustomerVo;
 import com.kh.greenfood.service.PointService;
 import com.kh.greenfood.service.ProductService;
 import com.kh.greenfood.service.ReviewService;
@@ -26,9 +25,6 @@ public class ReviewController {
 	
 	@Inject
 	private ReviewService reviewService;
-	
-	@Inject
-	private MemberService memberService;
 	
 	@Inject
 	private PointService pointService;
@@ -43,41 +39,28 @@ public class ReviewController {
 
 	public String reviewWrite(@PathVariable("order_code") String order_code, String product_code, Model model) throws Exception{
 		getProductCate(model);
-		System.out.println("review: " + product_code);
-		System.out.println("ReviewController, reviewWrite : " + order_code);
 		ReviewVo reviewVo = reviewService.selectInfoOrderReview(order_code, product_code);
-		System.out.println("ReviewController, selectInfoOrderReview :" + reviewVo);
-
 		model.addAttribute("reviewVo", reviewVo);
 		return "/review/reviewWrite";
 	}
 	
 	// -------------------------- 후기 입력하기 --------------------------------
 	@RequestMapping(value="/insertReview", method=RequestMethod.POST)
-	public String insertReview(ReviewVo reviewVo, HttpSession session) throws Exception {
+	public String insertReview(ReviewVo reviewVo, HttpSession session, Model model) throws Exception {
 //		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 
-		TestVo testVo = (TestVo)session.getAttribute("testVo");
-		String user_id = testVo.getUser_id();
-//		commentVo.setUser_id(memberVo.getUser_id());
-//		System.out.println("noticeVo:" + noticeVo);
-
-		System.out.println("insert: " +  reviewVo);
-		
-
-		
-		/*Date review_date = reviewVo.getReview_date();
-		SimpleDateFormat change_date;
-		
-		change_date = new SimpleDateFormat("yyyy-mm-dd");
-		System.out.println("change_date : " + change_date);*/
+		CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
+		String user_id = customerVo.getUser_id();
 		
 		/* 후기 남긴 포인트 지급 */
 		pointService.insertPoint(user_id, 102, 500);
 		
-
-		System.out.println("insertReview reviewVo:" + reviewVo);
-		reviewService.insertReview(reviewVo);
+		int resultCount = reviewService.insertReview(reviewVo);
+		if(resultCount > 0) {
+			model.addAttribute("msg", "reviewOk");
+		} else {
+			model.addAttribute("msg", "reviewFail");
+		}
 			
 		return "redirect:/review/reviewMain";
 	}
@@ -92,7 +75,6 @@ public class ReviewController {
 		
 		List<ReviewVo> reviewList = reviewService.getReviewList(pagingDto);
 		
-//		System.out.println("ReviewController, reviewList, reviewList:" + reviewList);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "review/reviewMain";
@@ -101,17 +83,14 @@ public class ReviewController {
 	// -------------------  후기 리스트에 해당하는 글 상세보기  --------------------
 	@RequestMapping(value="/reviewContent/{review_no}", method=RequestMethod.GET)
 	public String reviewContent(@PathVariable("review_no") int review_no, Model model) throws Exception{
-//		System.out.println("reviewContent review_no  :" + review_no);
 		ReviewVo reviewVo = reviewService.selectReview(review_no);
 		model.addAttribute("reviewVo", reviewVo);
-//		System.out.println("reviewContent reviewVo :" + reviewVo);
 		return "review/reviewContent";
 	}
 	
 	// --------------------------  후기 수정하기	 -------------------------
 	@RequestMapping(value="/updateReview", method=RequestMethod.POST)
 	public String updateReview(ReviewVo reviewVo) throws Exception {
-//		System.out.println("ReviewController updateReview, reviewVo: " + reviewVo);
 		reviewService.updateReview(reviewVo);
 						
 		return "redirect:/review/reviewMain";

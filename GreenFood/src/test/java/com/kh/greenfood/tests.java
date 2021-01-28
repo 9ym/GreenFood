@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.kh.greenfood.domain.TestVo;
+import com.kh.greenfood.domain.CustomerVo;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,7 +23,7 @@ public class tests {
 	@Test
 	public void test() throws Exception{
 		sqlSession.insert("com.kh.greenfood.board.ins");
-		List<TestVo> test = sqlSession.selectList("com.kh.greenfood.board.sel");
+		List<CustomerVo> test = sqlSession.selectList("com.kh.greenfood.board.sel");
 		System.out.println(test);
 	}
 }

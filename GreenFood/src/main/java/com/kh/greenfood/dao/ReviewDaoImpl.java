@@ -21,19 +21,17 @@ public class ReviewDaoImpl implements ReviewDao {
 	
 	
 	@Override
-	public void insertReview(ReviewVo reviewVo) throws Exception {
-		sqlSession.insert(NAMESPACE + "insertReview", reviewVo);
+	public int insertReview(ReviewVo reviewVo) throws Exception {
+		int count = sqlSession.insert(NAMESPACE + "insertReview", reviewVo);
+		return count;
 		
 	}
-
 
 	@Override
 	public List<ReviewVo> getReviewList(PagingDto pagingDto) throws Exception {
 		List<ReviewVo> reviewList = sqlSession.selectList(NAMESPACE + "getReviewList", pagingDto);
-//		System.out.println("ReviewDaoImpl reviewList :" + reviewList);
 		return reviewList;
 	}
-
 
 	@Override
 	public ReviewVo selectReview(int review_no) throws Exception {
@@ -96,6 +94,30 @@ public class ReviewDaoImpl implements ReviewDao {
 	@Override
 	public int getReviewCount(String user_id) {
 		int count = sqlSession.selectOne(NAMESPACE + "getReviewCount", user_id);
+		return count;
+	}
+
+
+	@Override
+	public int averageStar(String product_code) {
+		int avg_count = sqlSession.selectOne(NAMESPACE + "averageStar",product_code);
+		return avg_count;
+	}
+
+	@Override
+	public int updateStar(int avg_count, String product_code) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("star_avg", avg_count);
+		map.put("product_code", product_code);
+		int count = sqlSession.update(NAMESPACE + "updateStar", map);
+		return count;
+		
+	}
+
+
+	@Override
+	public int getProductReviewCount(String product_code) {
+		int count = sqlSession.selectOne(NAMESPACE + "getProductReviewCount", product_code); 
 		return count;
 	}
 

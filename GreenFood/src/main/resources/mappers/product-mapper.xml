@@ -278,13 +278,14 @@
 		]]>
 	</select>
 	
-
-	
 	<!-- 제품에 따른 후기 리스트 받아오기 -->
 	<select id="getReviewdListProduct" resultType="ReviewVo">
-		select * from tbl_review
-			where product_title = #{product_title}
-    		order by review_no desc
+	select * from (select rownum rnum, a.* 
+    	from (select t.* from 
+        	(select r.* from tbl_review r
+            	where product_code = #{product_code} 
+            		order by review_date desc) t) a)
+            		where rnum between #{startRow} and #{endRow}
 	</select>
 	
 	<!-- 검색 기능 -->
@@ -294,7 +295,6 @@
 				where product_title like '%' || #{keyword} || '%'
 			</when>
 		</choose>
-		
 	</sql>
 
 	<!-- 해당 상품 다시 판매 -->

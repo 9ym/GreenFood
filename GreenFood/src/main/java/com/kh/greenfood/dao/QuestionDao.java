@@ -3,7 +3,6 @@ package com.kh.greenfood.dao;
 import java.util.List;
 
 import com.kh.greenfood.domain.PagingDto;
-import com.kh.greenfood.domain.ProductVo;
 import com.kh.greenfood.domain.QuestionVo;
 
 public interface QuestionDao {

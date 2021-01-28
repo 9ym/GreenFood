@@ -80,6 +80,12 @@ public class reviewDaoTest {
 		System.out.println("testSelectInfoOrderReview reviewVo:" + reviewVo);
 	}
 	
+	@Test
+	public void testGetProductReviewCount() throws Exception{
+		int count = reviewDao.getProductReviewCount("1244");
+		System.out.println(count);
+	}
+	
 	
 	
 	

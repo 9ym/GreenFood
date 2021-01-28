@@ -252,10 +252,10 @@
 				<div class="pay-inner">
 					<strong>배송 정보</strong>
 					<ul class="ul-pay-list">
-						<li class="order-addr">${testVo.user_addr1}</li>
-						<li class="order-addr">${testVo.user_addr2}</li>
-						<li class="order-addr">${testVo.user_addr3}</li>
-						<li><span>받는 사람 : </span>${testVo.user_name}</li>
+						<li class="order-addr">${customerVo.user_addr1}</li>
+						<li class="order-addr">${customerVo.user_addr2}</li>
+						<li class="order-addr">${customerVo.user_addr3}</li>
+						<li><span>받는 사람 : </span>${customerVo.user_name}</li>
 					</ul>
 				</div>
 				
@@ -263,12 +263,12 @@
 					<strong>포인트 사용</strong>
 					<ul class="ul-pay-list">
 						<li>
-							<input type="number" min="0" max="${testVo.user_point}" value="0" id="inputPoint">
+							<input type="number" min="0" max="${customerVo.user_point}" value="0" id="inputPoint">
 							<button id="btnPoint" onclick="javascript:usePoint(this);">포인트사용</button>
 						</li>
 						<li>
 							<span>보유 포인트 : </span>
-							<span class="needComma span-point">${testVo.user_point}</span>
+							<span class="needComma span-point">${customerVo.user_point}</span>
 							<span>원 내에서 사용할 수 있습니다.</span>
 						</li>
 					</ul>
@@ -367,7 +367,7 @@ $(function() {
 /* 포인트 사용 */
 function usePoint(obj) {
 	var pointUse = $("#inputPoint").val();
-	var pointHave = "${testVo.user_point}";
+	var pointHave = "${customerVo.user_point}";
 	if (pointUse > pointHave) {
 		$("#inputPoint").val(0);
 		alert("보유한 포인트 안에서만 사용할 수 있습니다.")

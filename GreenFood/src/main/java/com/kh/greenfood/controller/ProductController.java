@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kh.greenfood.domain.OrderVo;
+import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
 import com.kh.greenfood.domain.ReviewVo;
-import com.kh.greenfood.domain.TestVo;
 import com.kh.greenfood.service.ProductService;
 import com.kh.greenfood.service.ReviewService;
 
@@ -29,11 +28,19 @@ public class ProductController {
 	@Inject
 	private ProductService productService;
 	
+	@Inject
 	private ReviewService reviewService;
 
 	/* 상품 상세 페이지 */
 	@RequestMapping(value="/detail/{product_code}", method=RequestMethod.GET)
-	public String detail(@PathVariable String product_code, Model model) throws Exception {
+	public String detail(@PathVariable String product_code, Model model, PagingDto pagingDto) throws Exception {
+		/* 리뷰 페이징 */
+		int count = reviewService.getProductReviewCount(product_code);
+		pagingDto.setTotalCount(count);
+		pagingDto.setPerPage(5);
+		pagingDto.setPagingInfo();
+		model.addAttribute("pagingDto", pagingDto);
+		
 		/* 개별 상품에 대한 정보 */
 		ProductVo productVo = productService.getProduct(product_code);
 		ProductImageDto productImageDto = productService.getProductImage(product_code); 
@@ -46,6 +53,7 @@ public class ProductController {
 		
 		addProductImageDtoList(listRelated, model);
 		addProductCategoryList(model);
+		
 		
 		return "product/productForm";
 	}
@@ -132,9 +140,9 @@ public class ProductController {
 	// -------------------------- 후기 선택하면 후기 리스트 가져오기 --------------------------------
 	@RequestMapping(value="/review/getReviewdListProduct", method=RequestMethod.POST)
 	@ResponseBody
-	public List<ReviewVo> getReviewdListProduct(String product_title, Model model) throws Exception {
-		List<ReviewVo> reviewListProduct = productService.getReviewdListProduct(product_title);
-		System.out.println("getReviewdListProduct, reviewListProduct :" + reviewListProduct);
+	public List<ReviewVo> getReviewdListProduct(String review_no, String product_code, Model model, HttpSession session, int startRow, int endRow, PagingDto pagingDto, int page) throws Exception {
+		pagingDto.setPage(page);
+		List<ReviewVo> reviewListProduct = productService.getReviewdListProduct(product_code, startRow, endRow);
 		model.addAttribute("reviewListProduct", reviewListProduct);
 		return reviewListProduct;
 	}

@@ -10,7 +10,6 @@
 	</div>
 	<div id="JoinChoice">
 		<div id="Join_pic1"><a href="/customer/customerMemberJoinForm"><img src="${path}/resources/images/join_choice_1.png"></a></div>
-<%-- 		<div id="Join_pic2"><a href="/member/sellerMemberJoin"><img src="${path}/resources/images/join_choice_2.png"></a></div> --%>
 	</div>
 	
 </div>

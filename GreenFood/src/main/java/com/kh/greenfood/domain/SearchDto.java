@@ -17,7 +17,7 @@ public class SearchDto {
 //	private String selectType; // 검색 조건 (제목, 내용, ...)
 //	private String keyword;    // 검색어
 	
-	public void setPagingInfo() {
+	public void setPagingInfo(int totalCount) {
 		this.totalPage = (int)Math.ceil((double)totalCount / perPage);
 		
 		this.endRow = page * perPage;

@@ -37,7 +37,7 @@ $(function(){
 		</div>
 		<p>반갑습니다!</p>
 		<p>구매자</p>
-		<p><span id="spanUserName">${sessionScope.testVo.user_name}</span>님</p>
+		<p><span id="spanUserName">${sessionScope.customerVo.user_name}</span>님</p>
 	</div>
 	<div id="left_bottom">
 		<div><a href="/customer/customerProfile" class="btn">프로필</a></div>
@@ -50,14 +50,13 @@ $(function(){
 	
 	<!-- 전체 주문 내역 -->
 		<div class="container">
-			<h2>${sessionScope.testVo.user_name}님 전체주문내역입니다.</h2>
+			<h2>${sessionScope.customerVo.user_name}님 전체주문내역입니다.</h2>
 			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>주문일</th>
 						<th>주문번호</th>
 						<th>결제금액</th>
-<!-- 					<th>주문내역</th> -->
 						<th>주문상태</th>
 					</tr>
 				</thead>
@@ -67,7 +66,6 @@ $(function(){
 							<td>${orderedList.order_date}</td>
 							<td><a href="/customer/customerDetailOrder/${orderedList.order_code}">${orderedList.order_code}</a></td>
 							<td class="addComma">${orderedList.order_total_price}</td>
-<%-- 						<td>${orderedList.order_state}</td> --%>
 							<td>${orderedList.order_state_dsc}</td>
 						</tr>
 				</c:forEach>

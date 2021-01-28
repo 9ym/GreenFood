@@ -3,7 +3,6 @@ package com.kh.greenfood.dao;
 import java.util.HashMap;
 import java.util.List;
 
-import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.ProductImageDto;
 import com.kh.greenfood.domain.ProductVo;
@@ -81,7 +80,7 @@ public interface ProductDao {
 	
 
 	/* 리뷰 리스트 받아오기 */
-	public List<ReviewVo> getReviewdListProduct(String product_title) throws Exception;
+	public List<ReviewVo> getReviewdListProduct(String product_code, int startRow, int endRow);
 
 	/* 해당 상품 다시 판매 */
 	public int startProduct(String product_code);

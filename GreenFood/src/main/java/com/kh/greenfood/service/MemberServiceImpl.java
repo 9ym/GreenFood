@@ -11,7 +11,7 @@ import com.kh.greenfood.dao.MemberDao;
 import com.kh.greenfood.domain.OrderListCountDto;
 import com.kh.greenfood.domain.OrderVo;
 import com.kh.greenfood.domain.PointVo;
-import com.kh.greenfood.domain.TestVo;
+import com.kh.greenfood.domain.CustomerVo;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -20,24 +20,24 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDao memberDao;
 	
 	@Override
-	public TestVo login(String user_id, String user_pw) {
-		TestVo testVo = memberDao.login(user_id, user_pw);
-		return testVo;
+	public CustomerVo login(String user_id, String user_pw) {
+		CustomerVo customerVo = memberDao.login(user_id, user_pw);
+		return customerVo;
 	}
 	
 	@Transactional
 	@Override
-	public int insertMember(TestVo testVo) {
-		int count = memberDao.insertMember(testVo);
+	public int insertMember(CustomerVo customerVo) {
+		int count = memberDao.insertMember(customerVo);
 		// 회원가입시 포인트부여(아이디, 포인트점수, 포인트 카테고리)
-		memberDao.insertPoint(testVo.getUser_id(), testVo.getUser_point(), 103);
+		memberDao.insertPoint(customerVo.getUser_id(), customerVo.getUser_point(), 103);
 		return count;
 	}
 
 	@Override
-	public TestVo selectMember(String user_id) {
-		TestVo testVo = memberDao.selectMember(user_id);
-		return testVo;
+	public CustomerVo selectMember(String user_id) {
+		CustomerVo customerVo = memberDao.selectMember(user_id);
+		return customerVo;
 	}
 
 	@Override
@@ -47,23 +47,23 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int customerModify(TestVo testVo) {
-		int count = memberDao.customerModify(testVo);
+	public int customerModify(CustomerVo customerVo) {
+		int count = memberDao.customerModify(customerVo);
 		return count;
 	}
 
 	// 비밀번호 찾기
 	@Override
-	public TestVo findPw(String user_id, String user_email) {
-		TestVo testVo = memberDao.findPw(user_id, user_email);
-		return testVo;
+	public CustomerVo findPw(String user_id, String user_email) {
+		CustomerVo customerVo = memberDao.findPw(user_id, user_email);
+		return customerVo;
 	}
 
 	// 아이디 찾기
 	@Override
-	public TestVo findId(String user_name, String user_email, String user_phone) {
-		TestVo testVo = memberDao.findId(user_name, user_email, user_phone);
-		return testVo;
+	public CustomerVo findId(String user_name, String user_email, String user_phone) {
+		CustomerVo customerVo = memberDao.findId(user_name, user_email, user_phone);
+		return customerVo;
 	}
 	
 	// 주문 전체내역 불러오기
@@ -111,23 +111,6 @@ public class MemberServiceImpl implements MemberService {
 		List<OrderListCountDto> customerOrderCountList = memberDao.getCustomerOrderCountList(user_id);
 		return customerOrderCountList;
 	}
-
-//	@Override
-//	public TestVo profilePwCheck(String user_id, String user_pw) {
-//		TestVo testVo = memberDao.profilePwCheck(user_id, user_pw);
-//		return testVo;
-//	}
-	
-	/* 포인트 사용 (tbl_member) */
-//	@Override
-//	public int subUserPoint(String user_id, int point_score, int point_category, int point_now) {
-//		int count = memberDao.insertPoint(user_id, point_score, point_category);
-//		int countUpdate = 0;
-//		if (count > 0) { // 원래 포인트 - 추가 포인트
-//			countUpdate = memberDao.updateUserPoint(point_now - point_score, user_id); 
-//		}
-//		return countUpdate;
-//	}
 	
 	/* 포인트 추가 (tbl_member, tbl_point) */
 	@Override

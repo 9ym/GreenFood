@@ -7,21 +7,21 @@
 
 	<!-- 로그인 -->
 	<!-- 프로필 -> 현재 비밀번호 확인 -->
-	<select id="login" resultType="TestVo">
+	<select id="login" resultType="customerVo">
 		select * from tbl_member
 			where user_id = #{user_id}
 			and user_pw = #{user_pw}
 	</select>
 	
 	<!-- 비밀번호 찾기 -->
-	<select id="findPw" resultType="TestVo">
+	<select id="findPw" resultType="customerVo">
 		select * from tbl_member
 			where user_id = #{user_id}
 			and user_email = #{user_email}	
 	</select>
 	
 	<!-- 아이디 찾기 -->
-	<select id="findId" resultType="TestVo">
+	<select id="findId" resultType="customerVo">
 		select * from tbl_member
 			where user_name = #{user_name}
 			and user_email = #{user_email}
@@ -41,7 +41,7 @@
 	</delete>
 	
 	<!-- 회원 조회 -->
-	<select id="selectMember" resultType="TestVo">
+	<select id="selectMember" resultType="customerVo">
 		select * from tbl_member
 			where user_id = #{user_id}
 	</select>

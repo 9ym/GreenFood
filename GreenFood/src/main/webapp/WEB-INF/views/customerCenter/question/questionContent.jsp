@@ -10,14 +10,6 @@
 <meta charset="UTF-8">
 <title>Customer Question</title>
 
-
-<!-- <script>
-	var data = $(this).attr("data");
-	console.log("data:"+data);
-	
-	$("#boardNames").text(data);
-</script> -->
-
 <style>
 .page_aticle.aticle_type2 {
     padding-top: 65px;
@@ -377,51 +369,6 @@ $(function(){
 		$("#frmQuestionPaging").submit();
 	});
 	
-	// 카테고리별 리스트 넘겨주기
-	 /* $("#questinoMember").click(function(){
-		 var category_no = $(this).attr("data-category");
-		location.href="/customerCenter/question/questionContent/" + category_no;
-		
-		var url = "/customerCenter/question/questionListOfCategory";
-		var sendData = {
-				"question_category" 		: parseInt("${questionVo.question_category}"),
-				"question_category_dsc"		: $("#question_category_dsc").val()
-		};
-		console.log(sendData);
-//			$.post(url, sendData, function(data) {
-//				console.log(data); // success
-//			});
-		// $.get, $.post 원형
-		// header에 json형식임을 설정
-		// JSON.stringify(json) -> json형식을 문자열 형식
-		// dataType -> text
-		
-		$.ajax({
-			"url" : url,
-			"headers" : {
-				"Content-Type" : "application/json"
-			},
-			"method" : "post",
-			"dataType" : "text",
-			"data" : JSON.stringify(sendData),
-			"success" : function(data) {
-				console.log(data);
-				if (data == "success") {
-					$("#btnCommentList").trigger("click");
-					$("#c_content").val("");
-					$("#c_user_id").val("");
-				}
-			}
-		});
-	}); */
-	
-	/* $("#questionMember").click(function(e){
-		e.preventDefault();
-		var m_no = $(this).attr("data-mno");
-		
-		location.href="/customerCenter/question/questionContent/" + m_no;
-	}); */
-	
 }); 
 </script>
 
@@ -449,17 +396,10 @@ $(function(){
 										<li class="on"><a href="/customerCenter/customerCenterMain">공지사항</a></li>
 										<li><a href="#">자주하는 질문</a></li>
 										<li class="on"><a href="/customerCenter/questionOne/questionOneContent" >1:1 문의</a></li>
-										<!--
-										<li><a href="#">상품 제안</a></li>
-										<li><a href="#">에코포장 피드백</a></li> -->
 									</ul>
 								</div>
-								<!-- <a href="#"
-									class="link_inquire"><span class="emph">도움이 필요하신가요 ?</span>
-									1:1 문의하기</a> -->
 								</div>
 							</div>
-
 
 				<!-- ------------------------- 자주하는 질문 메인 창 --------------------------- -->
 							<div class="col-md-9">
@@ -471,7 +411,7 @@ $(function(){
 										
 											<div class="col-md-12">
 												
-												<c:if test="${sessionScope.testVo.user_id == 'admin'}">
+												<c:if test="${sessionScope.customerVo.user_id == 'admin'}">
 												<button type="button" id="btnQuestionWrite">Q&A 작성</button>
 												</c:if>
 												<div class="dropdown">
@@ -501,8 +441,6 @@ $(function(){
 									</h2>
 									
 								</div>
-
-								<!-- <form name=frmList action="" onsubmit="return chkFormList(this)"> -->
 
 									<style>
 										.notice .layout-pagination {

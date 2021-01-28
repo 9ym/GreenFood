@@ -26,14 +26,11 @@
 }
 .div-pay {
 	float : left;
-/* 	border-bottom : 1px solid gainsboro; */
  	display : block; 
 	width : 70%;
 	height : auto;
 }
 .pay-inner {
-/* 	border-top : 1px solid black; */
-/*  	border-bottom : 1px solid gainsboro; */
 	padding : 10px;
 	margin-bottom : 30px;
 	height : auto;
@@ -61,7 +58,6 @@
 	display : block;
  	clear : both;
 	margin : 10px;
-/* 	border : 1px solid black; */
 }
 .ul-pay-list li .item{
  	display : block; 
@@ -70,7 +66,6 @@
 }
 .img {
 	display : block;
-/* 	position : absolute; */
 	left : 80px;
 	margin : 10px 50px;
 }
@@ -105,67 +100,20 @@
 #btnFinalPay {
 	margin-top : 50px;
 }
-/*
-.div-btn {
-	position : absolute;
-	left : 400px;
-	top : 43px;
-	width : 100px;
-}
-.div-btn input{
-	float : left;
-	width : 40px;
-	height : 26px;	
-	border-top : 1px solid LightGray;
-	border-bottom : 1px solid LightGray;
-	border-left : 0px;
-	border-right : 0px;
-	text-align : center;
-}
-.div-btn button{
-	float : left;
-	border: solid 1.5px LightGray;
-	width: 20px;
-    height: 26px;
-    text-align: center;
-    color: #6ca435;
-    font-weight: bold;
-    font-size: 17px;
-/* 	position : relative; 
-/* 	bottom : 25px; 
-}
-.div-btn-delete {
-	position: absolute;
-    left: 600px;
-    top: 43px;
-    width: 100px;
-}
-.div-btn-delete .btnDelete {
-	border : 0px;
-	background-color: white;
-	width: 20px;
-    height: 26px;
-    text-align: center;
-    color: gainsboro;
-}
-.div-hidden {
-	display : none;
-}*/
 
 .txt {
 	padding : 120px 0px;
 }
+
 .div-empty {
 	margin-bottom : 130px;
 }
+
 .div-price {
 	float : right;
-/* 	border : 2px dashed green; */
-/* 	display : block; */
 	width : 30%;
 	height : auto;
 	margin-top : 10px;
-/* 	margin-left : 20px; */
 	position : relative;
 }
 .inner-price {
@@ -232,9 +180,6 @@
 }
 .notice-txt {
  	display : block;
-/* 	position : relative; */
-/* 	top : 250px; */
-/* 	width : 250px; */
 	font-size: 12px;
 }
 .product-list span{
@@ -317,7 +262,7 @@ $(function(){
 		</div>
 		<p>반갑습니다!</p>
 		<p>구매자</p>
-		<p><span id="spanUserName">${sessionScope.testVo.user_name}</span>님</p>
+		<p><span id="spanUserName">${sessionScope.customerVo.user_name}</span>님</p>
 	</div>
 	<div id="left_bottom">
 		<div><a href="/customer/customerProfile" class="btn">프로필</a>></div>
@@ -329,7 +274,7 @@ $(function(){
 	<div id="pageName" >주문 상세</div>
 	
 	<!-- 주문 상세 내역 -->
-	<h2>${sessionScope.testVo.user_name}님 주문상세 내역입니다.</h2>
+	<h2>${sessionScope.customerVo.user_name}님 주문상세 내역입니다.</h2>
 
 	<div class="container-fluidInner">
 	<div class="row">
@@ -409,7 +354,7 @@ $(function(){
 						<li class="order-addr">${orderVo.order_addr1}</li>
 						<li class="order-addr">${orderVo.order_addr2}</li>
 						<li class="order-addr">${orderVo.order_addr3}</li>
-						<li><span>받는 사람 : ${sessionScope.testVo.user_name}</span></li>
+						<li><span>받는 사람 : ${sessionScope.customerVo.user_name}</span></li>
 					</ul>
 				</div>
 

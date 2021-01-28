@@ -46,7 +46,6 @@ $(function(){
 </script>
 
 <content>
-${sessionScope.testVo}
 <div class="container-fluid">
 <div id="content_left" style="width:300px;
 height: 700px;
@@ -61,7 +60,7 @@ padding:0;">
 					</div>
 			<p>반갑습니다!</p>
 			<p>구매자</p>
-			<p><span id="spanUserName">${sessionScope.testVo.user_name}</span>님</p>
+			<p><span id="spanUserName">${sessionScope.customerVo.user_name}</span>님</p>
 		</div>
 		
 		
@@ -78,30 +77,30 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 			<p class="bigText">구매자 등급</p>
 			<div id="memberLevel">
 				<p class="p_left" id="p_memberLevel">LV.
-					<c:if test="${sessionScope.testVo.user_level == '0'}">
+					<c:if test="${sessionScope.customerVo.user_level == '0'}">
 						SILVER
 					</c:if>
-					<c:if test="${sessionScope.testVo.user_level == '1'}">
+					<c:if test="${sessionScope.customerVo.user_level == '1'}">
 						GOLD
 					</c:if>
-					<c:if test="${sessionScope.testVo.user_level == '2'}">
+					<c:if test="${sessionScope.customerVo.user_level == '2'}">
 						VIP
 					</c:if>
 				</p>
 				<c:choose>
-					<c:when test="${sessionScope.testVo.user_level == '2' }">
+					<c:when test="${sessionScope.customerVo.user_level == '2' }">
 						최고 등급 이십니다.
 					</c:when>
 					<c:otherwise>
 						다음 등급까지 주문
 						<span>
 							<c:choose>
-								<c:when test="${sessionScope.testVo.user_level eq '0'}">
+								<c:when test="${sessionScope.customerVo.user_level eq '0'}">
 								
 									${5 - orderCount}
 									
 								</c:when>
-								<c:when test="${sessionScope.testVo.user_level eq '1'}">
+								<c:when test="${sessionScope.customerVo.user_level eq '1'}">
 								
 									${10 - orderCount}
 									
@@ -115,17 +114,17 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 			</div>
 			<div id="memberLevel_right">
 				<a href="/customer/customerMembership" class="btn btn-success">등급 혜택 보기 <span class="showsign">></span></a>
-				<p >가입일:<span>${sessionScope.testVo.user_date}</span></p>
+				<p >가입일:<span>${sessionScope.customerVo.user_date}</span></p>
 			</div>
 			<div id="points_review">
 				<div id="chkpoints">
 					<img src="${path}/resources/images/moneybook.png" style="width:70px;">
 					<p><a href="/customer/customerPoint" class="btn">적립금</a><span class="showsign">></span></p><img src="">
-					<p><span>${sessionScope.testVo.user_point}</span>원</p>
+					<p><span>${sessionScope.customerVo.user_point}</span>원</p>
 				</div>
 				<div id="makeReview">
 					<img src="${path}/resources/images/pencil_review.png" style="width:70px;">
-					<p><a href="/customer/customerReview" class="btn">후기작성</a><span class="showsign">></span></p><img src="">
+					<p><a href="/customer/customerReview" class="btn">후기내역</a><span class="showsign">></span></p><img src="">
 					<p><span>후기 갯수 : ${reviewCount}개</span></p>
 				</div>
 			</div>
@@ -139,39 +138,8 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 						<p>${customerOrderCountList.order_state_dsc}</p>
 					</div>
 				</c:forEach>
-<!-- 				<div id="chkorder_2"> -->
-<!-- 					<span><a href="/order/ordDelivery/10001">0</a></span> -->
-<!-- 					<p>상품준비중</p> -->
-<!-- 				</div > -->
-<!-- 				<div id="chkorder_3"> -->
-<!-- 					<span><a href="/order/ordDelivery/10002">0</a></span> -->
-<!-- 					<p>배송중</p> -->
-<!-- 				</div> -->
-<!-- 				<div id="chkorder_4"> -->
-<%-- 					<span><a href="/order/ordDelivery/10003">${orderCount}</a></span> --%>
-<!-- 					<p>배송완료</p> -->
-<!-- 				</div> -->
 			</div>
-			
-<!-- 			<div id="chkList"> -->
-<!-- 			<p class="bigText">취소/교환/반품 내역</p><p id="chkList_secondP">전체 <span class="showsign">></span></p> -->
-<!-- 				<div id="chkList_1"> -->
-<!-- 					<span>0</span> -->
-<!-- 					<p>교환신청</p> -->
-<!-- 				</div> -->
-<!-- 				<div> -->
-<!-- 					<span>0</span> -->
-<!-- 					<p>교환완료</p> -->
-<!-- 				</div> -->
-<!-- 				<div> -->
-<!-- 					<span>0</span> -->
-<!-- 					<p>반품신청</p> -->
-<!-- 				</div> -->
-<!-- 				<div> -->
-<!-- 					<span>0</span> -->
-<!-- 					<p>반품완료</p> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
+
 			<div id="orderedList">
 				<p class="bigText">최근 주문 내역</p><p id="orderedList_secondP">
 				<button type="button" id="btn_allOrderShow" class="btn">더보기</button>
@@ -185,7 +153,6 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 										<th>주문일</th>
 										<th>주문번호</th>
 										<th>결제금액</th>
-<!-- 									<th>주문내역</th> -->
 										<th>주문상태</th>
 									</tr>
 								</thead>
@@ -195,7 +162,6 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 										<td>${latestOrderedList.order_date}</td>
 										<td><a href="/customer/customerDetailOrder/${latestOrderedList.order_code}">${latestOrderedList.order_code}</a></td>
 										<td class="addComma">${latestOrderedList.order_total_price}</td>
-<%-- 									<td>${latestOrderedList.order_state}</td> --%>
 										<td>${latestOrderedList.order_state_dsc}</td>
 									</tr>
 								</c:forEach>

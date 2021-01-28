@@ -99,19 +99,4 @@ public class S3Util implements Keys, BucketFolder {
 		return folderName;
 	}
 	
-	
-	/* 버킷 안에 폴더 생성 */
-	/*public void createFolder(String bucketName, String folderName) {
-		final AmazonS3 s3 = access();
-		s3.putObject(bucketName, folderName + "/", 
-				new ByteArrayInputStream(new byte[0]), new ObjectMetadata());
-	}*/
-	
-	/* 파일 URL */
-	/*public String getFileURL(String bucketName, String fileName) {
-		System.out.println("넘어오는 파일명 :" + fileName);
-		String imgName = (fileName).replace(File.separatorChar, '/');
-		return s3.generatePresignedUrl(new GeneratePresignedUrlRequest(bucketName, fileName)).toString();
-	}*/
-	
 }

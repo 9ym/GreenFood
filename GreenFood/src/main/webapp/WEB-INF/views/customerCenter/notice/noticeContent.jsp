@@ -16,13 +16,7 @@ $(function(){
 	$("#btnList").click(function(){
 		location.href="/customerCenter/customerCenterMain";
 	});
-	
-	//목록 버튼 클릭 했을때 페이징 폼으로..
-	/* $("#btnList").click(function(e){
-		e.preventDefault();
-		$("#frmNoticePaging").submit(); // 페이징 폼으로 보낸다..
-	});
-	 */
+
 // ---------------- 수정 버튼 누르면 수정할수 있게 -------------------------	
 	$("#btnUpdateNotice").click(function() {
 		$(".update").prop("readonly", false); // 제목, 내용 입력 읽기 전용 제거
@@ -38,14 +32,6 @@ $(function(){
 		$("#frmUpdate > input[type=hidden]").eq(2).val(notice_content); // 붙여넣기
 		$("#frmUpdate").submit(); // 서밋 해 줘야함..
 	});
-	
-	
-	// 삭제 버튼 ---> 필요없음...
-	/* $("#btnDeleteNotice").click(function(e) {
-		e.preventDefault();
-		$("#btnDeleteNotice").attr("action", "/customerCenter/notice/deleteNotice")
-		$("#btnDeleteNotice").submit();
-	}); */
 	
 });
 </script>
@@ -201,7 +187,7 @@ table {
 	<div class="btnList" >
 			<button type="button" id="btnList" class="btn btn-success">목록</button>
 			
-		<c:if test="${sessionScope.testVo.user_id == 'admin'}">
+		<c:if test="${sessionScope.customerVo.user_id == 'admin'}">
 			<button type="button" id="btnUpdateNotice" class="btn btn-warning" style="margin-left: 10px">수정</button>
 		</c:if>
 		<form id="frmUpdate" action="/customerCenter/notice/updateNotice" method="get">
@@ -211,7 +197,7 @@ table {
 			<button type="button" id="btnUpdateFinish" class="btn btn-warning" style="margin-left: 10px; display: none;">수정완료</button>
 		</form>
 		
-		<c:if test="${sessionScope.testVo.user_id == 'admin'}">
+		<c:if test="${sessionScope.customerVo.user_id == 'admin'}">
 		<form action="/customerCenter/notice/deleteNotice" method="get">
 			<input type="hidden" name="notice_no" class="btn btn-danger" value="${noticeVo.notice_no }"/>
 			<button type="submit" id="btnDeleteNotice" class="btn btn-danger" style="margin-left: 10px">삭제</button>

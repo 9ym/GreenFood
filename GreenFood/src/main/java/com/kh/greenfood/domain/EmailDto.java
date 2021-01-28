@@ -1,4 +1,4 @@
-package com.kh.greenfood.dao;
+package com.kh.greenfood.domain;
 
 public class EmailDto {
 	

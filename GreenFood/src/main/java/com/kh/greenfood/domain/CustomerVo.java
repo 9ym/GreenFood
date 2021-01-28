@@ -1,7 +1,7 @@
 package com.kh.greenfood.domain;
 
 
-public class TestVo {
+public class CustomerVo {
 
 	private String user_id;
 	private String user_pw;
@@ -97,7 +97,7 @@ public class TestVo {
 	
 	@Override
 	public String toString() {
-		return "TestVo [user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", user_addr1="
+		return "CustomerVo [user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", user_addr1="
 				+ user_addr1 + ", user_addr2=" + user_addr2 + ", user_addr3=" + user_addr3 + ", user_phone="
 				+ user_phone + ", user_email=" + user_email + ", user_point=" + user_point + ", user_level="
 				+ user_level + ", user_code=" + user_code + ", user_date=" + user_date + ", user_deleted="

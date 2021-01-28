@@ -79,5 +79,8 @@ public interface OrderDao {
 
 	/* 판매기한 체크 */
 	public int checkDeadLine(String product_code);
+
+	/* 오더 카운트 업데이트 */
+	public int updateOrderCount(String product_code);
 	
 }

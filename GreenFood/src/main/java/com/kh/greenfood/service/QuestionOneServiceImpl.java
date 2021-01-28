@@ -1,6 +1,5 @@
 package com.kh.greenfood.service;
 
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,7 +7,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import com.kh.greenfood.dao.QuestionOneDao;
 import com.kh.greenfood.domain.OrderVo;
-import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.QuestionOneVo;
 
 @Service
@@ -31,7 +29,6 @@ public class QuestionOneServiceImpl implements QuestionOneService {
 	@Override
 	public QuestionOneVo selectQuestionOne(int q_o_no) throws Exception {
 		QuestionOneVo questinoOneVo = questionOneDao.selectQuestionOne(q_o_no);
-		System.out.println("QuestionOneServiceImpl selectQuestionOne questinoOneVo : " + questinoOneVo ) ;
 		return questinoOneVo;
 	}
 	
@@ -44,9 +41,7 @@ public class QuestionOneServiceImpl implements QuestionOneService {
 //	---------------------- 답변 넣기 --------------------------
 	@Override
 	public void updateQuestionOneAnswer(QuestionOneVo questionOneVo) throws Exception {
-		System.out.println("QuestionOneServiceImpl updateQuestionOneAnswer questionOneVo : " + questionOneVo);
 		questionOneDao.updateQuestionOneAnswer(questionOneVo);
-		
 	}
 	
 	@Override
@@ -57,9 +52,7 @@ public class QuestionOneServiceImpl implements QuestionOneService {
 
 	@Override
 	public int questionOneListCountUser(String q_o_writer) throws Exception {
-//		System.out.println("QuestionOneServiceImpl, questionOneListCountUser, q_o_writer:" + q_o_writer);
 		int count = questionOneDao.questionOneListCountUser(q_o_writer);
-//		System.out.println("QuestionOneServiceImpl, questionOneListCountUser, count : " + count);
 		return count;
 	}
 
@@ -70,7 +63,5 @@ public class QuestionOneServiceImpl implements QuestionOneService {
 		List<OrderVo> orderedList = questionOneDao.getOrderedList(user_id);
 		return orderedList;
 	}
-
-	
 
 }

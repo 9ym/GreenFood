@@ -113,14 +113,21 @@ public class testProduct {
 	
 	@Test
 	public void testGetReviewdListProduct() throws Exception {
-		List<ReviewVo> reviewListproduct = productDao.getReviewdListProduct("당근");
-		System.out.println(reviewListproduct);
+		List<ReviewVo> reviewListproduct = productDao.getReviewdListProduct("1243", 1, 5);
+		System.out.println("reviewListproduct : " + reviewListproduct);
 	}
 	
 	@Test
 	public void testGetSearchTitle() throws Exception {
 		List<ProductVo> list = productDao.getSearchTitle("고");
 		System.out.println("list :" + list);
+	}
+	
+	@Test
+	public void testCont() throws Exception {
+		SearchDto searchDto = new SearchDto("date", "all", "desc", null);
+		int count = productDao.getSearchProductCount(searchDto);
+		System.out.println("count :" + count);
 	}
 	
 }

@@ -6,90 +6,32 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
-<!-- <link rel="stylesheet" type="text/css" href="#"/>css 하다가 따로 파일 만들어서 저장 -->
-
 <script src="/resources/js/myScript.js"></script>
 <script type="text/javascript">
-// $(function() {
-// 	/* 헤더 배경화면, 게시판 이름 바꾸는 부분 */
-// 	/* url 뒤에 사진 넣으면됩니다. */
-// 	$("#page_background").css({"background-image":"url('${path}/resources/images/display2.jpg')"});
-// 	$("#page_background").css({"background-size":"100% 100%"});
-// 	$("#page_background").css({"background-repeat":"no-repeat"});
-// 	$("#boardNames").text("상품 상세");/* 게시판 이름 */
-// }); 
 
 $(function() {
+
+	productReviewList(1, 1, 5);
 	
 	//페이지네이션 - 페이지 번호 클릭했을때
 	$("a.page-link").click(function(e){
 		e.preventDefault();
+		var pagingPage = "${pagingDto.page}"; // 맨처음 로딩
 		var page = $(this).attr("data-page");
 		console.log(page);
-		$("#frmProductReviewPaging").find("input[name=page]").val(page);
-		$("#frmProductReviewPaging").submit();
-	});
-	
-	/* $(".review_title").click(function(e){
-		e.preventDefault();
-		var n_no = $(this).attr("data-bno");
+		var nStartRow = parseInt("${pagingDto.startRow}");
+		var nEndRow = parseInt("${pagingDto.endRow}");
 		
-		location.href="/review/reviewContent/" + n_no;
-	}); */
-	
-	
-	// 후기 리스트 나타내기
-	/* $("#reviewList").click(function(){ */
-			var url = "/product/review/getReviewdListProduct";
-			var product_title = "${productVo.product_title}";
-			var sendData = {
-					"product_title" : product_title
-			};
-			$.post(url, sendData, function(data){
-				console.log(data);
-				$("#checkOrderTable > tbody").empty();
-					
-					console.log(product_title);
-				$.each(data, function(){
-					console.log(this.product_title);
-						
-							var img1 = ("<img src='/resources/images/review/star1.png'>");
-							var img2 = ("<img src='/resources/images/review/star2.png'>");
-							var img3 = ("<img src='/resources/images/review/star3.png'>");
-							var img4 = ("<img src='/resources/images/review/star4.png'>");
-							var img5 = ("<img src='/resources/images/review/star5.png'>");
-						
-							
-							
-						 	var tr = $("#trTable").find("tr").clone();
-							tr.find("th").eq(0).html(this.review_no);
-							tr.find("th").eq(1).html(this.product_title);
-							 
-							if (this.star_point == 1 ) {
-								 tr.find("th").eq(2).html(img1);
-							} else if (this.star_point == 2 ) {
-								 tr.find("th").eq(2).html(img2);
-							}  else if (this.star_point == 3 ) {
-								 tr.find("th").eq(2).html(img3);
-							}  else if (this.star_point == 4 ) {
-								 tr.find("th").eq(2).html(img4);
-							}  else if (this.star_point == 5 ) {
-								 tr.find("th").eq(2).html(img5);
-							}
-							 tr.find("th").eq(3).html("<a href=/review/reviewContent/"+ this.review_no +">"+this.review_title+"</a>");
-							 tr.find("th").eq(4).html(this.user_id);
-							 tr.find("th").eq(5).html(changeDateString(this.review_date));
-							 tr.find("th").eq(6).html(this.review_readcount);
-							 
-							 $("#checkOrderTable > tbody").append(tr);
-							 
-						
-				});
-			});
-	/* }); */
-	
-	
-	
+		console.log(pagingPage);
+		
+		startRow = nStartRow + (5 * (page-1));
+		endRow = nEndRow + (5 * (page-1));
+		console.log("startRow", startRow);
+		console.log("endRow", endRow);
+		productReviewList(page, startRow, endRow);
+		$("a.page-link").parent().removeClass("active");
+		$(this).parent().addClass("active");
+	});
 	
 	/* 최종 가격 표현 */
 	var priceGeneral = "${productVo.product_price}";
@@ -109,7 +51,6 @@ $(function() {
 		};
 		var url = "/upload/getImageUrl";
 		$.post(url, sendData, function(data) {
-// 			console.log(data);
 			thisImg.attr("src", data);
 		});
 	});
@@ -118,12 +59,59 @@ $(function() {
 	var price = "${productVo.product_price}";
 	var saleRate = "${productVo.product_sale_rate}";
 	if (saleRate != 0) {
-// 		$("#priceGeneral").text(Math.ceil(price * (100 - saleRate) / 100));
 		$("#priceGeneral").text(addComma(Math.ceil(price * (100 - saleRate) / 100)));
 		$("#totalPrice").text(addComma(Math.ceil(price * (100 - saleRate) / 100)));
 	}
-// 	$("#priceSale").text(getSalePrice(price, saleRate));
+
 });
+
+/* 상품 후기 리스트 1 ~ 5*/
+function productReviewList(page, startRow, endRow){
+	var url = "/product/review/getReviewdListProduct";
+	var product_code = "${productVo.product_code}";
+	
+	var sendData = {
+			"product_code" : product_code,
+			"startRow" : startRow,
+			"endRow" : endRow,
+			"page" : page
+	};
+	$.post(url, sendData, function(data){
+		console.log(data);
+		$("#checkOrderTable > tbody").empty();
+			
+		$.each(data, function(){
+				
+				var img1 = ("<img src='/resources/images/review/star1.png'>");
+				var img2 = ("<img src='/resources/images/review/star2.png'>");
+				var img3 = ("<img src='/resources/images/review/star3.png'>");
+				var img4 = ("<img src='/resources/images/review/star4.png'>");
+				var img5 = ("<img src='/resources/images/review/star5.png'>");
+				
+				var tr = $("#trTable").find("tr").clone();
+				tr.find("th").eq(0).html(this.review_no);
+				tr.find("th").eq(1).html(this.product_title);
+				 
+					if (this.star_point == 1 ) {
+						 tr.find("th").eq(2).html(img1);
+					} else if (this.star_point == 2 ) {
+						 tr.find("th").eq(2).html(img2);
+					}  else if (this.star_point == 3 ) {
+						 tr.find("th").eq(2).html(img3);
+					}  else if (this.star_point == 4 ) {
+						 tr.find("th").eq(2).html(img4);
+					}  else if (this.star_point == 5 ) {
+						 tr.find("th").eq(2).html(img5);
+					}
+					tr.find("th").eq(3).html("<a href=/review/reviewContent/"+ this.review_no +">"+this.review_title+"</a>");
+					tr.find("th").eq(4).html(this.user_id);
+					tr.find("th").eq(5).html(changeDateString(this.review_date));
+					tr.find("th").eq(6).html(this.review_readcount);
+					 
+					$("#checkOrderTable > tbody").append(tr);
+		});
+	});
+}
 
 /* 갯수 올리는 버튼 */
 function btnCountUp(obj) {
@@ -178,11 +166,10 @@ $(function() {
 
 /* 장바구니에 상품 넣기 */
 function btnCart(obj) {
-	var testVo = "${sessionScope.testVo}";
-
+	var customerVo = "${sessionScope.customerVo}";
+	if(customerVo != ""){
 	/* 로그인 됐으면 장바구니 추가 가능 */
-	if(testVo != ""){
-		var user_id = "${sessionScope.testVo.user_id}";
+		var user_id = "${sessionScope.customerVo.user_id}";
 		var product_code = "${productVo.product_code}";
 		var product_title = "${productVo.product_title}";
 		var product_price = "${productVo.product_price}";
@@ -212,10 +199,10 @@ function btnCart(obj) {
 
 /* 바로구매(결제) 이동 */
 function btnPay(obj) {
-	var testVo = "${sessionScope.testVo}";
+	var customerVo = "${sessionScope.customerVo}";
 		
 	/* 로그인 됐으면 바로결제 가능 */
-	if (testVo != "") { 
+	if (customerVo != "") { 
 		console.log("not null");
 		
 		var productCount = $("#productCount").val();
@@ -238,7 +225,6 @@ function btnPay(obj) {
 
 function changeDateString(timestamp) {
 	
-	
 	var d = new Date(timestamp);
 	var year = d.getFullYear();
 	var month = make2digits(d.getMonth() + 1);
@@ -257,8 +243,6 @@ function make2digits(num) {
 	}
 	return num;
 }
-
-
 
 </script>
 
@@ -306,12 +290,9 @@ function make2digits(num) {
 	margin-left : 20px;
 }
 .viewInfo {
-/* 	margin : 0px 0px; */
 	padding : 10px 0px;
 	padding-top : 20px;
 	padding-bottom : 0px;
-/* 	border-top : 1px solid #6ca435; */
-/*  	border-bottom : 1px solid #6ca435;  */
 }
 .infoImage{
 	float : left;
@@ -386,7 +367,6 @@ function make2digits(num) {
 }
 .li-count button {
 	border : 0px;
-/* 	padding : 10px; */
 	width : 20px;
 	height : 26px;
 	text-align : center;
@@ -404,7 +384,6 @@ function make2digits(num) {
 	text-align : center;
 	height : 26px;
 	width : 40px;
-/* 	margin : 0px 5px; */
 	float : left;
 	font-size : 15px;
 }
@@ -417,8 +396,6 @@ function make2digits(num) {
 	padding-left : 25px;
 }
 .info-btn button {
-/* 	margin-left : 0px; */
-/* 	margin : 0px 5px; */
 	padding : 10px 20px;
 	font-weight : bold;
 }
@@ -464,9 +441,6 @@ function make2digits(num) {
 .infoDetail {
 	margin : 20px 0px;
 	padding : 0px 20px;
-/*  	border-top : 1px solid #6ca435; */
-/*  	border-bottom : 1px solid #6ca435;   */
-/* 	color : #666; */
 }
 .infoDetail .img-detail {
  	width : 100%;
@@ -526,7 +500,6 @@ function make2digits(num) {
 	display : block;
 	margin : 0px;
 	padding-left : 157px;
-/*     border-top: 2px dotted red;   */
 	position : relative;
 }
 .related-list #related-title {
@@ -539,7 +512,6 @@ function make2digits(num) {
 	font-weight : bold;
 }
 .related-list #relates-product-list {
-/* 	position : absolute; */
 	left : 0px; 
 	bottom : 0px;
 	display : block;
@@ -569,19 +541,12 @@ function make2digits(num) {
 .related-name {
 	font-weight : bold;
 }
-/* .related-list button {
-	margin : 0px 5px; 
-	padding : 100px 0px;
-	border : 0px;
-	float : left;
-} */
+
 .related-list button img{
 	height : 20px;
 	width : 20px;
-/* 	margin-right : 5px; */
 }
 .tbl-review {
-/* 	border-top : 2px solid black; */
 	margin-left : 0px;
 	padding : 0px;
 }
@@ -592,12 +557,9 @@ function make2digits(num) {
 	position : relative;
 	padding-left : 0px;
 	padding-right : 0px;
-/* 	border-top : 2px dotted red; */
 }
 .view-tab ul  {
-/* 	display: block; */
  	margin-bottom : 0px;
-/* 	border-bottom : 1px solid DimGray; */
 	clear: both;
 }
 .view-tab ul li {
@@ -626,21 +588,6 @@ function make2digits(num) {
 	padding : 20px 0px;
 	padding-top : 50px;
 }
-/* .rox {
-	border-top : 2px dashed blue;
-	border-bottom : 2px dashed blue;
-} */
-/* .div-content {
-	display:block;
-	width:900px;
- 	left:450px; 
- 	height: 100%;
-	
-	position: relative;
-	left: 50%;
-	ms-transform: translate(-50%);
-	transform: translate(-50%);
-} */
 
 .xans-board-listheader {
     border-top-style: solid;
@@ -725,24 +672,12 @@ a {
 
 </style>
 
-
 <!-- ----------------  페이징 폼 넣어주기 -----------------------------------  -->
 
 <%@ include file="../include/frmPaging.jsp" %>
 
 
 <div class="container-fluid">
-
-	<!-- <div class="row">
-		<div class="col-md-3"></div>
-		<div class="col-md-6">
-			메뉴 안내?
-			<div class="menuInfo">메뉴 메뉴</div>
-			// 메뉴 안내?
-		</div>
-		<div class="col-md-3"></div>
-	</div> -->
-	
 	<div class="row div-content">
 		<div class="col-md-3"></div>
 		<!-- 상품 개요 -->
@@ -822,8 +757,6 @@ a {
 							<span id="totalPrice">0</span>
 						</li>
 						<li class="info-btn">
-<!-- 							<button type="button" class="btn btn-danger btn-sm" -->
-<!-- 								style="margin-left:15px; margin-right:5px;">♥</button> -->
 							<button id="btnBuyNow" type="button" class="btn btn-outline-success"
 								onclick="btnPay(this);">바로구매</button>
 							<button id="btnCart" type="button" class="btn btn-success" 
@@ -838,10 +771,6 @@ a {
 		<!--// 상품 개요 -->
 		<div class="col-md-3"></div>
 	</div>
-	
-<!-- 	<div id="view-wrap"> -->
-<!-- 		<div id="infoMove-tab" style="height : 00px;"></div> -->
-<!-- 	</div> -->
 	
 	<div class="row div-content">
 		<div class="col-md-2"></div>
@@ -878,10 +807,6 @@ a {
 		<div class="col-md-2"></div>
 	</div>
 	
-<!-- 	<div id="view-wrap"> -->
-<!-- 		<div id="infoMove-tab" style="height : 00px;"></div> -->
-<!-- 	</div> -->
-	
 	<div class="row div-content">
 		<div class="col-md-3"></div>
 		<!-- 상세 정보 -->
@@ -890,7 +815,6 @@ a {
 				<ul>
 					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver; border-bottom: 0px; 
 						background-color: white; z-index: 2;">상품설명</a></li>
-<!-- 					<li><a href="#imsi-tab">임시</a></li> -->
 					<li><a href="#tbl-review-tab" id="reviewList">후기</a></li>
 				</ul>
 			</div>
@@ -910,7 +834,6 @@ a {
 					</h2>
 				</div>
 				<div class="div-img">
-<%-- 					<img alt="상세 사진" src="${path}/resources/images/tempsnip.png"> --%>
 					<img alt="상세 사진" src="https://img-cf.kurly.com/shop/data/goodsview/20200518/gv30000095827_1.jpg">
 				</div>
 			</div>
@@ -919,23 +842,6 @@ a {
 		<div class="col-md-3"></div>
 	</div>
 	
-<!-- 	<div class="row div-content" id="imsi-tab"> -->
-<!-- 		<div class="col-md-3"></div> -->
-<!-- 		<div class="col-md-6 view-wrap"> -->
-<!-- 			<div class="imsi view-tab"> -->
-<!-- 				<ul> -->
-<!-- 					<li><a href="#infoDetail-tab" style="border-left: 1px solid Silver;">상품설명</a></li> -->
-<!-- 					<li><a href="#imsi-tab" style="background-color: white; border-bottom: 0px; z-index: 2;">임시</a></li> -->
-<!-- 					<li><a href="#tbl-review-tab">후기</a></li> -->
-<!-- 				</ul> -->
-<!-- 			</div> -->
-<!-- 			<div class="view-content"> -->
-<!-- 				<p>ghghghgh</p> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 		<div class="col-md-3"></div> -->
-<!-- 	</div> -->
-	
 	<div class="row div-content">
 		<div class="col-md-3"></div>
 		<!-- 후기 모음 -->
@@ -943,7 +849,6 @@ a {
 			<div class="view-tab">
 				<ul>
 					<li><a href="#infoMove-tab" style="border-left: 1px solid Silver;">상품설명</a></li>
-<!-- 					<li><a href="#imsi-tab">임시</a></li> -->
 					<li><a href="#tbl-review-tab" style="background-color: white; border-bottom: 0px; z-index: 2;">후기</a></li>
 				</ul>
 			</div>
@@ -1033,8 +938,6 @@ a {
 										</nav>
 									</div>
 								</div><!-- // pagination -->
-								
-								
 			</div>
 		</div>
 		<!--// 후기 모음  -->

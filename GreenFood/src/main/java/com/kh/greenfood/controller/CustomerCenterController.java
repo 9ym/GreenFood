@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.greenfood.domain.NoticeVo;
 import com.kh.greenfood.domain.OrderVo;
@@ -21,7 +20,7 @@ import com.kh.greenfood.domain.PagingDto;
 import com.kh.greenfood.domain.ProductCategoryDto;
 import com.kh.greenfood.domain.QuestionOneVo;
 import com.kh.greenfood.domain.QuestionVo;
-import com.kh.greenfood.domain.TestVo;
+import com.kh.greenfood.domain.CustomerVo;
 import com.kh.greenfood.service.NoticeService;
 import com.kh.greenfood.service.ProductService;
 import com.kh.greenfood.service.QuestionOneService;
@@ -57,11 +56,7 @@ public class CustomerCenterController {
 	@RequestMapping(value="/notice/insertNotice", method=RequestMethod.GET)
 	public String insertNotice(Model model, NoticeVo noticeVo, HttpSession session) throws Exception {
 		getProductCate(model);
-//		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
-//		commentVo.setUser_id(memberVo.getUser_id());
-//		System.out.println("noticeVo:" + noticeVo);
 		noticeService.insertNotice(noticeVo);
-		
 		return "redirect:/customerCenter/customerCenterMain";
 	}
 	
@@ -74,19 +69,16 @@ public class CustomerCenterController {
 		pagingDto.setTotalCount(count);
 		pagingDto.setPagingInfo();
 		List<NoticeVo> noticeList = noticeService.noticeList(pagingDto);
-		
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "customerCenter/customerCenterMain";
 	}
 	
 	
-	
 // -------------------  공지사항 리스트 받아와서 noticeContent 로 보여주기 --------------------
 	@RequestMapping(value="/notice/noticeContent/{notice_no}", method=RequestMethod.GET)
 	public String noticeContent(@PathVariable("notice_no") int notice_no, Model model) throws Exception{
 		getProductCate(model);
-//		System.out.println("notice_no noticeContent :" + notice_no);
 		NoticeVo noticeVo = noticeService.selectNotice(notice_no);
 		model.addAttribute("noticeVo", noticeVo);
 		return "/customerCenter/notice/noticeContent";
@@ -96,10 +88,7 @@ public class CustomerCenterController {
 // --------------------------  공지사항 수정하기	 -------------------------
 	@RequestMapping(value="/notice/updateNotice", method=RequestMethod.GET)
 	public String updateNotice(NoticeVo noticeVo) throws Exception {
-//		System.out.println("update: " + noticeVo);
 		noticeService.updateNotice(noticeVo);
-		/*rttr.addFlashAttribute("msg", "updateSuccess");*/
-		
 		return "redirect:/customerCenter/customerCenterMain";
 	}
 	
@@ -114,26 +103,6 @@ public class CustomerCenterController {
 		return "redirect:/customerCenter/customerCenterMain";
 	}
 	
-	
-	
-	
-	
-	
-	/*@RequestMapping(value="/content", method=RequestMethod.GET)
-	public String content(int b_no, PagingDto pagingDto, Model model, HttpSession session) throws Exception {
-		System.out.println("b_no :" + b_no);
-		System.out.println("pagingDto :" + pagingDto);
-		BoardVo boardVo = boardService.selectArticle(b_no);
-		
-		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
-		String user_id = memberVo.getUser_id();
-		boolean isLike = likeService.isLike(user_id, b_no);
-		model.addAttribute("boardVo", boardVo);
-		model.addAttribute("isLike", isLike);
-		return "board/content";
-	}*/
-	
-	
 	@RequestMapping(value="/question/questionWriteForm")
 	public String questionWriteForm(Model model) throws Exception{
 		getProductCate(model);
@@ -143,11 +112,7 @@ public class CustomerCenterController {
 	// -------------------------- 자주하는 질문 입력하기 --------------------------------
 	@RequestMapping(value="/question/insertQuestion", method=RequestMethod.GET)
 	public String insertQuestion(QuestionVo questionVo, HttpSession session) throws Exception {
-//		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
-//		commentVo.setUser_id(memberVo.getUser_id());
-//		System.out.println("noticeVo:" + noticeVo);
 		questionService.insertQuestion(questionVo);
-		
 		return "redirect:/customerCenter/question/questionContent";
 	}
 	
@@ -159,7 +124,6 @@ public class CustomerCenterController {
 		pagingDto.setTotalCount(count);
 		pagingDto.setPagingInfo();
 		List<QuestionVo> questionList = questionService.getQuestionList(pagingDto);
-//		System.out.println("CustomerCenterController, questionListAll, questionList:" + questionList);
 		model.addAttribute("questionList", questionList);
 		model.addAttribute("pagingDto", pagingDto);
 		return "customerCenter/question/questionContent";
@@ -168,9 +132,7 @@ public class CustomerCenterController {
 	// ------------------------ 자주하는 질문 카테고리별 데이타 리스트에 보여주기 ---------------------
 		@RequestMapping(value="/question/questionContentCategory/{question_category}", method=RequestMethod.GET)
 		public String getQuestionListCategory(@PathVariable int question_category, Model model) throws Exception {
-//			System.out.println("CustomerCenterController getQuestionListCategory :" + getQuestionListCategory);
 			List<QuestionVo> questionListCategory = questionService.getQuestionListCategory(question_category);
-			System.out.println("CustomerCenterController,questionListCategory:" + questionListCategory);
 			model.addAttribute("questionListCategory", questionListCategory);
 			return "customerCenter/question/questionContentCategory";
 		}
@@ -180,10 +142,8 @@ public class CustomerCenterController {
 		@RequestMapping(value="/question/questionAnswer/{question_no}", method=RequestMethod.GET)
 		public String questionAnswer(@PathVariable("question_no") int question_no, Model model) throws Exception{
 			getProductCate(model);
-//			System.out.println("questionAnswer question_no  :" + question_no);
 			QuestionVo questionVo = questionService.selectQuestion(question_no);
 			model.addAttribute("questionVo", questionVo);
-//			System.out.println("questionAnswer questionVo :" + questionVo);
 			return "customerCenter/question/questionAnswer";
 		}
 			
@@ -191,10 +151,7 @@ public class CustomerCenterController {
 		// --------------------------  자주하는 질문 수정하기	 -------------------------
 		@RequestMapping(value="/question/updateQuestion", method=RequestMethod.POST)
 		public String updateQuestion(QuestionVo questionVo) throws Exception {
-//			System.out.println("updateQuestion, questionVo: " + questionVo);
 			questionService.updateQuestion(questionVo);
-//			rttr.addFlashAttribute("msg", "updateSuccess");
-			
 			return "redirect:/customerCenter/question/questionContent";
 		}
 		
@@ -213,10 +170,6 @@ public class CustomerCenterController {
 		@RequestMapping(value="/questionOne/questionOneWrite")
 		public String questionOneWrite(Model model, HttpSession session) throws Exception{
 			getProductCate(model);
-//			OrderVo orderVo = (OrderVo)session.getAttribute("orderVo");
-//			String order_code = orderVo.getOrder_code();
-//			System.out.println("questionOneContent, order_code:" + order_code);
-			
 			return "/customerCenter/questionOne/questionOneWrite";
 		}
 		
@@ -224,13 +177,7 @@ public class CustomerCenterController {
 		// -------------------------- 1:1 문의 입력하기 --------------------------------
 		@RequestMapping(value="/questionOne/insertOuestionOne", method=RequestMethod.POST)
 		public String insertQuestionOne(QuestionOneVo questionOneVo, HttpSession session) throws Exception {
-			
-//			MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
-		
-//			commentVo.setUser_id(memberVo.getUser_id());
-			System.out.println("insertQuestionOne questionOneVo:" + questionOneVo);
 			questionOneService.insertQuestionOne(questionOneVo);
-		
 			return "redirect:/customerCenter/questionOne/questionOneContent";
 		}
 		
@@ -239,12 +186,9 @@ public class CustomerCenterController {
 		@RequestMapping(value="/questionOne/getOrderList", method=RequestMethod.POST)
 		@ResponseBody
 		public List<OrderVo> getOrderList(HttpSession session) throws Exception {
-			TestVo testVo = (TestVo)session.getAttribute("testVo");
-			System.out.println("getorderList, testVo :"  + testVo);
-			String user_id = testVo.getUser_id();
+			CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
+			String user_id = customerVo.getUser_id();
 			List<OrderVo> orderedList = questionOneService.getOrderedList(user_id);
-			System.out.println("getOrderedList, orderedList :" + orderedList);
-					
 			return orderedList;
 		}
 		
@@ -252,8 +196,8 @@ public class CustomerCenterController {
 		@RequestMapping(value="/questionOne/questionOneContent", method=RequestMethod.GET)
 		public String questionOneListAll(Model model, PagingDto pagingDto, HttpSession session) throws Exception {
 			getProductCate(model);
-			TestVo testVo = (TestVo)session.getAttribute("testVo");
-			String q_o_writer = testVo.getUser_id();
+			CustomerVo customerVo = (CustomerVo)session.getAttribute("customerVo");
+			String q_o_writer = customerVo.getUser_id();
 			
 			/* 갯수 파악*/
 			int count = questionOneService.questionOneListCountUser(q_o_writer);
@@ -271,44 +215,30 @@ public class CustomerCenterController {
 		// -------------------  1:1 문의 리스트에 해당하는 답변글 받아오기 --------------------
 		@RequestMapping(value="/questionOne/questionOneAnswer/{q_o_no}", method=RequestMethod.GET)
 		public String questionOneAnswer(@PathVariable("q_o_no") int q_o_no, Model model) throws Exception{
-			System.out.println("questionOneAnswer q_o_no  :" + q_o_no);
 			QuestionOneVo questionOneVo = questionOneService.selectQuestionOne(q_o_no);
 			model.addAttribute("questionOneVo", questionOneVo);
-			System.out.println("questionAnswer questionOneVo :" + questionOneVo);
 			return "customerCenter/questionOne/questionOneAnswer";
 		}
 		
 		// ---------------------- 1:1 문의에 대한 답변 창 나타내기 ----------------------------
 		@RequestMapping(value="/questionOne/questionOneAnswerWrite/{q_o_no}", method=RequestMethod.GET)
 		public String questionOneAnswerWrite(@PathVariable("q_o_no") int q_o_no, Model model) throws Exception{
-			System.out.println("questionOneAnswerWrite q_o_no  :" + q_o_no);
 			QuestionOneVo questionOneVo = questionOneService.selectQuestionOne(q_o_no);
 			model.addAttribute("questionOneVo", questionOneVo);
-			System.out.println("questionOneAnswerWrite questionOneVo :" + questionOneVo);
 			return "customerCenter/questionOne/questionOneAnswerWrite";
 		}
-		
-//		@RequestMapping(value="/questionOne/questionOneAnswerWrite")
-//		public String questionOneAnswerWrite() throws Exception{
-//			return "/customerCenter/questionOne/questionOneAnswerWrite";
-//		}
 		
 		// --------------------------  1:1 문의 수정하기	 -------------------------
 		@RequestMapping(value="/questionOne/updateQuestionOne", method=RequestMethod.POST)
 		public String updateQuestionOne(QuestionOneVo questionOneVo) throws Exception {
-			System.out.println("updateQuestionOne, questionOneVo: " + questionOneVo);
 			questionOneService.updateQuestionOne(questionOneVo);
-//			rttr.addFlashAttribute("msg", "updateSuccess");
-					
 			return "redirect:/customerCenter/questionOne/questionOneContent";
 		}
 		
 		// --------------------------  1:1 문의 답변 넘겨주기	 -------------------------
 		@RequestMapping(value="/questionOne/updateQuestionOneAnswer", method=RequestMethod.POST)
 		public String updateQuestionOneAnswer(QuestionOneVo questionOneVo) throws Exception {
-			System.out.println("CustomerCenterController updateQuestionOneAnswer, questionOneVo: " + questionOneVo);
 			questionOneService.updateQuestionOneAnswer(questionOneVo);
-//			rttr.addFlashAttribute("msg", "updateSuccess");
 
 			//	----------- 문자 메세지 보내기 ---------------------------		
 			String api_key = "NCSUYJ0RBVZP2OXB";
@@ -330,8 +260,9 @@ public class CustomerCenterController {
 		    } catch (CoolsmsException e) {
 		      System.out.println(e.getMessage());
 		      System.out.println(e.getCode());
-		    } // 문자메시지 보내기 끝
-			
+
+		    } // 문자메시지 보내기 끝			
+
 		    return "redirect:/customerCenter/questionOne/questionOneContent";
 		}
 		
