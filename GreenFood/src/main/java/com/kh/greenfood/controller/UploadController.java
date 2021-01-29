@@ -156,7 +156,7 @@ public class UploadController {
 		}
 		rttr.addFlashAttribute("resultMsg", resultMsg);
 		
-		return "/admin/productUpdateForm/" + vo.getProduct_code();
+		return "redirect:/admin/productUpdateForm/" + vo.getProduct_code();
 	}
 	
 	/* s3에 업로드 된 이미지 파일  url 얻기 */

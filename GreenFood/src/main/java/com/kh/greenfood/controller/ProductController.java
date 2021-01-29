@@ -81,7 +81,7 @@ public class ProductController {
 			menuList = productService.getLatestProduct(14); // 현재 날짜로부터 2주 전까지 등록된 상품
 			break;
 		case "best":
-			menuList = productService.getBestProduct(3); // 임시 : 별점 3 이상부터
+			menuList = productService.getBestProduct(3); // 별점 3 이상부터
 			break;
 		case "sale":
 			menuList = productService.getSaleProduct(14, 10); // 현재 날짜로부터 2주, 10% 할인

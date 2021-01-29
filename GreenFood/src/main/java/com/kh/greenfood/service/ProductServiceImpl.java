@@ -107,6 +107,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	/* 세일상품 (판매기한 임박한 상품 목록), 할인율 수정 */
 	@Override
+	@Transactional
 	public List<ProductVo> getSaleProduct(int deadline, int saleRate) {
 		List<ProductVo> listSale = productDao.getSaleProduct(deadline);
 		for (ProductVo vo : listSale) {
