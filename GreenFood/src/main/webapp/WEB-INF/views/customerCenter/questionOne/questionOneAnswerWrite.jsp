@@ -108,8 +108,6 @@ table {
 }
 </style>
 
-
-
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
@@ -156,6 +154,8 @@ table {
 						<input type="hidden" name="q_o_content" class="btn btn-warning" value="${questionOneVo.q_o_content }"/>
 						<input type="hidden" name="q_o_category" class="btn btn-warning" value="${questionOneVo.q_o_category}"/>
 						<input type="hidden" name="q_o_date" class="btn btn-warning" value="${questionOneVo.q_o_date }"/>
+						<input type="hidden" name="q_o_phone" class="btn btn-warning" value="${questionOneVo.q_o_phone }"/>
+						<input type="hidden" name="q_o_writer" class="btn btn-warning" value="${questionOneVo.q_o_writer }"/>
 						<input type="hidden" name="question_category_dsc" class="btn btn-warning" value="${questionOneVo.question_category_dsc }"/>
 						<button type="submit" id="btnAnswerFinish" class="btn btn-success" value="">답변완료</button>
 						</div>

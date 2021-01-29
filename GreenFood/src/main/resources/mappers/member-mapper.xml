@@ -82,7 +82,7 @@
 	
 	<!-- 유저 포인트 내역 불러오기 -->
 	<select id="getUserPoint" resultType="PointVo">
-	select p.*, c.*, rownum rnum from tbl_point p, tbl_point_category c
+	select p.*, c.* from tbl_point p, tbl_point_category c
 		where p.point_category = c.point_category
 			and user_id = #{user_id}
 			order by point_date desc

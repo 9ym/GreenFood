@@ -110,6 +110,10 @@ public class OrderController {
 	@RequestMapping(value="/payImmediate", method=RequestMethod.POST)
 	public String pay(CartDto cartDto, Model model, HttpSession session) throws Exception {
 		
+		/* 상품 카테고리 */
+		List<ProductCategoryDto> categoryList = productService.getCategory();
+		model.addAttribute("categoryList", categoryList);
+		
 		/* 회원 정보 */
 		CustomerVo customerVo = (CustomerVo) session.getAttribute("customerVo");
 		model.addAttribute("customerVo", customerVo);

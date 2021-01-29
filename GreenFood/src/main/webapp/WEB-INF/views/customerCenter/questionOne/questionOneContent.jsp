@@ -457,8 +457,7 @@ $(function(){
 								<div class="row text-center" id="select">
 									<select id="selectType">
 										<option selected>선택</option>
-										<option>이름</option>
-										<option>아이디</option>
+										<option>제목</option>
 									</select>
 									<input type="text" id="keyword">
 									<button type="button" class="" id="btnSearch">검색</button>

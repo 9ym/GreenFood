@@ -30,12 +30,14 @@ public class MainController {
 	@Inject
 	private ProductService productService;
 	
+	/* 회원가입 페이지 */
 	@RequestMapping(value="/memberJoinForm")
 	public String memberJoinForm(Model model) throws Exception{
 		getProductCate(model);
 		return "memberJoinForm";
 	}
 	
+	/* 로그인 페이지 */
 	@RequestMapping(value="/loginPage")
 	public String loginPage(Model model) throws Exception{
 		getProductCate(model);
@@ -43,6 +45,7 @@ public class MainController {
 		
 	}
 	
+	/* 이벤트 메인 페이지 */
 	@RequestMapping(value="/event/eventMain")
 	public String eventMain(Model model) throws Exception{
 		getProductCate(model);
@@ -50,6 +53,7 @@ public class MainController {
 		
 	}
 	
+	/* 고객센터 메인 페이지 */
 	@RequestMapping(value="/customerCenter/customerCenterMain")
 	public String customerCenter() throws Exception{
 		return "customerCenter/customerCenterMain";
@@ -81,7 +85,7 @@ public class MainController {
 					boolean result = emailUtil.sendMail(origin_email, tempPassword);
 					if (result == true) {
 						rttr.addFlashAttribute("msg", "tempPasswordCreate");
-						page = "redirect:/";
+						page = "redirect:/main/loginPage";
 					} else {
 						rttr.addFlashAttribute("msg", "tempPasswordCreateFail");
 						page = "redirect:/main/customerFindPw";
@@ -115,7 +119,7 @@ public class MainController {
 		if(customerVo1 != null) {
 			String user_id = customerVo1.getUser_id();
 			rttr.addFlashAttribute("findUser_id", user_id);
-			page = "redirect:/";
+			page = "redirect:/main/loginPage";
 		} else {
 			rttr.addFlashAttribute("msg", "notFoundCustomerInfo");
 			page = "redirect:/main/customerFindId";

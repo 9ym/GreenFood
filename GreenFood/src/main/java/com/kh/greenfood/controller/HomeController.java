@@ -62,6 +62,7 @@ public class HomeController {
 		return "home";
 	}
 	
+	/* 아이디 중복체크 */
 	@RequestMapping(value="/checkDupId/{user_id}", method=RequestMethod.GET)
 	@ResponseBody
 	public String checkDupId(@PathVariable("user_id") String user_id) {
@@ -75,6 +76,7 @@ public class HomeController {
 		return message;
 	}
 	
+	/* 로그인 진행 */
 	@RequestMapping(value="/loginRun", method=RequestMethod.POST)
 	public String login(String user_id, String user_pw, String checked_id, HttpSession session, RedirectAttributes rttr,Model model, HttpServletResponse response) {
 		
@@ -120,6 +122,7 @@ public class HomeController {
 		return page;
 	}
 	
+	/* 로그아웃 */
 	@RequestMapping(value="/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();

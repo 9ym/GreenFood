@@ -104,10 +104,9 @@
 	
 	<!-- 상품평 등록했는 지에 따른 카운트 -->
 	<select id="productReviewsCount" resultType="int">
-		select count(*) 
-			from (select r.*, p.product_code from tbl_review r, tbl_product p
-   			 where order_code = #{order_code}
-    		and r.product_title = p.product_title)
+		select count(*) from tbl_review
+			where order_code = #{order_code}
+				and product_code = #{product_code}
 	</select>
 	
 	<!-- 마이페이지 나의 후기 -->

@@ -275,7 +275,6 @@ $(function(){
 	
 	<!-- 주문 상세 내역 -->
 	<h2>${sessionScope.customerVo.user_name}님 주문상세 내역입니다.</h2>
-
 	<div class="container-fluidInner">
 	<div class="row">
 		<div class="col-md-12 div-cart">
@@ -312,7 +311,7 @@ $(function(){
 						<!-- list -->
 						<ul class="ul-pay-list product-list">
 						<c:forEach var="productInfo" items="${productDetailInfo}" varStatus="i">
-						<c:forEach var="img" items="${imgList}" varStatus="j">
+						<c:forEach var="img" items="${imgList}" varStatus="j" >
 						<c:if test="${i.index == j.index}">
 							<li>
 								<div align="left" class="imggg">
@@ -328,15 +327,15 @@ $(function(){
 									</span>
 									<span>${productInfo.product_title}</span>
 									<span>${productInfo.order_quantity}개</span>
-									<span>${productInfo.product_price}원</span>
+									<span>${productInfo.order_quantity * productInfo.product_price}원</span>
 									<c:if test="${productInfo.dead_line_count == 1}">
 										<span class="deadProduct">상품판매 종료된 제품입니다.</span>
 									</c:if>
-									<c:if test="${orderVo.order_state == '10003' && reviewExist == false}">
+									<c:if test="${orderVo.order_state == '10003' && listCount[i.index] == 0}">
 										<span><a class="btn btn-success review_write" href="" style="float:right; margin-top:28px;" 
 												data-bno="${orderVo.order_code}">상품평 작성</a></span>
 									</c:if>
-									<c:if test="${reviewExist == true}">
+									<c:if test="${listCount[i.index] == 1}">
 										
 									</c:if>
 								</div>

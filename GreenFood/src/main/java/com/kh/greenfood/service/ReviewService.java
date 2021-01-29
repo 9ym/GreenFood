@@ -30,7 +30,7 @@ public interface ReviewService {
 	public ReviewVo selectInfoOrderReview(String order_code, String product_code) throws Exception;
 
 	// 상품평 등록했는지에 따른 count
-	public int productReviewsCount(String order_code);
+	public List<Integer> productReviewsCount(String order_code);
 	
 	// 리뷰 리스트 가져오기
 	public List<ReviewVo> getReviewList(String user_id);

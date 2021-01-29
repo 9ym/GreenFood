@@ -83,17 +83,17 @@ $(function(){
             
                 <div class="inp_text">
                 	<label for="loginId" class="screen_out">이름</label>
-                	<input type="text" id="user_name" name="user_name" placeholder="이름" value="신귀환" required>
+                	<input type="text" id="user_name" name="user_name" placeholder="이름" required>
                 </div>
                 
                 <div class="inp_text">
                	 	<label for="loginPw" class="screen_out">이메일</label>
-                	<input type="text" id="user_email" name="user_email" placeholder="이메일" value="zerll9100@gmail.com" required>
+                	<input type="text" id="user_email" name="user_email" placeholder="이메일" required>
                 </div>
                 
                 <div class="inp_text">
                 	<label for="loginPw" class="screen_out">이메일</label>
-                	<input type="text" id="user_phone" name="user_phone" placeholder="핸드폰 번호 010-0000-0000" value="010-6428-4092" required>
+                	<input type="text" id="user_phone" name="user_phone" placeholder="핸드폰 번호 010-0000-0000" required>
                 </div>
                 
             </div>

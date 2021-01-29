@@ -9,6 +9,7 @@ import com.kh.greenfood.domain.CustomerVo;
 
 public interface MemberService {
 	
+	// 로그인
 	public CustomerVo login(String user_id, String user_pw);
 	
 	// 회원가입
@@ -16,8 +17,6 @@ public interface MemberService {
 	
 	// 회원조회 아이디 값으로 DB 정보불러오기
 	public CustomerVo selectMember(String user_id);
-	
-//	public TestVo profilePwCheck(String user_id, String user_pw);
 	
 	// 프로필상 비밀번호 변경, 로그인페이지 비밀번호 찾기 -> 임시비밀번호 발급
 	public int changePw(String user_id, String user_pw);
@@ -61,6 +60,7 @@ public interface MemberService {
 	/* 주문 건수에 따라 5회면 gold로 10회면 vip로 */
 	public int updateUserLevel(String user_id, int user_level);
 
+	/* 유저 포인트 업데이트 */
 	public void updateUserPoint(String user_id, int discount);
 
 }

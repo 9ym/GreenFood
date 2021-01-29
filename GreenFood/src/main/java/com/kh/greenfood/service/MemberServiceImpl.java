@@ -19,12 +19,14 @@ public class MemberServiceImpl implements MemberService {
 	@Inject
 	private MemberDao memberDao;
 	
+	// 로그인
 	@Override
 	public CustomerVo login(String user_id, String user_pw) {
 		CustomerVo customerVo = memberDao.login(user_id, user_pw);
 		return customerVo;
 	}
 	
+	// 회원가입
 	@Transactional
 	@Override
 	public int insertMember(CustomerVo customerVo) {
@@ -34,18 +36,21 @@ public class MemberServiceImpl implements MemberService {
 		return count;
 	}
 
+	// 회원조회 아이디 값으로 DB 정보불러오기
 	@Override
 	public CustomerVo selectMember(String user_id) {
 		CustomerVo customerVo = memberDao.selectMember(user_id);
 		return customerVo;
 	}
 
+	// 프로필상 비밀번호 변경, 로그인페이지 비밀번호 찾기 -> 임시비밀번호 발급
 	@Override
 	public int changePw(String user_id, String user_pw) {
 		int count = memberDao.changePw(user_id, user_pw);
 		return count;
 	}
 
+	// 프로필 회원정보 수정
 	@Override
 	public int customerModify(CustomerVo customerVo) {
 		int count = memberDao.customerModify(customerVo);
@@ -100,12 +105,14 @@ public class MemberServiceImpl implements MemberService {
 		return pointSum;
 	}
 
+	// 주문갯수(배송완료)
 	@Override
 	public int orderCount(String user_id) {
 		int count = memberDao.orderCount(user_id);
 		return count;
 	}
 
+	// 주문 총 갯수(입금전, 상품준비, 배송중, 배송완료)
 	@Override
 	public List<OrderListCountDto> getCustomerOrderCountList(String user_id) {
 		List<OrderListCountDto> customerOrderCountList = memberDao.getCustomerOrderCountList(user_id);
@@ -131,6 +138,7 @@ public class MemberServiceImpl implements MemberService {
 		return count;
 	}
 
+	/* 유저 포인트 업데이트 */
 	@Override
 	public void updateUserPoint(String user_id, int discount) {
 		memberDao.updateUserPoint(discount, user_id);

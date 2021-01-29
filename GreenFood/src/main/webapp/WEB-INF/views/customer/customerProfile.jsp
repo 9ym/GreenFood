@@ -314,7 +314,6 @@ $(function(){
 });
 </script>
 <content>
-${customerVo}
 <body>
 <div class="container-fluid1">
 
@@ -338,7 +337,7 @@ ${customerVo}
           		<span>${sessionScope.customerVo.user_name}</span>님 비밀번호를 변경해주세요.
         	</div>
           <div class="form-group">
-          	<input type="password" class="form-control form-control-lg" id="presentPw" placeholder="현재 비밀번호 입력" value="${sessionScope.customerVo.user_pw}">
+          	<input type="password" class="form-control form-control-lg" id="presentPw" placeholder="현재 비밀번호 입력">
           </div>
           <div class="form-group">
           	<input type="password" class="form-control form-control-lg" id="newPw1" placeholder="새 비밀번호 입력(8~10 영문/숫자/특수문자 조합)">
@@ -403,7 +402,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 					<label for="user_id" class="t_tit1">
 						아이디
 					</label>
-					<input type="text" class="form-control" id="user_id" name ="user_id" value="${sessionScope.customerVo.user_id}" readonly/>
+					<input type="text" class="form-control" id="user_id" name ="user_id" value="${sessionScope.customerVo.user_id }" readonly/>
 				</div>
 			</div>
 			<div class="row">
@@ -411,7 +410,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 					<label for="user_pw" class="t_tit1">
 						비밀번호 확인
 					</label>
-					<input type="password" class="form-control" id="user_pw" value="${sessionScope.customerVo.user_pw}" placeholder="현재 비밀번호를 입력해주세요"/>
+					<input type="password" class="form-control" id="user_pw" placeholder="현재 비밀번호를 입력해주세요"/>
 				</div>
 			</div>
 				<button type="button" id="btnPassCheckComplete" class="btn btn-primary">
@@ -445,7 +444,7 @@ width:1000px;border-top:2px solid #6ca435;box-shadow:3px 3px 3px #c7c7c7;margin-
 							<label for="user_id">
 							아이디<span aria-label="필수 항목" class="required">*</span>
 							</label>
-							<input type="text" class="form-control" id="user_id" name="user_id" readonly required value="${sessionScope.customerVo.user_id}"/>
+							<input type="text" class="form-control" id="user_id" name="user_id" value="${sessionScope.customerVo.user_id }" readonly required />
 							<br/>
 						</div>
 						

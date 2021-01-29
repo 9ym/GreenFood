@@ -475,7 +475,7 @@ $(function(){
 																</tr>
 															</thead>
 															<tbody>
-															<c:forEach var="questionVo" items="${questionList}">
+															<c:forEach var="questionVo" items="${questionList}" >
 																<tr>
 																	<td>${questionVo.question_no}</td>
 																	<td>${questionVo.question_category_dsc}</td>

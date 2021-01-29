@@ -237,9 +237,10 @@ public class CustomerCenterController {
 		
 		// --------------------------  1:1 문의 답변 넘겨주기	 -------------------------
 		@RequestMapping(value="/questionOne/updateQuestionOneAnswer", method=RequestMethod.POST)
-		public String updateQuestionOneAnswer(QuestionOneVo questionOneVo) throws Exception {
+		public String updateQuestionOneAnswer(QuestionOneVo questionOneVo, HttpSession session) throws Exception {
 			questionOneService.updateQuestionOneAnswer(questionOneVo);
-
+			String user_phone = questionOneVo.getQ_o_phone();
+			String user_id = questionOneVo.getQ_o_writer();
 			//	----------- 문자 메세지 보내기 ---------------------------		
 			String api_key = "NCSUYJ0RBVZP2OXB";
 		    String api_secret = "DVQ7LGFSMK6FDRWFCNJFPTQMFRGQ19YS";
@@ -247,10 +248,10 @@ public class CustomerCenterController {
 
 		    // 4 params(to, from, type, text) are mandatory. must be filled
 		    HashMap<String, String> params = new HashMap<String, String>();
-		    params.put("to", "010-6428-4092");
+		    params.put("to", user_phone);
 		    params.put("from", "01093986307"); //무조건 자기번호 (인증)
 		    params.put("type", "SMS");
-		    params.put("text", "김봉규 보냄 테스트");
+		    params.put("text", "안녕하세요. 그린푸드입니다." + user_id + "님 답변이 등록되었습니다.");
 		    params.put("app_version", "test app 1.2"); // application name and version
 
 		    try {
@@ -261,8 +262,7 @@ public class CustomerCenterController {
 		      System.out.println(e.getMessage());
 		      System.out.println(e.getCode());
 
-		    } // 문자메시지 보내기 끝			
-
+		    } // 문자메시지 보내기 끝
 		    return "redirect:/customerCenter/questionOne/questionOneContent";
 		}
 		

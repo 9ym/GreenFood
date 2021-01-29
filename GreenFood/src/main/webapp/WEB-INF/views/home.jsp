@@ -17,17 +17,10 @@
 <script type="text/javascript" src="${path}/resources/js/myScript.js"></script>
 <script>
 $(function(){
-	
 	var msg = "${msg}";
-	var user_id = "${findUser_id}";
-	if(msg == "tempPasswordCreate"){
-		alert("임시 비밀번호가 발송되었습니다.");
-	} else if(user_id != ""){
-		alert("회원님의 아이디는" + user_id + "입니다.")
-	} else if(msg == "missing"){
+	if(msg == "missing"){
 		alert("잘못된 접근입니다.");
 	}
-	
 	/* 상품 검색 */
 	$("#header_menu_right_img").click(function(){
 		var product_title = $("#header_menu_right_input").val();

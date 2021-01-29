@@ -684,7 +684,7 @@ a {
 		<div class="col-md-6 viewInfo">
 		<div>
 			<div class="infoImage">
-				<img class="img-product img-s3" alt="상품 이미지" src="${path}/resources/images/right.PNG"
+				<img class="img-product img-s3" alt="상품 이미지" src="${path}/resources/images/item.png"
 					data-img="${productImageDto.image_info_file_name}" data-category="${productVo.product_category}">
 			</div>
 			<div class="infoNamePrice">

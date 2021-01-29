@@ -229,7 +229,6 @@
 </style>
 
 <div class="container-fluid">
-	
 	<div class="row">
 		<div class="col-md-3"></div>
 		<div class="col-md-6 div-cart">
@@ -340,10 +339,6 @@
 					<button type="button" id="btnFinalPay" onclick="javascript:payFinal();">결제완료</button>
 				</form>
 			</div>
-<!-- 			<div class="notice"> -->
-<!-- 				<span class="notice-txt">· ‘입금확인’ 상태일 때는 주문 내역 상세에서 직접 주문취소가 가능합니다.</span> -->
-<!-- 				<span class="notice-txt">· ‘입금확인’ 이후 상태에는 고객센터로 문의해주세요.</span> -->
-<!-- 			</div> -->
 		</div>
 		<div class="col-md-3"></div>
 	</div>
@@ -373,7 +368,7 @@ function usePoint(obj) {
 		alert("보유한 포인트 안에서만 사용할 수 있습니다.")
 	} else if (pointUse <= 0) {
 		alert("1원부터 사용할 수 있습니다.")
-	} else if (pointUse > 0 && pointUse < pointHave) {
+	} else if (pointUse > 0 && pointUse <= pointHave) {
 		var pointLeft = pointHave - pointUse;
 		$(".total-point").text("- " + addComma(pointUse));
 	}
