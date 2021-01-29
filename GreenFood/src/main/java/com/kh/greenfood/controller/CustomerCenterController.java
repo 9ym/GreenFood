@@ -241,6 +241,7 @@ public class CustomerCenterController {
 			questionOneService.updateQuestionOneAnswer(questionOneVo);
 			String user_phone = questionOneVo.getQ_o_phone();
 			String user_id = questionOneVo.getQ_o_writer();
+			System.out.println(user_phone + user_id);
 			//	----------- 문자 메세지 보내기 ---------------------------		
 			String api_key = "NCSUYJ0RBVZP2OXB";
 		    String api_secret = "DVQ7LGFSMK6FDRWFCNJFPTQMFRGQ19YS";
@@ -248,7 +249,7 @@ public class CustomerCenterController {
 
 		    // 4 params(to, from, type, text) are mandatory. must be filled
 		    HashMap<String, String> params = new HashMap<String, String>();
-		    params.put("to", user_phone);
+		    params.put("to", "010-6428-4092");
 		    params.put("from", "01093986307"); //무조건 자기번호 (인증)
 		    params.put("type", "SMS");
 		    params.put("text", "안녕하세요. 그린푸드입니다." + user_id + "님 답변이 등록되었습니다.");

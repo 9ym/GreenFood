@@ -110,6 +110,9 @@ public class UploadController {
 		HashMap<String, Object> mapSaleRate = new HashMap<>();
 		mapSaleRate.put("saleRateStr", saleRateStr);
 		mapSaleRate.put("saleRate", saleRate);
+		System.out.println("update: " + mapSaleRate);
+		System.out.println("update: " + saleRateStr);
+		System.out.println("update: " + saleRate);
 		HashMap<String, Object> mapSalesDeadlines = new HashMap<>();
 		mapSalesDeadlines.put("salesDeadlinesStr", salesDeadlinesStr);
 		mapSalesDeadlines.put("salesDeadlines", salesDeadlines);
@@ -156,7 +159,7 @@ public class UploadController {
 		}
 		rttr.addFlashAttribute("resultMsg", resultMsg);
 		
-		return "/admin/productUpdateForm/" + vo.getProduct_code();
+		return "redirect:/admin/productUpdateForm/" + vo.getProduct_code();
 	}
 	
 	/* s3에 업로드 된 이미지 파일  url 얻기 */

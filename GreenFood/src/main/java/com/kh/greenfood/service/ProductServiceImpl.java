@@ -186,6 +186,7 @@ public class ProductServiceImpl implements ProductService {
 			HashMap<String, Object> mapShelfLife, HashMap<String, Object> mapSaleRate,
 			HashMap<String, Object> mapSalesDeadlines, String isImage) {
 		String updateResult = "";
+		System.out.println("updateService: " + mapSaleRate);
 		int countProductUpdate = productDao.updateProduct(productVo, mapShelfLife, mapSaleRate, mapSalesDeadlines);
 		if (countProductUpdate > 0) {
 			updateResult = "update_product";
