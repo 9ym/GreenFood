@@ -379,7 +379,6 @@ function stayNum() {
 			console.log("들어옴1");
 		} else if ((index > 0 && index < 3) && val.length != 0) {
 			$("#frmProductUpdate > input[type='hidden']").eq(index).val("updateYes");
-			console.log("들어옴2");
 		}
 		/* 판매 기한 */
 		if (index == 3 && val.length == 0) {
