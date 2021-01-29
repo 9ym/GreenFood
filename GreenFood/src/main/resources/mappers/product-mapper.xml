@@ -135,7 +135,7 @@
 			select * from tbl_product
 			where ( product_sales_deadlines >= sysdate
 					and product_sales_deadlines is not null )
-			and sysdate + 14 >= product_sales_deadlines
+			and sysdate + #{deadline} >= product_sales_deadlines
 			order by product_sales_deadlines asc
 		]]>
 	</select>

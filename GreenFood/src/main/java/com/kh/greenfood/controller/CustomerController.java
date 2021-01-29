@@ -129,14 +129,6 @@ public class CustomerController {
 		String user_id = customerVo.getUser_id();
 		List<Integer> listCount = reviewService.productReviewsCount(order_code);
 		model.addAttribute("listCount", listCount);
-//		boolean reviewExist;
-//		if(listCount > 0) {
-//			reviewExist = true;
-//			model.addAttribute("reviewExist", reviewExist);
-//		} else {
-//			reviewExist = false;
-//			model.addAttribute("reviewExist", reviewExist);
-//		}
 		
 		// 전체보기 카테고리
 		getProductCate(model);

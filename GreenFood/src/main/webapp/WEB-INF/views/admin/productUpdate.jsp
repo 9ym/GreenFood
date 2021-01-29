@@ -376,8 +376,9 @@ function stayNum() {
 		/* 유통기한, 할인율 */
 		if ((index > 0 && index < 3) && val.length == 0) {
 			$(this).val(valOrigin);
+			console.log("들어옴1");
 		} else if ((index > 0 && index < 3) && val.length != 0) {
-			$("input[type='hidden']").eq(index).val("updateYes");
+			$("#frmProductUpdate > input[type='hidden']").eq(index).val("updateYes");
 		}
 		/* 판매 기한 */
 		if (index == 3 && val.length == 0) {
@@ -389,7 +390,7 @@ function stayNum() {
 				$(this).val(0); // 판매 기한 X + updateNo
 			}
 		} else if (index == 3 && val.length != 0) {
-			$("input[type='hidden']").eq(3).val("updateYes");
+			$("#frmProductUpdate > input[type='hidden']").eq(3).val("updateYes");
 		}
 	});
 }
