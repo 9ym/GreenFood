@@ -591,9 +591,7 @@ function make2digits(num) {
 
 .xans-board-listheader {
     border-top-style: solid;
-	/* border-right-style: dotted; */
 	border-bottom-style: solid;
-	/* border-left-style: groove; */
 	border-width: 1px;
 	border-color: #6ca435;
     
@@ -671,11 +669,6 @@ a {
 <%@ include file="../include/frmOrdered.jsp" %>
 
 </style>
-
-<!-- ----------------  페이징 폼 넣어주기 -----------------------------------  -->
-
-<%@ include file="../include/frmPaging.jsp" %>
-
 
 <div class="container-fluid">
 	<div class="row div-content">

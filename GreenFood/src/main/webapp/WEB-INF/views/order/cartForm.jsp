@@ -203,7 +203,7 @@
 .amount-last {
 	border-top : 1px solid gainsboro;
 	padding-top : 15px;
-	margin-top : 15px; /* ?? 왜 안 됨 ?? */
+	margin-top : 15px;
 }
 .btn-submit button {
 	position : relative;
@@ -243,7 +243,6 @@
 				<div class="cart-inner-select">
 					<input type="checkbox" onchange="javascript:checkSelectAll(this);">
 					<label>전체선택 ( <span>0</span> / <span>0</span> )</label>
-<!-- 					<span id="line">|</span> -->
 					<a href="#" onclick="javascript:deleteSelected(this);">선택삭제</a>
 				</div>
 				<div class="cart-inner">
@@ -308,7 +307,6 @@
 							<span class="span-tit">배송비</span>
 							<span class="span-won">+ 3,000 원</span>
 						</div>
-<!-- 						<p>ddd</p> 배송비 안내? -->
 						<div class="amount-last">
 							<span class="span-tit">결제예정금액</span>
 							<span class="span-won">
@@ -324,10 +322,6 @@
 					<button type="button" id="btnPay" onclick="javascript:sendCartNo();">구매하기</button>
 				</form>
 			</div>
-<!-- 			<div class="notice"> -->
-<!-- 				<span class="notice-txt">· ‘입금확인’ 상태일 때는 주문 내역 상세에서 직접 주문취소가 가능합니다.</span> -->
-<!-- 				<span class="notice-txt">· ‘입금확인’ 이후 상태에는 고객센터로 문의해주세요.</span> -->
-<!-- 			</div> -->
 		</div>
 		<div class="col-md-3"></div>
 	</div>

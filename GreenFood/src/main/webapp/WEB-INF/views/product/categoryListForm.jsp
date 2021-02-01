@@ -82,12 +82,10 @@
 											data-img="${imageDto.image_info_file_name}" 
 											data-category="${productVo.product_category}">
 										</a>
-<!-- 									<div class="group-btn"><button></button></div> -->
 								</div>
 								<a class="item-title" href="/product/detail/${productVo.product_code}">
 									<span class="span-title">${productVo.product_title}</span>
 									<span class="span-price">${productVo.product_price}</span>
-<!-- 									<span class="span-3">3.간단 설명</span> -->
 								</a>
 							</div>
 						</li>

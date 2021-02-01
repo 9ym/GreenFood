@@ -20,7 +20,6 @@ div {
 }
 
 .div-title {
-/* 	display: block; */
 	margin-bottom : 80px;
 }
 .div-title h2 {
@@ -34,13 +33,13 @@ div {
 	float : left;
 }
 #btnProduct {
-/* 	margin-bottom : 20px; */
+
 }
 #btnSearch {
  	margin-bottom : 2px;
 }
 td {
-/* 	text-align : center; */
+
 }
 a {
 	color : #6ca435;
@@ -133,7 +132,6 @@ label {
 						<th>
 							<input type="checkbox" id="inputCheckAll" onchange="javascript:checkSelectAll(this);">
 						</th>
-<!-- 						<th>순서</th> -->
 						<th>상품번호</th>
 						<th>상품 카테고리</th>
 						<th>상품 이름</th>
@@ -333,7 +331,6 @@ function endProduct(obj) {
 			$(".input-checked:checked").each(function() {
 				listEnd.push($(this).val());
 			});
-// 			console.log(listEnd);
 			var sendData = {
 				"listEnd" : listEnd	
 			};

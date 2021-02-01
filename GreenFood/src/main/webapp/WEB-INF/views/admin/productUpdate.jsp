@@ -283,7 +283,6 @@ $(function(){
 		};
 		var url = "/upload/getImageUrl";
 		$.post(url, sendData, function(data) {
-// 			console.log(data);
 			thisImg.attr("src", data);
 		});
 	});
@@ -405,20 +404,15 @@ function knowDiff() {
 		var month = dateDeadlines.getMonth() + 1;
 		var date = dateDeadlines.getDate();
 		var hour = dateDeadlines.getHours();
+		
 		/* 현재 날짜 */			
 		var dateNow = new Date();
 		var hourNow = dateNow.getHours();
+		
 		/* 몇 일 차이 나나? */
 		var diff = Math.abs(dateDeadlines.getTime() - dateNow.getTime());
 	    diff = Math.floor(diff / (1000 * 3600 * 24));
 	    
-	    console.log("dateDeadlines.getTime() :" + dateDeadlines.getTime());
-		console.log("dateNow.getTime() :" + dateNow.getTime());
-		console.log("diff :" + (dateDeadlines.getTime() - dateNow.getTime()));
-		console.log("diff :" + ((dateDeadlines.getTime() - dateNow.getTime()) / (1000 * 3600 * 24)));
-		console.log("diff :" + Math.abs(dateDeadlines.getTime() - dateNow.getTime()));
-		console.log("diff :" + diff);
-		
 		var dateShow = year +"년 "+ month +"월 "+ date + "일 " + hour;
 		
 		if (dateNow > dateDeadlines) {
@@ -428,8 +422,6 @@ function knowDiff() {
 		}
 	    
 		/* 보여줄 문장 */
-// 	    var dateShow = year +"년 "+ month +"월 "+ date + "일 " + hour + "시 (오늘부터 " + diff + "일 뒤)";
-		console.log(dateShow);
 		$(".input-date").val(dateShow);
 		return diff;
 	} else { // 판매 기한 X
@@ -451,7 +443,6 @@ function endProductChange(obj) {
 
 /* 다시 판매 */
 function reStart(product_code) {
-	// 판매 기한 아예 삭제하고 상시 판매 할 거임????
 	var wantEnd = confirm("정말 해당 상품을 다시 판매할 것입니까?");
 	if (wantEnd) {
 		var url = "/admin/startProduct";
@@ -530,11 +521,6 @@ function isImage() {
 	}
 	return isImageResult;
 	console.log("isImageResult :" + isImageResult);
-}
-
-/*  */
-function isUpdate() {
-	
 }
 
 </script>

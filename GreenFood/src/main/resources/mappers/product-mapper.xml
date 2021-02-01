@@ -161,19 +161,6 @@
 		]]>
 	</select>
 	
-	<!-- 후기, 별점 
-	tbl_star_point 후기 하나 쓸 때마다 별 5개(max, 1~5 정수만 가능) 주면서 테이블 생기고
-	상품 안에 product_heart(star) 는 후기 하나 쓸 때마다
-	후기-별점 받아서 서비스 안에서 
-	매퍼1 : 별 테이블 생성, 
-	(매퍼1 별 생성, 2 별 평균 - 반올림 정수 만들기 !!!, 3 별 값 넣기?? -> 매퍼 3개 ??? ) 
-	매퍼2 : 생긴 별 테이블 상품 코드 조건 걸어서 star_point 평균내서 -> 0.0 ~ 5.0 사이, 소수 1자리 가능
-	그걸 상품 product_heart(star) 에 업데이트 해줌
-	
-	나중에 상품 불러올 때, product_heart(star) 나오게 하고 
-	여기에 별 5개 칸 채우기 
-	-->
-	
 	<!-- 후기 별점 생성 -->
 	<insert id="createStar">
 		insert into tbl_star_point (star_point_no, user_id, order_code, product_code, star_point)
