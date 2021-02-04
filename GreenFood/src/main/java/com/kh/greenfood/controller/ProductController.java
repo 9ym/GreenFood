@@ -54,7 +54,6 @@ public class ProductController {
 		addProductImageDtoList(listRelated, model);
 		addProductCategoryList(model);
 		
-		
 		return "product/productForm";
 	}
 	
@@ -71,7 +70,7 @@ public class ProductController {
 		return "product/categoryListForm";
 	}
 	
-	/* 신상품(상품 등록 날짜) new / 베스트(임시:주문 건수) best / 세일상품(판매기한) sale */
+	/* 신상품(상품 등록 날짜) new / 베스트(별점) best / 세일상품(판매기한) sale */
 	@RequestMapping(value="/menu/{menu_type}", method=RequestMethod.GET)
 	public String menu(@PathVariable String menu_type, Model model) throws Exception {
 		/* 메뉴에 맞는 상품 목록 */

@@ -337,7 +337,7 @@ $(function() {
 		$(".cart-inner > p").hide();
 	}
 	
-	/* 할인 있으면 할인 적용 + , 추가 = 최종 가격 표현  */
+	/* 할인 있으면 할인 적용 + , 추가 = 최종 가격 표현 */
 	$(".span-price").each(function() {
 		var price = $(this).attr("data-price");
 		var sale = $(this).attr("data-sale");
@@ -437,10 +437,13 @@ function checkSelectAll(obj) {
 /* 상품 각각 체크박스 */
 function checkSelect(obj) {
 	var allCount = $(".ul-cart-list > li").length;
+	var checkedCount2 = $(".selected:checked").length;
 	checkedCount();
 	/* 전체 선택 해제 */
-	if (checkedCount != allCount) {
+	if (checkedCount2 != allCount) {
 		$(".cart-inner-select > input").prop("checked", false); 
+	} else if (checkedCount2 == allCount) {
+		$(".cart-inner-select > input").prop("checked", true); 
 	}
 	totalPrice();
 }

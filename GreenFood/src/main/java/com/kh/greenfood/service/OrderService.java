@@ -28,11 +28,11 @@ public interface OrderService {
 	/* 결제할 상품 목록 */
 	public List<CartDto> getListCartPay (List<String> listCartNo);
 	
-	/* 결제 완료 - 주문 전부 생성, 멤버 포인트 변경 */
-	public boolean setOrder(OrderVo orderVo, List<String> listCartPay, CustomerVo customerVo, int finalPointUse);
+	/* 주문 코드 얻기 */
+	public String getOrderCode();
 	
-	/* 제일 최근에 결제 완료된 주문 */
-	public OrderVo getOrderLatest();
+	/* 결제 완료 - 주문 전부 생성, 멤버 포인트 변경 */
+	public boolean setOrder(String orderCode, OrderVo orderVo, List<String> listCartPay, CustomerVo customerVo, int finalPointUse);
 	
 	/* 오더 정보 불러오기 */
 	public List<OrderDetailDto> getProductDetailList (String order_code);

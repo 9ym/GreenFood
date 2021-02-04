@@ -84,10 +84,17 @@ public class OrderServiceImpl implements OrderService {
 		return listCartPay;
 	}
 	
+	/* 주문 코드 얻기 */
+	@Override
+	public String getOrderCode() {
+		String orderCode = orderDao.getOrderCode();
+		return orderCode;
+	}
+	
 	/* 결제 완료 - 주문 전부 생성, 멤버 포인트 변경 */
 	@Override
 	@Transactional
-	public boolean setOrder(OrderVo orderVo, List<String> listCartPay, CustomerVo customerVo, int finalPointUse) {
+	public boolean setOrder(String orderCode, OrderVo orderVo, List<String> listCartPay, CustomerVo customerVo, int finalPointUse) {
 		/* 포인트 차감 */
 		int countUpdate = 0;
 		if (finalPointUse != 0) {
@@ -98,17 +105,14 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 		/* 주문, 주문 상세 insert */
-		int count = orderDao.createOrder(orderVo);
+		int count = orderDao.createOrder(orderVo, orderCode);
 		if (count > 0) {
-			OrderVo orderVoLatest = orderDao.getOrderLatest();
-			String order_code = orderVoLatest.getOrder_code();
-			
 			int countAllResult = 0;
 			List<CartDto> list = orderDao.getListCartPay(listCartPay);
 			for (CartDto cartDto : list) {
 				String product_code = cartDto.getProduct_code();
 				int order_quantity = cartDto.getCart_quantity();
-				int countDetail = orderDao.createOrderDetail(order_code, product_code, order_quantity);
+				int countDetail = orderDao.createOrderDetail(orderCode, product_code, order_quantity);
 				countAllResult += countDetail;
 			}
 			
@@ -139,13 +143,6 @@ public class OrderServiceImpl implements OrderService {
 	public OrderVo getOrderUserInfo(String order_code, String user_id) {
 		OrderVo orderVo = orderDao.getOrderUserInfo(order_code, user_id);
 		return orderVo;
-	}
-	
-	/* 제일 최근에 결제 완료된 주문 */
-	@Override
-	public OrderVo getOrderLatest() {
-		OrderVo orderVoLatest = orderDao.getOrderLatest();
-		return orderVoLatest;
 	}
 	
 	/* 주문자 Order State List */

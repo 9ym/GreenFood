@@ -47,11 +47,14 @@ public interface OrderDao {
 	/* 결제할 상품 목록 */
 	public List<CartDto> getListCartPay (List<String> listCartNo);
 	
-	/* 결제 완료 - 주문 생성 */
-	public int createOrder(OrderVo orderVo);
+	/* 주문 코드 얻기 */
+	public String getOrderCode();
 	
-	/* 제일 최근에 결제된 주문 */
-	public OrderVo getOrderLatest();
+	/* 결제 완료 - 주문 생성 */
+	public int createOrder(OrderVo orderVo, String orderCode);
+	
+	/* 해당 주문 */
+	public OrderVo getOrder(String orderCode);
 	
 	/* 주문 상세 생성 */
 	public int createOrderDetail(String order_code, String product_code, int order_quantity);

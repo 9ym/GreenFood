@@ -90,6 +90,7 @@
     		product_order_count = product_order_count + 1
     		where product_code = #{product_code}
 	</update>	
+	
 	<!-- 결제할 상품 목록 -->
 	<select id="getListCartPay" parameterType="java.util.List" resultType="CartDto">
 		select * from tbl_cart
@@ -97,23 +98,36 @@
 		order by cart_no desc
 	</select>
 	
+	<!-- 주문 코드 얻기 -->
+	<select id="getOrderCode" resultType="java.lang.String">
+		select seq_order_code.nextval
+		from dual
+	</select>
+	
 	<!-- 주문 번호 생성 -->
 	<insert id="createOrder">
 		insert into tbl_order (user_id, order_code, order_total_price, order_sale_price, order_point_use,
 			order_state, order_addr1, order_addr2, order_addr3, order_pay_method)
-		values (#{user_id}, seq_order_code.nextval, #{order_total_price}, #{order_sale_price}, #{order_point_use},
-			#{order_state}, #{order_addr1}, #{order_addr2}, #{order_addr3}, #{order_pay_method})
+		values (#{orderVo.user_id}, #{orderCode}, #{orderVo.order_total_price}, #{orderVo.order_sale_price}, 
+			#{orderVo.order_point_use}, #{orderVo.order_state}, #{orderVo.order_addr1}, 
+			#{orderVo.order_addr2}, #{orderVo.order_addr3}, #{orderVo.order_pay_method})
 	</insert>
 	
+	<!-- 해당 주문 -->
+	<select id="getOrder" resultType="OrderVo">
+		select tbl_order
+		where order_code = #{orderCode}
+	</select>
+	
 	<!-- 제일 최근에 결제된 주문 -->
-	<select id="getOrderLatest" resultType="OrderVo">
+	<!-- <select id="getOrderLatest" resultType="OrderVo">
 		select * from
 		    (select rownum, a.*from 
 		        (select * from tbl_order
 		        order by order_date desc)a
 		    )b
 		where rownum between 1 and 1
-	</select>
+	</select> -->
 	
 	<!-- 주문 상세 생성 -->
 	<insert id="createOrderDetail">

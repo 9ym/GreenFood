@@ -23,14 +23,11 @@
 }
 .div-pay {
 	float : left;
-/* 	border-bottom : 1px solid gainsboro; */
  	display : block; 
 	width : 70%;
 	height : auto;
 }
 .pay-inner {
-/* 	border-top : 1px solid black; */
-/*  	border-bottom : 1px solid gainsboro; */
 	padding : 10px;
 	margin-bottom : 30px;
 	height : auto;
@@ -58,7 +55,6 @@
 	display : block;
  	clear : both;
 	margin : 10px;
-/* 	border : 1px solid black; */
 }
 .ul-pay-list li .item{
  	display : block; 
@@ -67,7 +63,6 @@
 }
 .img {
 	display : block;
-/* 	position : absolute; */
 	left : 80px;
 	margin : 10px 50px;
 }
@@ -96,58 +91,11 @@
 	position : relative;
  	left : 420px; 
  	float : left; 
-/*  	margin-left : 10px; */
 }
 
 #btnFinalPay {
 	margin-top : 50px;
 }
-/*
-.div-btn {
-	position : absolute;
-	left : 400px;
-	top : 43px;
-	width : 100px;
-}
-.div-btn input{
-	float : left;
-	width : 40px;
-	height : 26px;	
-	border-top : 1px solid LightGray;
-	border-bottom : 1px solid LightGray;
-	border-left : 0px;
-	border-right : 0px;
-	text-align : center;
-}
-.div-btn button{
-	float : left;
-	border: solid 1.5px LightGray;
-	width: 20px;
-    height: 26px;
-    text-align: center;
-    color: #6ca435;
-    font-weight: bold;
-    font-size: 17px;
-/* 	position : relative; 
-/* 	bottom : 25px; 
-}
-.div-btn-delete {
-	position: absolute;
-    left: 600px;
-    top: 43px;
-    width: 100px;
-}
-.div-btn-delete .btnDelete {
-	border : 0px;
-	background-color: white;
-	width: 20px;
-    height: 26px;
-    text-align: center;
-    color: gainsboro;
-}
-.div-hidden {
-	display : none;
-}*/
 
 .txt {
 	padding : 120px 0px;
@@ -157,12 +105,9 @@
 }
 .div-price {
 	float : right;
-/* 	border : 2px dashed green; */
-/* 	display : block; */
 	width : 30%;
 	height : auto;
 	margin-top : 10px;
-/* 	margin-left : 20px; */
 	position : relative;
 }
 .inner-price {
@@ -221,9 +166,6 @@
 }
 .notice-txt {
  	display : block;
-/* 	position : relative; */
-/* 	top : 250px; */
-/* 	width : 250px; */
 	font-size: 12px;
 }
 </style>
@@ -267,7 +209,7 @@
 						</li>
 						<li>
 							<span>보유 포인트 : </span>
-							<span class="needComma span-point">${customerVo.user_point}</span>
+							<span class="needComma span-point" data-point="${customerVo.user_point}">${customerVo.user_point}</span>
 							<span>원 내에서 사용할 수 있습니다.</span>
 						</li>
 					</ul>
@@ -362,15 +304,18 @@ $(function() {
 /* 포인트 사용 */
 function usePoint(obj) {
 	var pointUse = $("#inputPoint").val();
-	var pointHave = "${customerVo.user_point}";
-	if (pointUse > pointHave) {
-		$("#inputPoint").val(0);
-		alert("보유한 포인트 안에서만 사용할 수 있습니다.")
-	} else if (pointUse <= 0) {
+	var pointHave = parseInt($(".span-point").attr("data-point"));
+	console.log("pointUse :" + pointUse);
+	console.log("pointHave :" + pointHave);
+	if (pointUse <= 0) {
 		alert("1원부터 사용할 수 있습니다.")
 	} else if (pointUse > 0 && pointUse <= pointHave) {
 		var pointLeft = pointHave - pointUse;
 		$(".total-point").text("- " + addComma(pointUse));
+	} else if (pointUse > pointHave) {
+		$("#inputPoint").val(0);
+		$(".total-point").text(0);
+		alert("보유한 포인트 안에서만 사용할 수 있습니다.");
 	}
 	finalPayPrice();
 }

@@ -95,18 +95,28 @@ public class OrderDaoImpl implements OrderDao {
 		return listCartpay;
 	}
 	
+	/* 주문 코드 얻기 */
+	@Override
+	public String getOrderCode() {
+		String orderCode = sqlSession.selectOne(NAMESPACE + "getOrderCode"); 
+		return orderCode;
+	}
+	
 	/* 결제 완료 - 주문 생성 */
 	@Override
-	public int createOrder(OrderVo orderVo) {
-		int count = sqlSession.insert(NAMESPACE + "createOrder", orderVo);
+	public int createOrder(OrderVo orderVo, String orderCode) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("orderVo", orderVo);
+		map.put("orderCode", orderCode);
+		int count = sqlSession.insert(NAMESPACE + "createOrder", map);
 		return count;
 	}
 	
-	/* 제일 최근에 결제된 주문 */
+	/* 해당 주문 */
 	@Override
-	public OrderVo getOrderLatest() {
-		OrderVo orderVo = sqlSession.selectOne(NAMESPACE + "getOrderLatest");
-		return orderVo;
+	public OrderVo getOrder(String orderCode) {
+		OrderVo vo = sqlSession.selectOne(NAMESPACE + "getOrder", orderCode);
+		return vo;
 	}
 	
 	/* 주문 상세 생성 */

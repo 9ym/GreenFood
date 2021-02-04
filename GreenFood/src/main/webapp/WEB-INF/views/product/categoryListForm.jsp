@@ -81,7 +81,7 @@
 										<img class="img-thumb" src="${path}/resources/images/item.png" 
 											data-img="${imageDto.image_info_file_name}" 
 											data-category="${productVo.product_category}">
-										</a>
+									</a>
 								</div>
 								<a class="item-title" href="/product/detail/${productVo.product_code}">
 									<span class="span-title">${productVo.product_title}</span>

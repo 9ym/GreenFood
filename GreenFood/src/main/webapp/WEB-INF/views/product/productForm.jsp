@@ -167,7 +167,7 @@ $(function() {
 /* 장바구니에 상품 넣기 */
 function btnCart(obj) {
 	var customerVo = "${sessionScope.customerVo}";
-	if(customerVo != ""){
+	if(customerVo != "") {
 	/* 로그인 됐으면 장바구니 추가 가능 */
 		var user_id = "${sessionScope.customerVo.user_id}";
 		var product_code = "${productVo.product_code}";
@@ -666,7 +666,7 @@ a {
 	color: #98a18f;
 }
 
-<%@ include file="../include/frmOrdered.jsp" %>
+<%-- <%@ include file="../include/frmOrdered.jsp" %> --%>
 
 </style>
 

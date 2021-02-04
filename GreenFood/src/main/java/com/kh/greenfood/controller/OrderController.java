@@ -43,8 +43,7 @@ public class OrderController {
 		getImgUrl(list, model);
 		
 		/* 상품 카테고리 */
-		List<ProductCategoryDto> categoryList = productService.getCategory();
-		model.addAttribute("categoryList", categoryList);
+		addProductCategoryList(model);
 		
 		return "order/cartForm";
 	}
@@ -103,16 +102,15 @@ public class OrderController {
 		List<CartDto> listCartPay = orderService.getListCartPay(listCartNo);
 		model.addAttribute("listCartPay", listCartPay);
 		
+		/* 상품 카테고리 */
+		addProductCategoryList(model);
+		
 		return "order/payForm";
 	}
 	
 	/* 바로 결제 -> 결제 페이지 */
 	@RequestMapping(value="/payImmediate", method=RequestMethod.POST)
 	public String pay(CartDto cartDto, Model model, HttpSession session) throws Exception {
-		
-		/* 상품 카테고리 */
-		List<ProductCategoryDto> categoryList = productService.getCategory();
-		model.addAttribute("categoryList", categoryList);
 		
 		/* 회원 정보 */
 		CustomerVo customerVo = (CustomerVo) session.getAttribute("customerVo");
@@ -142,6 +140,9 @@ public class OrderController {
 		listPrices.add(totalPrice);
 		listPrices.add(totalSale);
 		model.addAttribute("listPrices", listPrices);
+		
+		/* 상품 카테고리 */
+		addProductCategoryList(model);
 		
 		return "order/payForm";
 	}
@@ -174,8 +175,9 @@ public class OrderController {
 		OrderVo orderVo = new OrderVo(customerVo.getUser_id(), finalTotalPrice, finalSalePrice, finalPointUse, 
 				order_state, listAddr.get(0), listAddr.get(1), listAddr.get(2), order_pay_method);
 		
-		/* DB에 결제 데이터 저장 : 주문, 포인트 변경 */
-		boolean result = orderService.setOrder(orderVo, listCartPay, customerVo, finalPointUse);
+		/* DB에 결제 데이터 저장 : 주문, 포인트 사용 */
+		String orderCode = orderService.getOrderCode();
+		boolean result = orderService.setOrder(orderCode, orderVo, listCartPay, customerVo, finalPointUse);
 		
 		String finalPayResult = "";
 		if (result) {
@@ -186,9 +188,7 @@ public class OrderController {
 			session.setAttribute("customerVo", customerVo);
 			
 			/* 주문 상세 페이지 이동하는데 필요한 order_code */
-			OrderVo orderVoLatest = orderService.getOrderLatest();
-			String orderCodeLatest = orderVoLatest.getOrder_code();
-			finalPayResult = orderCodeLatest;
+			finalPayResult = orderCode;
 		} else {
 			finalPayResult = "pay_fail";
 		}
@@ -206,6 +206,12 @@ public class OrderController {
 			listImgUrl.add(imgUrl);
 		}
 		model.addAttribute("imgList", listImgUrl);
+	}
+	
+	/* 상품 카테고리 */
+	private void addProductCategoryList(Model model) throws Exception {
+		List<ProductCategoryDto> categoryList = productService.getCategory();
+		model.addAttribute("categoryList", categoryList);
 	}
 	
 }
