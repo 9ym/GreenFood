@@ -72,10 +72,18 @@ public class ProductDaoImpl implements ProductDao {
 		return categoryList;
 	}
 	
+	/* 상품 코드 얻기 */
+	@Override
+	public String getProductCode() {
+		String productCode = sqlSession.selectOne(NAMESPACE + "getProductCode");
+		return productCode;
+	}
+	
 	/* 상품 추가 */
 	@Override
-	public int insertProduct(ProductVo productVo, int shelfLife, int saleRate, int salesDeadlines) {
+	public int insertProduct(String productCode, ProductVo productVo, int shelfLife, int saleRate, int salesDeadlines) {
 		HashMap<String, Object> map = new HashMap<>();
+		map.put("productCode", productCode);
 		map.put("productVo", productVo);
 		map.put("shelfLife", shelfLife);
 		map.put("saleRate", saleRate);
@@ -89,13 +97,6 @@ public class ProductDaoImpl implements ProductDao {
 	public int insertProductImage(ProductImageDto productImageDto) {
 		int count = sqlSession.insert(NAMESPACE + "insertProductImage", productImageDto);
 		return count;
-	}
-	
-	/* 제일 최근에 추가된 상품 */
-	@Override
-	public ProductVo getProductLatest() {
-		ProductVo productVo = sqlSession.selectOne(NAMESPACE + "getProductLatest");
-		return productVo;
 	}
 	
 	/* 신상품 (현재 날짜 - ?일 < 등록된 상품) */
@@ -238,6 +239,20 @@ public class ProductDaoImpl implements ProductDao {
 	public List<ProductVo> getSearchTitle(String product_title) {
 		List<ProductVo> list = sqlSession.selectList(NAMESPACE + "getSearchTitle", product_title);
 		return list;
+	}
+	
+	/* 상품 삭제 */
+	@Override
+	public int deleteProduct(String productCode) {
+		int count = sqlSession.delete(NAMESPACE + "deleteProduct", productCode);
+		return count;
+		
+	}
+	/* 상품 이미지 삭제 */
+	@Override
+	public int deleteProductImage(String productCode) {
+		int count = sqlSession.delete(NAMESPACE + "deleteProductImage", productCode);
+		return count;
 	}
 	
 }

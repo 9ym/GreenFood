@@ -65,8 +65,8 @@ public class testProduct {
 		int shelfLife = 0;
 		int saleRate = 25;
 		int salesDeadlines = 0;
-		int count = productDao.insertProduct(vo, shelfLife, saleRate, salesDeadlines);
-		System.out.println("count :" + count);
+//		int count = productDao.insertProduct(vo, shelfLife, saleRate, salesDeadlines);
+//		System.out.println("count :" + count);
 	}
 	
 	@Test
@@ -128,6 +128,24 @@ public class testProduct {
 		SearchDto searchDto = new SearchDto("date", "all", "desc", null);
 		int count = productDao.getSearchProductCount(searchDto);
 		System.out.println("count :" + count);
+	}
+	
+	@Test
+	public void testGetProductCode() throws Exception {
+		String productCode = productDao.getProductCode();
+		System.out.println("productCode :" + productCode);
+	}
+	
+	@Test
+	public void testDeleteProduct() throws Exception {
+		int count = productDao.deleteProduct("1322");
+		System.out.println("countDelete :" + count);
+	}
+	
+	@Test
+	public void testDeleteProductImage() throws Exception {
+		int count = productDao.deleteProductImage("1322");
+		System.out.println("countDelete :" + count);
 	}
 	
 }

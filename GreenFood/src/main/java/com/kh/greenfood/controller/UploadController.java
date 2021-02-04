@@ -40,8 +40,9 @@ public class UploadController {
 		file2.transferTo(f2);
 		ProductImageDto dto = new ProductImageDto(file.getOriginalFilename(), file2.getOriginalFilename());
 		
-		/* ProductVo, ProductImageDto DB 생성 */
-		boolean result = productService.insertProductAll(vo, dto, shelfLife, saleRate, salesDeadlines);
+		/* productCode 얻어서 ProductVo, ProductImageDto DB 생성 */
+		String productCode = productService.getProductCode();
+		boolean result = productService.insertProductAll(productCode, vo, dto, shelfLife, saleRate, salesDeadlines);
 		
 		/* 상품 등록 성공 -> 이미지 s3 업로드 */
 		String resultMsg = "";
@@ -58,10 +59,10 @@ public class UploadController {
 		List<ProductCategoryDto> categoryList = productService.getCategory();
 		model.addAttribute("categoryList", categoryList);
 		
-		ProductVo voLatest = productService.getProductLatest();
+		ProductVo voInsert = productService.getProduct(productCode);
 		
 		/* 방금 막 등록한 관리자-상품 페이지로 이동 */
-		return "redirect:/admin/productUpdateForm/" + voLatest.getProduct_code();
+		return "redirect:/admin/productUpdateForm/" + voInsert.getProduct_code();
 	}
 	
 	/* 상품 수정 -> ProductVo, ProductImageDto DB 수정 + 이미지 s3 삭제 후 업로드 */

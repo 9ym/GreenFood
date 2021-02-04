@@ -33,14 +33,14 @@ public interface ProductDao {
 	/* 상품 카테고리 목록 */
 	public List<ProductCategoryDto> getCategory();
 	
+	/* 상품 코드 얻기 */
+	public String getProductCode();
+	
 	/* 상품 추가 */
-	public int insertProduct(ProductVo productVo, int shelfLife, int saleRate, int salesDeadlines);
+	public int insertProduct(String productCode, ProductVo productVo, int shelfLife, int saleRate, int salesDeadlines);
 	
 	/* 상품 이미지 추가 */
 	public int insertProductImage(ProductImageDto productImageDto);
-	
-	/* 제일 최근에 추가된 상품 */
-	public ProductVo getProductLatest();
 	
 	/* 신상품 (현재 날짜 - ?일 < 등록된 상품) */
 	public List<ProductVo> getLatestProduct(int conditionDate);
@@ -94,5 +94,11 @@ public interface ProductDao {
 	
 	/* 상품명으로 전체 검색 */
 	public List<ProductVo> getSearchTitle(String product_title);
+	
+	/* 상품 삭제 */
+	public int deleteProduct(String productCode);
+	
+	/* 상품 이미지 삭제 */
+	public int deleteProductImage(String productCode);
 	
 }

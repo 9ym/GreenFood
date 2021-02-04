@@ -71,18 +71,23 @@ public class ProductServiceImpl implements ProductService {
 		return categoryList;
 	}
 	
+	/* 상품 코드 얻기 */
+	@Override
+	public String getProductCode() {
+		String productCode = productDao.getProductCode();
+		return productCode;
+	}
+	
 	/* 상품 등록 (ProductVo, ProductImageDto) */
 	@Override
 	@Transactional
-	public boolean insertProductAll(ProductVo productVo, ProductImageDto productImageDto, 
-			int shelfLife, int saleRate, int salesDeadlines) {
+	public boolean insertProductAll(String productCode, ProductVo productVo, 
+			ProductImageDto productImageDto, int shelfLife, int saleRate, int salesDeadlines) {
 		Boolean resultInsert = false;
 		/* int 파라미터들 값이 0 이냐 아니냐에 따라서 DB에 넣을 때 다름 */
-		int countProduct = productDao.insertProduct(productVo, shelfLife, saleRate, salesDeadlines);
-		ProductVo productVoLatest = productDao.getProductLatest();
+		int countProduct = productDao.insertProduct(productCode, productVo, shelfLife, saleRate, salesDeadlines);
 		if (countProduct > 0) {
-			productImageDto.setProduct_code(productVoLatest.getProduct_code());
-			System.out.println(productImageDto);
+			productImageDto.setProduct_code(productCode);
 			int countImage = productDao.insertProductImage(productImageDto);
 			if (countImage > 0) {
 				resultInsert = true;
@@ -124,8 +129,6 @@ public class ProductServiceImpl implements ProductService {
 		List<ProductVo> listRelated = productDao.getRelatedProduct(productVo);
 		return listRelated;
 	}
-	
-	/* 상품 후기 - 후기글, 평점 별, ... ;;; 후기글 서비스, 별점 서비스 따로??? */
 	
 	/* 후기 별점 -> 생성, 평균, 상품에 업데이트 */
 	@Override
@@ -187,12 +190,9 @@ public class ProductServiceImpl implements ProductService {
 			HashMap<String, Object> mapShelfLife, HashMap<String, Object> mapSaleRate,
 			HashMap<String, Object> mapSalesDeadlines, String isImage) {
 		String updateResult = "";
-		System.out.println("updateService: " + mapSaleRate);
 		int countProductUpdate = productDao.updateProduct(productVo, mapShelfLife, mapSaleRate, mapSalesDeadlines);
 		if (countProductUpdate > 0) {
 			updateResult = "update_product";
-			System.out.println("---"+ updateResult);
-			System.out.println("==="+ productImageDto);
 			if (productImageDto != null) {
 				int countImageUpdate = productDao.updateProductImage(productImageDto, 
 						productVo.getProduct_code(), isImage);
@@ -211,13 +211,6 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVo> getSearchTitle(String product_title) {
 		List<ProductVo> list = productDao.getSearchTitle(product_title);
 		return list;
-	}
-	
-	/* 제일 최근에 추가된 상품 */
-	@Override
-	public ProductVo getProductLatest() {
-		ProductVo vo = productDao.getProductLatest();
-		return vo;
 	}
 	
 }

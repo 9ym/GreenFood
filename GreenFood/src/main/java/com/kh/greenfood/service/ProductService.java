@@ -33,9 +33,12 @@ public interface ProductService {
 	/* 상품 카테고리 목록 */
 	public List<ProductCategoryDto> getCategory();
 	
+	/* 상품 코드 얻기 */
+	public String getProductCode();
+	
 	/* 상품 등록 (ProductVo, ProductImageDto) */
-	public boolean insertProductAll(ProductVo productVo, ProductImageDto productImageDto,
-			int shelfLife, int saleRate, int salesDeadlines);
+	public boolean insertProductAll(String productCode, ProductVo productVo, 
+			ProductImageDto productImageDto, int shelfLife, int saleRate, int salesDeadlines);
 	
 	/* 신상품 (현재 날짜 - ?일 < 등록된 상품) */
 	public List<ProductVo> getLatestProduct(int conditionDate);
@@ -48,8 +51,6 @@ public interface ProductService {
 	
 	/* 관련 상품(=카테고리) 랜덤으로 6개 */
 	public List<ProductVo> getRelatedProduct(ProductVo productVo);
-	
-	/* 상품 후기 - 후기글, 평점 별, ... ;;; 후기글 서비스, 별점 서비스 따로??? */
 	
 	/* 후기 별점 -> 생성, 평균, 상품에 업데이트 */
 	public int setStar(StarDto starDto);
@@ -65,7 +66,6 @@ public interface ProductService {
 	
 	/* 판매 종료 여부 확인 */
 	public int knowEndProduct(String product_code);
-	
 
 	/* 리뷰 리스트 받아오기 */
 	public List<ReviewVo> getReviewdListProduct(String product_code, int startRow, int endRow);
@@ -80,8 +80,5 @@ public interface ProductService {
 
 	/* 상품명으로 전체 검색 */
 	public List<ProductVo> getSearchTitle(String product_title);
-	
-	/* 제일 최근에 추가된 상품 */
-	public ProductVo getProductLatest();
 	
 }

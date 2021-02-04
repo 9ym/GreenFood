@@ -5,6 +5,12 @@
 
 <mapper namespace="com.kh.greenfood.product">
 
+	<!-- 상품 코드 -->
+	<select id="getProductCode" resultType="java.lang.String">
+		select seq_product_code.nextval 
+		from dual
+	</select>
+
 	<!-- 상품 추가 -->
 	<insert id="insertProduct">
 		insert into tbl_product (product_code, product_category, product_title, 
@@ -20,7 +26,7 @@
 				, product_sales_deadlines
 			</if>
 			)
-		values (seq_product_code.nextval, #{productVo.product_category}, #{productVo.product_title}, 
+		values (#{productCode}, #{productVo.product_category}, #{productVo.product_title}, 
 			#{productVo.product_price}, #{productVo.product_sub_title}, #{productVo.product_content}, 
 			#{productVo.product_weight}, #{productVo.product_sales_unit}, #{productVo.product_origin}
 			<if test="shelfLife != 0">
@@ -34,16 +40,6 @@
 			</if>
 			)
 	</insert>
-	
-	<!-- 제일 최근 추가된 상품 -->
-	<select id="getProductLatest" resultType="ProductVo">
-		select * from
-		    (select rownum, a.*from 
-		        (select * from tbl_product
-		        order by product_registration_date desc)a
-		    )b
-		where rownum between 1 and 1
-	</select>
 	
 	<!-- 상품 이미지 추가 -->
 	<insert id="insertProductImage">
@@ -249,11 +245,11 @@
 	</sql>
 	
 	<!-- 해당 상품 판매 종료 -->
-	<delete id="endProduct" parameterType="java.util.List">
+	<update id="endProduct" parameterType="java.util.List">
 		update tbl_product
 			set product_sales_deadlines = sysdate -1
 		where product_code in ( <foreach collection="list" item="no" separator=",">#{no}</foreach> )
-	</delete>
+	</update>
 	
 	<!-- 판매 종료 여부 확인 (0:판매 종료 / 1:판매중)-->
 	<select id="knowEndProduct" resultType="int">
@@ -285,11 +281,11 @@
 	</sql>
 
 	<!-- 해당 상품 다시 판매 -->
-	<delete id="startProduct">
+	<update id="startProduct">
 		update tbl_product
 			set product_sales_deadlines = null
 		where product_code = #{product_code}
-	</delete>
+	</update>
 	
 	<!-- 상품 수정 -->
 	<update id="updateProduct">
@@ -337,5 +333,17 @@
 		select * from tbl_product
 		where product_title like '%' || #{product_title} || '%'
 	</select>
+	
+	<!-- 상품 삭제 -->
+	<delete id="deleteProduct">
+		delete from tbl_product
+		where product_code = #{productCode}	
+	</delete>
+	
+	<!-- 상품 이미지 삭제 -->
+	<delete id="deleteProductImage">
+		delete from tbl_product_image
+		where product_code = #{productCode}	
+	</delete>
 
 </mapper>
