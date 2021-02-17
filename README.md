@@ -32,9 +32,3 @@
 회원은 농산물을 직접 구매할 수 있습니다. (결제는 임의로 구현)
 
 자세한 기능은 [GreenFood PPT](https://www.slideshare.net/ssuser2d94ba/greenfood-project?qid=25934f8d-4215-4db4-9fad-c2f39a4dba3f&v=&b=&from_search=1)를 참고하시면 됩니다.
-
-</br>
-</br>
-</br>
-
-:back: [portfolio로 돌아가기](https://github.com/d-happy/portfolio)
