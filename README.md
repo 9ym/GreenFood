@@ -15,7 +15,7 @@
   - Spring Framework 4.1.7
   - Maven
   - MyBatis 3.2.8
-  - Oracle 11g
+  - Oracle
   - AWS RDS / S3
 #### `Front-end`
   - jQuery 3.5.1
